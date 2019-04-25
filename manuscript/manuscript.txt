@@ -5997,7 +5997,7 @@ italicize-underlines: true
 }
 ```
 
-The default value of these setting is the other way:
+The default value of these settings is the other way:
 
 ```
 {
@@ -6006,14 +6006,42 @@ italicize-underlines: false
 }
 ```
 
-Anyway, without further ado, on to the unofficial HTML mapping...
+## How This Chapter Is Structured
+
+The examples in this chapter show Markua text input and HTML output.
+
+Every Markua text example is a complete Markua document. If it is processed by a Markua Processor, the HTML which is produced should include the output. Now, since Markua does not specify the exact content of the HTML, the boilerplate before and after the HTML Output is not specified or included.
+
+It can, however, be as simple as the following:
+
+```
+<html><head></head><body>
+(...the HTML output...)
+</body></html>
+```
+
+Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
+
+Finally, Markua does not specify any CSS. However, occasionally CSS advice will be offered. This is because certain semantically meaningful formatting (like strikethrough) is done in HTML via CSS.
 
 ## Text Formatting
 
 {#text_formatting_html}
 The syntax for text formatting is described [here](#text_formatting).
 
+### CSS Advice
+
+The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
+
+~~~
+.strikethrough {
+  text-decoration: line-through;
+}
+~~~
+
 ##### Example
+
+This example uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
 
 ###### Markua Syntax
 
@@ -6032,49 +6060,36 @@ The syntax for text formatting is described [here](#text_formatting).
 
 ###### HTML Output
 
-Note that this output assumes the default settings `html-style: default` and `italicize-underlines: false`.
-
-Also, note that when there's *exactly one* subscript and superscript on the same element (which can happen in chemistry and physics), they can be wrapped in a span. This lets a Markua Processor use CSS to format them better.
-
 {#output_text_formatting_1}
 ~~~
 <ul>
-<li>Italic: <i>one asterisk</i></li>
-<li>Underlined: <u>one underscore</u></li>
-<li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
-<li>Bold + Italic: <b><i>three asterisks</i></b></li>
-<li>Bold + Underlined: <b><u>three underscores</u></b></li>
-<li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
-<li>Strikethrough: <span class="strikethrough">two tildes</span></li>
-<li>Superscript: 5<sup>3</sup> = 125</li>
-<li>Subscript: H<sub>2</sub>O</li>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Underlined: <u>one underscore</u></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
+  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
 </ul>
 ~~~
 
-###### CSS Recommendations
 
-The following CSS rule is recommended:
 
-~~~
-.strikethrough {
-  text-decoration: line-through;
-}
-~~~
 
-CSS rules similar to the following help a Markua processor better handle the case of *exactly one* subscript and superscript on the same element:
-
-span {
-  display: inline-block;
-  vertical-align: text-top;
+{
+title: Markua Specification
+authors: Peter Armstrong
+contributors: Scott Patten, Braden Simpson and Len Epp
+copyright: Peter Armstrong
 }
 
-span sub,
-span sup {
-  display: table-row;
-  font-size: 50%;
-  line-height: 110%;
-  text-align: left;
-}
+
+
+
+##### CSS Recommendations
+
 
 ## Headings
 
