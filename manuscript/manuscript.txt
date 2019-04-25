@@ -6032,7 +6032,7 @@ The syntax for text formatting is described [here](#text_formatting).
 
 ###### HTML Output
 
-Note that this output assumes the default settings `html-style: simple` and `italicize-underlines: false`.
+Note that this output assumes the default settings `html-style: default` and `italicize-underlines: false`.
 
 Also, note that when there's *exactly one* subscript and superscript on the same element (which can happen in chemistry and physics), they can be wrapped in a span. This lets a Markua Processor use CSS to format them better.
 
