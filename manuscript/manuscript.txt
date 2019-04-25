@@ -5585,8 +5585,10 @@ If a Markua Processor also provides a UI to define settings which are specified 
 `default-code-span-language`
 : The default language that code which an inline code span resource is foramtted as. The default is `text`. If you set this to `ruby`, it is the equivalent of setting `{format: ruby}` as an inline attribute list on every code span resource by default, e.g. `` `puts "hi"`{format: ruby} ``. If you need to override a specific resource to not be ruby, you would set `{format: text}`.
 
-{#italicize-underlines}
-`italicize-underlines`
+`html-style`
+: `default` or `markdown`. The default value is `default`. If this setting is `default`, then **bold text** should produce a `<b>` tag, and *italic text* should produce an `<i>` tag. If this setting is `markdown`, then **bold text** should produce a `<strong>` tag, and *italic text* should produce an `<em>` tag. The choice is between `default` and `markdown` instead of between `simple` and `complex`, `semantic` or `pedantic`, so that fewer people are offended. For details, see the [Tag Semantics](#tag-semantics) section.
+
+`italicize-underlines`{#italicize-underlines}
 : `true` or `false`. The default value is `false`. If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text. If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks). There are two reasons that the default value of this setting is `false`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
 
 `lang`
@@ -5710,18 +5712,6 @@ To be clear: the Markua Specification defines the syntax and semantics of a plai
 Markua Processors can output any number of output formats from a Markua document. For example, Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua source document. None of these output formats is required to be supported by a given Markua Processor. To be useful, however, a Markua Processor should output *some* output format. (For the programmers: `/dev/null` is not a good Markua Processor.)
 
 Not only are there no required output formats for a Markua Processor, the mapping from a Markua document to any output format is also not formally specified--not even for HTML.
-
-## No Canonical HTML Mapping
-
-There are a number of reasons that the Markua specification does not contain a canonical mapping from Markua to HTML:
-
-1. The main reason that the mapping from Markua to HTML is not specified is that **HTML is not special**; it's just **one possible output format** of a Markua Processor. Specifying the mapping from Markua to HTML but not to other output formats would be inconsistent and wrong.
-2. HTML and HTML5 are evolving specifications. Including a mapping to one specific version of them would be arbitrary, and would force the Markua Specification to be constantly updated or become dated. The Markua Specification is intended to be stable.
-3. HTML5 has certain strong opinions toward concepts like emphasis, whitespace, paragraphs and lists which I do not agree with. If I was to specify a canonical mapping to HTML5, I would either have to adopt positions I don't agree with or fight battles I have no interest in winning. Life is too short to do either.
-4. By not specifying an HTML mapping, this maximizes implementation flexibility and encourages competition among implementors of Markua Processors. Markua is very feature-rich, and specifying every single detail of the HTML output would highly limit flexibility. It doesn't make much sense to only specify the HTML output for a subset of the Markua specification: it's all-or-nothing, so I choose nothing.
-5. This specification is long enough as it is.
-
-Obviously, Leanpub has a mapping from Markua to HTML5: we use it to produce the EPUB versions of our ebooks. An incomplete version of this mapping is specified in the book [An Unofficial Mapping from Markua to HTML5](https://leanpub.com/markua-html5-mapping). As the title of that book suggests, that mapping, and any mapping that we specify, is just one possible mapping from Markua to HTML5. In the delightful phrasing of the W3C, it is "non-normative".
 
 {#markdown-diffs}
 ## Differences with Markdown
@@ -5951,6 +5941,2614 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - Support language directives
 - Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
 - Investigate regression of formatting in caption attributes of figures; should support text formatting
+
+{#unofficial_html_mapping}
+# An Unofficial HTML Mapping
+
+This is a (very) incomplete mapping from Markua to HTML5.
+
+Not only is it incomplete, it is not canonical. Implementors of Markua Processors can output any HTML that they choose, as long as it is sensible. Markua is very feature-rich, and specifying every single detail of the HTML output would highly limit flexibility. Furthermore, implementors of Markua Processors don't even have to output HTML at all. They can choose to simply output LaTeX, for example.
+
+So, the reason why I'm providing this is not as a set of requirements, but merely as an example of how Markua can be output as HTML.
+
+For the most part, the HTML mapping which is specified here relates to the type of formatting that a book designer typically has no discretion to change. This includes things like bold, italics, paragraphs, single newlines, etc.
+
+This HTML mapping also specifies things for which it makes not much sense for there to be much variation in the generated HTML. This includes things like headings and figures--even though they may be styled radically differently in CSS, the HTML that produces them might as well be fairly consistent.
+
+Hopefully this HTML mapping helps implementors of Markua Processors do the relatively straightforward parts of the HTML mapping in a similar way, and then get on to the interesting parts of the Markua Specification where there is more room for creativity.
+
+This chapter is ordered in a similar way to the rest of the Markua spec, but only the section where it is helpful to provide an HTML mapping are included.
+
+Again, this is just an unofficial, incomplete mapping from Markua to HTML5. It is very similar to what is done by Leanpub in generating the HTML (and EPUB) versions of our ebooks.
+
+{#tag-semantics}
+## Tag Semantics
+
+Before getting to the heart of this chapter, first a brief note about `<b>` vs. `<strong>` tags, `<i>` vs. `<em>` tags and Markdown compatibility.
+
+If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
+
+Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
+
+If you think this, you are clearly not familiar with the work of the W3C.
+
+The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5:
+
+* [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element)
+* [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element)
+* [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element)
+* [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element)
+
+The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
+
+Anyway, the following is the state of the world now:
+
+* There are many people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text.
+* There are other people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
+
+As such, it is the opinion of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. So, there's a setting.
+
+If you want to make Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
+
+```
+{
+html-style: markdown
+italicize-underlines: true
+}
+```
+
+The default value of these setting is the other way:
+
+```
+{
+html-style: default
+italicize-underlines: false
+}
+```
+
+Anyway, without further ado, on to the unofficial HTML mapping...
+
+## Text Formatting
+
+{#text_formatting_html}
+The syntax for text formatting is described [here](#text_formatting).
+
+##### Example
+
+###### Markua Syntax
+
+{#input_text_formatting_1}
+~~~
+* Italic: *one asterisk*
+* Underlined: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Underlined: ___three underscores___
+* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+Note that this output assumes the default settings `html-style: simple` and `italicize-underlines: false`.
+
+Also, note that when there's *exactly one* subscript and superscript on the same element (which can happen in chemistry and physics), they can be wrapped in a span. This lets a Markua Processor use CSS to format them better.
+
+{#output_text_formatting_1}
+~~~
+<ul>
+<li>Italic: <i>one asterisk</i></li>
+<li>Underlined: <u>one underscore</u></li>
+<li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+<li>Bold + Italic: <b><i>three asterisks</i></b></li>
+<li>Bold + Underlined: <b><u>three underscores</u></b></li>
+<li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+<li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+<li>Superscript: 5<sup>3</sup> = 125</li>
+<li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+###### CSS Recommendations
+
+The following CSS rule is recommended:
+
+~~~
+.strikethrough {
+  text-decoration: line-through;
+}
+~~~
+
+CSS rules similar to the following help a Markua processor better handle the case of *exactly one* subscript and superscript on the same element:
+
+span {
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+span sub,
+span sup {
+  display: table-row;
+  font-size: 50%;
+  line-height: 110%;
+  text-align: left;
+}
+
+## Headings
+
+{#headings_html}
+The syntax for headings is described [here](#headings).
+
+In Markua, both parts and chapters produce an `h1` in HTML. This is mildly surprising, but entirely appropriate: For books which have no parts, the chapter is the topmost organizational unit. In a book with parts, it is more important for chapters to behave the same way that they do in a book without parts (i.e. to be created with `# Title` and to produce an `h1`) than to be correctly "contained" (if you think like an outliner) inside the Part.
+
+##### Example
+
+###### Markua Syntax
+
+{#input_headings_1}
+~~~
+# Part (h1) #
+
+This is a paragraph.
+
+# Chapter (also h1)
+
+This is a paragraph.
+
+## Section (h2)
+
+This is a paragraph.
+
+### Sub-Section (h3)
+
+This is a paragraph.
+
+#### Sub-Sub-Section (h4)
+
+This is a paragraph.
+
+##### Sub-Sub-Sub-Section (h5)
+
+This is a paragraph.
+
+###### Sub-Sub-Sub-Sub-Section (h6)
+
+This is a paragraph.
+~~~
+
+###### HTML Output
+
+{#output_headings_1}
+~~~
+<h1 class="part">Part (h1)</h1>
+<p>This is a paragraph.</p>
+<h1 class="chapter">Chapter (also h1)</h1>
+<p>This is a paragraph.</p>
+<h2 class="section">Section (h2)</h2>
+<p>This is a paragraph.</p>
+<h3 class="sub-section">Sub-Section (h3)</h3>
+<p>This is a paragraph.</p>
+<h4 class="sub-sub-section">Sub-Sub-Section (h4)</h4>
+<p>This is a paragraph.</p>
+<h5 class="sub-sub-sub-section">Sub-Sub-Sub-Section (h5)</h5>
+<p>This is a paragraph.</p>
+<h6 class="sub-sub-sub-sub-section">Sub-Sub-Sub-Sub-Section (h6)</h6>
+<p>This is a paragraph.</p>
+~~~
+
+## Spaces, Newlines and Indentation
+
+{#spaces_html}
+The syntax for spaces, newlines and indentation is described [here](#spaces).
+
+### Paragraphs and Blank Lines
+
+##### Example
+
+###### Markua Syntax
+
+{#input_whitespace_1}
+~~~
+I'm paragraph one. Yay!
+
+This is paragraph two.
+
+This is paragraph three.
+~~~
+
+###### HTML Output
+
+{#output_whitespace_1}
+~~~
+<p>I'm paragraph one. Yay!</p>
+<p>This is paragraph two.</p>
+<p>This is paragraph three.</p>
+~~~
+
+### Single Newlines
+
+##### Example
+
+###### Markua Syntax
+
+{#input_single_newlines_1}
+~~~
+I'm paragraph one. Yay!
+
+This is paragraph two.
+This is *still* in paragraph two, preceded by a forced line break.
+This is also in paragraph two, also preceded by a forced line break.
+
+This is paragraph three.
+
+# This.
+Is.
+Heading Text!!!
+
+This is paragraph four.
+~~~
+
+###### HTML Output
+
+{#output_single_newlines_1}
+~~~
+<p>I'm paragraph one. Yay!</p>
+<p>This is paragraph two.<br/>
+This is *still* in paragraph two, preceded by a forced line break.<br/>
+This is also in paragraph two, also preceded by a forced line break.</p>
+<p>This is paragraph three.</p>
+<h1>This.<br/>
+Is.<br/>
+Heading Text!!!</h1>
+<p>This is paragraph four.</p>
+~~~
+
+### Three or More Newlines
+
+If there are n newlines after a paragraph, there are n-2 break tags in the HTML output, for all n > 2.
+
+##### Example
+
+###### Markua Syntax
+
+{#input_three_or_more_newlines_1}
+~~~
+This paragraph is followed by two newlines.
+
+This paragraph is followed by three newlines.
+
+
+This paragraph is followed by five newlines.
+
+
+
+
+The End
+~~~
+
+###### HTML Output
+
+{#output_three_or_more_newlines_1}
+~~~
+<p>This paragraph is followed by two newlines.</p>
+<p>This paragraph is followed by three newlines.</p>
+<br/>
+<p>This paragraph is followed by five newlines.</p>
+<br/>
+<br/>
+<br/>
+<p>The End</p>
+~~~
+
+### Leading Spaces (Prose vs. Poetry)
+
+##### Example
+
+###### Markua Syntax
+
+{#input_leading_spaces_1}
+~~~
+I grant I never saw a goddess go;
+My mistress when she walks treads on the ground.
+    And yet, by heaven, I think my love as rare
+    As any she belied with false compare.
+~~~
+
+###### HTML Output
+
+{#output_leading_spaces_1}
+~~~
+<p>I grant I never saw a goddess go;<br/>
+My mistress when she walks treads on the ground.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;And yet, by heaven, I think my love as rare<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;As any she belied with false compare.</p>
+~~~
+
+### Internal Spaces Are Collapsed to One Space
+
+##### Example
+
+###### Markua Syntax
+
+{#input_internal_spaces_1}
+~~~
+foo   bar
+~~~
+
+###### HTML Output
+
+{#output_internal_spaces_1}
+~~~
+<p>foo bar</p>
+~~~
+
+## Resources
+
+### Images
+
+{#images_html}
+The syntax for images is described [here](#images).
+
+#### Local Images
+
+##### Example
+
+###### Markua Syntax
+
+{#input_local_images_1}
+~~~
+Here's a paragraph before the first figure.
+
+![A Piece of Cake](cake.jpg)
+
+Here's a paragraph between the first and second figures.
+
+{alt: "a slice of chocolate cake", class: "fullbleed"}
+![A Piece of Cake](cake.jpg)
+
+Here's a paragraph between the second and third figures.
+
+{alt: "a slice of apple pie with ice cream on top", class: "food-closeup"}
+![A Piece of Pie](pie.jpg)
+
+Here's a paragraph after the third figure.
+~~~
+
+###### HTML Output
+
+{#output_local_images_1}
+~~~
+<p>Here's a paragraph before the first figure.</p>
+<div class="figure">
+  <img src="cake.jpg"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+<p>Here's a paragraph between the first and second figures.</p>
+<div class="figure">
+  <img src="cake.jpg" alt="a slice of chocolate cake" class="fullbleed"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+<p>Here's a paragraph between the second and third figures.</p>
+<div class="figure">
+  <img src="pie.jpg" alt="a slice of apple pie with ice cream on top" class="food-closeup"/>
+  <p class="caption">A Piece of Pie</p>
+</div>
+<p>Here's a paragraph after the third figure.</p>
+~~~
+
+#### Web Images
+
+##### Example
+
+###### Markua Syntax
+
+{#input_web_images_1}
+~~~
+Here's a paragraph before the first figure.
+
+![A Piece of Cake](http://markua.com/cake.jpg)
+
+Here's a paragraph between the first and second figures.
+
+{alt: "a slice of chocolate cake", class: "fullbleed"}
+![A Piece of Cake](http://markua.com/cake.jpg)
+
+Here's a paragraph between the second and third figures.
+
+{alt: "a slice of apple pie with ice cream on top", class: "food-closeup"}
+![A Piece of Pie](http://markua.com/pie.jpg)
+
+Here's a paragraph after the third figure.
+~~~
+
+###### HTML Output
+
+{#output_web_images_1}
+~~~
+<p>Here's a paragraph before the first figure.</p>
+<div class="figure">
+  <img src="http://markua.com/cake.jpg"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+<p>Here's a paragraph between the first and second figures.</p>
+<div class="figure">
+  <img src="http://markua.com/cake.jpg" alt="a slice of chocolate cake" class="fullbleed"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+<p>Here's a paragraph between the second and third figures.</p>
+<div class="figure">
+  <img src="http://markua.com/pie.jpg" alt="a slice of apple pie with ice cream on top" class="food-closeup"/>
+  <p class="caption">A Piece of Pie</p>
+</div>
+<p>Here's a paragraph after the third figure.</p>
+~~~
+
+#### Inline Images (SVG only)
+
+##### Example
+
+###### Markua Syntax
+
+{#input_inline_images_1}
+~~~
+Here's a paragraph before the figure.
+
+{caption: "Earth From Space (Simplified)", alt: "a blue circle"}
+```svg
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Here's a paragraph after the figure.
+~~~
+
+###### HTML Output
+
+Note that any alt text specified in the figure attribute list must be set as the `<desc>` attribute in the SVG.
+
+{#output_inline_images_1}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <svg width="20" height="20">
+    <desc>a blue circle</desc>
+    <circle cx="10" cy="10" r="9" fill="blue"/>
+  </svg>
+  <p class="caption">Earth From Space (Simplified)</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+### Video
+
+{#video_html}
+The syntax for video is described [here](#video).
+
+#### Local Video
+
+##### Example
+
+###### Markua Syntax
+
+{#input_local_video_1}
+~~~
+Here's a paragraph before the figure.
+
+![A Piece of Cake](cake_eating_contest.webm)
+
+Here's a paragraph after the figure.
+~~~
+
+###### HTML Output
+
+{#output_local_video_1}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <video src="cake_eating_contest.webm"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+#### Web Video
+
+##### Example
+
+###### Markua Syntax
+
+{#input_web_video_1}
+~~~
+Here's a paragraph before the figure.
+
+{poster: http://img.youtube.com/vi/VOCYL-FNbr0/mqdefault.jpg}
+![Introducing Markua](https://www.youtube.com/watch?t=105&v=VOCYL-FNbr0)
+
+Here's a paragraph after the figure.
+~~~
+
+###### HTML Output
+
+{#output_web_video_1}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <video src="https://www.youtube.com/watch?t=105&v=VOCYL-FNbr0"
+    poster="http://img.youtube.com/vi/VOCYL-FNbr0/mqdefault.jpg"/>
+  <p class="caption">Introducing Markua</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+### Audio
+
+{#audio_html}
+The syntax for audio is described [here](#audio).
+
+#### Local Audio
+
+##### Example
+
+###### Markua Syntax
+
+{#input_local_audio_1}
+~~~
+The full version of the talk is here:
+
+![Full Talk](talk.m4a)
+~~~
+
+###### HTML Output
+
+{#output_local_audio_1}
+~~~
+<p>The full version of the talk is here:</p>
+<div class="figure">
+  <audio src="resources/talk.m4a"/>
+  <p class="caption">Full Talk</p>
+</div>
+~~~
+
+#### Web Audio
+
+##### Example
+
+###### Markua Syntax
+
+{#input_local_audio_1}
+~~~
+The full version of the talk is here:
+
+![Full Talk](http://markua.com/talk.m4a)
+~~~
+
+###### HTML Output
+
+{#output_local_audio_1}
+~~~
+<p>The full version of the talk is here:</p>
+<div class="figure">
+  <audio src="http://markua.com/talk.m4a"/>
+  <p class="caption">Full Talk</p>
+</div>
+~~~
+
+### Code
+
+{#code_html}
+The syntax for code is described [here](#code).
+
+Markua only specifies how code which has a format of `text` is formatted. All other formats of code are unspecified, since the behaviour depends on whether the programming language is recognized by the Markua Processor, whether syntax highlighting is enabled, and on what type and version of syntax highlighting library (e.g. Pygments) is used.
+
+#### Local Code Resources
+
+###### Dependencies
+
+This file must exist in the resources directory. The filename is given, followed by a colon, a newline and the file contents.
+
+{#dependencies_local_code_figure_1}
+~~~
+hello.rb:
+```
+puts "hello"
+
+puts "world"
+```
+~~~
+
+###### Markua Syntax
+
+{#input_local_code_figure_1}
+~~~
+Here's a paragraph before the figure.
+
+{format: text}
+![Hello World in Ruby](hello.rb)
+
+Here's a paragraph after the figure.
+~~~
+
+###### HTML Output
+
+{#output_local_code_figure_1}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <pre><code>puts "hello"
+
+puts "world"</code></pre>
+  <p class="caption">Hello World in Ruby</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+#### Web Code Resources
+
+###### Dependencies
+
+This file exists on `http://markua.com` for test purposes.
+
+{#dependencies_web_code_figure_1}
+~~~
+http://markua.com/helloworld.rb:
+```
+puts "hello"
+
+puts "world"
+```
+~~~
+
+###### Markua Syntax
+
+{#input_web_code_figure_1}
+~~~
+Here's a paragraph before the figure.
+
+{format: text}
+![Hello World in Ruby](http://markua.com/helloworld.rb)
+
+Here's a paragraph after the figure.
+~~~
+
+###### HTML Output
+
+{#output_web_code_figure_1}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <pre><code>puts "hello"
+
+puts "world"</code></pre>
+  <p class="caption">Hello World in Ruby</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+#### Inline Code Resources
+
+##### Span Example
+
+###### Markua Syntax
+
+{#input_inline_code_span_1}
+~~~
+Hello in Ruby is a `puts "hello"` statement.
+~~~
+
+###### HTML Output
+
+{#output_inline_code_span_1}
+~~~
+<p>Hello in Ruby is a <code>puts "hello"</code> statement.</p>
+~~~
+
+##### Figure Example 1
+
+###### Markua Syntax
+
+{#input_inline_code_figure_1}
+~~~
+Here's a paragraph before the figure.
+
+{caption: "Hello World in Ruby"}
+```text
+puts "hello"
+
+puts "world"
+```
+
+Here's a paragraph after the figure.
+~~~
+
+###### HTML Output
+
+{#output_inline_code_figure_1}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <pre><code>puts "hello"
+
+puts "world"</code></pre>
+  <p class="caption">Hello World in Ruby</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+##### Figure Example 2
+
+###### Markua Syntax
+
+{#input_inline_code_figure_2}
+```
+Here's a paragraph before the figure.
+
+{caption: "Hello World in Ruby"}
+~~~
+puts "hello"
+
+puts "world"
+~~~
+
+Here's a paragraph after the figure.
+```
+
+###### HTML Output
+
+{#output_inline_code_figure_2}
+~~~
+<p>Here's a paragraph before the figure.</p>
+<div class="figure">
+  <pre><code>puts "hello"
+
+puts "world"</code></pre>
+  <p class="caption">Hello World in Ruby</p>
+</div>
+<p>Here's a paragraph after the figure.</p>
+~~~
+
+### Typewriter Poetry with Code Resources
+
+##### Example 1: Using three tildes
+
+###### Markua Syntax
+
+{#input_typewriter_poetry_1}
+```
+Here's a paragraph before the poetry.
+
+{caption: "lazy cat"}
+~~~
+i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow
+~~~
+
+Here's a paragraph after the poetry.
+```
+
+###### HTML Output
+
+Typewriter poetry is output with the `<pre><code>` combination, just like any other inline code resource with a format of `text`. It is up to a book designer to use CSS to style the poetry accordingly.
+
+{#output_typewriter_poetry_1}
+~~~
+<p>Here's a paragraph before the poetry.</p>
+<div class="figure">
+  <pre><code>i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow</code></pre>
+  <p class="caption">lazy cat</p>
+</div>
+<p>Here's a paragraph after the poetry.</p>
+~~~
+
+##### Example 2: Using three backticks plus the `text` format via syntactic sugar
+
+###### Markua Syntax
+
+{#input_typewriter_poetry_2}
+~~~
+Here's a paragraph before the poetry.
+
+{caption: "lazy cat"}
+```text
+i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow
+```
+
+Here's a paragraph after the poetry.
+~~~
+
+###### HTML Output
+
+{#output_typewriter_poetry_2}
+~~~
+<p>Here's a paragraph before the poetry.</p>
+<div class="figure">
+  <pre><code>i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow</code></pre>
+  <p class="caption">lazy cat</p>
+</div>
+<p>Here's a paragraph after the poetry.</p>
+~~~
+
+##### Example 3: Using three backticks plus the `text` format specified in an attribute list
+
+###### Markua Syntax
+
+{#input_typewriter_poetry_3}
+~~~
+Here's a paragraph before the poetry.
+
+{caption: "lazy cat", format: text}
+```
+i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow
+```
+
+Here's a paragraph after the poetry.
+~~~
+
+###### HTML Output
+
+{#output_typewriter_poetry_3}
+~~~
+<p>Here's a paragraph before the poetry.</p>
+<div class="figure">
+  <pre><code>i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow</code></pre>
+  <p class="caption">lazy cat</p>
+</div>
+<p>Here's a paragraph after the poetry.</p>
+~~~
+
+### Math
+
+Markua does not specify how math is output in HTML. It is perfectly acceptable for a Markua Processor to output any math block as an image or as the LaTeX or MathML text of the math equation itself.
+
+## Lists
+
+### Unordered Lists (i.e. Bulleted Lists)
+
+##### Example
+
+###### Markua Syntax
+
+{#input_unordered_list_1}
+~~~
+lorem
+
+* foo
+* bar
+* baz
+
+ipsum
+
+*  foo
+*  bar
+*  baz
+
+dolor
+
+*   foo
+*   bar
+*   baz
+
+sit
+
+*    foo
+*    bar
+*    baz
+
+amet
+
+- foo
+- bar
+- baz
+
+lorem
+
+* foo
+
+ipsum
+
+- foo
+
+dolor
+~~~
+
+###### HTML Output
+
+{#output_unordered_list_1}
+~~~
+<p>lorem</p>
+<ul>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ul>
+<p>ipsum</p>
+<ul>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ul>
+<p>dolor</p>
+<ul>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ul>
+<p>sit</p>
+<ul>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ul>
+<p>amet</p>
+<ul class="hyphen">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ul>
+<p>lorem</p>
+<ul>
+  <li>foo</li>
+</ul>
+<p>ipsum</p>
+<ul class="hyphen">
+  <li>foo</li>
+</ul>
+<p>dolor</p>
+~~~
+
+### Not Lists
+
+##### Example
+
+###### Markua Syntax
+
+{#input_not_lists_1}
+~~~
+lorem
+
++ foo
++ bar
++ baz
+
+ipsum
+
++ foo
+
+dolor
+
+*    foo
+*   bar
+*  baz
+
+sit
+~~~
+
+###### HTML Output
+
+{#output_not_lists_1}
+~~~
+<p>lorem</p>
+<p>+ foo</p>
+<p>+ bar</p>
+<p>+ baz</p>
+<p>ipsum</p>
+<p>+ foo</p>
+<p>dolor</p>
+<p>*    foo<br/>
+*   bar<br/>
+*  baz</p>
+<p>sit</p>
+~~~
+
+### Ordered Lists (i.e. Numbered Lists)
+
+#### Example 1: Decimal Numbers
+
+##### Example
+
+###### Markua Syntax
+
+{#input_ordered_lists_1}
+~~~
+lorem
+
+1. foo
+2. bar
+3. baz
+
+ipsum
+
+9. foo
+10. bar
+11. baz
+
+dolor
+
+3. foo
+2. bar
+1. baz
+
+sit
+
+11. foo
+10. bar
+9. baz
+
+amet
+
+1. one
+1. two
+1. three
+
+etc.
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_1}
+~~~
+<p>lorem</p>
+<ol>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>ipsum</p>
+<ol start="9">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>dolor</p>
+<ol start="3" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>sit</p>
+<ol start="11" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>amet</p>
+<ol>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>etc.</p>
+~~~
+
+#### Example 2: Uppercase Letters
+
+##### Example
+
+###### Markua Syntax
+
+{#input_ordered_lists_2}
+~~~
+lorem
+
+A. foo
+B. bar
+C. baz
+
+ipsum
+
+I. foo
+J. bar
+K. baz
+
+dolor
+
+C. foo
+B. bar
+A. baz
+
+sit
+
+K. foo
+J. bar
+I. baz
+
+amet
+
+A. foo
+A. bar
+A. baz
+
+etc.
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_2}
+~~~
+<p>lorem</p>
+<ol type="A">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>ipsum</p>
+<ol type="A" start="9">
+<ol start="9">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>dolor</p>
+<ol type="A" start="3" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>sit</p>
+<ol type="A" start="11" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>amet</p>
+<ol type="A">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>etc.</p>
+~~~
+
+#### Example 3: Lowercase Letters
+
+##### Example
+
+###### Markua Syntax
+
+{#input_ordered_lists_3}
+~~~
+lorem
+
+a. foo
+b. bar
+c. baz
+
+ipsum
+
+i. foo
+j. bar
+k. baz
+
+dolor
+
+c. foo
+b. bar
+a. baz
+
+sit
+
+k. foo
+j. bar
+i. baz
+
+amet
+
+a. foo
+a. bar
+a. baz
+
+etc.
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_3}
+~~~
+<p>lorem</p>
+<ol type="a">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>ipsum</p>
+<ol type="a" start="9">
+<ol start="9">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>dolor</p>
+<ol type="a" start="3" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>sit</p>
+<ol type="a" start="11" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>amet</p>
+<ol type="a">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>etc.</p>
+~~~
+
+##### Example 4: Uppercase Roman Numerals
+
+###### Markua Syntax
+
+{#input_ordered_lists_4}
+~~~
+lorem
+
+I. foo
+II. bar
+III. baz
+
+ipsum
+
+IX. foo
+X. bar
+XI. baz
+
+dolor
+
+III. foo
+II. bar
+I. baz
+
+sit
+
+XI. foo
+X. bar
+IX. baz
+
+amet
+
+I. foo
+I. bar
+I. baz
+
+etc.
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_4}
+~~~
+<p>lorem</p>
+<ol type="I">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>ipsum</p>
+<ol type="I" start="9">
+<ol start="9">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>dolor</p>
+<ol type="I" start="3" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>sit</p>
+<ol type="I" start="11" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>amet</p>
+<ol type="I">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>etc.</p>
+~~~
+
+##### Example 5: Lowercase Roman Numerals
+
+###### Markua Syntax
+
+{#input_ordered_lists_5}
+~~~
+lorem
+
+i. foo
+ii. bar
+iii. baz
+
+ipsum
+
+ix. foo
+x. bar
+xi. baz
+
+dolor
+
+iii. foo
+ii. bar
+i. baz
+
+sit
+
+xi. foo
+x. bar
+ix. baz
+
+amet
+
+i. foo
+i. bar
+i. baz
+
+etc.
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_5}
+~~~
+<p>lorem</p>
+<ol type="i">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>ipsum</p>
+<ol type="i" start="9">
+<ol start="9">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>dolor</p>
+<ol type="i" start="3" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>sit</p>
+<ol type="i" start="11" reversed="true">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>amet</p>
+<ol type="i">
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
+</ol>
+<p>etc.</p>
+~~~
+
+##### Example 6: In Markua, A Single Element Ordered List is Not a List
+
+###### Markua Syntax
+
+{#input_ordered_lists_6}
+~~~
+foo
+
+1. This isn't a list.
+
+bar
+
+1975. Also, not a list.
+
+lorem
+
+a. This isn't a list either.
+
+ipsum
+
+A. This isn't a list either.
+
+dolor
+
+i. This isn't a list either.
+
+sit
+
+I. This isn't a list either.
+
+amet
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_6}
+~~~
+<p>foo</p>
+<p>1. This isn't a list.</p>
+<p>bar</p>
+<p>1975. Also, not a list.</p>
+<p>lorem</p>
+<p>a. This isn't a list either.</p>
+<p>ipsum</p>
+<p>A. This isn't a list either.</p>
+<p>dolor
+<p>i. This isn't a list either.</p>
+<p>sit</p>
+<p>I. This isn't a list either.</p>
+<p>amet</p>
+~~~
+
+##### Example 7: Ordered List Numbering Rules
+
+###### Markua Syntax
+
+{#input_ordered_lists_7}
+~~~
+This makes an ordered list with decimal numbers (1, 2, 3):
+
+1. one
+1. two
+1. three
+
+This does not make a list, since the numbers are not all consecutive:
+
+1. foo
+2. bar
+4. baz
+
+This makes a list (1975, 1976):
+
+1975. An amazing year.
+1976. The year after 1975.
+
+This does not make a list:
+
+1975\. An amazing year.
+1976\. The year after 1975.
+
+This does not make a list:
+
+1975. An amazing year.
+2010. The year Leanpub was launched.
+
+This makes a lowercase alphabetical ordered list (a, b):
+
+a. one
+b. two
+
+This makes a lowercase alphabetical ordered list (e, f):
+
+e. five
+f. six
+
+This makes a lowercase alphabetical ordered list (i, ii, iii, iv):
+
+i. one
+ii. two
+iii. three
+iv. four
+
+Not a list:
+
+i. one
+ii. two
+iv. four
+
+Not a list:
+
+a\. one
+b\. two
+
+Not a list:
+
+a. one
+c. three
+
+That's it!
+~~~
+
+###### HTML Output
+
+{#output_ordered_lists_7}
+~~~
+<p>This makes an ordered list with decimal numbers:</p>
+<ol>
+  <li>one</li>
+  <li>two</li>
+  <li>three</li>
+</ol>
+<p>This does not make a list, since the numbers are not all consecutive:</p>
+<p>1. foo<br/>
+2. bar<br/>
+4. baz</p>
+<p>This makes a list (1975, 1976):</p>
+<ol start="1975">
+  <li>An amazing year.</li>
+  <li>The year after 1975.</li>
+</ol>
+<p>This does not make a list:</p>
+<p>1975. An amazing year.<br/>
+1976. The year after 1975.</p>
+<p>This does not make a list:</p>
+<p>1975. An amazing year.<br/>
+2010. The year Leanpub was launched.</p>
+<p>This makes a lowercase alphabetical ordered list (a, b):</p>
+<ol type="a">
+  <li>one</li>
+  <li>two</li>
+</ol>
+<p>This makes a lowercase alphabetical ordered list (e, f):</p>
+<ol type="a" start="5">
+  <li>five</li>
+  <li>six</li>
+</ol>
+<p>This makes a lowercase alphabetical ordered list (i, ii, iii, iv):</p>
+<ol type="i">
+  <li>one</li>
+  <li>two</li>
+  <li>three</li>
+  <li>four</li>
+</ol>
+<p>Not a list:</p>
+<p>i. one<br/>
+ii. two<br/>
+iv. four</p>
+<p>Not a list:</p>
+<p>a\. one<br/>
+b\. two</p>
+<p>Not a list:</p>
+<p>a. one<br/>
+c. three</p>
+<p>That's it!</p>
+~~~
+
+### Multi-Paragraph List Items
+
+##### Example
+
+###### Markua Syntax
+
+{#input_multi_para_lists_1}
+~~~
+Here's a paragraph before the list.
+
+1.  This is the first paragraph in the first list item. Yay!
+
+    This is a second paragraph in the first list item.
+
+2.  The second list item is simple.
+
+3.  The third list item has three paragraphs.
+    This is still part of the first paragraph.
+
+    Here's the second paragraph in the third list item.
+
+    Here's the third paragraph in the third list item.
+
+Here's a paragraph after the list.
+~~~
+
+###### HTML Output
+
+{#output_multi_para_lists_1}
+~~~
+<p>Here's a paragraph before the list.</p>
+<ol>
+  <li>
+    <p>This is the first paragraph in the first list item. Yay!</p>
+    <p>This is a second paragraph in the first list item.</p>
+  </li>
+  <li>The second list item is simple.</li>
+  <li>
+    <p>The third list item has three paragraphs.<br/>
+    This is still part of the first paragraph.</p>
+    <p>Here's the second paragraph in the third list item.</p>
+    <p>Here's the third paragraph in the third list item.</p>
+  </li>
+</ol>
+<p>Here's a paragraph after the list.</p>
+~~~
+
+### Nested Lists
+
+##### Example
+
+###### Markua Syntax
+
+{#input_nested_lists_1}
+~~~
+* Foo
+  1. One
+  2. Two
+    a. This is 2a
+    b. This is 2b
+  3. Three
+* Bar
+  i.   Lorem
+  ii.  Ipsum
+  iii. Dolor
+* Baz
+~~~
+
+###### HTML Output
+
+{#output_nested_lists_1}
+~~~
+<ul>
+  <li>
+    Foo
+    <ol>
+      <li>One</li>
+      <li>
+        Two
+        <ol type="a">
+          <li>This is 2a</li>
+          <li>This is 2b</li>
+        </ol>
+      </li>
+      <li>Three</li>
+    </ol>
+  </li>
+  <li>
+    Bar
+    <ol type="i">
+      <li>Lorem</li>
+      <li>Ispum</li>
+      <li>Dolor</li>
+    </ol>
+  </li>
+  <li>Baz</li>
+</ul>
+~~~
+
+### Nesting Block Elements in List Items
+
+#### Single-Paragraph List Items
+
+##### Example
+
+###### Markua Syntax
+
+{#input_spli_1}
+~~~
+* Foo
+  {caption: "Hello World in Ruby"}
+  ```text
+  puts "hello"
+  ```
+* Bar
+* Baz
+~~~
+
+###### HTML Output
+
+{#output_spli_1}
+~~~
+<ul>
+  <li>
+    <p>Foo<br/>
+      <div class="figure">
+        <pre><code>puts "hello"</code></pre>
+        <p class="caption">Hello World in Ruby</p>
+      </div>
+    </p>
+  </li>
+  <li>Bar</li>
+  <li>Baz</li>
+</ul>
+~~~
+
+#### Multiple-Paragraph List Items
+
+##### Example
+
+###### Markua Syntax
+
+{#input_mpli_1}
+~~~
+* This is paragraph 1 in the first list item.
+
+  ```text
+  puts "hello"
+  ```
+
+  This is paragraph 2 in the first list item.
+
+* This is paragraph 1 in the second list item.
+
+  ![A Piece of Cake](cake.jpg)
+
+  This is paragraph 2 in the second list item.
+
+* Baz
+~~~
+
+###### HTML Output
+
+{#output_mpli_1}
+~~~
+<ul>
+  <li>
+    <p>This is paragraph 1 in the first list item.</p>
+    <div class="figure">
+      <pre><code>puts "hello"</code></pre>
+    </div>
+    <p>This is paragraph 2 in the first list item.</p>
+  </li>
+  <li>
+    <p>This is paragraph 1 in the second list item.</p>
+    <div class="figure">
+      <img src="cake.jpg"/>
+      <p class="caption">A Piece of Cake</p>
+    </div>
+    <p>This is paragraph 2 in the second list item.</p>
+  </li>
+  <li>Baz</li>
+</ul>
+~~~
+
+## Definition Lists
+
+##### Example
+
+###### Markua Syntax
+
+{#input_definition_lists_1}
+~~~
+Here's a paragraph before the list.
+
+one
+: This is the first definition of one. It's one paragraph.
+: This is the second definition of one. It's two paragraphs.
+
+  This is a second paragraph in the second definition of one.
+
+two
+: The second list item is simple.
+
+three
+: The third list item has three paragraphs.
+  This is still part of the first paragraph.
+
+  Here's the second paragraph in the third list item.
+
+  Here's the third paragraph in the third list item.
+
+Here's a paragraph after the list.
+~~~
+
+###### HTML Output
+
+{#output_definition_lists_1}
+~~~
+<p>Here's a paragraph before the list.</p>
+<dl>
+  <dt>one</dt>
+  <dd>This is the first definition of one. It's one paragraph.</dd>
+  <dd>
+    <p>This is the second definition of one. It's two paragraphs.</p>
+    <p>This is a second paragraph in the second definition of one.</p>
+  </dd>
+  <dt>two</dt>
+  <dd>The second list item is simple.</dd>
+  <dt>three</dt>
+  <dd>
+    <p>The third list item has three paragraphs.<br/>
+    This is still part of the first paragraph.</p>
+    <p>Here's the second paragraph in the third list item.</p>
+    <p>Here's the third paragraph in the third list item.</p>
+  </dd>
+</dl>
+<p>Here's a paragraph after the list.</p>
+~~~
+
+## Tables
+
+Tables are always output inside a `<figure>`, and table captions are always output as a `<figcaption>` of the `<figure>`, instead of as a `<caption>` of a `<table>`. This way, the captions can be handled the same way as other figures, and the tables can benefit from the figure styling.
+
+### Simple Tables
+
+##### Example 1: No Leading Pipes, No Caption
+
+###### Markua Syntax
+
+{#input_simple_tables_1}
+~~~
+Header A   | Header B   | Header C
+-----------|------------|-----------
+Content A1 | Content B1 | Content C1
+Content A2 | Content B2 | Content C2
+Content A3 | Content B3 | Content C3
+~~~
+
+###### HTML Output
+
+{#output_simple_tables_1}
+~~~
+<figure>
+  <table>
+    <thead>
+      <tr>
+        <th>Header A</th>
+        <th>Header B</th>
+        <th>Header C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Content A1</td>
+        <td>Content B1</td>
+        <td>Content C1</td>
+      </tr>
+      <tr>
+        <td>Content A2</td>
+        <td>Content B2</td>
+        <td>Content C2</td>
+      </tr>
+      <tr>
+        <td>Content A3</td>
+        <td>Content B3</td>
+        <td>Content C3</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+~~~
+
+##### Example 2: Leading Pipes, Caption
+
+###### Markua Syntax
+
+{#input_simple_tables_2}
+~~~
+{caption: "A Simple Table"}
+| Header A   | Header B   | Header C   |
+|------------|------------|------------|
+| Content A1 | Content B1 | Content C1 |
+| Content A2 | Content B2 | Content C2 |
+| Content A3 | Content B3 | Content C3 |
+~~~
+
+###### HTML Output
+
+{#output_simple_tables_2}
+~~~
+<figure>
+  <figcaption>A Simple Table</figcaption>
+  <table>
+    <thead>
+      <tr>
+        <th>Header A</th>
+        <th>Header B</th>
+        <th>Header C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Content A1</td>
+        <td>Content B1</td>
+        <td>Content C1</td>
+      </tr>
+      <tr>
+        <td>Content A2</td>
+        <td>Content B2</td>
+        <td>Content C2</td>
+      </tr>
+      <tr>
+        <td>Content A3</td>
+        <td>Content B3</td>
+        <td>Content C3</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+~~~
+
+### Complex Tables
+
+##### Example
+
+###### Markua Syntax
+
+{#input_complex_tables_1}
+~~~
+{caption: "A Complex Table"}
+|=============|===============|=============|
+| Header A    | Header B      | Header C    |
+|:============|:=============:|============:|
+| Content A1 and B1 Merged    | Content C1  |
+|------------:|:--------------|-------------|
+| Content A2  | Content B2    | Content C2  |
+|:-----------:| and B3 Merged |-------------|
+| Content A3  |               | Content C3  |
+|=============|===============|=============|
+| Footer A    | Footer B      | Footer C    |
+|=============|===============|=============|
+~~~
+
+###### HTML Output
+
+{#output_complex_tables_1}
+~~~
+<figure>
+  <figcaption>A Complex Table</figcaption>
+  <table>
+    <thead>
+      <tr>
+        <th align="left">Header A</th>
+        <th align="center">Header B</th>
+        <th align="right">Header C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="2" align="left">Content A1 annd B1 Merged</td>
+        <td align="right">Content C1</td>
+      </tr>
+      <tr>
+        <td align="right">Content A2</td>
+        <td rowspan="2" align="left">Content B2 and B3 Merged</td>
+        <td align="right">Content C2</td>
+      </tr>
+      <tr>
+        <td align="center">Content A3</td>
+        <td align="right">Content C3</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td align="left">Footer A</td>
+        <td align="center">Footer B</td>
+        <td align="right">Footer C</td>
+      </tr>
+    </tfoot>
+  </table>
+</figure>
+~~~
+
+## Block Elements
+
+### Scene Breaks
+
+In HTML, scene breaks are always mapped to `<hr/>`. Book designers can use CSS to replace th e `<hr/>` with whatever they want: there are no other ways to produce an `<hr/>` in Markua, so an `<hr/>` always means scene break.
+
+##### Example
+
+###### Markua Syntax
+
+{#input_scene_break_1}
+~~~
+This is before the first scene break.
+
+* * *
+
+This is after the first scene break and before the second.
+
+---
+
+This is after the second scene break.
+~~~
+
+###### HTML Output
+
+{#output_scene_break_1}
+~~~
+<p>This is before the first scene break.</p>
+<hr/>
+<p>This is after the first scene break and before the second.</p>
+<hr/>
+<p>This is after the second scene break.</p>
+~~~
+
+### Blockquotes (`>`)
+
+##### Example 1: Blockquotes that are Siblings of Paragraphs
+
+###### Markua Syntax
+
+{#input_blockquotes_1}
+~~~
+This is the first paragraph.
+
+> This is a blockquote.
+>
+> It is outside the paragraphs.
+
+This is the second paragraph.
+
+{blockquote}
+This is a blockquote.
+
+It is outside the paragraphs.
+{/blockquote}
+
+This is the third paragraph.
+~~~
+
+###### HTML Output
+
+{#output_blockquotes_1}
+~~~
+<p>This is the first paragraph.</p>
+<blockquote>
+  <p>This is a blockquote.</p>
+  <p>It is outside the paragraphs.</p>
+</blockquote>
+<p>This is the second paragraph.</p>
+<blockquote>
+  <p>This is a blockquote.</p>
+  <p>It is outside the paragraphs.</p>
+</blockquote>
+<p>This is the third paragraph.</p>
+~~~
+
+##### Example 2: Blockquotes that are Nested in Paragraphs
+
+###### Markua Syntax
+
+{#input_blockquotes_2}
+~~~
+This is the first paragraph.
+
+This is the second paragraph.
+> This is a blockquote
+>
+> It is inside the second paragraph.
+This is part of the second paragraph.
+{blockquote}
+This is a blockquote.
+
+It is inside the second paragraph.
+{/blockquote}
+This is part of the second paragraph.
+
+This is the third paragraph.
+~~~
+
+###### HTML Output
+
+{#output_blockquotes_2}
+~~~
+<p>This is the first paragraph.</p>
+<p>This is the second paragraph.<br/>
+<blockquote>
+  <p>This is a blockquote</p>
+  <p>It is inside the second paragraph.</p>
+</blockquote>
+This is part of the second paragraph.<br/>
+<blockquote>
+  <p>This is a blockquote</p>
+  <p>It is inside the second paragraph.</p>
+</blockquote>
+This is part of the second paragraph.</p>
+<p>This is the third paragraph.</p>
+~~~
+
+##### Example 3: Blockquotes with Attribute Lists
+
+###### Markua Syntax
+
+{#input_blockquotes_3}
+~~~
+Lots of people have opinions about software.
+
+Here's the most famous recent one:
+
+{cite: "Marc Andreessen", url: "http://www.wsj.com/articles/SB10001424053111903480904576512250915629460"}
+> Software is eating the world.
+
+It's quoted a lot, so let's quote it again:
+
+{cite: "Marc Andreessen", url: "http://www.wsj.com/articles/SB10001424053111903480904576512250915629460"}
+{blockquote}
+Software is eating the world.
+{/blockquote}
+
+That's it!
+~~~
+
+###### HTML Output
+
+{#output_blockquotes_3}
+~~~
+<p>Lots of people have opinions about software.</p>
+<p>Here's the most famous recent one:</p>
+<blockquote>
+  <p>Software is eating the world.</p>
+  <cite><a href="http://www.wsj.com/articles/SB10001424053111903480904576512250915629460">Marc Andreessen</a></cite>
+</blockquote>
+<p>It's quoted a lot, so let's quote it again:</p>
+<blockquote>
+  <p>Software is eating the world.</p>
+  <cite><a href="http://www.wsj.com/articles/SB10001424053111903480904576512250915629460">Marc Andreessen</a></cite>
+</blockquote>
+<p>That's it!</p>
+~~~
+
+### Asides (`A>`)
+
+##### Example
+
+###### Markua Syntax
+
+{#input_asides_1}
+~~~
+This is the first paragraph.
+A> This is a short aside.
+This is still the first paragraph.
+
+A> # A Longer Aside
+A>
+A> This is a longer aside.
+A>
+A> It can have multiple paragraphs.
+
+This is the second paragraph.
+
+{aside}
+# A Longer Aside
+
+This is a longer aside.
+
+It can have multiple paragraphs.
+{/aside}
+
+This is the third paragraph.
+~~~
+
+###### HTML Output
+
+{#output_asides_1}
+~~~
+<p>This is the first paragraph.<br/>
+<aside>
+  <p>This is a short aside.</p>
+</aside>
+This is still the first paragraph.</p>
+<aside>
+  <h1>A Longer Aside</h1>
+  <p>This is a longer aside.</p>
+  <p>It can have multiple paragraphs.</p>
+</aside>
+<p>This is the second paragraph.</p>
+<aside>
+  <h1>A Longer Aside</h1>
+  <p>This is a longer aside.</p>
+  <p>It can have multiple paragraphs.</p>
+</aside>
+<p>This is the third paragraph.</p>
+~~~
+
+### Blurbs (`B>`)
+
+##### Example 1: Normal Blurbs
+
+###### Markua Syntax
+
+{#input_blurbs_1}
+~~~
+This is the first paragraph.
+B> This is a short blurb.
+This is still the first paragraph.
+
+B> # A Longer Blurb
+B>
+B> This is a longer blurb.
+B>
+B> It can have multiple paragraphs.
+
+This is the second paragraph.
+
+{blurb}
+# A Longer Blurb
+
+This is a longer blurb.
+
+It can have multiple paragraphs.
+{/blurb}
+
+This is the third paragraph.
+~~~
+
+###### HTML Output
+
+{#output_blurbs_1}
+~~~
+<p>This is the first paragraph.<br/>
+<aside class="blurb">
+  <p>This is a short blurb.</p>
+</aside>
+This is still the first paragraph.</p>
+<aside class="blurb">
+  <h1>A Longer Blurb</h1>
+  <p>This is a longer blurb.</p>
+  <p>It can have multiple paragraphs.</p>
+</aside>
+<p>This is the second paragraph.</p>
+<aside class="blurb">
+  <h1>A Longer Blurb</h1>
+  <p>This is a longer blurb.</p>
+  <p>It can have multiple paragraphs.</p>
+</aside>
+<p>This is the third paragraph.</p>
+~~~
+
+##### Example 2: Blurb Classes
+
+###### Markua Syntax
+
+{#input_blurbs_2}
+~~~
+{class: discussion}
+B> This is a discussion blurb.
+
+{class: error}
+B> This is an error blurb.
+
+{class: information}
+B> This is an information blurb.
+
+{class: tip}
+B> This is a tip blurb.
+
+{class: warning}
+B> This is a warning blurb.
+~~~
+
+###### HTML Output
+
+{#output_blurbs_2}
+~~~
+<aside class="blurb discussion">
+  <p>This is a discussion blurb.</p>
+</aside>
+<aside class="blurb error">
+  <p>This is an error blurb.</p>
+</aside>
+<aside class="blurb information">
+  <p>This is an information blurb.</p>
+</aside>
+<aside class="blurb tip">
+  <p>This is a tip blurb.</p>
+</aside>
+<aside class="blurb warning">
+  <p>This is a warning blurb.</p>
+</aside>
+~~~
+
+##### Example 3: Syntactic Sugar for Blurb Classes
+
+###### Markua Syntax
+
+{#input_blurbs_3}
+~~~
+D> This is a discussion blurb.
+
+E> This is an error blurb.
+
+I> This is an information blurb.
+
+T> This is a tip blurb.
+
+W> This is a warning blurb.
+~~~
+
+###### HTML Output
+
+{#output_blurbs_3}
+~~~
+<aside class="blurb discussion">
+  <p>This is a discussion blurb.</p>
+</aside>
+<aside class="blurb error">
+  <p>This is an error blurb.</p>
+</aside>
+<aside class="blurb information">
+  <p>This is an information blurb.</p>
+</aside>
+<aside class="blurb tip">
+  <p>This is a tip blurb.</p>
+</aside>
+<aside class="blurb warning">
+  <p>This is a warning blurb.</p>
+</aside>
+~~~
+
+### Inserting Block Elements Inside Paragraphs
+
+##### Example
+
+###### Markua Syntax
+
+{#input_ibeip_1}
+~~~
+This is paragraph one.
+
+This sentence is in paragraph two.
+* this list is
+* part of
+* paragraph two
+This sentence is also in paragraph two.
+
+This is paragraph three.
+
+This sentence is in paragraph four.
+{caption: "Hello, World"}
+```text
+puts "hello world"
+```
+This sentence is also in paragraph four.
+
+This sentence is in paragraph five.
+![A Piece of Cake](cake.jpg)
+This sentence is also in paragraph five.
+
+This sentence is in paragraph six.
+{alt: "a slice of chocolate cake"}
+![A Piece of Cake](http://markua.com/cake.jpg)
+This sentence is also in paragraph six.
+
+This sentence is in paragraph seven.
+* this list is
+* part of
+* paragraph seven
+
+This is paragraph eight.
+~~~
+
+###### HTML Output
+
+{#output_ibeip_1}
+~~~
+<p>This is paragraph one.</p>
+
+<p>This sentence is in paragraph two.<br/>
+<ul>
+  <li>this list is</li>
+  <li>part of</li>
+  <li>paragraph two</li>
+</ul>
+This sentence is also in paragraph two.</p>
+
+<p>This is paragraph three.</p>
+
+<p>This sentence is in paragraph four.<br/>
+<div class="figure">
+  <pre><code>puts "hello world"</code></pre>
+  <p class="caption">Hello, World</p>
+</div>
+puts
+```
+This sentence is also in paragraph four.</p>
+
+<p>This sentence is in paragraph five.<br/>
+<div class="figure">
+  <img src="cake.jpg"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+This sentence is also in paragraph five.</p>
+
+<p>This sentence is in paragraph six.<br/>
+<div class="figure">
+  <img src="http://markua.com/cake.jpg" alt="a slice of chocolate cake"/>
+  <p class="caption">A Piece of Cake</p>
+</div>
+This sentence is also in paragraph six.</p>
+
+<p>This sentence is in paragraph seven.<br/>
+<ul>
+  <li>this list is</li>
+  <li>part of</li>
+  <li>paragraph seven</li>
+</ul>
+</p>
+
+<p>This is paragraph eight.</p>
+~~~
+
+## Span Elements
+
+### Links
+
+##### Example
+
+###### Markua Syntax
+
+{#input_links_1}
+~~~
+Markua was developed at [Leanpub](http://leanpub.com).
+
+Markua was developed at <http://leanpub.com>.
+~~~
+
+###### HTML Output
+
+{#output_links_1}
+~~~
+Markua was developed at <a href="http://leanpub.com">Leanpub</a>.
+
+Markua was developed at <a href="http://leanpub.com">http://leanpub.com</a>.
+~~~
+
+### Footnotes and Endnotes
+
+Markua does not specify how footnotes and endnotes are output in HTML. A Markua Processor should output them *somewhere*, but the details are not specified. This is deliberate, in order to maximize implementation flexibility for implementers of Markua Processors.
+
+### Crosslinks and ids
+
+##### Example
+
+###### Markua Syntax
+
+{#input_crosslinks_ids_1}
+~~~
+{id: id1}
+This is a paragraph with an id of `id1`.
+
+{#id2}
+This is a paragraph with an id of `id2`.
+
+This link to [Markua](#markua) is before the id definition.
+
+The word Markua{id: markua} has an id of `markua`.
+
+This link to [Markua](#markua) is after the id definition.
+
+Leanpub is based in **Victoria, BC, Canada**{#victoria}.
+
+The [quick sly fox]{#quick_sly} jumped over the lazy dogs.
+~~~
+
+###### HTML Output
+
+{#output_crosslinks_ids_1}
+~~~
+<h1>Crosslink Example</h1>
+<p id="id1">This is a paragraph with an id of <code>id1</code>.</p>
+<p id="id2">This is a paragraph with an id of <code>id2</code>.</p>
+<p>This link to <a href="#markua">Markua</a> is before the id definition.</p>
+<p>The word <span id="markua">Markua</span> has an id of <code>markua</code>.</p>
+<p>This link to <a href="#markua">Markua</a> is after the id definition.</p>
+<p>Leanpub is based in <strong id="victoria">Victoria, BC, Canada</strong>.
+<p>The <span id="quick_sly">quick sly fox</span> jumped over the lazy dogs.</p>
+~~~
+
+### Soft Hyphen
+
+##### Example
+
+###### Markua Syntax
+
+{#input_soft_hyphen_1}
+~~~
+My name is Rumpel\-stiltskin.
+~~~
+
+###### HTML Output
+
+{#output_soft_hyphen_1}
+~~~
+<p>My name is Rumpel&shy;stiltskin.</p>
+~~~
+
+### Emoji
+
+Markua does not specify how emoji are output in HTML. The various choices are discussed in the [Emoji section](#emoji).
+
+## Metadata
+
+### Index Entries
+
+Markua does not specify how index entries are output in HTML. Markua Processors can take great liberties in the construction of an index based on index entries.
+
+### Book Section Directives
+
+Markua does not specify how book section directives affect the HTML output. Markua Processors have lots of freedom here.
+
+### Table of Contents
+
+Markua does not specify how a table of contents is output in HTML. Again, Markua Processors can innovate here. For example, Leanpub provides settings about how many levels to include in the Table of Contents, whether to show dots in it, etc.
+
+Markua does, however, strongly recommend that the entries in a Table of Contents be clickable links in HTML. This is HTML after all, not print.
+
+## Comments
+
+##### Example
+
+###### Markua Syntax
+
+{#input_comments_1}
+~~~
+This is included.
+<!--
+This is not included.
+-->
+This is also included.
+~~~
+
+###### HTML Output
+
+{#output_comments_1}
+~~~
+<p>This is included.</p>
+<p>This is also included.</p>
+~~~
+
+{#criticmarkup_html}
+## CriticMarkup
+
+When outputting HTML, a Markua Processor can either output or ignore all the CriticMarkup.
+
+The choice is situation-dependent. For example, a Markua Processor could output CriticMarkup when previewing, but output only the original text when publishing.
+
+However, regardless of the fact that there is a choice, there is an exact specification for both cases. Also, there is only one choice: all or nothing. It's not acceptable to support some CriticMarkup annotations but not others.
+
+The following example shows a paragraph annotated with CriticMarkup:
+
+~~~
+If you enjoy using track changes{>>Who enjoys this?<<} in Word, then {~~you'll enjoy~>you may like~~} using
+CriticMarkup {++annotations++}. If you don't enjoy working with editors{-- or getting feedback about your
+writing in the text itself--}, then CriticMarkup isn't for you! If this is the case, don't worry about
+it: {==the support for CriticMarkup has no impact on the rest of Markua==}{>>This sounds ambivalent.<<}.
+If you don't want to use it, you don't need to learn about it.
+~~~
+
+Here's the HTML that must be produced when the Markua Processor is ignoring all CriticMarkup:
+
+~~~
+<p>If you enjoy using track changes in Word, then you'll enjoy using CriticMarkup. If you don't enjoy
+working with editors or getting feedback about your writing in the text itself, then CriticMarkup
+isn't for you! If this is the case, don't worry about it: the support for CriticMarkup has no impact
+on the rest of Markua. If you don't want to use it, you don't need to learn about it.</p>
+~~~
+
+Here's the HTML that must be produced when the Markua Processor is outputting all CriticMarkup:
+
+~~~
+<p>If you enjoy using track changes<span class="critic comment">Who enjoys this?</span> in Word,
+then <del>you'll enjoy</del><ins>you may like</ins> using CriticMarkup <ins>annotations</ins>. If
+you don't enjoy working with editors<del> or getting feedback about your writing in the text itself</del>,
+then CriticMarkup isn't for you! If this is the case, don't worry about it: <mark>the support for
+CriticMarkup has no impact on the rest of Markua</mark><span class="critic comment">This sounds
+ambivalent.</span>. If you don't want to use it, you don't need to learn about it.</p>
+~~~
 
 {#acknowledgments}
 # Acknowledgments
