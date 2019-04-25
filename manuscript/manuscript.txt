@@ -6081,7 +6081,7 @@ span sup {
 {#headings_html}
 The syntax for headings is described [here](#headings).
 
-In Markua, both parts and chapters produce an `h1` in HTML. This is mildly surprising, but entirely appropriate: For books which have no parts, the chapter is the topmost organizational unit. In a book with parts, it is more important for chapters to behave the same way that they do in a book without parts (i.e. to be created with `# Title` and to produce an `h1`) than to be correctly "contained" (if you think like an outliner) inside the Part.
+In this mapping, both parts and chapters produce an `h1` in HTML. This is mildly surprising, but entirely appropriate. For books which have no parts, the chapter is the topmost organizational unit. In a book with parts, it is more important for chapters to behave the same way that they do in a book without parts (i.e. to be created with `# Title` and to produce an `h1`) than to be correctly "contained" (if you think like an outliner) inside the Part.
 
 ##### Example
 
