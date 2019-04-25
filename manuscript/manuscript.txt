@@ -54,232 +54,6 @@ Markua is a plain text format. Markua manuscripts, called Markua documents, can 
 
 Markua documents can be automatically transformed into every currently-popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua source document.
 
-# Tutorial #
-
-## Note for Leanpub Authors
-
-Leanpub authors please [see this](#leanpub-markua-status) for an incomplete list of what we still need to build in Leanpub.
-
-
-# Syntax #
-
-
-
-{#markdown-diffs}
-# # Markua, Markdown and CommonMark
-
-Markua has a number of differences from Markdown as defined by John Gruber. These are the main ones:
-
-1. In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` produces an ____underline____ unless the `italicize-underlines` global setting is set to true. The reason for this is simple: ____underline____ is not *always* just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
-2. Markdown supports inline HTML; [as discussed earlier, Markua does not](#no-inline-html).
-3. Markua defines many more types of numbered list numbering than Markdown. In Markdown, the only type of numbering supported is decimal numbering starting from 1. If you need any more features, you need to use inline HTML. However, since Markua does not support inline HTML, Markua provides more list types and features.
-4. Unlike in Markdown, in Markua the number that begins the list in the manuscript is the number that begins the list in the output.
-5. Markdown does not specify a table syntax. Since Markdown supports inline HTML, it does not need to--if you want a table, you can simply use an inline HTML table. Since Markua does not support inline HTML, Markua defines a [table syntax](#tables).
-6. Images in Markua are inserted in essentially the same way they are in Markdown for what Markdown calls "inline images". Markdown's inline images are not to be confused with Markua's inline image support, which means to define an SVG image in the text of a Markua document. Markdown's reference style image syntax is not supported in Markua for *any* type of resource--including images. There are two main reasons for not supporting reference style resource syntax in Markua. First, resources in Markua are complex enough without also having a reference syntax for them. Second, in something as large as a book, the potential for id collisions in link definitions using the reference link syntax is a lot higher than in the blog post length of typical Markdown documents.
-7. Markua supports definition lists; Markdown does not (except via inline HTML).
-8. Markdown lets you use a plus sign (`+`) before each item in an unordered ("bulleted" in Markua) list; Markua does not. Having three syntaxes is just overkill, so Markua drops the plus--it's far less common than the asterisk and hyphen. This is the same decision made by GitHub Flavored Markdown, which also [supports](https://help.github.com/articles/markdown-basics/) `*` and `-` but not `+`.
-9. Markdown does not support closing parentheses (`)`) as ordered ("numbered" in Markua) list delimiters; Markua does.
-10. Markua and Markdown handle spaces, newlines and indentation differently. This is discussed in the [Whitespace: Spaces, Tabs and Newlines](#whitespace) section.
-11. In Markdown, lists and other block elements cannot be nested inside a paragraph; in Markua they can. This is discussed further below.
-12. Markdown's reference link syntax and its implicit link name shortcuts are not supported in Markua. Markdown is a way of writing HTML designed by bloggers, and links are so plentiful in that medium that it makes some sense to support four syntaxes to create links. In ebooks, however, links are not as prevalent, so it makes sense to be opinionated here. Furthermore, in something as large as a book, the potential for id collisions in link definitions using the reference link syntax is a lot higher than in a blog post.
-13. Markua and Markdown handle headings differently. This is discussed further below.
-14. The backtick syntax of adding inline code resources as spans is identical to the code span syntax of Markdown, however the optional attribute list is Markua-specific.
-15. The syntax for inline code resource figures is similar to the "fenced code blocks" syntax of many Markdown extensions, such as PHP Markdown Extra and GitHub Flavoured Markdown.
-16. The "four space indent" method of creating code blocks in Markdown is not supported in Markua. You cannot create an inline code figure this way. It may be slightly more pleasant to read, but it's obnoxious as hell to write, and it has terrible effects on the rest of the specification.
-17. In Markdown links, a URL can be either absolute (starting with `http://` or `https://`) or relative (just referring to a path like /foo/bar.html), since relative URLs can make sense when writing blog posts which live on web servers. In Markua, however, all URLs must be absolute.
-18. In Markdown, there are three types of ways of producing horizontal rules in HTML: by putting three or more asterisks (`***`), hyphens (`---`) or underscores (`___`) on a line by themselves, with or without spaces between them. Markua isn't in the business of producing HTML or horizontal rules. The `***` is used for scene breaks, `___` starts poetry, and `---` starts monospaced poetry.
-
-### Differences with Inserting Block Elements Inside Paragraphs
-
-In Markdown, lists and other block elements cannot be nested inside a paragraph. Instead, they all function like top-level siblings to a paragraph. This makes sense since Markdown is a way of producing HTML, and in HTML5 the W3C has [told anyone who wants to embed a list inside a paragraph to go pound sand](http://www.w3.org/TR/html5/grouping-content.html#the-p-element):
-
-> "The solution is to realise that a paragraph, in HTML terms, is not a logical concept, but a structural one. In the fantastic example above, there are actually five paragraphs as defined by this specification: one before the list, one for each bullet, and one after the list."
-
-So, basically, you can't embed a `<ul>` or `<ol>` inside a `<p>` tag in HTML5. Since Markdown is a way of producing HTML, you can't do it in Markdown either.
-
-In Markdown, a block element like a list or figure is a sibling of the paragraphs before or after it:
-
-~~~
-This is paragraph one.
-
-* this is a
-* sibling of
-* paragraphs one and two
-
-This is paragraph two.
-~~~
-
-Markua supports this method of inserting block elements.
-
-However, Markua is more than just a way of producing HTML. Markua is a way of authoring books. HTML is just one of the many output formats of Markua. And in books, there is a long history of embedding lists, code samples and figures in the middle of a paragraph--not in a separate top-level element, in the actual middle of the paragraph. So, Markua [supports this too](#inserting-into-paras).
-
-## Differences with Leanpub Flavoured Markdown
-
-Besides differences with Markdown in general, Markua also has a number of specific differences with Leanpub Flavoured Markdown (LFM):
-
-1. In LFM, parts are created with `-#`. In Markua, parts are created with `# Part #`.
-
-2. In LFM, there is a special syntax for inserting code samples: `<<[Optional Title](code/some_code_file.rb)`. In Markua, however, code is just a resource, and the LFM syntax is not supported.
-
-3. In LFM, to mark code as added or removed, the magic words were `leanpub-start-insert`, `leanpub-end-insert`, `leanpub-start-delete` and `leanpub-end-delete`. In Markua, the magic words are `markua-start-insert`, `markua-end-insert`, `markua-start-delete` and `markua-end-delete`.
-
-4. In LFM, there is a special syntax for inserting math: `{$$}...{/$$}`. This looks nice to people who like LaTeX, and looks like nothing else in Markdown. In Markua, however, math is just another resource, and that LaTeX-inspired syntax for wrapping math resources is not supported.
-
-5. In LFM, there are `G>` "generic boxes". In Markua, these are replaced with blurbs (`B>`).
-
-6. In LFM, we had the `C>` syntax to center text, but we didn't have the same effect on generic boxes, and blurbs did not exist. In Markua, a `C>` syntax is just syntactic sugar for a centered blurb, for greater consistency. Because of this, the blurb also gets the ability to be centered by adding a {class: center} attribute.
-
-7. In LFM, we had `{rtl}` and `{ltr}` directives. These are not supported in Markua, and neither is a `{dir}` attribute in general: any given language is either a left-to-right or a right-to-left language, so specifying the language is sufficient.
-
-8. In LFM, we had a `{pagebreak}` directive. This is replaced by `===`.
-
-9. In LFM, we used Book.txt to define the book content. In Markua, the way that the list of manuscript files is defined is considered out of scope of the Markua specification itself. (Leanpub still uses the Book.txt approach to specify which files are in a book, but other Markua Processors could use other approaches.)
-
-10. In LFM, we used Sample.txt to define the sample content. Markua moves the definition of what constitutes sample content into a `{sample: true}` attribute on parts, chapters and sections. So, in Markua, inclusion in the sample is at the content level, not the file level. This helps avoid a number of bugs that could happen with including at the file level, if a file did not clearly break at a chapter boundary. (So, in Leanpub, the Sample.txt approach is not supported for books which use Markua.)
-
-
-# HTML Mapping #
-
-Portions of this Part are copyright John MacFarlane, used under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
-
-Wherever possible, I have incorporated examples and text from the [CommonMark spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0.
-
-There are a number of reasons for this:
-
-1. The CommonMark spec is really good, and the examples are both executable and numerous.
-2. Since Markau and CommonMark both have their origins in Markdown as defined by John Gruber, it's useful to compare Markua to CommonMark. The easiest and best way to do this is to adapt all the portions of the CommonMark spec which are relevant.
-
-The way I'm planning to write this section is as follows:
-
-1. Paste in the entire CommonMark spec, 0.29 version.
-2. Delete everything which does not apply.
-3. Modify everything which does apply to fit the Markua spec.
-
-
-
-
-{#leanpub-markua-status}
-# Leanpub Markua Status #
-
-{#leanpub-authors}
-## A Note For Leanpub Authors
-
-If you're reading this, you are an early adopter of Markua.
-
-Markua support is currently in an early beta on Leanpub.
-
-Many portions of the Markua specification have not yet been implemented in Leanpub. In these cases, Markua will still function like [Leanpub Flavoured Markdown](https://leanpub.com/help/manual). Leanpub Flavoured Markdown has been used in Leanpub for over 8 years.
-
-Below, I'm briefly listing what does and does not work in Leanpub's current Markua support. Arguably this should not be done in this spec, but I'm doing it here until Leanpub fully supports Markua for two reasons:
-
-1. It will save Leanpub authors who are reading this spec a lot of pain.
-2. It will give readers of the spec a sense of which parts of the Markua spec have been tested, and which have not.
-
-If you are curious to try Markua, to see what currently works and what doesn't, now you can! We have now made Markua mode available to all Leanpub authors. This makes sense, since writing a book can take a long time.
-
-I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
-
-Here's a list of many of the parts of Markua which are still not supported in Leanpub:
-
-- Support everything in Images, Attributes and Links section
-- Support Multiple Selection questions
-- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
-- Definition list id attributes on definition list items do not work yet.
-- Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
-- There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
-- There is no more type attribute on quizzes. Quizzes are always marked.
-- Support Nested Lists.
-- Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
-- Confirm ids work on definition list items.
-- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
-- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
-- Support poetry in external files and poetry resources in general.
-- Support updates to en dashes, em dashes, scene breaks and page breaks.
-- Support parentheses in numbered lists
-- Remove HTML comment syntax, since the CriticMarkup comment syntax is enough.
-- Support the other directives.
-- Support `cite` and `url` on blockquotes.
-- Use `table-of-contents` not `toc`.
-- Support `exercise-answers` and `quiz-answers`.
-- Auto-create `images`, `audio`, `video`, `code`, `math` and `tables` directories in resources directory.
-- Support `cite` and `url` attributes on images.
-- Tables seem to [mess up the alignment](#tables) of some text after them.
-- The kerning on figure captions is a disaster. It looks like one word!
-- Support crosslinks on spans
-- Our definition lists sometimes don't force newlines after the term, e.g. “type This is the resource type..."
-- SVG support
-- Support External and local tables, tables as resources in general
-- Be stricter about headers (#foo should not start a chapter, blank lines before and after, etc.)
-- Support inline resources
-- Support type attribute on resources
-- Support image attributes align, cite, url
-- Decide what we are doing with the cite and url attributes
-- Specifically forbid local video resources
-- Support video attributes embed, fullbleed, height, width
-- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
-- Support three-tildes defaults to text, backticks default to guess approach
-- Support inline math with format attribute
-- Support table widths attributes on columns
-- Support `-` for lists
-- Support tab instead of space for lists
-- Support descending lists
-- Support specs for all of the list types
-- Support multi-paragraph lists and whitespace
-- Support max list-nesting in Markua of three levels
-- Support scene breaks and page-breaks
-- Support blockquotes inside of a paragraph
-- Support cite and url attributes for blockquotes
-- Does this quiz or exercise heading show up in the ToC?
-- Support ids and other attributes on span elements
-- Support smart crosslinks
-- Support Emoji
-- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
-- Support CriticMarkup.
-- Support index entries and index generation.
-- Support language directives
-- Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
-- Investigate regression of formatting in caption attributes of figures; should support text formatting
-
-
-
-
-
-
-
-
-
-
-
-xxx
-
-
-
-
-
-
-
-# Overview
-
-
-
-{#novel-syntax}
-## How to Write a Novel in Markua
-
-You only need to know seven things to write a novel in Markua:
-
-1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line:
-   `# The Chapter Name`
-2. To make a new paragraph, hit Enter twice to add a blank line.
-3. Chapter headings and paragraphs are separated by blank lines.
-4. Surround text with one asterisk (`*`) on each side to make it `*italic*`.
-5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
-6. To add a scene break, put three asterisks on a line by themselves, with blank lines above and below them:
-   `* * *`
-7. All other text and punctuation is typed normally:
-    `He asked, "How do you type quotes?" "Like this," I replied.`
-
-That's it!
-
 ## Minimal Formatting
 
 When you are writing, *formatting is procrastination*. Writing is hard enough without needing to worry about formatting. Markua is a format for use by writers, not book designers.
@@ -303,6 +77,33 @@ Markua is heavily inspired by Markdown. What Markua does is to map most (not all
 The most popular subset of Markdown exists virtually unchanged in Markua. For example, *all* the Markua syntax described [earlier](#novel-syntax) as necessary to write a novel is inherited verbatim from Markdown.
 
 One of the design goals of Markua is for it to be the most straightforward way for a Markdown document to become a book. So, if you already write your blog posts or lecture notes in Markdown, they are probably already valid Markua. You can use any Markua Processor, such as Leanpub, to turn them into an ebook with one click. Then, as you go down the path of enhancing the manuscript and adding things which only make sense in books, this process will feel like adding, not converting. The process of going from a Markdown document into a Markua ebook is mostly a process of decorating--enhancing and reinterpreting the Markdown document appropriately. In fact, one of the goals is for writers who are familiar with Markdown to feel as though they are still writing in Markdown, but that Markdown somehow *grew an understanding of book concepts*. Markua is really "Markdown for books".
+
+
+# Tutorial #
+
+## How to Write a Novel in Markua
+
+You only need to know seven things to write a novel in Markua:
+
+1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line:
+   `# The Chapter Name`
+2. To make a new paragraph, hit Enter twice to add a blank line.
+3. Chapter headings and paragraphs are separated by blank lines.
+4. Surround text with one asterisk (`*`) on each side to make it `*italic*`.
+5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
+6. To add a scene break, put three asterisks on a line by themselves, with blank lines above and below them:
+   `* * *`
+7. All other text and punctuation is typed normally:
+    `He asked, "How do you type quotes?" "Like this," I replied.`
+
+That's it!
+
+## Note for Leanpub Authors
+
+Leanpub authors please [see this](#leanpub-markua-status) for an incomplete list of what we still need to build in Leanpub.
+{#novel-syntax}
+
+# Markua for Authors #
 
 {#text-formatting}
 # Text Formatting
@@ -2596,7 +2397,12 @@ That empty poetry block is 3 lines long, so it adds three poetic blank lines to 
 ~~~
 
 {#concatenating}
-### One Blank Line Is Added When Concatenating Manuscript Files
+### Blank Lines and Concatenating
+
+!PA - rewrite this
+
+* One Blank Line Is Added When Concatenating Manuscript Files
+* All Blank Lines at the Beginning and End of a File are Removed
 
 A Markua document can be written in one file or multiple manuscript files. If a manuscript is written in multiple files, these files are concatenated together by the Markua Processor to produce one temporary manuscript file, and that one file is used as the input.
 
@@ -2604,13 +2410,76 @@ Importantly, in order to avoid a number of bugs, the files are not just concaten
 
 This is needed in order to separate the content of the two files with one blank line between them, in order to prevent a number of surprises for authors. Note that because of this rule, a paragraph (or any other block element) cannot span multiple manuscript files.
 
-To see why this is essential, see the [appendix](#concatenating-details).
-
-### All Blank Lines at the Beginning and End of a File are Removed
-
 Since a blank line is added when concatenating multiple manuscript files, there is no good reason to support blank lines, or lines containing only whitespace, at the beginning or end of a file. So, all blank lines and all whitespace-only lines at the beginning or end of a file are removed.
 
 This is especially important with the whitespace at the end of a file: trailing whitespace at the end of a file is invisible to the author, and supporting invisible formatting--whether at the end of a line or the end of a file--is insanity.
+
+As discussed, one blank line is added when concatenating multiple manuscript files. To see why this rule is important, consider the following single-file Markua manuscript:
+
+{caption: manuscript.txt}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+
+# Chapter Two
+
+Yada yada yada.
+~~~
+
+Suppose instead a multiple-file approach was used, in which there were two files, ch1.txt and ch2.txt, with the following content:
+
+{caption: ch1.txt}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+~~~
+
+{caption: ch2.txt}
+~~~
+# Chapter Two
+
+Yada yada yada.
+~~~
+
+If Markua did not add any newlines between files, then these files would produce the following manuscript:
+
+{caption: Incorrect Temporary Auto-Created Manuscript #1}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.# Chapter Two
+
+Yada yada yada.
+~~~
+
+If Markua only added one newline when concatenating, this would produce the following manuscript:
+
+{caption: Incorrect Temporary Auto-Created Manuscript #2}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+# Chapter Two
+
+Yada yada yada.
+~~~
+
+However, since Markua requires that headings be separated by blank lines above and below them, the Chapter Two heading would not be a heading. It would be considered part of the previous paragraph! This would be very surprising and the source of a number of bugs. Worse, since a number of text editors such as Emacs have a "strip blank lines at the end of files" setting, it would be possible to introduce such a bug if Markua simply relied on blank lines being added to the end of a file by the author.
+
+So, because of the blank line rule, concatenating the files produces the same manuscript as the single-file manuscript above:
+
+{caption: Correct Temporary Auto-Created Manuscript}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+
+# Chapter Two
+
+Yada yada yada.
+~~~
 
 ## Spaces and Tabs
 
@@ -5872,9 +5741,193 @@ Finally, if you incorrectly nest the asterisk and underscore formatting characte
 
 `*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
 
+
+{#markdown-diffs}
+# # Markua, Markdown and CommonMark
+
+Markua has a number of differences from Markdown as defined by John Gruber. These are the main ones:
+
+1. In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` produces an ____underline____ unless the `italicize-underlines` global setting is set to true. The reason for this is simple: ____underline____ is not *always* just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
+2. Markdown supports inline HTML; [as discussed earlier, Markua does not](#no-inline-html).
+3. Markua defines many more types of numbered list numbering than Markdown. In Markdown, the only type of numbering supported is decimal numbering starting from 1. If you need any more features, you need to use inline HTML. However, since Markua does not support inline HTML, Markua provides more list types and features.
+4. Unlike in Markdown, in Markua the number that begins the list in the manuscript is the number that begins the list in the output.
+5. Markdown does not specify a table syntax. Since Markdown supports inline HTML, it does not need to--if you want a table, you can simply use an inline HTML table. Since Markua does not support inline HTML, Markua defines a [table syntax](#tables).
+6. Images in Markua are inserted in essentially the same way they are in Markdown for what Markdown calls "inline images". Markdown's inline images are not to be confused with Markua's inline image support, which means to define an SVG image in the text of a Markua document. Markdown's reference style image syntax is not supported in Markua for *any* type of resource--including images. There are two main reasons for not supporting reference style resource syntax in Markua. First, resources in Markua are complex enough without also having a reference syntax for them. Second, in something as large as a book, the potential for id collisions in link definitions using the reference link syntax is a lot higher than in the blog post length of typical Markdown documents.
+7. Markua supports definition lists; Markdown does not (except via inline HTML).
+8. Markdown lets you use a plus sign (`+`) before each item in an unordered ("bulleted" in Markua) list; Markua does not. Having three syntaxes is just overkill, so Markua drops the plus--it's far less common than the asterisk and hyphen. This is the same decision made by GitHub Flavored Markdown, which also [supports](https://help.github.com/articles/markdown-basics/) `*` and `-` but not `+`.
+9. Markdown does not support closing parentheses (`)`) as ordered ("numbered" in Markua) list delimiters; Markua does.
+10. Markua and Markdown handle spaces, newlines and indentation differently. This is discussed in the [Whitespace: Spaces, Tabs and Newlines](#whitespace) section.
+11. In Markdown, lists and other block elements cannot be nested inside a paragraph; in Markua they can. This is discussed further below.
+12. Markdown's reference link syntax and its implicit link name shortcuts are not supported in Markua. Markdown is a way of writing HTML designed by bloggers, and links are so plentiful in that medium that it makes some sense to support four syntaxes to create links. In ebooks, however, links are not as prevalent, so it makes sense to be opinionated here. Furthermore, in something as large as a book, the potential for id collisions in link definitions using the reference link syntax is a lot higher than in a blog post.
+13. Markua and Markdown handle headings differently. This is discussed further below.
+14. The backtick syntax of adding inline code resources as spans is identical to the code span syntax of Markdown, however the optional attribute list is Markua-specific.
+15. The syntax for inline code resource figures is similar to the "fenced code blocks" syntax of many Markdown extensions, such as PHP Markdown Extra and GitHub Flavoured Markdown.
+16. The "four space indent" method of creating code blocks in Markdown is not supported in Markua. You cannot create an inline code figure this way. It may be slightly more pleasant to read, but it's obnoxious as hell to write, and it has terrible effects on the rest of the specification.
+17. In Markdown links, a URL can be either absolute (starting with `http://` or `https://`) or relative (just referring to a path like /foo/bar.html), since relative URLs can make sense when writing blog posts which live on web servers. In Markua, however, all URLs must be absolute.
+18. In Markdown, there are three types of ways of producing horizontal rules in HTML: by putting three or more asterisks (`***`), hyphens (`---`) or underscores (`___`) on a line by themselves, with or without spaces between them. Markua isn't in the business of producing HTML or horizontal rules. The `***` is used for scene breaks, `___` starts poetry, and `---` starts monospaced poetry.
+
+### Differences with Inserting Block Elements Inside Paragraphs
+
+In Markdown, lists and other block elements cannot be nested inside a paragraph. Instead, they all function like top-level siblings to a paragraph. This makes sense since Markdown is a way of producing HTML, and in HTML5 the W3C has [told anyone who wants to embed a list inside a paragraph to go pound sand](http://www.w3.org/TR/html5/grouping-content.html#the-p-element):
+
+> "The solution is to realise that a paragraph, in HTML terms, is not a logical concept, but a structural one. In the fantastic example above, there are actually five paragraphs as defined by this specification: one before the list, one for each bullet, and one after the list."
+
+So, basically, you can't embed a `<ul>` or `<ol>` inside a `<p>` tag in HTML5. Since Markdown is a way of producing HTML, you can't do it in Markdown either.
+
+In Markdown, a block element like a list or figure is a sibling of the paragraphs before or after it:
+
+~~~
+This is paragraph one.
+
+* this is a
+* sibling of
+* paragraphs one and two
+
+This is paragraph two.
+~~~
+
+Markua supports this method of inserting block elements.
+
+However, Markua is more than just a way of producing HTML. Markua is a way of authoring books. HTML is just one of the many output formats of Markua. And in books, there is a long history of embedding lists, code samples and figures in the middle of a paragraph--not in a separate top-level element, in the actual middle of the paragraph. So, Markua [supports this too](#inserting-into-paras).
+
+## Differences with Leanpub Flavoured Markdown
+
+Besides differences with Markdown in general, Markua also has a number of specific differences with Leanpub Flavoured Markdown (LFM):
+
+1. In LFM, parts are created with `-#`. In Markua, parts are created with `# Part #`.
+
+2. In LFM, there is a special syntax for inserting code samples: `<<[Optional Title](code/some_code_file.rb)`. In Markua, however, code is just a resource, and the LFM syntax is not supported.
+
+3. In LFM, to mark code as added or removed, the magic words were `leanpub-start-insert`, `leanpub-end-insert`, `leanpub-start-delete` and `leanpub-end-delete`. In Markua, the magic words are `markua-start-insert`, `markua-end-insert`, `markua-start-delete` and `markua-end-delete`.
+
+4. In LFM, there is a special syntax for inserting math: `{$$}...{/$$}`. This looks nice to people who like LaTeX, and looks like nothing else in Markdown. In Markua, however, math is just another resource, and that LaTeX-inspired syntax for wrapping math resources is not supported.
+
+5. In LFM, there are `G>` "generic boxes". In Markua, these are replaced with blurbs (`B>`).
+
+6. In LFM, we had the `C>` syntax to center text, but we didn't have the same effect on generic boxes, and blurbs did not exist. In Markua, a `C>` syntax is just syntactic sugar for a centered blurb, for greater consistency. Because of this, the blurb also gets the ability to be centered by adding a {class: center} attribute.
+
+7. In LFM, we had `{rtl}` and `{ltr}` directives. These are not supported in Markua, and neither is a `{dir}` attribute in general: any given language is either a left-to-right or a right-to-left language, so specifying the language is sufficient.
+
+8. In LFM, we had a `{pagebreak}` directive. This is replaced by `===`.
+
+9. In LFM, we used Book.txt to define the book content. In Markua, the way that the list of manuscript files is defined is considered out of scope of the Markua specification itself. (Leanpub still uses the Book.txt approach to specify which files are in a book, but other Markua Processors could use other approaches.)
+
+10. In LFM, we used Sample.txt to define the sample content. Markua moves the definition of what constitutes sample content into a `{sample: true}` attribute on parts, chapters and sections. So, in Markua, inclusion in the sample is at the content level, not the file level. This helps avoid a number of bugs that could happen with including at the file level, if a file did not clearly break at a chapter boundary. (So, in Leanpub, the Sample.txt approach is not supported for books which use Markua.)
+
+
+# HTML Mapping #
+
+Portions of this Part are copyright John MacFarlane, used under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
+
+Wherever possible, I have incorporated examples and text from the [CommonMark spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0.
+
+There are a number of reasons for this:
+
+1. The CommonMark spec is really good, and the examples are both executable and numerous.
+2. Since Markau and CommonMark both have their origins in Markdown as defined by John Gruber, it's useful to compare Markua to CommonMark. The easiest and best way to do this is to adapt all the portions of the CommonMark spec which are relevant.
+
+The way I'm planning to write this section is as follows:
+
+1. Paste in the entire CommonMark spec, 0.29 version.
+2. Delete everything which does not apply.
+3. Modify everything which does apply to fit the Markua spec.
+
+
+
+
+{#leanpub-markua-status}
+# Status of Markua and Leanpub #
+
+## Markua Specification Status
+
+This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
+
+To read the specification manuscript in Markua, see <https://github.com/markuadoc/markua>.
+
+To stay current on Markua progress, follow [@markuadoc](https://twitter.com/markuadoc) or [@peterarmstrong](https://twitter.com/peterarmstrong) on Twitter.
+
+{#leanpub-authors}
+## A Note For Leanpub Authors
+
+If you're reading this, you are an early adopter of Markua.
+
+Markua support is currently in an early beta on Leanpub.
+
+Many portions of the Markua specification have not yet been implemented in Leanpub. In these cases, Markua will still function like [Leanpub Flavoured Markdown](https://leanpub.com/help/manual). Leanpub Flavoured Markdown has been used in Leanpub for over 8 years.
+
+Below, I'm briefly listing what does and does not work in Leanpub's current Markua support. Arguably this should not be done in this spec, but I'm doing it here until Leanpub fully supports Markua for two reasons:
+
+1. It will save Leanpub authors who are reading this spec a lot of pain.
+2. It will give readers of the spec a sense of which parts of the Markua spec have been tested, and which have not.
+
+If you are curious to try Markua, to see what currently works and what doesn't, now you can! We have now made Markua mode available to all Leanpub authors. This makes sense, since writing a book can take a long time.
+
+I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
+
+Here's a list of many of the parts of Markua which are still not supported in Leanpub:
+
+- Support everything in Images, Attributes and Links section
+- Support Multiple Selection questions
+- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
+- Definition list id attributes on definition list items do not work yet.
+- Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
+- There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
+- There is no more type attribute on quizzes. Quizzes are always marked.
+- Support Nested Lists.
+- Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
+- Confirm ids work on definition list items.
+- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
+- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
+- Support poetry in external files and poetry resources in general.
+- Support updates to en dashes, em dashes, scene breaks and page breaks.
+- Support parentheses in numbered lists
+- Remove HTML comment syntax, since the CriticMarkup comment syntax is enough.
+- Support the other directives.
+- Support `cite` and `url` on blockquotes.
+- Use `table-of-contents` not `toc`.
+- Support `exercise-answers` and `quiz-answers`.
+- Auto-create `images`, `audio`, `video`, `code`, `math` and `tables` directories in resources directory.
+- Support `cite` and `url` attributes on images.
+- Tables seem to [mess up the alignment](#tables) of some text after them.
+- The kerning on figure captions is a disaster. It looks like one word!
+- Support crosslinks on spans
+- Our definition lists sometimes don't force newlines after the term, e.g. “type This is the resource type..."
+- SVG support
+- Support External and local tables, tables as resources in general
+- Be stricter about headers (#foo should not start a chapter, blank lines before and after, etc.)
+- Support inline resources
+- Support type attribute on resources
+- Support image attributes align, cite, url
+- Decide what we are doing with the cite and url attributes
+- Specifically forbid local video resources
+- Support video attributes embed, fullbleed, height, width
+- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
+- Support three-tildes defaults to text, backticks default to guess approach
+- Support inline math with format attribute
+- Support table widths attributes on columns
+- Support `-` for lists
+- Support tab instead of space for lists
+- Support descending lists
+- Support specs for all of the list types
+- Support multi-paragraph lists and whitespace
+- Support max list-nesting in Markua of three levels
+- Support scene breaks and page-breaks
+- Support blockquotes inside of a paragraph
+- Support cite and url attributes for blockquotes
+- Does this quiz or exercise heading show up in the ToC?
+- Support ids and other attributes on span elements
+- Support smart crosslinks
+- Support Emoji
+- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
+- Support CriticMarkup.
+- Support index entries and index generation.
+- Support language directives
+- Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
+- Investigate regression of formatting in caption attributes of figures; should support text formatting
+
 {backmatter}
 
-# Appendices
+# Appendices #
 
 These appendices contain details which would be distracting or boring if included in the main body of the Markua specification. These include highly technical details, differences with Markdown, discussions of HTML mapping and notes for Leanpub authors.
 
@@ -5909,93 +5962,17 @@ Now, one design benefit of the support for inline HTML in Markdown is that Markd
 
 ## Markua Specification Scope
 
-The Markua specification specifies the Markua syntax and the conceptual mapping from Markua syntax to book concepts. It does not specify the specific mapping from Markua syntax to any output format.
+The Markua specification specifies the Markua syntax and the conceptual mapping from Markua syntax to book concepts.
 
-To be clear: the Markua Specification defines the syntax and semantics of a plain text writing format. This writing format can be used to produce a type of document which can be understood by a Markua Processor. **The Markua Specification defines the input to a Markua Processor, but it does not define the output.**
+It also specifies a partial HTML mapping.
+
+To be clear: the Markua Specification defines the syntax and semantics of a plain text writing format. This writing format can be used to produce a type of document which can be understood by a Markua Processor. **The Markua Specification defines the input to a Markua Processor, but it does not precisely define all outputs.**
 
 Markua Processors can output any number of output formats from a Markua document. For example, Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua source document. None of these output formats is required to be supported by a given Markua Processor. To be useful, however, a Markua Processor should output *some* output format. (For the programmers: `/dev/null` is not a good Markua Processor.)
 
-Not only are there no required output formats for a Markua Processor, the mapping from a Markua document to any output format is also not formally specified--not even for HTML.
+Not only are there no required output formats for a Markua Processor, the mapping from a Markua document to any output format is also not fully specified--not even for HTML.
 
-
-{#concatenating-details}
-## Example of Why One Blank Line Is Added When Concatenating Manuscript Files
-
-As [discussed](#concatenating), one blank line is added when concatenating multiple manuscript files. To see why this rule is important, consider the following single-file Markua manuscript:
-
-{caption: manuscript.txt}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-Suppose instead a multiple-file approach was used, in which there were two files, ch1.txt and ch2.txt, with the following content:
-
-{caption: ch1.txt}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-~~~
-
-{caption: ch2.txt}
-~~~
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-If Markua did not add any newlines between files, then these files would produce the following manuscript:
-
-{caption: Incorrect Temporary Auto-Created Manuscript #1}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.# Chapter Two
-
-Yada yada yada.
-~~~
-
-If Markua only added one newline when concatenating, this would produce the following manuscript:
-
-{caption: Incorrect Temporary Auto-Created Manuscript #2}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-However, since Markua requires that headings be separated by blank lines above and below them, the Chapter Two heading would not be a heading. It would be considered part of the previous paragraph! This would be very surprising and the source of a number of bugs. Worse, since a number of text editors such as Emacs have a "strip blank lines at the end of files" setting, it would be possible to introduce such a bug if Markua simply relied on blank lines being added to the end of a file by the author.
-
-So, because of the blank line rule, concatenating the files produces the same manuscript as the single-file manuscript above:
-
-{caption: Correct Temporary Auto-Created Manuscript}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-## Markua Specification Status
-
-This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
-
-To read the specification manuscript in Markua, see <https://github.com/markuadoc/markua>.
-
-To stay current on Markua progress, follow [@markuadoc](https://twitter.com/markuadoc) or [@peterarmstrong](https://twitter.com/peterarmstrong) on Twitter.
-
+There is, however, some HTML mapping specified.
 
 {#unofficial_html_mapping}
 # An Unofficial HTML Mapping
@@ -8621,7 +8598,7 @@ ambivalent.</span>. If you don't want to use it, you don't need to learn about i
 ~~~
 
 {#acknowledgments}
-# Acknowledgments
+# Acknowledgments #
 
 I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
 
