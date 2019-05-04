@@ -5861,6 +5861,24 @@ Besides differences with Markdown in general, Markua also has a number of specif
 
 This part explains the differences between Markua and Markdown.
 
+# Headings
+
+
+
+{#no-inline-html}
+# No Inline HTML
+
+Inline HTML, in which HTML is inserted directly in the content of a Markua document, is not supported in Markua.
+
+HTML is just one possible output format, and other possible Markua output formats (such as PDF) are not based on HTML. If inline HTML was supported, a Markua Processor would have to support parsing and meaningfully outputting all of HTML syntax as well as all of Markua syntax.
+
+Markua and Markdown have different use cases. Markdown is a better way to write HTML; Markua is a better way to write a book. Since Markdown's only output format target is HTML, it might as well support inline HTML: generating HTML from HTML is as simple as passing the HTML through. From an implementation perspective, Markdown gets inline HTML support for free.
+
+By not supporting inline HTML, Markua imposes more constraints on writers who would be tempted to use inline HTML for layout purposes. Since Markua does not support inline HTML, attempting to do complex layout in Markua using HTML is just not possible. And since it's not possible, the temptation to procrastinate by doing formatting is reduced.
+
+Now, one design benefit of the support for inline HTML in Markdown is that Markdown's syntax can stay artificially small--since Markdown authors can always fall back to using HTML directly, Markdown does not need to be able to produce all of HTML. Since Markua does not support inline HTML, Markua must contain all concepts that it supports directly expressed using Markua syntax. For example, there is no official table syntax in Markdown, and Markdown authors can just use inline HTML tables. Since Markua does not support inline HTML, and since books often require tables, Markua needs to add a table syntax.
+
+
 TODO
 
 # Mapping #
@@ -5888,7 +5906,6 @@ Not only are there no required output formats for a Markua Processor, the mappin
 There is, however, some HTML mapping specified.
 
 TODO
-
 
 
 {#unofficial_html_mapping}
@@ -8514,25 +8531,6 @@ CriticMarkup has no impact on the rest of Markua</mark><span class="critic comme
 ambivalent.</span>. If you don't want to use it, you don't need to learn about it.</p>
 ~~~
 
-{#acknowledgments}
-# Acknowledgments #
-
-I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
-
-First, a huge thanks to [Scott Patten](https://twitter.com/scott_patten). Scott is the lead developer of Leanpub's book generation engine. Leanpub Flavoured Markdown would not have existed without Scott's code. Furthermore, Scott provided lots of valuable feedback in the development of the Markua specification, as well as adding Markua support to Leanpub's book generation engine. Scott gave me opinionated feedback on the Markua syntax, just as Aaron Swartz gave John Gruber feedback on the Markdown syntax. In many instances, e.g. the poetry syntax, what happens is that I come up with an idea which is good but flawed, Scott points the flaws out and suggests an alternative which often feels like giving into the status quo or feels too much like programming, I get really mad, and then I come up with something better than I would have otherwise. So, Markua probably also wouldn't exist if I couldn't--repeatedly and productively--get mad at Scott. (This sums up much of Leanpub's development, actually!)
-
-Second, I'd like to thank [Len Epp](https://twitter.com/lenepp). Len has been instrumental in the development of Leanpub. He joined in the very early days, and has greatly helped our customer development process, helping (as he likes to tease me) grow Leanpub over 100x before Scott and I made him a co-founder. Besides giving the Markua spec a thorough copy edit, he has been a strong advocate for the way a non-programmer thinks about writing. For example, Len got me to change my mind about the three-or-more newline handling case--so, if you enjoy using extra newlines, you have Len to thank!
-
-Third, I'd like to thank [Braden Simpson](https://twitter.com/bradensimpson). Braden has been instrumental in the development of the open source ES6 Markua parser, as well as the open source MarkuaPad editor and its usage in Leanpub. Braden has also been key in developing the test suite for Markua, and along with Scott has given me great feedback on crucial design decisions such as the image syntax.
-
-I'd like to thank my father, who has read the manuscript and given me feedback more than once. This was a horrible slog when the spec included a partial HTML mapping!
-
-I'd also like to thank Assaf Arkin, Alberto De Lucca, André Bacci, Ann Chia-hui Tai, Axel Rauschmayer, Dave Warnock, Iva Cheung, Jacob Evelyn, Joseph Harfouch, Justin Damer, Ken Pratt, Matt Fikowski and Michael Müller.
-
-Perhaps most important, Markua is benefiting from years of feedback about Leanpub Flavoured Markdown from many Leanpub authors. If it wasn't for these authors, there would be no Markua.
-
-Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
-
 {#leanpub-markua-status}
 # Status #
 
@@ -8616,28 +8614,21 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
 - Investigate regression of formatting in caption attributes of figures; should support text formatting
 
+{#acknowledgments}
+# Acknowledgments #
 
-{backmatter}
+I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
 
-# Appendices #
+First, a huge thanks to [Scott Patten](https://twitter.com/scott_patten). Scott is the lead developer of Leanpub's book generation engine. Leanpub Flavoured Markdown would not have existed without Scott's code. Furthermore, Scott provided lots of valuable feedback in the development of the Markua specification, as well as adding Markua support to Leanpub's book generation engine. Scott gave me opinionated feedback on the Markua syntax, just as Aaron Swartz gave John Gruber feedback on the Markdown syntax. In many instances, e.g. the poetry syntax, what happens is that I come up with an idea which is good but flawed, Scott points the flaws out and suggests an alternative which often feels like giving into the status quo or feels too much like programming, I get really mad, and then I come up with something better than I would have otherwise. So, Markua probably also wouldn't exist if I couldn't--repeatedly and productively--get mad at Scott. (This sums up much of Leanpub's development, actually!)
 
-These appendices contain details which would be distracting or boring if included in the main body of the Markua specification. These include highly technical details, differences with Markdown, discussions of HTML mapping and notes for Leanpub authors.
+Second, I'd like to thank [Len Epp](https://twitter.com/lenepp). Len has been instrumental in the development of Leanpub. He joined in the very early days, and has greatly helped our customer development process, helping (as he likes to tease me) grow Leanpub over 100x before Scott and I made him a co-founder. Besides giving the Markua spec a thorough copy edit, he has been a strong advocate for the way a non-programmer thinks about writing. For example, Len got me to change my mind about the three-or-more newline handling case--so, if you enjoy using extra newlines, you have Len to thank!
 
-## Plain Text Encoding in UTF-8
+Third, I'd like to thank [Braden Simpson](https://twitter.com/bradensimpson). Braden has been instrumental in the development of the open source ES6 Markua parser, as well as the open source MarkuaPad editor and its usage in Leanpub. Braden has also been key in developing the test suite for Markua, and along with Scott has given me great feedback on crucial design decisions such as the image syntax.
 
-Markua documents are written in plain text. Specifically, Markua documents must be saved in the **UTF-8** character encoding. ASCII text (what "plain text" means to most westerners) is a valid subset of UTF-8, so for many western authors their favorite text editor already saves files as UTF-8 text.
+I'd like to thank my father, who has read the manuscript and given me feedback more than once. This was a horrible slog when the spec included a partial HTML mapping!
 
-{#no-inline-html}
-## No Inline HTML
+I'd also like to thank Assaf Arkin, Alberto De Lucca, André Bacci, Ann Chia-hui Tai, Axel Rauschmayer, Dave Warnock, Iva Cheung, Jacob Evelyn, Joseph Harfouch, Justin Damer, Ken Pratt, Matt Fikowski and Michael Müller.
 
-Inline HTML, in which HTML is inserted directly in the content of a Markua document, is not supported in Markua.
+Perhaps most important, Markua is benefiting from years of feedback about Leanpub Flavoured Markdown from many Leanpub authors. If it wasn't for these authors, there would be no Markua.
 
-HTML is just one possible output format, and other possible Markua output formats (such as PDF) are not based on HTML. If inline HTML was supported, a Markua Processor would have to support parsing and meaningfully outputting all of HTML syntax as well as all of Markua syntax.
-
-Markua and Markdown have different use cases. Markdown is a better way to write HTML; Markua is a better way to write a book. Since Markdown's only output format target is HTML, it might as well support inline HTML: generating HTML from HTML is as simple as passing the HTML through. From an implementation perspective, Markdown gets inline HTML support for free.
-
-By not supporting inline HTML, Markua imposes more constraints on writers who would be tempted to use inline HTML for layout purposes. Since Markua does not support inline HTML, attempting to do complex layout in Markua using HTML is just not possible. And since it's not possible, the temptation to procrastinate by doing formatting is reduced.
-
-Now, one design benefit of the support for inline HTML in Markdown is that Markdown's syntax can stay artificially small--since Markdown authors can always fall back to using HTML directly, Markdown does not need to be able to produce all of HTML. Since Markua does not support inline HTML, Markua must contain all concepts that it supports directly expressed using Markua syntax. For example, there is no official table syntax in Markdown, and Markdown authors can just use inline HTML tables. Since Markua does not support inline HTML, and since books often require tables, Markua needs to add a table syntax.
-
-## Markua Specification Scope
+Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
