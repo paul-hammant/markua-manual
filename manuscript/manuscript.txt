@@ -11,11 +11,11 @@ The Markua Specification is broken into 6 parts:
 5. Mapping - The formal specification of Markua and its mapping to HTML
 6. Status - The status of the Markua specification and of Leanpub's Markua implementation
 
-The Markua Specification is copyright Peter Armstrong, and is available under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
+The Markua Specification is copyright [Peter Armstrong](https://twitter.com/peterarmstrong), and is available under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
 Parts 1-4 and 6 were written by Peter Armstrong.
 
-Portions of Part 5, Mapping, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that I used the CommonMark Spec as the basis for parts of Part 5 is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown and from CommonMark. So, starting with the CommonMark Spec for the HTML Mapping Part is the best way to do this.
+Portions of Part 5, Mapping, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the CommonMark Spec was used as the basis for parts of Part 5 is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to start with the CommonMark Spec, delete the sections which don't apply, and change those that do.
 
 Here are the sections you should read:
 
