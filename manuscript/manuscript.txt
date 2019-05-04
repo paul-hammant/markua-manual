@@ -64,21 +64,21 @@ This is its specification.
 
 # What is Markua?
 
-Markua, pronounced "mar-coo-ah", is the best way in the world to write books.
+Markua, pronounced "mar-coo-ah", is the best way in the world to write books and courses.
 
-Markua is extremely simple and powerful. If you want to write a novel in Markua, you can learn the Markua syntax that you need to know in 30 seconds (see below). If you want to write a computer programming book or doctoral thesis in Markua, order a pizza: you can learn the additional syntax you need in less than 30 minutes.
+Markua is extremely simple and powerful. If you want to write a novel in Markua, you can learn the Markua syntax that you need to know in 30 seconds (see below). If you want to write a computer programming book or doctoral thesis in Markua, order a pizza: you can learn the additional syntax you need before it gets delivered.
 
 Markua is terse. When you are writing using Markua, you are writing, not programming. Once you understand Markua's syntax, it fades into the background.
 
 Markua is opinionated. There is only one way to do almost everything.
 
-Markua is designed for the writing of books, but it can also be used for other purposes. You can write journal articles in Markua, and you can even create courses in Markua. For example, Leanpub authors can click a button to create a massive open online course (MOOC), complete with automated marking, entirely from a Markua source document.
+Markua was initially designed for the writing of books, but it has been extended to support creating courses. For example, Leanpub authors can click a button to create a massive open online course (MOOC), complete with automated marking, entirely from a Markua document.
 
-In this specification, however, I will talk exclusively about books: saying "books, documents and courses" would be annoying to write--and even more annoying to read!
+Markua can also be used for other purposes, such as writing journal articles or other documents. In this specification, however, I will typically just say "books" when describing the output of a Markua document: saying "books, courses and documents" would be annoying to write--and even more annoying to read!
 
 Markua is a plain text format. Markua manuscripts, called Markua documents, can be written however you want. On a computer, you can use any text editor you want. Beginning authors can use things like Notepad or TextEdit; programmers can use Emacs, vi, Sublime or Atom; writers who like minimalist programs can use "distraction-free" programs like iA Writer or even physical devices like the Freewrite. You can also write Markua in any online editor which supports plain text or Markdown editing: since Markua syntax is so similar to Markdown syntax, many programs will already format Markua documents nicely.
 
-Markua documents can be automatically transformed into every currently-popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua source document.
+Markua documents can be automatically transformed into every currently-popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua document.
 
 ## Minimal Formatting
 
@@ -227,7 +227,7 @@ Markua is very strict about its heading syntax:
 
 1. In Markua, to make a part heading you make a heading like `# Title #`--the heading starts with exactly one pound sign and exactly one space, and ends with exactly one space and exactly one pound sign. No other combination of pound signs and spaces makes a part heading.
 2. Part headings end with a space and a pound sign, but other than that, headings cannot have optional pound signs at the end of them. Any other pound signs are considered to be text in the heading.
-3. All headings must start with between 1 and 6 pound signs (`#`) and then have exactly one space, followed by text. If any other number of spaces is used or if tabs are used, the text must be interpreted as a paragraph by a Markua Processor, not as a heading. (This ensures that Markua manuscripts look consistent for authors, and can be parsed more easily by Markua Processors. Also, if we allowed spaces to be omitted, you couldn't start paragraphs with a #hashtag--which has not been a problem traditionally, but which might be these days.)
+3. All headings must start with between 1 and 6 pound signs (`#`) and then have exactly one space, followed by text. If any other number of spaces is used or if tabs are used, the text must be interpreted as a paragraph by a Markua Processor, not as a heading. (This ensures that Markua documents look consistent for authors, and can be parsed more easily by Markua Processors. Also, if we allowed spaces to be omitted, you couldn't start paragraphs with a #hashtag--which has not been a problem traditionally, but which might be these days.)
 4. Headings must be separated from other block elements by blank lines (created by two newlines) both before and after them. Because of the way that Markua concatenates files, headings at the top of a Markua document automatically have a blank line above them, and headings at the bottom of a Markua document automatically have a blank line below them. So, headings at the top of a document only need a blank line below them, and headings at the bottom of a document only need a blank line above them. If a heading does not have these blank lines, it is not a heading, and any `#` characters are output as normal text with no warning.
 5. Tabs **cannot** be used to separate the pound signs and the heading text. Despite the increased conceptual consistency with list formatting, this would make Markua documents ugly and less consistent. The tradeoff is not worth it.
 
@@ -237,7 +237,7 @@ If a heading is not formatted correctly, the heading is just interpreted as para
 
 The following are the design goals of Markua headings:
 
-1. From looking at a heading in a Markua manuscript, an author must be able to know exactly what it is. It's not acceptable to need to reference metadata to know what the headings mean.
+1. From looking at a heading in a Markua document, an author must be able to know exactly what it is. It's not acceptable to need to reference metadata to know what the headings mean.
 2. Only existing Markdown syntax can be used, to ensure that Markdown-aware tooling will work unchanged in essentially the correct way.
 3. The number of leading pound signs must match the level of heading.
 4. For a book with chapters only (no parts), the chapter headings must feel "top-level".
@@ -726,7 +726,7 @@ Note that these file extensions are case-insensitive. Also, note that .mp4 is us
 
 Also, as discussed in the [code](#code) section, Markua Processors must interpret all unspecified file extensions as specifying a resource of type code with a format of `guess`, unless the resource is a web resource. If the type and format are not specified and the resource is a web resource, the Markua Processor may use the domain to decide what type of resource to assume. For example, a domain of `youtube.com` may be assumed to be of type `video`, a domain of `instagram.com` may be assumed to be of type `image`, and a domain of github.com may be assumed to be of type `code`.
 
-If the type is not specified in the attribute list, the format determines the type. The formats can either be specified by the `format` attribute or (in most cases) inferred from the file extension for local and web resources. (Inline resources obviously have no file extension, since they are contained in the body of a Markua manuscript file.)
+If the type is not specified in the attribute list, the format determines the type. The formats can either be specified by the `format` attribute or (in most cases) inferred from the file extension for local and web resources. (Inline resources obviously have no file extension, since they are contained in the body of a Markua document.)
 
 As an author, all you typically do is provide the correct file extension or set the format in the attribute list. Markua recognizes the format, and uses it to determine the type. If the format is unrecognized, then the resource is treated as a resource of type `code` and with a format of `guess`.
 
@@ -2446,7 +2446,7 @@ Since a blank line is added when concatenating multiple manuscript files, there 
 
 This is especially important with the whitespace at the end of a file: trailing whitespace at the end of a file is invisible to the author, and supporting invisible formatting--whether at the end of a line or the end of a file--is insanity.
 
-As discussed, one blank line is added when concatenating multiple manuscript files. To see why this rule is important, consider the following single-file Markua manuscript:
+As discussed, one blank line is added when concatenating multiple manuscript files. To see why this rule is important, consider the following single-file Markua document:
 
 {caption: manuscript.txt}
 ~~~
@@ -4665,7 +4665,7 @@ Over the past decade, there has been a steady growth of interest in courses deli
 3. Exercises, with answers provided to the student
 4. Quizzes, with answers used to automatically mark the quiz
 
-It turns out the four things in this list all work perfectly in a Markua document. So, not only can Markua be used to easily create a textbook which includes video, audio, images and quizzes, it is also an amazingly simple and flexible way of creating a MOOC. A MOOC is essentially just a textbook which is executable, plus discussion forums and credentials. For example, [Leanpub](https://leanpub.com) authors can click one button to create a massive open online course (MOOC), complete with automated marking for all the quizzes in the course, entirely from one Markua source document.
+It turns out the four things in this list all work perfectly in a Markua document. So, not only can Markua be used to easily create a textbook which includes video, audio, images and quizzes, it is also an amazingly simple and flexible way of creating a MOOC. A MOOC is essentially just a textbook which is executable, plus discussion forums and credentials. For example, [Leanpub](https://leanpub.com) authors can click one button to create a massive open online course (MOOC), complete with automated marking for all the quizzes in the course, entirely from one Markua document.
 
 The fact that a Markua document can be used to create an online course or MOOC means that certain aspects of the syntax for quizzes and exercises are more robust than they would otherwise. One example of this is question alternates.
 
@@ -4867,7 +4867,7 @@ Whether the numbering of endnotes restarts every chapter is something that can b
 
 ### Single Reference to Footnotes and Endnotes
 
-You can only refer to a footnote or endnote once. You can't define a footnote or endnote in one place and refer to it multiple times in the same Markua manuscript. If you wish to refer to a parenthetical piece of text from multiple places in a Markua manuscript, the best approach is to put it in a section (or sub-section, sub-sub-section, etc.) or aside and refer to it from multiple places using a [crosslink](#crosslinks).
+You can only refer to a footnote or endnote once. You can't define a footnote or endnote in one place and refer to it multiple times in the same Markua document. If you wish to refer to a parenthetical piece of text from multiple places in a Markua document, the best approach is to put it in a section (or sub-section, sub-sub-section, etc.) or aside and refer to it from multiple places using a [crosslink](#crosslinks).
 
 ### Footnotes and Endnotes Support Required for Paragraphs Only
 
@@ -5240,7 +5240,7 @@ Because of this, Markua's emoji support can also optionally be used by Markua Pr
 
 Basically, supporting CriticMarkup gives Markua authors the benefit of track changes in Word, but with all the benefits of using Markua. An editor can use CriticMarkup to make suggestions about text to add, delete or replace, as well as leaving comments and highlights on selected text.
 
-The largest benefit to using the CriticMarkup syntax in Markua is that since Markua documents are in plain text, you can use proper version control (like Git or Mercurial) with them, and this includes having the comments versioned right along with the rest of the Markua manuscript. Finding a comment that you deleted six months ago is as easy as checking out the revision that contained the comment.
+The largest benefit to using the CriticMarkup syntax in Markua is that since Markua documents are in plain text, you can use proper version control (like Git or Mercurial) with them, and this includes having the comments versioned right along with the rest of the Markua document. Finding a comment that you deleted six months ago is as easy as checking out the revision that contained the comment.
 
 If you enjoy using track changes in Word, then you'll enjoy using CriticMarkup. If you don't enjoy working with editors or getting feedback about your writing in the text itself, then CriticMarkup isn't for you! If this is the case, don't worry about it: the support for CriticMarkup has no impact on the rest of Markua. If you don't want to use it, you don't need to learn about it.
 
@@ -5673,7 +5673,7 @@ A Markua Processor may also get settings from elsewhere, like a web interface. H
 
 The following settings must be supported by all Markua Processors. Markua Processors can also add their own settings, just as Markua Processors can understand their own extension attributes.
 
-If a Markua Processor also provides a UI to define settings which are specified here, the Markua Processor should respect the settings defined in the Markua manuscript over the settings defined in the UI. This can be phrased as "document wins", not "database wins".
+If a Markua Processor also provides a UI to define settings which are specified here, the Markua Processor should respect the settings defined in the Markua document over the settings defined in the UI. This can be phrased as "document wins", not "database wins".
 
 `authors`
 : The authors of the Markua document.
@@ -8641,7 +8641,7 @@ It also specifies a partial HTML mapping.
 
 To be clear: the Markua Specification defines the syntax and semantics of a plain text writing format. This writing format can be used to produce a type of document which can be understood by a Markua Processor. **The Markua Specification defines the input to a Markua Processor, but it does not precisely define all outputs.**
 
-Markua Processors can output any number of output formats from a Markua document. For example, Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua source document. None of these output formats is required to be supported by a given Markua Processor. To be useful, however, a Markua Processor should output *some* output format. (For the programmers: `/dev/null` is not a good Markua Processor.)
+Markua Processors can output any number of output formats from a Markua document. For example, Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua document. None of these output formats is required to be supported by a given Markua Processor. To be useful, however, a Markua Processor should output *some* output format. (For the programmers: `/dev/null` is not a good Markua Processor.)
 
 Not only are there no required output formats for a Markua Processor, the mapping from a Markua document to any output format is also not fully specified--not even for HTML.
 
