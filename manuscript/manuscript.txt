@@ -2,14 +2,14 @@
 
 # Preface
 
-The Markua Specification is broken into 6 parts:
+The Markua Specification contains 6 parts:
 
-1. Philosophy - Why Markua exists and what its goals are
-2. Overview - A high-level tutorial and overview of Markua
-3. Syntax - The user manual of how to write in Markua for authors
-4. Markdown - The differences between Markua and Markdown
-5. Mapping - The formal specification of Markua and its mapping to HTML
-6. Appendix - The status of the Markua specification and of Leanpub's Markua implementation
+1. **Philosophy** - Why Markua exists and what its goals are
+2. **Overview** - A high-level tutorial and overview of Markua
+3. **Syntax** - The user manual of how to write in Markua for authors
+4. **Markdown** - The differences between Markua and Markdown
+5. **Mapping** - The formal specification of Markua and its mapping to HTML
+6. **Appendix** - The status of the Markua specification and of Leanpub's Markua implementation
 
 The Markua Specification is copyright [Peter Armstrong](https://twitter.com/peterarmstrong), and is available under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
