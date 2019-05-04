@@ -195,8 +195,6 @@ Superscript
 Subscript
 : To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
 
-W> Currently in Leanpub, ____underlined text____ is produced with `____four underscores____` in Markua. When we add support for `_one underscore_` and the global `italicize-underlines` setting, the four underscores will become bold + italic + underlined as described above.
-
 {#headings}
 # Headings
 
@@ -254,22 +252,6 @@ Markua is very strict about its heading syntax:
 5. Tabs **cannot** be used to separate the pound signs and the heading text. Despite the increased conceptual consistency with list formatting, this would make Markua documents ugly and less consistent. The tradeoff is not worth it.
 
 If a heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim.
-
-## Design Goals of Markua Headings
-
-The following are the design goals of Markua headings:
-
-1. From looking at a heading in a Markua document, an author must be able to know exactly what it is. It's not acceptable to need to reference metadata to know what the headings mean.
-2. Only existing Markdown syntax can be used, to ensure that Markdown-aware tooling will work unchanged in essentially the correct way.
-3. The number of leading pound signs must match the level of heading.
-4. For a book with chapters only (no parts), the chapter headings must feel "top-level".
-5. The syntax to create parts must be as economical as possible.
-6. There must be only one way to create every level of heading. Headings structure Markua documents, and must be clear and unambiguous.
-7. It should be possible to switch back and forth between having parts in your book without having to modify all existing headings.
-8. Books with parts and chapters must be able to have the same number of levels of sub-sections, without arbitrarily losing the ability to create a sub-sub-sub-sub-section.
-9. Documents can have parts, chapters and sections just like books.
-
-The design of Markua headings meets these requirements, in a better way than any other design I could come up with.
 
 {#paragraphs}
 # Paragraphs and Blank Lines
@@ -5806,6 +5788,22 @@ These are some atx headers in Markdown:
 Note that all the trailing `#` characters are ignored and are not part of the heading text.
 
 From reading this, you'll recognize that Markua headings are a subset of Markdown's atx headers.
+
+### Design Goals of Markua Headings
+
+The following are the design goals of Markua headings:
+
+1. From looking at a heading in a Markua document, an author must be able to know exactly what it is. It's not acceptable to need to reference metadata to know what the headings mean.
+2. Only existing Markdown syntax can be used, to ensure that Markdown-aware tooling will work unchanged in essentially the correct way.
+3. The number of leading pound signs must match the level of heading.
+4. For a book with chapters only (no parts), the chapter headings must feel "top-level".
+5. The syntax to create parts must be as economical as possible.
+6. There must be only one way to create every level of heading. Headings structure Markua documents, and must be clear and unambiguous.
+7. It should be possible to switch back and forth between having parts in your book without having to modify all existing headings.
+8. Books with parts and chapters must be able to have the same number of levels of sub-sections, without arbitrarily losing the ability to create a sub-sub-sub-sub-section.
+9. Documents can have parts, chapters and sections just like books.
+
+The design of Markua headings meets these requirements, in a better way than any other design I could come up with.
 
 {#no-inline-html}
 ## No Inline HTML
