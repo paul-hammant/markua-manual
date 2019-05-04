@@ -125,11 +125,13 @@ The primary reason that Markdown is a great way to write is that it was designed
 
 > The overriding design goal for Markdown's formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions. While Markdown's syntax has been influenced by several existing text-to-HTML filters, the single biggest source of inspiration for Markdown's syntax is the format of plain text email.
 
-Markua is heavily inspired by Markdown. What Markua does is to map most (not all!) Markdown syntax to book concepts, as well as adding new syntax and concepts of its own.
+Markua is heavily inspired by Markdown. What Markua does is to map most (not all!) Markdown syntax to book concepts, makes some [small changes](#markdown), and adds some new syntax and concepts of its own.
 
-The most popular subset of Markdown exists virtually unchanged in Markua. For example, *all* the Markua syntax described [earlier](#novel-syntax) as necessary to write a novel is inherited verbatim from Markdown.
+The most popular subset of Markdown syntax is used virtually unchanged in Markua. For example, *all* the Markua syntax described [earlier](#novel-syntax) as necessary to write a novel is inherited verbatim from Markdown.
 
-One of the design goals of Markua is for it to be the most straightforward way for a Markdown document to become a book. So, if you already write your blog posts or lecture notes in Markdown, they are probably already valid Markua. You can use any Markua Processor, such as Leanpub, to turn them into an ebook with one click. Then, as you go down the path of enhancing the manuscript and adding things which only make sense in books, this process will feel like adding, not converting. The process of going from a Markdown document into a Markua ebook is mostly a process of decorating--enhancing and reinterpreting the Markdown document appropriately. In fact, one of the goals is for writers who are familiar with Markdown to feel as though they are still writing in Markdown, but that Markdown somehow *grew an understanding of book concepts*. Markua is really "Markdown for books".
+One of the design goals of Markua is for it to be the most straightforward way for a Markdown document to become a book. So, if you already write your blog posts or lecture notes in Markdown, they are probably already valid Markua. You can use any Markua Processor, such as Leanpub, to turn them into an ebook with one click. Then, as you go down the path of enhancing the manuscript and adding things which only make sense in books, this process will feel like adding, not converting. The process of going from a Markdown document into a Markua ebook is mostly a process of decorating--enhancing and reinterpreting the Markdown document appropriately.
+
+In fact, one of the goals is for writers who are familiar with Markdown to feel as though they are still writing in Markdown, but that Markdown somehow grew an understanding of book concepts. Markua is really "Markdown for books".
 
 # Origins of Markua
 
