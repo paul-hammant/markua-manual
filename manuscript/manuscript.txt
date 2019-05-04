@@ -265,67 +265,6 @@ The following are the design goals of Markua headings:
 
 The design of Markua headings meets these requirements, in a better way than any other design I could come up with.
 
-## Differences with Markdown Headings
-
-Markdown is a way of writing HTML, and HTML has 6 heading levels: `h1`, `h2`, `h3`, `h4`, `h5` and `h6`. In Markdown, you can create the 6 HTML heading levels using Markdown syntax.
-
-What Markua does is to use a subset of the Markdown heading syntax, and then reinterpret those headings as specifying the heading levels that define the structure of the book.
-
-Markua is also a lot more strict about heading syntax than Markdown. In Markdown, not only are there two syntaxes (atx and Setext) for making headings, what's worse is that [both of them can take many forms](http://daringfireball.net/projects/markdown/syntax#header). However, **in Markua there is exactly one way of making every type of heading**. It is a subset of the atx headings in Markdown; Setext headings are not supported.
-
-To understand Markua headings and the differences with Markdown headings, it's helpful to understand the atx and Setext headings of Markdown.
-
-{#setext_headings}
-### Setext Headings in Markdown
-
-In the Setext-style of Markdown headings, top level headings can be made by adding a row of equals signs `========` below the heading, and second level headings can be made by adding a row of minus signs `--------` below the heading.
-
-These are some Setext headers in Markdown:
-
-~~~
-This is an h1
-=============
-
-This is also an h1 (really)
-=
-
-This is an h2
--------------
-
-This is also an h2 (really)
--
-~~~
-
-There are two main issues with this style of heading in Markdown:
-
-1. It is inconsistent: It only supports defining `h1` and `h2`; to define h3 and below, the atx style of heading must be used.
-2. It is confusing: Authors are confused about how many equals or minus signs you need to use. (As we saw above, the answer is 1, which looks disgusting.) Also, it's unclear whether you need to add a blank line below the row of equals signs or minus signs, and whether a heading is still produced if this is not done.
-
-{#atx_headings}
-### atx Headings in Markdown
-
-In Markdown, the other heading syntax is "atx" headers. The [atx format](http://www.aaronsw.com/2002/atx/intro) was created by Aaron Swartz in 2002, and is an important predecessor to Markdown. To create an atx heading, you put the following on a line by itself, with a blank line above and below it: between one and six pound signs (`#`), followed by one or more spaces or tabs, followed by text, followed optionally by whitespace and any number of `#` characters. The number of `#` characters determines the level of heading.
-
-These are some atx headers in Markdown:
-
-~~~
-# This is an h1
-
-# This is also an h1 ####################
-
-## This is an h2
-
-## This is also an h2 ###################
-
-### This is an h3
-
-### This is also an h3 ##################
-~~~
-
-Note that all the trailing `#` characters are ignored and are not part of the heading text.
-
-From reading this, you'll recognize that Markua headings are a subset of Markdown's atx headers.
-
 {#paragraphs}
 # Paragraphs and Blank Lines
 
@@ -5801,10 +5740,66 @@ This part does not explain the exact differences between Markua and CommonMark--
 
 Markua has a number of differences from Markdown as defined by John Gruber. These are the main ones:
 
-
 ## Headings
 
-TODO
+Markdown is a way of writing HTML, and HTML has 6 heading levels: `h1`, `h2`, `h3`, `h4`, `h5` and `h6`. In Markdown, you can create the 6 HTML heading levels using Markdown syntax.
+
+What Markua does is to use a subset of the Markdown heading syntax, and then reinterpret those headings as specifying the heading levels that define the structure of the book.
+
+Markua is also a lot more strict about heading syntax than Markdown. In Markdown, not only are there two syntaxes (atx and Setext) for making headings, what's worse is that [both of them can take many forms](http://daringfireball.net/projects/markdown/syntax#header). However, **in Markua there is exactly one way of making every type of heading**. It is a subset of the atx headings in Markdown; Setext headings are not supported.
+
+To understand Markua headings and the differences with Markdown headings, it's helpful to understand the atx and Setext headings of Markdown.
+
+{#setext_headings}
+### Setext Headings in Markdown
+
+In the Setext-style of Markdown headings, top level headings can be made by adding a row of equals signs `========` below the heading, and second level headings can be made by adding a row of minus signs `--------` below the heading.
+
+These are some Setext headers in Markdown:
+
+~~~
+This is an h1
+=============
+
+This is also an h1 (really)
+=
+
+This is an h2
+-------------
+
+This is also an h2 (really)
+-
+~~~
+
+There are two main issues with this style of heading in Markdown:
+
+1. It is inconsistent: It only supports defining `h1` and `h2`; to define h3 and below, the atx style of heading must be used.
+2. It is confusing: Authors are confused about how many equals or minus signs you need to use. (As we saw above, the answer is 1, which looks disgusting.) Also, it's unclear whether you need to add a blank line below the row of equals signs or minus signs, and whether a heading is still produced if this is not done.
+
+{#atx_headings}
+### atx Headings in Markdown
+
+In Markdown, the other heading syntax is "atx" headers. The [atx format](http://www.aaronsw.com/2002/atx/intro) was created by Aaron Swartz in 2002, and is an important predecessor to Markdown. To create an atx heading, you put the following on a line by itself, with a blank line above and below it: between one and six pound signs (`#`), followed by one or more spaces or tabs, followed by text, followed optionally by whitespace and any number of `#` characters. The number of `#` characters determines the level of heading.
+
+These are some atx headers in Markdown:
+
+~~~
+# This is an h1
+
+# This is also an h1 ####################
+
+## This is an h2
+
+## This is also an h2 ###################
+
+### This is an h3
+
+### This is also an h3 ##################
+~~~
+
+Note that all the trailing `#` characters are ignored and are not part of the heading text.
+
+From reading this, you'll recognize that Markua headings are a subset of Markdown's atx headers.
 
 {#no-inline-html}
 ## No Inline HTML
