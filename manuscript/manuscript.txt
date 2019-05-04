@@ -67,9 +67,13 @@ This is its specification.
 
 # Formatting is Procrastination
 
-When you are writing, *formatting is procrastination*. Writing is hard enough without needing to worry about formatting. Markua is a format for use by writers, not book designers.
+When you are writing, formatting is procrastination.
 
-So, Markua provides fairly minimal formatting options. Almost all formatting provided in Markua is semantic formatting. This is formatting which has meaning in the text, and which could not be changed by a book designer without possibly changing the meaning of the text.
+Writing is hard enough without needing to worry about formatting.
+
+Markua is a format for use by writers, not book designers. So, Markua provides fairly minimal formatting options.
+
+Almost all formatting provided in Markua is semantic formatting. This is formatting which has meaning in the text, and which could not be changed by a book designer without possibly changing the meaning of the text.
 
 To emphasize how little formatting is in Markua: Markua doesn't have any concept of font sizes or margins! (You can set those in Markua Processors, like Leanpub, but this is done by setting global styles for the entire book, not by modifying the Markua document.)
 
