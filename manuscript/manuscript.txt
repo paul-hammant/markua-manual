@@ -2,27 +2,27 @@
 
 # Preface
 
-The Markua Specification contains 6 parts:
+The Markua Specification contains 5 parts:
 
 1. **Philosophy** - Why Markua exists and what its goals are
 2. **Overview** - A high-level tutorial and overview of Markua
 3. **Syntax** - The user manual of how to write in Markua for authors
 4. **Markdown** - The differences between Markua, Markdown and Leanpub Flavoured Markdown
 5. **Mapping** - The formal specification of Markua and its mapping to HTML
-6. **Status** - The status of the Markua specification and of Leanpub's Markua implementation
 
 The Markua Specification is copyright [Peter Armstrong](https://twitter.com/peterarmstrong), and is available under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
-Parts 1-4 and 6 were written by Peter Armstrong.
+Parts 1-4 were written by Peter Armstrong.
 
 Portions of Part 5, Mapping, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the CommonMark Spec was used as the basis for parts of Part 5 is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to start with the CommonMark Spec, delete the sections which don't apply, and change those that do.
 
 Here are the sections you should read:
 
-* Authors who wish to write in Markua should read Parts 1-3.
-* Authors who are familiar with Markdown and/or Leanpub Flavoured Markdown should also read Part 4, so as to not make bad assumptions.
-* People implementing Markua Processors must read Part 5. Parts 1-4 and Part 6 are useful for context.
-* Leanpub authors should also read Part 6, in order to know what parts of Markua are currently unimplemented on Leanpub.
+* Authors who wish to write in Markua should read parts 1-3.
+* Authors who are familiar with Markdown and/or Leanpub Flavoured Markdown should also read part 4, so as to not make bad assumptions.
+* People implementing Markua Processors must read part 5. Parts 1-4 are useful for context.
+
+Finally, there is an [Appendix](#appendix), which contains sections describing the status of the Markua specification, of Leanpub's Markua implementation, and acknowledgments. Leanpub authors should also skim this part, in order to know what parts of Markua are currently unimplemented on Leanpub.
 
 {mainmatter}
 
@@ -8540,13 +8540,13 @@ CriticMarkup has no impact on the rest of Markua</mark><span class="critic comme
 ambivalent.</span>. If you don't want to use it, you don't need to learn about it.</p>
 ~~~
 
-{#status}
-# Status #
+{backmatter}
 
-This part is the status of the Markua specification and of Leanpub's Markua implementation.
+{#appendix}
+# Appendix
 
 {#markua-specification-status}
-# Markua Specification Status
+## Markua Specification Status
 
 This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
 
@@ -8555,7 +8555,7 @@ To read the specification manuscript in Markua, see <https://github.com/markuado
 To stay current on Markua progress, follow [@peterarmstrong](https://twitter.com/peterarmstrong) or [@leanpub](https://twitter.com/leanpub) on Twitter.
 
 {#leanpub-markua-implementation-status}
-# Leanpub's Markua Implementation Status
+## Leanpub's Markua Implementation Status
 
 Markua support is currently in beta on Leanpub.
 
@@ -8624,10 +8624,8 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
 - Investigate regression of formatting in caption attributes of figures; should support text formatting
 
-{backmatter}
-
 {#acknowledgments}
-# Acknowledgments
+## Acknowledgments
 
 I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
 
