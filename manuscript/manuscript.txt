@@ -1,4 +1,4 @@
-{mainmatter}
+{frontmatter}
 
 # Preface
 
@@ -9,7 +9,7 @@ The Markua Specification is broken into 6 parts:
 3. Syntax - The user manual of how to write in Markua for authors
 4. Markdown - The differences between Markua and Markdown
 5. Mapping - The formal specification of Markua and its mapping to HTML
-6. Status - The status of the Markua specification and of Leanpub's Markua implementation
+6. Appendix - The status of the Markua specification and of Leanpub's Markua implementation
 
 The Markua Specification is copyright [Peter Armstrong](https://twitter.com/peterarmstrong), and is available under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
@@ -23,6 +23,8 @@ Here are the sections you should read:
 * Authors who are familiar with Markdown should also read Part 4, so as to not make bad assumptions.
 * People implementing Markua Processors should read Part 5. Parts 1-4 and Part 6 are useful for context.
 * Leanpub authors should also read Part 6, in order to know what parts of Markua are partially-implemented or unimplemented on Leanpub.
+
+{mainmatter}
 
 # Philosophy #
 
@@ -8614,8 +8616,10 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
 - Investigate regression of formatting in caption attributes of figures; should support text formatting
 
+{backmatter}
+
 {#acknowledgments}
-# Acknowledgments #
+# Acknowledgments
 
 I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
 
