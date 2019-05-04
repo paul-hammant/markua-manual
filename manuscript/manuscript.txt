@@ -65,11 +65,39 @@ This simple format is called Markua.
 
 This is its specification.
 
+# Formatting is Procrastination
+
+When you are writing, *formatting is procrastination*. Writing is hard enough without needing to worry about formatting. Markua is a format for use by writers, not book designers.
+
+So, Markua provides fairly minimal formatting options. Almost all formatting provided in Markua is semantic formatting. This is formatting which has meaning in the text, and which could not be changed by a book designer without possibly changing the meaning of the text.
+
+To emphasize how little formatting is in Markua: Markua doesn't have any concept of font sizes or margins! (You can set those in Markua Processors, like Leanpub, but this is done by setting global styles for the entire book, not by modifying the Markua document.)
+
+{#novel-syntax}
+# How to Write a Novel in Markua
+
+The Markua specification is long, as Markua includes many advanced features, and as the specification also includes a mapping to HTML.
+
+However, what you need to get started in Markua is actually really, really short. For example, you only need to know seven things to write a novel in Markua:
+
+1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line:
+   `# The Chapter Name`
+2. To make a new paragraph, hit Enter twice to add a blank line.
+3. Chapter headings and paragraphs are separated by blank lines.
+4. Surround text with one asterisk (`*`) on each side to make it `*italic*`.
+5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
+6. To add a scene break, put three asterisks on a line by themselves, with blank lines above and below them:
+   `* * *`
+7. All other text and punctuation is typed normally:
+    `He asked, "How do you type quotes?" "Like this," I replied.`
+
+That's it!
+
 # What is Markua?
 
 Markua, pronounced "mar-coo-ah", is the best way in the world to write books and courses.
 
-Markua is extremely simple and powerful. If you want to write a novel in Markua, you can learn the Markua syntax that you need to know in 30 seconds (see below). If you want to write a computer programming book or doctoral thesis in Markua, order a pizza: you can learn the additional syntax you need before it gets delivered.
+Markua is extremely simple and powerful. If you want to write a novel in Markua, you can learn the Markua syntax that you need to know in 30 seconds (see above). If you want to write a computer programming book or doctoral thesis in Markua, order a pizza: you can learn the additional syntax you need before it gets delivered.
 
 Markua is terse. When you are writing using Markua, you are writing, not programming. Once you understand Markua's syntax, it fades into the background.
 
@@ -79,17 +107,9 @@ Markua was initially designed for the writing of books, but it has been extended
 
 Markua can also be used for other purposes, such as writing journal articles or other documents. In this specification, however, I will typically just say "books" when describing the output of a Markua document: saying "books, courses and documents" would be annoying to write--and even more annoying to read!
 
-Markua is a plain text format. Markua manuscripts, called Markua documents, can be written however you want. On a computer, you can use any text editor you want. Beginning authors can use things like Notepad or TextEdit; programmers can use Emacs, vi, Sublime or Atom; writers who like minimalist programs can use "distraction-free" programs like iA Writer or even physical devices like the Freewrite. You can also write Markua in any online editor which supports plain text or Markdown editing: since Markua syntax is so similar to Markdown syntax, many programs will already format Markua documents nicely.
+Markua is a plain text format. Markua manuscripts, called Markua documents, can be written however you want. On a computer, you can use any text editor you want. Beginning authors can use things like Notepad or TextEdit; programmers can use editors like Emacs, Vim, Atom or VSCode; writers who like minimalist programs can use "distraction-free" programs like iA Writer or even physical devices like the Freewrite. You can also write Markua in any program which supports plain text or Markdown editing: since Markua syntax is so similar to Markdown syntax, many programs which understand Markdown will already format Markua documents reasonably well.
 
 Markua documents can be automatically transformed into every currently-popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua document.
-
-# Minimal Formatting
-
-When you are writing, *formatting is procrastination*. Writing is hard enough without needing to worry about formatting. Markua is a format for use by writers, not book designers.
-
-So, Markua provides fairly minimal formatting options. Almost all formatting provided in Markua is semantic formatting. This is formatting which has meaning in the text, and which could not be changed by a book designer without possibly changing the meaning of the text.
-
-To emphasize how little formatting is in Markua: Markua doesn't have any concept of font sizes or margins! Also, Markua really, really, *really* does **not** care about "widows and orphans"--unless they're people!
 
 # Markua: Markdown for Books
 
@@ -123,24 +143,6 @@ When I set out to specify Markua, I realized I needed a name. I wanted a name th
 # Overview #
 
 This part is a high-level tutorial and overview of Markua.
-
-{#novel-syntax}
-# How to Write a Novel in Markua
-
-You only need to know seven things to write a novel in Markua:
-
-1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line:
-   `# The Chapter Name`
-2. To make a new paragraph, hit Enter twice to add a blank line.
-3. Chapter headings and paragraphs are separated by blank lines.
-4. Surround text with one asterisk (`*`) on each side to make it `*italic*`.
-5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
-6. To add a scene break, put three asterisks on a line by themselves, with blank lines above and below them:
-   `* * *`
-7. All other text and punctuation is typed normally:
-    `He asked, "How do you type quotes?" "Like this," I replied.`
-
-That's it!
 
 # TODO
 
