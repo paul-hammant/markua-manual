@@ -86,7 +86,7 @@ For example, this example shows everything you need to know to write a novel in 
 ~~~
 # Chapter One
 
-This is a paragraph. You just write.
+This is a paragraph. You just write. Don't manually wrap lines.
 
 Blank lines separate paragraphs. This is *italic* and **bold**.
 
@@ -108,6 +108,7 @@ Specifically, these are the rules:
 5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
 6. To add a scene break, put three asterisks on a line by themselves (`* * *`), with blank lines above and below them.
 7. All other text and punctuation is typed normally.
+8. Don't manually wrap your paragraphs with newlines. Use a text editor which wraps text for you. Single newlines produce forced line breaks.
 
 That's it!
 
@@ -206,7 +207,7 @@ The primary reason that Markdown is a great way to write is that it was designed
 
 Markua is heavily inspired by Markdown. What Markua does is to map most (not all!) Markdown syntax to book concepts, makes some [small changes](#markdown), and adds some new syntax and concepts of its own.
 
-The most popular subset of Markdown syntax is used virtually unchanged in Markua. For example, *all* the Markua syntax described [earlier](#novel-syntax) as necessary to write a novel is inherited verbatim from Markdown.
+The most popular subset of Markdown syntax is used virtually unchanged in Markua. For example, the Markua syntax described [earlier](#novel-syntax) as necessary to write a novel is inherited verbatim from Markdown. The only difference is in the handling of single newlines: in Markdown, they are ignored; in Markua, they are treated as forced line breaks.
 
 One of the design goals of Markua is for it to be the most straightforward way for a Markdown document to become a book. So, if you already write your blog posts or lecture notes in Markdown, they are probably already valid Markua. You can use any Markua Processor, such as Leanpub, to turn them into an ebook with one click. Then, as you go down the path of enhancing the manuscript and adding things which only make sense in books, this process will feel like adding, not converting. The process of going from a Markdown document into a Markua ebook is mostly a process of decorating--enhancing and reinterpreting the Markdown document appropriately.
 
