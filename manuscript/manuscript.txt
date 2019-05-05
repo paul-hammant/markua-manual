@@ -75,14 +75,13 @@ This is a paragraph in a new chapter.
 
 Specifically, these are the rules:
 
-1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line.
-2. To make a new paragraph, hit Enter twice to add a blank line.
-3. Chapter headings and paragraphs are separated by blank lines.
-4. Surround text with one asterisk (`*`) on each side to make it `*italic*`.
-5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
-6. To add a scene break, put three asterisks on a line by themselves (`* * *`), with blank lines above and below them.
+1. To make a blank line, hit Enter twice.
+2. Chapter headings, paragraphs and scene breaks have blank lines above and below them.
+3. Use `*one asterisk*` for italic and `**two asterisks**` for bold.
+4. To make a chapter heading, start a line with a pound sign (`#`), followed by a space and the name of the chapter.
+5. To add a scene break, put three asterisks on a line by themselves (`* * *`).
+6. Single newlines produce forced line breaks, so don't manually wrap your paragraphs with newlines.
 7. All other text and punctuation is typed normally.
-8. Don't manually wrap your paragraphs with newlines. Use a text editor which wraps text for you. Single newlines produce forced line breaks.
 
 That's it!
 
