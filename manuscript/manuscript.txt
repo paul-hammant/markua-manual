@@ -148,8 +148,10 @@ puts "hello"
 You can also inline math. Here's what it looks like:
 
 * LaTeX syntax: `d = v_i t + \frac{1}{2} a t^2`$
-* AsciiMath (coming soon): `d = v_i t + 1/2 at^2`@
+* AsciiMath: `d = v_i t + 1/2 at^2`@
 ~~~
+
+W> Leanpub authors: AsciiMath doesn't work yet. Use LaTeX math for now.
 
 This syntax is explained along with all the other Markua syntax in the next chapter. First, however, is a brief discussion of what Markua is and where it came from.
 
@@ -236,7 +238,7 @@ Subscript
 : To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
 
 {#headings}
-# Headings
+# Headings for Parts, Chapters and Sections
 
 Markua is a way of writing books. Books have things like chapters, sections and subsections. Sometimes books have parts, e.g. Part One and Part Two.
 
@@ -275,7 +277,7 @@ This is a paragraph.
 Specifically, to create a Markua heading, you put the following on a line by itself:
 
 * between one and six pound signs (`#`)
-* followed by exactly one space
+* followed by exactly one space (not a tab)
 * followed by text
 * followed (only for parts) by exactly one space and exactly one pound sign
 
@@ -289,7 +291,7 @@ Markua is very strict about its heading syntax:
 2. Part headings end with a space and a pound sign, but other than that, headings cannot have optional pound signs at the end of them. Any other pound signs are considered to be text in the heading.
 3. All headings must start with between 1 and 6 pound signs (`#`) and then have exactly one space, followed by text. If any other number of spaces is used or if tabs are used, the text must be interpreted as a paragraph by a Markua Processor, not as a heading. (This ensures that Markua documents look consistent for authors, and can be parsed more easily by Markua Processors. Also, if we allowed spaces to be omitted, you couldn't start paragraphs with a #hashtag--which has not been a problem traditionally, but which might be these days.)
 4. Headings must be separated from other block elements by blank lines (created by two newlines) both before and after them. Because of the way that Markua concatenates files, headings at the top of a Markua document automatically have a blank line above them, and headings at the bottom of a Markua document automatically have a blank line below them. So, headings at the top of a document only need a blank line below them, and headings at the bottom of a document only need a blank line above them. If a heading does not have these blank lines, it is not a heading, and any `#` characters are output as normal text with no warning.
-5. Tabs **cannot** be used to separate the pound signs and the heading text. Despite the increased conceptual consistency with list formatting, this would make Markua documents ugly and less consistent. The tradeoff is not worth it.
+5. Tabs cannot be used to separate the pound signs and the heading text.
 
 If a heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim.
 
@@ -5146,19 +5148,26 @@ Here's a block placeholder as the only content of a block:
 You cannot insert that block placeholder in a span context like in this paragraph.
 ~~~
 
-## Soft Hyphen
+# Edge Cases
 
-In certain rare situations, it's desirable to be able to give hints to a Markua Processor about where hyphenation can be done.
+## Nesting Formatting
 
-This attribute makes me sad. However, it's a nod to reality. Hopefully this attribute is never used by authors writing the first draft of anything.
+It is possible to nest formatting. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
 
-To insert a soft hyphen, used a backslash followed by a hyphen:
+So, if the `italicize-underlines` global setting is `false`, the following combinations work:
 
-Example:
+* ____*italic + underlined*____: `*_this_*` or `_*this*_`
+* ***bold + italic***: `__*this*__` or `*__this__*`
+* ____**bold + underlined**____: `**_this_**` or `_**this**_`
+* ____***bold + italic + underlined***____: `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
 
-~~~
-My name is Rumpel\-stiltskin.
-~~~
+If, however, the `italicize-underlines` global setting is `true`, the following all produce ***bold + italic***, since the underlines get converted to italics, and redundant underlines are ignored:
+
+`__*this*__`, `*__this__*`, `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
+
+Finally, if you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
+
+`*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
 
 ## Escaping Special Characters with Backslash (`\`)
 
@@ -5759,27 +5768,6 @@ The following settings are defined by Markua, but only make sense in the context
 
 `default-random-question-order`
 : `true` or `false`. The default is `false`. This sets the default behaviour of the quiz or exercise. If `true`, the questions are randomly arranged; if `false`, they are presented in the order written.
-
-# Edge Cases
-
-## Nesting Formatting
-
-It is possible to nest formatting. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
-
-So, if the `italicize-underlines` global setting is `false`, the following combinations work:
-
-* ____*italic + underlined*____: `*_this_*` or `_*this*_`
-* ***bold + italic***: `__*this*__` or `*__this__*`
-* ____**bold + underlined**____: `**_this_**` or `_**this**_`
-* ____***bold + italic + underlined***____: `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
-
-If, however, the `italicize-underlines` global setting is `true`, the following all produce ***bold + italic***, since the underlines get converted to italics, and redundant underlines are ignored:
-
-`__*this*__`, `*__this__*`, `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
-
-Finally, if you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
-
-`*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
 
 {#markdown}
 # Markdown
