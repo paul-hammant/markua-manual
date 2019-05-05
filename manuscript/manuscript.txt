@@ -28,7 +28,7 @@ Finally, there is an [Appendix](#appendix), which contains sections describing t
 {#overview}
 # Overview #
 
-This part explains why Markua exists and what its goals are.
+This part explains why Markua exists and gives a brief syntax overview.
 
 # The Magical Typewriter
 
@@ -79,27 +79,41 @@ To emphasize how little formatting is in Markua: Markua doesn't have any concept
 {#novel-syntax}
 # How to Write a Novel in Markua
 
-The Markua specification is long, as Markua includes many advanced features, and as the specification also includes a mapping to HTML.
+The Markua specification is long. However, the amount you need to learn to get started is very short.
 
-However, what you need to get started in Markua is actually really, really short. For example, you only need to know seven things to write a novel in Markua:
+For example, this example shows everything you need to know to write a novel in Markua:
 
-1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line:
-   `# The Chapter Name`
+~~~
+# Chapter One
+
+This is a paragraph. You just write.
+
+Blank lines separate paragraphs. This is *italic* and **bold**.
+
+* * *
+
+That was a scene break. "This is in quotes."
+
+# Chapter Two
+
+This is a paragraph in a new chapter.
+~~~
+
+Specifically, these are the rules:
+
+1. To make a new chapter you start a line with a pound sign (`#`), followed by a space, the name of the chapter and a blank line.
 2. To make a new paragraph, hit Enter twice to add a blank line.
 3. Chapter headings and paragraphs are separated by blank lines.
 4. Surround text with one asterisk (`*`) on each side to make it `*italic*`.
 5. Surround text with two asterisks (`**`) on each side to make it `**bold**`.
-6. To add a scene break, put three asterisks on a line by themselves, with blank lines above and below them:
-   `* * *`
-7. All other text and punctuation is typed normally:
-    `He asked, "How do you type quotes?" "Like this," I replied.`
+6. To add a scene break, put three asterisks on a line by themselves (`* * *`), with blank lines above and below them.
+7. All other text and punctuation is typed normally.
 
 That's it!
 
-
 # Markua Syntax Example
 
-The following is a Markua document which shows much of the common syntax.
+The following is a slightly longer example Markua document which shows much of the common syntax.
 
 This is pretty much all you need for most books, even including computer programming books.
 
@@ -161,6 +175,8 @@ You can also inline math. Here's what it looks like:
 * LaTeX syntax: `d = v_i t + \frac{1}{2} a t^2`$
 * AsciiMath (coming soon): `d = v_i t + 1/2 at^2`@
 ~~~
+
+This syntax is explained along with all the other Markua syntax in the next part. First, however, is a brief discussion of what Markua is and where it came from.
 
 # What is Markua?
 
