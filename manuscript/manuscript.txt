@@ -127,7 +127,9 @@ term 2
 
 ## Another Section
 
-Tables work too. There are two syntaxes; here's the simple one:
+Tables work too. There are two syntaxes.
+
+This is the simple one:
 
 | Header 1  | Header 2  |
 | --------- | --------- |
@@ -240,9 +242,11 @@ Subscript
 {#headings}
 # Headings for Parts, Chapters and Sections
 
-Markua is a way of writing books. Books have things like chapters, sections and subsections. Sometimes books have parts, e.g. Part One and Part Two.
+Markua is a way of writing books. Books have things like chapters, sections and subsections. Sometimes books have parts.
 
-Here's the way that headings are made in Markua:
+In Markua, you make the appropriate headings for parts, chapters and sections, and making these headings divides your book or document into these divisions. If you add part headings, your book will have parts; if you don't, it won't. If you add chapter headings, your book will have chapters; if you don't, it won't.
+
+Here's the way that part, chapter and section headings are made in Markua:
 
 ~~~
 # Part #
@@ -274,26 +278,16 @@ This is a paragraph.
 This is a paragraph.
 ~~~
 
-Specifically, to create a Markua heading, you put the following on a line by itself:
+Markua is very strict about its heading syntax. Specifically, to create a Markua heading, you put the following on a line by itself:
 
 * between one and six pound signs (`#`)
 * followed by exactly one space (not a tab)
-* followed by text
-* followed (only for parts) by exactly one space and exactly one pound sign
+* followed by text (which can include spaces and tabs, but cannot include newlines)
+* followed by the combination of exactly one space and one pound sign for parts, and by nothing for chapters and sections
 
-A Markua heading usually needs a blank line above and below it. There are two exceptions: if it's at the beginning of a manuscript file, you can omit the blank line above it; if it's at the end of a manuscript file, you can omit the blank line below it.
+A Markua heading needs a blank line above and below it. However, due to the rules for [blank lines and file concatenating](#concatenating), you can omit the blank line before a heading which is the first line of a file and omit the blank line after a heading which is the last line of a file.
 
-Making these headings divides your book or document into these divisions. If you add part headings, your book will have parts; if you don't, it won't. If you add chapter headings, your book will have chapters; if you don't, it won't.
-
-Markua is very strict about its heading syntax:
-
-1. In Markua, to make a part heading you make a heading like `# Title #`--the heading starts with exactly one pound sign and exactly one space, and ends with exactly one space and exactly one pound sign. No other combination of pound signs and spaces makes a part heading.
-2. Part headings end with a space and a pound sign, but other than that, headings cannot have optional pound signs at the end of them. Any other pound signs are considered to be text in the heading.
-3. All headings must start with between 1 and 6 pound signs (`#`) and then have exactly one space, followed by text. If any other number of spaces is used or if tabs are used, the text must be interpreted as a paragraph by a Markua Processor, not as a heading. (This ensures that Markua documents look consistent for authors, and can be parsed more easily by Markua Processors. Also, if we allowed spaces to be omitted, you couldn't start paragraphs with a #hashtag--which has not been a problem traditionally, but which might be these days.)
-4. Headings must be separated from other block elements by blank lines (created by two newlines) both before and after them. Because of the way that Markua concatenates files, headings at the top of a Markua document automatically have a blank line above them, and headings at the bottom of a Markua document automatically have a blank line below them. So, headings at the top of a document only need a blank line below them, and headings at the bottom of a document only need a blank line above them. If a heading does not have these blank lines, it is not a heading, and any `#` characters are output as normal text with no warning.
-5. Tabs cannot be used to separate the pound signs and the heading text.
-
-If a heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim.
+If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for sections, etc.
 
 {#paragraphs}
 # Paragraphs and Blank Lines
@@ -1817,6 +1811,7 @@ The syntax for tables is described in [its own chapter](#tables). There are two 
 
 1. The syntax is complex enough to warrant a chapter.
 2. Even though tables are a resource, from the perspective of an author they don't seem like one. Instead, they seem like something you just type.
+
 {#whitespace}
 # Whitespace: Spaces, Tabs and Newlines
 
