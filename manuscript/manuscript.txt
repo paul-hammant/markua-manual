@@ -228,7 +228,7 @@ Bold + Underlined
 : To produce ___bold + underlined text___, surround it with `___three underscores___`.
 
 Bold + Italic + Underlined
-: To produce ****bold + italic + underlined****, surround it with ____either____ `****four asterisks****` or `____four underscores____`.
+: To produce ****bold + italic + underlined text****, surround it with ____either____ `****four asterisks****` or `____four underscores____`.
 
 Strikethrough
 : To produce ~~strikethrough text~~, surround it with `~~two tildes~~`. This is the same syntax as is used by both [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and by John Macfarlane's excellent [pandoc](http://johnmacfarlane.net/pandoc/README.html).
