@@ -153,7 +153,7 @@ You can also inline math. Here's what it looks like:
 
 This syntax is explained along with all the other Markua syntax in the next chapter. First, however, is a brief discussion of what Markua is and where it came from.
 
-# What is Markua?
+## What is Markua?
 
 Markua, pronounced "mar-coo-ah", is the best way in the world to write books and courses.
 
@@ -169,7 +169,7 @@ Markua is a plain text format. Markua manuscripts, called Markua documents, can 
 
 Markua documents can be automatically transformed into every currently-popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua document.
 
-# Markua: Markdown for Books
+## Markua: Markdown for Books
 
 Markua is based on [Markdown](http://daringfireball.net/projects/markdown/). Markdown is a plain text format for writing text which can be transformed by Markdown processors into HTML. Markdown was created by John Gruber, with help from Aaron Swartz. Markdown was described by John Gruber as follows:
 
@@ -187,7 +187,7 @@ One of the design goals of Markua is for it to be the most straightforward way f
 
 In fact, one of the goals is for writers who are familiar with Markdown to feel as though they are still writing in Markdown, but that Markdown somehow grew an understanding of book concepts. Markua is really "Markdown for books".
 
-# Origins of Markua
+## Origins of Markua
 
 At Leanpub, my cofounder [Scott Patten](https://twitter.com/scott_patten) and I created a dialect of Markdown called "Leanpub Flavoured Markdown". Leanpub Flavoured Markdown was basically Markdown minus inline HTML plus a number of extensions needed to write books. This Markdown dialect has been used for years by Leanpub authors to create all kinds of books.
 
@@ -195,7 +195,7 @@ Markua is the evolution of how Markdown is used at Leanpub. After years of exper
 
 Books have different abstractions than HTML. All abstractions [leak](http://www.joelonsoftware.com/articles/LeakyAbstractions.html), so HTML's abstractions leak into Markdown and the abstractions of books leak into Markua. So, I started over. I started with Markdown. I then removed or changed the few things which were either not needed for books, or which were overly complex. I then found new, more appropriate abstractions for books--most importantly resources, figures and attribute lists. I then reassembled the pieces around these abstractions into this (hopefully coherent) whole.
 
-# Why the Name "Markua"?
+## Why the Name "Markua"?
 
 When I set out to specify Markua, I realized I needed a name. I wanted a name that conveyed the warmth and love that I have for Markdown, for writing and for writers, while not implying endorsement by John Gruber in any way. I also did not want a name which referenced Leanpub: Markua is a standalone specification with its own identity, which anyone (including Leanpub competitors) can freely implement. Finally, I was on vacation in Hawaii when I named Markua, and I wanted something that sounded happy, friendly and almost Hawaiian. (Yes, I'm aware that there is no r in Hawaiian.) I also wanted a name that had its .com domain name available, and that was short and spellable, for branding purposes. The Markua name does have all these properties, and I feel it is a really good brand for what I'm trying to accomplish.
 
