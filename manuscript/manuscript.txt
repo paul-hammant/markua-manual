@@ -1,6 +1,8 @@
 {mainmatter}
 
-# The Magical Typewriter
+# Philosophy
+
+## The Magical Typewriter
 
 Imagine you owned a magical typewriter.
 
@@ -34,7 +36,7 @@ This simple format is called Markua.
 
 This is its specification.
 
-# Formatting is Procrastination
+## Formatting is Procrastination
 
 When you are writing, formatting is procrastination.
 
@@ -46,8 +48,10 @@ Almost all formatting provided in Markua is semantic formatting. This is formatt
 
 To emphasize how little formatting is in Markua: Markua doesn't have any concept of font sizes or margins! (You can set those in Markua Processors, like Leanpub, but this is done by setting global styles for the entire book, not by modifying the Markua document.)
 
+# Overview
+
 {#novel-syntax}
-# How to Write a Novel in Markua
+## How to Write a Novel in Markua
 
 The Markua specification is long. However, the amount you need to learn to get started is very short.
 
@@ -82,7 +86,7 @@ Specifically, these are the rules:
 
 That's it!
 
-# Markua Syntax Example
+## Markua Syntax Example
 
 The following is a slightly longer example Markua document which shows much of the common syntax.
 
