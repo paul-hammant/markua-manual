@@ -214,19 +214,19 @@ Italic
 : To produce *italic text*, surround it with `*one asterisk*`.
 
 Underlined
-: To produce ____underlined text____, surround it with `_one underscore_`. (You can force **all** underlines to produce *italic text*, however. See the [`italicize-underlines`](#italicize-underlines) global setting for details.)
+: To produce _underlined text_, surround it with `_one underscore_`. (You can force **all** underlines to produce *italic text*, however. See the [`italicize-underlines`](#italicize-underlines) global setting for details.)
 
 Bold
-: To produce **bold text**, surround it with either `**two asterisks**` or `__two underscores__`.
+: To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
 
 Bold + Italic
 : To produce ***bold + italic text***, surround it with `***three asterisks***`.
 
 Bold + Underlined
-: To produce ____**bold + underlined text**____, surround it with `___three underscores___`.
+: To produce ___bold + underlined text___, surround it with `___three underscores___`.
 
 Bold + Italic + Underlined
-: To produce ____***bold + italic + underlined***____ text, surround it with `____four underscores____` or `****four asterisks****`.
+: To produce ****bold + italic + underlined****, surround it with ____either____ `****four asterisks****` or `____four underscores____`.
 
 Strikethrough
 : To produce ~~strikethrough text~~, surround it with `~~two tildes~~`. This is the same syntax as is used by both [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and by John Macfarlane's excellent [pandoc](http://johnmacfarlane.net/pandoc/README.html).
