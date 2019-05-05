@@ -5851,11 +5851,11 @@ From reading this, you'll recognize that Markua headings are a subset of Markdow
 
 ### Design Goals of Markua Headings
 
-The following are the design goals of Markua headings:
+The following were the design goals of Markua headings:
 
 1. From looking at a heading in a Markua document, an author must be able to know exactly what it is. It's not acceptable to need to reference metadata to know what the headings mean.
 2. Only existing Markdown syntax can be used, to ensure that Markdown-aware tooling will work unchanged in essentially the correct way.
-3. The number of leading pound signs must match the level of heading.
+3. The number of leading pound signs must match the level of heading used in HTML. (So, part and chapter should both be h1, but with a different class.)
 4. For a book with chapters only (no parts), the chapter headings must feel "top-level".
 5. The syntax to create parts must be as economical as possible.
 6. There must be only one way to create every level of heading. Headings structure Markua documents, and must be clear and unambiguous.
