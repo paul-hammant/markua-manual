@@ -5173,6 +5173,8 @@ Finally, if you incorrectly nest the asterisk and underscore formatting characte
 
 Curly braces and backticks are special in Markua.
 
+TODO - broaden backslash escape
+
 At the beginning of a line, an opening curly brace (`{`) starts an attribute list, and two opening curly braces (`{{`) start a placeholder. In the middle of a block element, an opening curly brace starts an index entry. And, at the top of a manuscript.txt file (if the single file approach is used), an opening curly brace starts a settings block.
 
 So, to use a curly brace as an actual curly brace character, you need to backslash-escape it like this: `\{`. (Note that this does not apply inside code or other resources: Markua does not process anything inside them.)
@@ -5202,9 +5204,14 @@ This paragraph has a code span with literal backticks `` `say hello` `` in it.
 {#unicode-entities}
 ## Unicode Entities with `\u`
 
-Typing obscure Unicode characters is hard. So, markup and programming languages often support outputting entity references to Unicode characters. For example, consider the unicode character with the code point `U+1F602`. In HTML, this is the entity `&#x1F602;` in hexadecimal or `&#128514;` in decimal. In JavaScript and many programming languages it is `\u1F602`.
+Typing obscure Unicode characters is hard. So, markup and programming languages often support outputting entity references to Unicode characters. For example, consider the unicode character with the code point `U+1F602`. In HTML, this is the entity `&#x1F602;` in hexadecimal or `&#128514;` in decimal. In JavaScript and many programming languages it is `\u1F602`. These code points are specified in UTF-16, which is a hexadecimal number containing 16-bits of information.
 
 Markua supports Unicode entity references as well. To output a Unicode character, you can type a backslash (`\`), followed by a `u`, followed by the hexadecimal value of the Unicode code point, followed by a semicolon. For example, you can type `\u1F602;` in Markua. The reason the semicolon is required is to clearly indicate the end of the Unicode hexadecimal value to the Markua Processor.
+
+Some example unicode entities which may be useful for a Markua Processor to support include:
+
+* Soft hyphen: \u00AD;
+* Non-breaking space: \u00A0;
 
 Now, there's no guarantee that a given Unicode character will be present in a given font.
 
