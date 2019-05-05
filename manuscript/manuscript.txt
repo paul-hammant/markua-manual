@@ -170,7 +170,7 @@ Markua can also be used for other purposes, such as writing journal articles or 
 
 Markua is a plain text format. Markua manuscripts, called Markua documents, can be written however you want. On a computer, you can use any text editor you want. Beginning authors can use things like Notepad or TextEdit; programmers can use editors like Emacs, Vim, Atom or VSCode; writers who like minimalist programs can use "distraction-free" programs like iA Writer or even physical devices like the Freewrite. You can also write Markua in any program which supports plain text or Markdown editing: since Markua syntax is so similar to Markdown syntax, many programs which understand Markdown will already format Markua documents reasonably well.
 
-Markua documents can be automatically transformed into every currently-popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua document.
+Markua documents can be automatically transformed into every popular type of ebook format. The computer programs which do this transformation are called Markua Processors. These programs understand both Markua syntax and how to generate the various output formats. An example Markua Processor is Leanpub: Leanpub can output PDF, EPUB, MOBI and HTML from the same Markua document, and can even output print-ready PDFs and InDesign files from them as well.
 
 ## Markua: Markdown for Books
 
@@ -192,7 +192,7 @@ In fact, one of the goals is for writers who are familiar with Markdown to feel 
 
 ## Origins of Markua
 
-At Leanpub, my cofounder [Scott Patten](https://twitter.com/scott_patten) and I created a dialect of Markdown called "Leanpub Flavoured Markdown". Leanpub Flavoured Markdown was basically Markdown minus inline HTML plus a number of extensions needed to write books. This Markdown dialect has been used for years by Leanpub authors to create all kinds of books.
+At Leanpub, my cofounder Scott Patten and I created a dialect of Markdown called "Leanpub Flavoured Markdown". Leanpub Flavoured Markdown was basically Markdown minus inline HTML plus a number of extensions needed to write books. This Markdown dialect has been used for years by Leanpub authors to create all kinds of books.
 
 Markua is the evolution of how Markdown is used at Leanpub. After years of experience with Leanpub Flavoured Markdown, I set out to specify it properly. I originally thought that this is what Markua would be: just a formalization of Leanpub Flavoured Markdown. But as the specification work evolved, I realized that Markua was really a descendant of Markdown, not just a flavour of it.
 
@@ -201,6 +201,24 @@ Books have different abstractions than HTML. All abstractions [leak](http://www.
 ## Why the Name "Markua"?
 
 When I set out to specify Markua, I realized I needed a name. I wanted a name that conveyed the warmth and love that I have for Markdown, for writing and for writers, while not implying endorsement by John Gruber in any way. I also did not want a name which referenced Leanpub: Markua is a standalone specification with its own identity, which anyone (including Leanpub competitors) can freely implement. Finally, I was on vacation in Hawaii when I named Markua, and I wanted something that sounded happy, friendly and almost Hawaiian. (Yes, I'm aware that there is no r in Hawaiian.) I also wanted a name that had its .com domain name available, and that was short and spellable, for branding purposes. The Markua name does have all these properties, and I feel it is a really good brand for what I'm trying to accomplish.
+
+## Acknowledgments
+
+I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
+
+First, a huge thanks to [Scott Patten](https://twitter.com/scott_patten). Scott is the lead developer of Leanpub's book generation engine. Leanpub Flavoured Markdown would not have existed without Scott's code. Furthermore, Scott provided lots of valuable feedback in the development of the Markua specification, as well as adding Markua support to Leanpub's book generation engine. Scott gave me opinionated feedback on the Markua syntax, just as Aaron Swartz gave John Gruber feedback on the Markdown syntax. In many instances, e.g. the poetry syntax, what happens is that I come up with an idea which is good but flawed, Scott points the flaws out and suggests an alternative which often feels like giving into the status quo or feels too much like programming, I get really mad, and then I come up with something better than I would have otherwise. So, Markua probably also wouldn't exist if I couldn't--repeatedly and productively--get mad at Scott. (This sums up much of Leanpub's development, actually!)
+
+Second, I'd like to thank [Len Epp](https://twitter.com/lenepp). Len has been instrumental in the development of Leanpub. He joined in the very early days, and has greatly helped our customer development process, helping (as he likes to tease me) grow Leanpub over 100x before Scott and I made him a co-founder. Besides giving the Markua spec a thorough copy edit, he has been a strong advocate for the way a non-programmer thinks about writing. For example, Len got me to change my mind about the three-or-more newline handling case--so, if you enjoy using extra newlines, you have Len to thank!
+
+Third, I'd like to thank [Braden Simpson](https://twitter.com/bradensimpson). Braden has been instrumental in the development of the open source ES6 Markua parser, as well as the open source MarkuaPad editor and its usage in Leanpub. Braden has also been key in developing the test suite for Markua, and along with Scott has given me great feedback on crucial design decisions such as the image syntax.
+
+I'd like to thank my father, who has read the manuscript and given me feedback more than once. This was a horrible slog when the spec included a partial HTML mapping!
+
+I'd also like to thank Assaf Arkin, Alberto De Lucca, André Bacci, Ann Chia-hui Tai, Axel Rauschmayer, Dave Warnock, Iva Cheung, Jacob Evelyn, Joseph Harfouch, Justin Damer, Ken Pratt, Matt Fikowski and Michael Müller.
+
+Perhaps most important, Markua is benefiting from years of feedback about Leanpub Flavoured Markdown from many Leanpub authors. If it wasn't for these authors, there would be no Markua.
+
+Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
 
 {#text-formatting}
 # Text Formatting
@@ -5596,7 +5614,7 @@ What authors write, the manuscript, is typically what goes into the text, or mai
 
 There's a bunch of other stuff (the Dedication, Epigraph, Table of Contents, Foreword, Preface, etc.) which can come before the main text of the book. This is called "front matter". Some of the front matter comes before the Table of Contents and is not numbered; the rest of the front matter that comes after the Table of Contents gets numbered with Roman numerals.
 
-There's also a bunch of other stuff (acknowledgments, appendices, the index, etc.) which can come after the main matter. This is called the "back matter".
+There's also a bunch of other stuff (appendices, the index, etc.) which can come after the main matter. This is called the "back matter".
 
 If Markua just relied on its headings support there would be no good way to accomplish the division of a manuscript into front matter, main matter and back matter. (We could try some convention about heading names, but that would be a highly objectionable, English-centric hack.) Furthermore, there would be no good way to determine which parts of the front matter got numbered and which did not.  Also, there would be no good way to give explicit hints to Markua Processors about how to style the various parts of a book.
 
@@ -17939,22 +17957,3 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - Support language directives
 - Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
 - Investigate regression of formatting in caption attributes of figures; should support text formatting
-
-{#acknowledgments}
-# Acknowledgments
-
-I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
-
-First, a huge thanks to [Scott Patten](https://twitter.com/scott_patten). Scott is the lead developer of Leanpub's book generation engine. Leanpub Flavoured Markdown would not have existed without Scott's code. Furthermore, Scott provided lots of valuable feedback in the development of the Markua specification, as well as adding Markua support to Leanpub's book generation engine. Scott gave me opinionated feedback on the Markua syntax, just as Aaron Swartz gave John Gruber feedback on the Markdown syntax. In many instances, e.g. the poetry syntax, what happens is that I come up with an idea which is good but flawed, Scott points the flaws out and suggests an alternative which often feels like giving into the status quo or feels too much like programming, I get really mad, and then I come up with something better than I would have otherwise. So, Markua probably also wouldn't exist if I couldn't--repeatedly and productively--get mad at Scott. (This sums up much of Leanpub's development, actually!)
-
-Second, I'd like to thank [Len Epp](https://twitter.com/lenepp). Len has been instrumental in the development of Leanpub. He joined in the very early days, and has greatly helped our customer development process, helping (as he likes to tease me) grow Leanpub over 100x before Scott and I made him a co-founder. Besides giving the Markua spec a thorough copy edit, he has been a strong advocate for the way a non-programmer thinks about writing. For example, Len got me to change my mind about the three-or-more newline handling case--so, if you enjoy using extra newlines, you have Len to thank!
-
-Third, I'd like to thank [Braden Simpson](https://twitter.com/bradensimpson). Braden has been instrumental in the development of the open source ES6 Markua parser, as well as the open source MarkuaPad editor and its usage in Leanpub. Braden has also been key in developing the test suite for Markua, and along with Scott has given me great feedback on crucial design decisions such as the image syntax.
-
-I'd like to thank my father, who has read the manuscript and given me feedback more than once. This was a horrible slog when the spec included a partial HTML mapping!
-
-I'd also like to thank Assaf Arkin, Alberto De Lucca, André Bacci, Ann Chia-hui Tai, Axel Rauschmayer, Dave Warnock, Iva Cheung, Jacob Evelyn, Joseph Harfouch, Justin Damer, Ken Pratt, Matt Fikowski and Michael Müller.
-
-Perhaps most important, Markua is benefiting from years of feedback about Leanpub Flavoured Markdown from many Leanpub authors. If it wasn't for these authors, there would be no Markua.
-
-Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
