@@ -432,7 +432,10 @@ This caption shows up in two places in the output:
 1. Near the resource, typically above or below it, per the preference of the Markua Processor.
 2. Based on the resource type, either in the List of Illustrations, List of Tables or Table of Figures, if they are generated for the book. This text should also be a crosslink to the caption inserted near the figure itself.
 
-The caption for a figure can be provided either in the square brackets in front of a local or web resource or in the attribute list above the resource:
+The caption for a figure can provided in one of two ways:
+
+1. In the square brackets in front of a local or web resource.
+2. In the attribute list above the resource.
 
 ~~~
 ![My Amazing Algorithm](algorithm.rb)
@@ -443,7 +446,7 @@ The caption for a figure can be provided either in the square brackets in front 
 
 The first choice is clearly shorter, as well as more pleasant to write and to read.
 
-Note that inline resources have no square brackets, so any captions must be added in the attribute list:
+Since inline resources do not use the square bracket syntax, any captions must be added in the attribute list:
 
 ~~~
 Here's a paragraph before the figure.
@@ -458,13 +461,20 @@ Here's a paragraph after the figure.
 
 #### Figure Alt Text
 
-A figure can have alt text, as long as the type of resource being inserted supports alt text. The alt text is defined in an attribute list above the figure. Since the alt text is defined in the attribute list, the resource location does not matter: local, web and inline resources all support alt text.
+A figure can have alt text, as long as the type of resource being inserted supports alt text. The alt text is always defined in an attribute list above the figure. Since the alt text is defined in the attribute list, the resource location does not matter: local, web and inline resources all support alt text.
 
 The four types of resource which can have alt text when inserted as a figure are `image`, `video`, `audio` and `math`. Resources of type `code` and `table` do not support alt text, since they themselves are just text. If any alt text is provided for a code or table resource it is ignored.
 
 Alt text is text which is intended to take the place of the resource if the resource itself cannot be seen. In the case of images, the obvious use case is for readers with visual disabilities who are using a screen reader, but it also includes audiobooks and ebook readers which often do not support embedded images, audio and video.
 
-The alt text should **not** have the same content as the figure caption, if the figure caption is present. (Imagine the annoyance of having a visual disability and having your screen reader read identical alt text and figure captions to you throughout an entire book!) Instead, the alt text should be descriptive of the image content, while the figure caption can be more creative. For example, a figure caption may be "Washington Crossing the Delaware" and the alt text could be "Denzel Washington riding a jet ski in a river". Having good alt text would enable readers who cannot see the image to still get the joke which the figure caption makes.
+Here's an example of good alt text:
+
+~~~
+{alt: "a red apple, possibly a McIntosh or Spartan"}
+![](fruit.jpg)
+~~~
+
+The alt text should **not** have the same content as the figure caption, if the figure caption is present. (Imagine the annoyance for someone with a visual disability having their screen reader read identical alt text and figure captions to them throughout an entire book!) Instead, the alt text should be descriptive of the image content, while the figure caption can be more creative. For example, a figure caption may be "Washington Crossing the Delaware" and the alt text could be "Denzel Washington riding a jet ski in a river". Having good alt text would enable readers who cannot see the image to still get the joke which the figure caption makes.
 
 #### Figure Captions and Alt Text Together
 
