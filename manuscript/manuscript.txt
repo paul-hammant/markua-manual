@@ -306,14 +306,16 @@ If the heading is not formatted correctly, the heading is just interpreted as pa
 {#paragraphs}
 # Paragraphs and Blank Lines
 
-The distinguishing thing about a paragraph is that there is nothing else distinguishing about it: unlike headings, lists and other Markua elements, a paragraph requires no special formatting. To create a new paragraph, you add two newlines to create a blank line.
+The distinguishing thing about a paragraph is that there is nothing else distinguishing about it: unlike headings, lists and other Markua elements, a paragraph requires no special formatting. You just write.
+
+However, paragraphs are separated from headings and from other paragraphs by a blank line. Again, to create a blank line, you hit the Enter key twice.
 
 Here's an example of this in Markua syntax. These are three paragraphs in Markua, each separated by the canonical two newlines which produce one blank line:
 
 ~~~
 I'm paragraph one. Yay!
 
-This is paragraph two.
+This is paragraph two. It's just that easy.
 
 This is paragraph three.
 ~~~
