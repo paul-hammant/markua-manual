@@ -694,9 +694,11 @@ There are seven types of resources: `audio`, `code`, `image`, `math`, `poetry`, 
 
 Both the type and the format can be specified in an attribute list, by the respective `type` and `format` attributes.
 
-The type and the format can also be inferred from the file extension and, in the case of web resources, the URL. The following table shows the mapping of file extensions to the default `format` and `type` inferred. Note that these are just defaults: a resource can be set to be any type and format using the attribute list, and this overrides what is inferred from the file extension.
+The type and the format can also be inferred from the file extension and, in the case of web resources, the URL.
 
-{caption: "Formats Mapped to Resource Types"}
+The following table shows the mapping of local file extensions to the default `format` and `type` inferred. Note that these are just defaults: a resource can be set to be any type and format using the attribute list, and this overrides what is inferred from the file extension.
+
+{caption: "Formats Mapped to Local Resource Types"}
 | Extension    | `format`     | `type`   | Description         |
 | :----------- | :----------: | :------: | ------------------- |
 | `.asciimath` | `asciimath`  | `math`   | AsciiMath math      |
@@ -724,7 +726,7 @@ The type and the format can also be inferred from the file extension and, in the
 
 Note that these file extensions are case-insensitive. Also, note that .mp4 is used for MP4 video, not MP4 AAC audio.
 
-Also, as discussed in the [code](#code) section, Markua Processors must interpret all unspecified file extensions as specifying a resource of type code with a format of `guess`, unless the resource is a web resource. If the type and format are not specified and the resource is a web resource, the Markua Processor may use the domain to decide what type of resource to assume. For example, a domain of `youtube.com` may be assumed to be of type `video`, a domain of `instagram.com` may be assumed to be of type `image`, and a domain of github.com may be assumed to be of type `code`.
+Also, as discussed in the [code](#code) section, Markua Processors must interpret all unspecified file extensions as specifying a resource of type `code` with a format of `guess`, unless the resource is a web resource. If the type and format are not specified and the resource is a web resource, the Markua Processor may use the domain to decide what type of resource to assume. For example, a domain of `youtube.com` may be assumed to be of type `video`, a domain of `instagram.com` may be assumed to be of type `image`, and a domain of github.com may be assumed to be of type `code`.
 
 If the type is not specified in the attribute list, the format determines the type. The formats can either be specified by the `format` attribute or (in most cases) inferred from the file extension for local and web resources. (Inline resources obviously have no file extension, since they are contained in the body of a Markua document.)
 
