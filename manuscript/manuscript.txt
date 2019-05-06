@@ -530,19 +530,19 @@ There are three types of resources which can be inserted as spans:
 An inline code resource can be inserted as a span using the following syntax:
 
 ~~~
-It's a single backtick `followed by inline resource content` and then a single backtick.
+backtick `resource` backtick
 ~~~
 
 An inline math resource of `latex` format can be inserted as a span using the following syntax:
 
 ~~~
-It's a single backtick `followed by inline resource content`$ and then a single backtick and dollar sign (`$`).
+backtick `resource`$ backtick + dollar sign
 ~~~
 
 An inline math resource of `asciimath` format can be inserted as a span using the following syntax:
 
 ~~~
-It's a single backtick `followed by inline resource content`@ and then a single backtick and an at sign (`@`).
+backtick `resource`@ backtick + at sign
 ~~~
 
 The [code](#code) and [math](#math) resources are described more fully later.
