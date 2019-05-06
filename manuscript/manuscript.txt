@@ -549,9 +549,11 @@ The [code](#code) and [math](#math) resources are described more fully later.
 
 #### Span Attribute Lists Can Be Used To Set The Format
 
+When a resource is inserted as a span, the resource is inserted as part of the flow of text of a paragraph with no newlines before or after it. A span resource is intended to be extremely short and simple.
+
 By default, the format of an inline resource is `text` for code. For math, you specify `latex` with a `$` and `asciimath` with an `@` after the closing backtick. For an image, it is determined by the file extension.
 
-However, span attribute lists can be used to set the format explicitly.
+However, to support rare use cases, any span can have an attribute list. The attribute list on a span is specified immediately after the closing backtick. Span attribute lists can be used to set the format explicitly.
 
 For example, this resource would be formatted as Ruby code:
 ~~~
@@ -588,17 +590,15 @@ This resource would be treated as MathML math:
 Yada yada `some MathML math here`{format: mathml} yada yada.
 ~~~
 
-Yes, you can actually insert a math resource of `mathml` format as a span, but it's so verbose that it's a bad idea. You're much better off using AsciiMath or LaTeX math for spans.
+Yes, you can actually insert a math resource of `mathml` format as a span (assuming you remove all newlines from your MathML), but it's so verbose that it's typically bad idea. You're much better off using AsciiMath or LaTeX math for spans.
 
-When a resource is inserted as a span, the resource is inserted as part of the flow of text of a paragraph with no newlines before or after it. A span resource is intended to be extremely short and simple. However, to support rare use cases, any span can have an attribute list. The attribute list on a span is specified immediately after the closing backtick. Examples of this are shown in the code and math sections.
-
-Finally, if you wish to insert an image in the middle of a sentence, chances are you are trying to insert an emoji. Emoji have special support in Markua, described [here](#emoji).
+Finally, if you wish to insert an image in the middle of a sentence, chances are you are trying to insert an emoji. You can do this with a span image, if you want exact control of what your emoji look like. However, note that emoji also have special support in Markua, described [here](#emoji).
 
 #### Inserting Resources Into a Span Context
 
 In Markua, resources can be inserted into a span context (within a paragraph or other block element) or into a block context (with blank lines above and below it).
 
-Now, it doesn't make sense for many types of resources to be inserted into, say, the middle of a sentence. Specifically, the only ones where this really does make sense is images without captions: the rise of emoji hos shown that there is an entirely mainstream use for inserting images mid-sentence, with no captions or other formatting around the image.
+Now, it doesn't make sense for many types of resources to be inserted into, say, the middle of a sentence. However, it does make sense for single-line math examples, for single-line code snippets, and for emoji.
 
 So, the rules for inserting resources into a span context are as follows:
 
@@ -614,9 +614,7 @@ In terms of inserting resources into a block context: all resource types and for
 
 If a resource is inserted in a span context, and it can fit in the span context, it is inserted as a span, with whitespace before and after it. Examples of resources which can fit in a span context are images without captions, video without captions (since an image is used as a placeholder), single-line code samples and single lines of poetry.  Now, there are certain types of resources which, when inserted into a span context, cause the addition of single newlines before and after the resource. These include any resource with a caption, any type of table, a multi-line code sample, any math example, and multi-line poetry.
 
-If a local or web resource is inserted with no newlines before or after it,
-
-The following two paragraphs are equivalent:
+If a local or web resource is inserted with no newlines before or after it, but there is a caption, the resource is treated as though there are single newlines before and after it. So the following two paragraphs are equivalent:
 
 ~~~
 Here's some text ![Foo](bar.png) and more text.
@@ -626,7 +624,7 @@ Here's some text
 and more text.
 ~~~
 
-In both cases, the `bar.png` image is inserted as a figure, and the text in the square brackets is the figure caption, not the alt text. **The text in square brackets before a local or web resource is always the figure caption.** Also, in both cases, the text which follows the figure is part of the same paragraph as the text which precedes the figure, unless there are two newlines after it to start a new paragraph. This is discussed further [here](#inserting-into-paras). Even though both images above are inserted as figures, in the first case there is no way to specify alt text. This is why the implicit newline approach is inferior to using explicit newlines, since with explicit newlines an attribute list can be defined on the figure like this:
+In both cases, the `bar.png` image is inserted as a figure, and the text in the square brackets is the figure caption, not the alt text. The text in square brackets before a local or web resource is always the figure caption. Also, in both cases, the text which follows the figure is part of the same paragraph as the text which precedes the figure, unless there is a blank line after it to start a new paragraph. This is discussed further [here](#inserting-into-paras). Even though both images above are inserted as figures, in the first case there is no way to specify alt text. This is why the implicit newline approach is inferior to using explicit newlines, since with explicit newlines an attribute list can be defined on the figure like this:
 
 ~~~
 Here's some text
@@ -646,12 +644,6 @@ statement.
 ~~~
 
 For the purpose of brevity, this point will not be explained in each section about different resource formats.
-
-To be clear:
-
-* All local or web resources are inserted as figures. It is not possible to insert any type of local or web resource as a span.
-* All `table`, `image`, `audio` and `video` resources are inserted as figures. It is not possible to insert `table`, `image`, `audio` or `video` resources inline as a span.
-* It is only possible to insert `code` and `math` resources inline as spans. The code is formatted as `text`, and the math is formatted as `latex`. The specific syntax for these use cases is covered later.
 
 ### Resource Locations
 
