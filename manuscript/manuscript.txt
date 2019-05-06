@@ -87,9 +87,7 @@ That's it!
 
 ## Markua Syntax Example
 
-The following is a slightly longer example Markua document which shows much of the common syntax.
-
-This is pretty much all you need for most books, even including computer programming books.
+The following is a slightly longer example Markua document which shows much of the common Markua syntax. This is pretty much all you need for most books, even including computer programming books.
 
 ~~~
 # Chapter One
@@ -126,9 +124,7 @@ term 2
 
 ## Another Section
 
-Tables work too. There are two syntaxes.
-
-This is the simple one:
+Tables work too. There are two syntaxes; this is the simple one:
 
 | Header 1  | Header 2  |
 | --------- | --------- |
@@ -146,13 +142,10 @@ You can also inline code samples:
 puts "hello"
 ```
 
-You can also inline math. Here's what it looks like:
+You can also include single lines of code like `puts "hello"` in paragraphs.
 
-* LaTeX syntax: `d = v_i t + \frac{1}{2} a t^2`$
-* AsciiMath: `d = v_i t + 1/2 at^2`@
+Finally, you can do that with math `d = v_i t + \frac{1}{2} a t^2`$ too.
 ~~~
-
-W> Leanpub authors: AsciiMath doesn't work yet. Use LaTeX math for now.
 
 This syntax is explained along with all the other Markua syntax in the next chapter. First, however, is a brief discussion of what Markua is and where it came from.
 
