@@ -740,10 +740,10 @@ Three examples of when this could be desired are:
 2. When writing about a programming language which is not identified correctly by a Markua Processor, you may want to force the format of the language.
 3. When writing about LaTeX math, you may want to force the type to be `code` not `math`.
 
-We will now consider each of the types of resources in more detail, as well as the various formats that they support. We will also discuss the supported attributes for each resource type. Resources have different default attributes based on their type, format and insertion method.
+In the chapters ahead, we will consider each of the types of resources in more detail, as well as the various formats that they support. We will also discuss the supported attributes for each resource type. Resources have different default attributes based on their type, format and insertion method.
 
 {#images}
-### Images
+# Images
 
 The syntax to insert an image is the same compact and consistent syntax that is used for any resource. Local and web resource locations are supported for any type of image; inline resource locations are supported for SVG images only.
 
@@ -757,7 +757,7 @@ Note that regardless of the image location, a Markua Processor can embed the ima
 
 Images have some of the only non-semantic formatting in Markua. Images can have `width`, `height`, and `align` or `float` attributes, or can be `fullbleed`. These settings, which also apply to the posters for videos, are so universal when applied to images that it would be too purist for Markua to insist that the only way to format images was to add a `class` element, and then style the `class` of the image elsewhere. Markua is semantic, but it's also pragmatic: by providing a few basic ways to format images, it enables authors to make in-progress books look good enough to publish in-progress.
 
-#### Supported Attributes for Images
+## Supported Attributes for Images
 
 The following are the supported attributes for image resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support:
 
@@ -787,7 +787,7 @@ The following are the supported attributes for image resources, in addition to t
 
 Note that if only one of `width` and `height` are specified, the Markua Processor should scale the image proportionally if possible (again, respecting margins). If both `width` and `height` are specified, the Markua Processor should scale the image accordingly, ignoring the aspect ratio. (So, it's almost always a bad idea to specify both `width` and `height`.)
 
-#### Local Images
+## Local Images
 
 The following are some examples of local images:
 
@@ -811,7 +811,7 @@ Here's a paragraph after the third figure.
 
 In the above example, the first and third images were directly in the `resources` directory, whereas the second image was in an `images` subdirectory of the `resources` directory.
 
-#### Web Images
+## Web Images
 
 The following are some examples of web images:
 
@@ -833,7 +833,7 @@ Here's a paragraph between the second and third figures.
 Here's a paragraph after the third figure.
 ~~~
 
-#### Inline Images (SVG only)
+## Inline Images (SVG only)
 
 SVG images are just XML text, so they can be inserted inline in Markua:
 
@@ -850,13 +850,13 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-#### Images, Attributes and Links
+## Images, Attributes and Links
 
 As discussed previously, images support `url`, `cite` and `alt` attributes. Images also support captions, like all resources inserted as figures.
 
 As discussed previously, the exact question of what to do with `cite` and `url` attributes is dependent on the implementation of the Markua Processor. This can also vary based on context. The following examples will make this clear, using Leanpub as an example.
 
-#### Setting the `url` Attribute
+## Setting the `url` Attribute
 
 ```
 {url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -868,7 +868,7 @@ Here's what Leanpub will do with these attributes:
 1. There is no caption.
 2. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 
-#### Setting the `caption` and `url` Attributes
+## Setting the `caption` and `url` Attributes
 
 ```
 {url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -881,7 +881,7 @@ Here's what Leanpub will do with these attributes:
 2. The caption will link to <https://peterarmstrong.com/pictures/1.jpg>.
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 
-#### Setting the `caption` and `url` Attributes
+## Setting the `caption` and `url` Attributes
 
 ```
 {caption: "A Piece of Cake", url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -896,7 +896,7 @@ To be redundant, here's what Leanpub will do with these attributes:
 2. The caption will link to <https://peterarmstrong.com/pictures/1.jpg>.
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 
-#### Setting the `alt`, `caption` and `url` Attributes
+## Setting the `alt`, `caption` and `url` Attributes
 
 ```
 {alt: "a slice of chocolate cake", url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -910,7 +910,7 @@ Here's what Leanpub will do with these attributes:
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 4. The text "a slice of chocolate cake" will be provided as alt text (for accessibility) in all output formats which support it.
 
-#### Setting the `url`, `caption` and `alt` Text
+## Setting the `url`, `caption` and `alt` Text
 
 ```
 {alt: "a slice of chocolate cake", cite: "Peter's Food Photography", url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -924,7 +924,7 @@ Here's what Leanpub will do with these attributes:
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 4. The alt text will be provided as alt text in HTML output, for accessibility support.
 
-#### Adding a Link Around an Image
+## Adding a Link Around an Image
 
 Besides using `url` attributes to create links out of images, you can also use the Markua link syntax around an images itself. This is the standard Markdown link syntax which Markua inherited unchanged.
 
@@ -963,7 +963,7 @@ Here, this would link to `http://markua.com`, not `http://leanpub.com`, and the 
 However, to be clear: never write Markua like this.
 
 {#video}
-### Video
+# Video
 
 The syntax to insert a video is the same compact and consistent syntax that is used for any resource. Local and web resource locations are supported for both video formats; inline resource locations for video are obviously not supported.
 
@@ -979,7 +979,7 @@ Per the [table](#resource-types-and-formats) of resource types and formats, the 
 
 We will discuss the supported and the default attributes for videos, and then show examples of videos being inserted for both local and web videos.
 
-#### Supported Attributes for Video
+## Supported Attributes for Video
 
 The following are the supported attributes for video resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support. Note that the `caption`, `class`, `fullbleed`, `height` and `width` attributes apply to the `poster` image for the video--not to the video itself during playback.
 
@@ -1010,7 +1010,7 @@ The following are the supported attributes for video resources, in addition to t
 `width`
 : This applies to the `poster` image for the video, and works just like it does with images.
 
-#### Local Video
+## Local Video
 
 ~~~
 Here's a paragraph before the figure.
@@ -1020,7 +1020,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-#### Web Video
+## Web Video
 
 ~~~
 Here's a paragraph before the figure.
@@ -1034,7 +1034,7 @@ Here's a paragraph after the figure.
 Ironically, it took me about a year after that talk was recorded to finally figure out what Markua was.
 
 {#audio}
-### Audio
+# Audio
 
 Just as with video, the audio support in ebooks and on the web is more varied than for images. With audio, there are MP3, AAC, Ogg and WAV formats all in widespread use, and there are a number of other formats with supporters. It's entirely likely that many ebook readers won't support any of them.
 
@@ -1046,14 +1046,14 @@ The syntax to insert an audio file is the same compact and consistent syntax tha
 
 We will discuss the supported and the default attributes for audio files, and then show examples of audio being inserted for both local and web audio files.
 
-#### Supported Attributes for Audio
+## Supported Attributes for Audio
 
 The following are the supported attributes for audio resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support.
 
 `transcript`
 : The URL or path to a transcript of the audio, which should be shown to people who cannot hear audio. This helps people with auditory disabilities view course material, and helps with ADA compliance. Transcripts should be produced and handled in an identical way to `video` resources. For example, Leanpub does this. See the Video resource section above for more information.
 
-#### Local Audio
+## Local Audio
 
 ~~~
 The full version of the talk is here:
@@ -1061,7 +1061,7 @@ The full version of the talk is here:
 ![Full Talk](talk.m4a)
 ~~~
 
-#### Web Audio
+## Web Audio
 
 ~~~
 The full version of the talk is here:
@@ -1070,7 +1070,7 @@ The full version of the talk is here:
 ~~~
 
 {#code}
-### Code
+# Code
 
 Code can be a local, web or inline resource, just like any other resource, and the same resource syntax applies to code as to all other resources.
 
@@ -1097,7 +1097,7 @@ The default value of the format attribute for code is complex:
 Note that the default format can be overridden by specifying it via an attribute list, or after the three backticks in syntactic sugar.
 
 {#supported-attributes-for-code}
-#### Supported Attributes for Code
+## Supported Attributes for Code
 
 The following are the supported attributes for code resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support.
 
@@ -1113,7 +1113,7 @@ The following are the supported attributes for code resources, in addition to th
 `crop-end`
 : This attribute ends the range started with crop-start. The default value of crop-end is to be omitted, which is equivalent to specifying the last line of the file.
 
-##### Default Value of the `format` attribute in Inline Code Samples
+### Default Value of the `format` attribute in Inline Code Samples
 
 The default value of the `format` attribute for a code resource inserted as a figure varies based on context.
 
@@ -1125,7 +1125,7 @@ With three backticks the default format is `guess`, and with three tildes, the d
 
 The default value of block code resources inserted with three backticks can be overridden from `guess` to some other value by setting by the `default-code-language` attribute on the entire Markua document. (This attribute has no effect on resources inserted with three tildes.) The default value of code span resources inserted as spans with single backticks can be overridden from the default value of `text` to some other value by setting the `default-code-span-language` on the entire Markua document.
 
-#### Local Code Resources
+## Local Code Resources
 
 Local code resources can be inserted as a figure. In all the following examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
@@ -1171,7 +1171,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-#### Web Code Resources
+## Web Code Resources
 
 Web code resources function identically to how local code resources work, including the significance of file extensions. The only differences is that the files are on the web.
 
@@ -1198,11 +1198,11 @@ If you don't want to take chances you can do this:
 Note that in the above examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
 {#inline-code-resources}
-#### Inline Code Resources
+## Inline Code Resources
 
 Inline code resources are the most flexible way to insert code. They are the only way to insert code as a span resource, and the most straightforward way to add short code examples as figures.
 
-##### Span
+### Span
 
 The format of an inline code resource inserted as a span is:
 
@@ -1222,7 +1222,7 @@ Hello World in Ruby is a simple `puts "hello world"`{format: ruby} statement.
 
 Note that there is no syntactic sugar for this, since I don't like this, and I want it to be as distasteful as possible. So, this is a sort of "syntactic salt". Syntax highlighting does not make much sense for code which is inserted in the middle of a sentence--there's just not enough code there for it to be worthwhile. However, in Markua, any span can have an attribute list attached to it (in order to add index entries, for example), so there is no reason to explicitly forbid specifying a format in the attribute list.
 
-##### Figure
+### Figure
 
 Inline code resources work great as figures.
 
@@ -1325,7 +1325,7 @@ Initialized empty Git repository in /path/to/repo
 ```
 ~~~
 
-#### Marking Code as Added or Deleted
+## Marking Code as Added or Deleted
 
 Markua supports marking code as added or deleted, which can be helpful if you are writing a computer programming book and want to indicate what code should be added or removed to a larger program.
 
@@ -1337,12 +1337,12 @@ The Markua Processor will then be able to determine which code is being deleted 
 
 Finally, while syntax highlighting is optional in a Markua Processor, if a Markua Processor does support syntax highlighting it is allowed for the Markua Processor to not do any syntax highlighting when there is the presence of any of any special `markua-*` comments. Syntax highlighting may make it harder to notice the added and removed code, if they are formatted with bold and strikethrough respectively.
 
-#### Line Wrapping in Code Resources
+## Line Wrapping in Code Resources
 
 Code resources should have newlines added by the author to ensure that automatic line wrapping is not relied upon. Markua Processors may wrap lines to ensure that all code is visible on a page, and *may* add continuation characters (like the backslash `\` character) in the output to indicate that a line has been automatically wrapped. However, adding a continuation character is not a requirement, nor is the choice of which continuation character is used.
 
 {#poetry}
-### Poetry
+# Poetry
 
 Poetry can be a local, web or inline resource, just like any other resource, and the same resource syntax applies to poetry as to all other resources.
 
@@ -1351,7 +1351,7 @@ Poetry can only be inserted as a figure. It cannot be inserted as a span resourc
 Markua specifies only one specific file extension to be associated with a type of `poetry`: the `.text` extension, which is for the format of `poetry`.
 
 {#supported-attributes-for-poetry}
-#### Supported Attributes for Poetry
+## Supported Attributes for Poetry
 
 The following are the supported attributes for poetry resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support.
 
@@ -1361,7 +1361,7 @@ The following are the supported attributes for poetry resources, in addition to 
 Note that inside a poetry resource, Markua [text formatting](#text-formatting) still applies. You can't do arbitrary Markua stuff like headings, images and tables, but you can do the text formatting like bold, italic, strikethrough, etc. So, if you want to write poetry involving asterisks and underscores, use a code block.
 
 {#spacing-poetry-and-newlines}
-#### Spacing, Poetry and Newlines
+## Spacing, Poetry and Newlines
 
 Regardless of the value of the `monospaced` attribute, all whitespace inside a poetry resource is respected. This includes all spaces and newlines, regardless of whether they are leading, internal or trailing spaces, and regardless of the number of consecutive newlines.
 
@@ -1371,7 +1371,7 @@ Markua Processors may wrap lines to ensure that all poetry is visible on a page,
 
 Obviously, seeing a continuation character is in poetry is terrible, so the author should consider this a mistake that needs to be fixed by manually line wrapping.
 
-#### Local Poetry Resources
+## Local Poetry Resources
 
 Local poetry resources look like many other resources inserted as figures. The text in the square brackets is the figure caption, like it is in all figures.
 
@@ -1386,7 +1386,7 @@ Here's an E. E. Cummings poem:
 ![I Will Be](iwillbe.text)
 ~~~
 
-#### Web Poetry Resources
+## Web Poetry Resources
 
 Web poetry resources function identically to how local poetry resources work, including the significance of file extensions. The only differences is that the files are on the web.
 
@@ -1399,7 +1399,7 @@ Here's a paragraph after the figure.
 ~~~
 
 {#inline-poetry-resources}
-#### Inline Poetry Resources
+## Inline Poetry Resources
 
 With an inline poetry resource, the default value of the `monospaced` attribute for a poetry resource varies based on the delimiter used.
 
@@ -1466,7 +1466,7 @@ me   ow
 ~~~
 
 {#math}
-### Math
+# Math
 
 Math can be a local, web or inline resource, just like any other resource, and the same resource syntax applies to code as to all other resources.
 
@@ -1474,7 +1474,7 @@ Per the [table](#resource-types-and-formats) of resource types and formats, the 
 
 Note that Markua processors do not need to support either math markup syntax (LaTeX math or MathML). If a Markua Processor does not support a math markup syntax, it should simply render the text of the math resource as unformatted monospaced text, much like a code resource of format `text`.
 
-#### Supported Attributes for Math
+## Supported Attributes for Math
 
 The following is the supported attribute for math resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support:
 
@@ -1483,7 +1483,7 @@ The following is the supported attribute for math resources, in addition to the 
 
 Note that for math, the `format` is the name of the syntax used to write the mathematical equations. There are two special types of `format` for math baked into Markua: `latex` for LaTeX math and `mathml` for MathML math.
 
-#### Local Math Resources
+## Local Math Resources
 
 Local math resources can be inserted as a figure. In all the following examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
@@ -1496,7 +1496,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-#### Web Math Resources
+## Web Math Resources
 
 This is identical to how local math resources work, including the significance of file extensions. The only difference is that the files are on the web.
 
@@ -1511,17 +1511,17 @@ Here's a paragraph after the figure.
 
 Note that in the above examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
-#### Inline Math Resources
+## Inline Math Resources
 
 Inline math resources are the most flexible way to insert math. They are the only way to insert math as a span resource, and the most straightforward way to add short math examples as figures. LaTeX math, AsciiMath and MathML can be inserted inline as a span or figure.
 
-##### Span
+### Span
 
 Being able to insert a math resource as a span is important, as it lets you write things like one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`$ inside sentences. This can be done with LaTeX math, AsciiMath, or (in theory) MathML.
 
 To insert math as inline math, use a `$` after closing backtick for LaTeX math, an `@` after the closing backtick for AsciiMath, or an attribute list specifying a `format` of `latex`, `asciimath` or `mathml`. If none of these is done, the content of the backticks is treated as code and is output verbatim as monospaced text.
 
-###### LaTeX math
+#### LaTeX math
 
 There is syntactic sugar for LaTeX math which is inserted as a span, using the `$` character after the closing backtick:
 
@@ -1537,7 +1537,7 @@ If you don't like syntactic sugar, you can also use {format: latex} after the in
 Here's one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`{format: latex} inside a sentence.
 ~~~
 
-###### AsciiMath
+#### AsciiMath
 
 [AsciiMath](http://asciimath.org/) is a way of producing simple MathML equations, using about 1% of the typing. It's more terse than LaTeX math.
 
@@ -1555,7 +1555,7 @@ If you don't like syntactic sugar, you can also use {format: asciimath} after th
 Here's one of the kinematic equations `d = v_i t + 1/2 at^2`{format: asciimath} inside a sentence.
 ~~~
 
-###### MathML
+#### MathML
 
 Technically you can insert MathML as an inline span resource, as long as you remove all the newlines. There is no syntactic sugar for this, since it is almost always a bad idea:
 
@@ -1569,7 +1569,7 @@ While it would almost always be a bad idea to insert MathML as a span resource, 
 
 If you're going to insert MathML, it should be inserted as a figure, with newlines used inside the MathML to format it in a somewhat readable way.
 
-##### Figure
+### Figure
 
 Both LaTeX math, AsciiMath and MathML can be inserted inline as a figure.
 
@@ -1586,7 +1586,7 @@ All three let you produce mathematical equations like this:
 \left(\sum_{i=1}^n b_i^2\right)^{1/2}
 ```
 
-###### LaTeX math
+#### LaTeX math
 
 Here's how you do this using LaTeX math...
 
@@ -1636,7 +1636,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-###### AsciiMath
+#### AsciiMath
 
 Here's how you do this using AsciiMath...
 
@@ -1679,7 +1679,7 @@ Here's a paragraph after the figure.
 
 If you wonder why I'm a fan of AsciiMath: I actually got that right on the first try at the [AsciiMath website](http://asciimath.org/).
 
-###### MathML
+#### MathML
 
 There is no syntactic sugar for MathML.
 
@@ -1809,7 +1809,8 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-### Tables
+{#tables}
+# Tables
 
 Tables are important elements in many Markua documents. Tables are also resources, albeit with a special syntax when used as an inline resource.
 
@@ -1824,16 +1825,539 @@ The syntax to insert a table defined in an external file on the local filesystem
 ![Optional Table Caption](table_path)
 ~~~
 
-The table_path lists the path to the external file which defines the table.
+The `table_path` lists the path to the external file which defines the table.
 
 To insert a table defined inline, you just insert it by typing the table in an appropriate syntax.
 
-Markua supports two types of tables, simple tables and complex tables. Both simple tables and complex tables can be inserted inline, or as local or web resources. Both simple tables and complex tables have the same legal attributes, so they are discussed later.
+Markua supports two types of tables, simple tables and complex tables. Both simple tables and complex tables can be inserted inline, or as local or web resources. Both simple tables and complex tables have the same legal attributes.
 
-The syntax for tables is described in [its own chapter](#tables). There are two reasons for this:
+## Simple Tables
 
-1. The syntax is complex enough to warrant a chapter.
-2. Even though tables are a resource, from the perspective of an author they don't seem like one. Instead, they seem like something you just type.
+The following are the principles of simple tables in Markua:
+
+1. Formatting never applies to anything above it.
+2. Use the fewest formatting characters possible.
+3. Prioritize ease of writing over ease of reading.
+4. Use the fewest attributes possible.
+5. Be able to left-, center- and right- align columns.
+6. You can create a simple table even if you can't line anything up, say if you're using a variable-width font.
+
+Simple tables in Markua are virtually identical to GitHub Flavored Markdown (GFM) tables, as specified [here](https://help.github.com/en/articles/organizing-information-with-tables).
+
+The only difference between Markua simple tables and GFM tables is that in Markua simple tables you *must* start and end each the line with a pipe (`|`) character. In GFM, the starting and ending pipes are optional.
+
+Markua simple tables are best specified first by examples, and then the rules. These examples are similar to those from GFM, since the goal was to be as close to GFM as possible, without the pipe issue.
+
+Note that simple tables may leave an optional single-space gap between the separator hyphens and the pipes, for consistency with GFM. (With GFM, the examples all leave spaces, but it works both ways.)
+
+The following is how you create a simple table in Markua, with the spaces:
+
+~~~
+{optional: attribute_list}
+| Header A   | Header B   | Header C   |
+| ---------- | ---------- | ---------- |
+| Body A1    | Body B1    | Body C1    |
+| Body A2    | Body B2    | Body C2    |
+| Body A3    | Body B3    | Body C3    |
+~~~
+
+The following is how you create a simple table in Markua, without the spaces:
+
+~~~
+{optional: attribute_list}
+| Header A   | Header B   | Header C   |
+|------------|------------|------------|
+| Body A1    | Body B1    | Body C1    |
+| Body A2    | Body B2    | Body C2    |
+| Body A3    | Body B3    | Body C3    |
+~~~
+
+You don't need `type: table` when the table is defined inline, of course, since it's clear.
+
+Here are some examples of Markua simple tables...
+
+### Basic Markua Simple Table
+
+The following is a simple table, which has been formatted to line up:
+
+```
+| Header 1  | Header 2  |
+| --------- | --------- |
+| Content 1 | Content 2 |
+| Content 3 | Content 4 |
+```
+
+### Nothing Needs To Line Up
+
+The following is a simple table, which has not been formatted to line up:
+
+```
+| Header 1  | Header 2 |
+| --- | --- |
+| Content 1 | Content 2 |
+| Content 3 | Content 4 Can be Different Length |
+```
+
+Note that you need at least three hyphens (`-`) in each header separator cell, just as in GFM.
+
+### Left, Middle and Right Alignment with Colons
+
+To specify column alignment, you add a colons to the header separator row, just as in GFM. You  still need at least three hyphens per header separator cell, just as in GFM.
+
+```
+| Left | Middle  | Right |
+| :--- |  :---:  |  ---: |
+| a    | b       | c     |
+| d    | e       | f     |
+```
+
+Note that the alignment of the cell content does not matter, and the cells do not need to line up. This can also be lazily or pathologically written, and it would be both correct and incomprehensible.
+
+```
+| Left | Middle | Right |
+| :--- | :---: |---: |
+| a | b | c |
+|    d |              e |   f   |
+```
+
+### Pipes in Markua Simple Tables vs. GFM Tables
+
+The following is a table in GFM, but not in Markua:
+
+```
+header 1 | header 2
+-------- | --------
+content  | content
+more     | and more
+```
+
+You might think that it's clear this is a table, and that GFM gets it right. For that case, you would be correct.
+
+However, the following is a table in GFM:
+
+```
+foo | bar
+```
+
+Now, this case is a bit surprising. Having to write backslash-escape every `|` character is not an acceptable tradeoff, in my opinion.
+
+(It is obviously not a simple table in Markua, since there are no leading or trailing pipes.)
+
+Finally, the following two lines are also considered two tables in some Markdown parsers:
+
+```
+foo `|` bar
+
+foo \| bar
+```
+
+Since Markua requires leading and trailing pipes on each line, these are obviously not Markua simple tables.
+
+Because of the leading and trailing pipe requirement, the probability of accidentally creating a table in Markua is essentially zero.
+
+## Complex Tables
+
+The following are the principles of complex tables in Markua:
+
+1. Formatting never applies to anything above it.
+2. Prioritize clarity and consistency over brevity.
+3. Prioritize ease of reading over ease of writing.
+4. Use the fewest attributes possible.
+5. Be able to left-, center- and right- align both columns and individual cells.
+6. Be able to support footers.
+7. Be able to specify multi-line header, cell and footer content.
+8. You must line everything up to create a complex table, so you must use a fixed-width font in your editor.
+
+Because of these principles, anyone trying to write a complex table correctly should produce the same result.
+
+Note that complex tables support individual alignment of each cell in the table, as well as of columns. Simple tables only support alignment of columns.
+
+The following is how you create a complex table in Markua:
+
+~~~
+{optional: attribute_list}
+|============|============|============|
+| Header A   | Header B   | Header C   |
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|============|============|============|
+| Footer A   | Footer B   | Footer C   |
+|============|============|============|
+~~~
+
+W> Unlike with simple tables, complex tables have the formatting hyphens or equals signs go all the way to the pipes (or, as you'll see later, to one character before if a colon is used to align the column or cell). They do not leave a single space gap between the formatting and the pipes.
+
+You don't need `type: table` when the table is defined inline, of course, since it's clear.
+
+### Headers and Footers
+
+The header is separated from the body cells by a section separator, i.e. a row of `=` signs and `|` characters. Every row of cells is separated by a row separator, i.e. a row of `-` signs and `|` characters. The `|` characters **MUST** line up and **MUST** start and end each line. The header and footer rows are both optional, of course.
+
+The header and footer rows are both optional. The following are also legal tables...
+
+A header row and three body rows:
+
+~~~
+|============|============|============|
+| Header A   | Header B   | Header C   |
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|============|============|============|
+~~~
+
+Just body rows:
+
+~~~
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|============|============|============|
+~~~
+
+Header, one body row, footer:
+
+~~~
+|============|============|============|
+| Header A   | Header B   | Header C   |
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|============|============|============|
+| Footer A   | Footer B   | Footer C   |
+|============|============|============|
+~~~
+
+No footer:
+
+~~~
+|============|============|============|
+| Header A   | Header B   | Header C   |
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|============|============|============|
+~~~
+
+No header:
+
+~~~
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|============|============|============|
+| Footer A   | Footer B   | Footer C   |
+|============|============|============|
+~~~
+
+If there are only two rows separated by a section separator, they are interpreted as a header and a body row:
+
+~~~
+|============|============|============|
+| Header A   | Header B   | Header C   |
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|============|============|============|
+~~~
+
+If there are only two rows separated by a row separator, they are just two body rows:
+
+~~~
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|============|============|============|
+~~~
+
+If there is only one row, it is interpreted as a body row, not a header row:
+
+~~~
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|============|============|============|
+~~~
+
+Finally, headers and footers can have multiple rows in them. This won't be used that frequently, but it is fully supported:
+
+~~~
+|============|============|============|
+| Header A1  | Header B1  | Header C1  |
+|------------|------------|------------|
+| Header A2  | Header B2  | Header C2  |
+|------------|------------|------------|
+| Header A3  | Header B3  | Header C3  |
+|============|============|============|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|------------|------------|------------|
+| Body A4    | Body B4    | Body C4    |
+|============|============|============|
+| Footer A1  | Footer B1  | Footer C1  |
+|------------|------------|------------|
+| Footer A2  | Footer B2  | Footer C2  |
+|------------|------------|------------|
+| Footer A3  | Footer B3  | Footer C3  |
+|============|============|============|
+~~~
+
+You may initially think that typing row separators would be annoying. My recommended approach is to write the table first, and then copy and paste the row separators. If you get the column widths wrong, updating row separators is a headache, and you'll end up copying and pasting them anyway.
+
+### Column and Cell Alignment
+
+You can also specify the left, center and right alignment of columns. This can be done separately for the header, for the body, and for the footer. Also, any individual table cell--except the first one in the header, body or footer--can override the column alignment of the header, body, and footer.
+
+This is in keeping with the principles that formatting never applies to anything above it, and to use the fewest formatting characters possible.
+
+The exact rules will be specified shortly, but it helps to start with a few examples.
+
+This table has a left-aligned column with a header of Header A, a centered column with a header of Header B, and a right-aligned column with a header of Header C:
+
+~~~
+|:============|:============:|============:|
+| Header A    | Header B     | Header C    |
+|=============|==============|=============|
+| Body A1     | Body B1      | Body C1     |
+|-------------|--------------|-------------|
+| Body A2     | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+By default, all cells in the table header, body and footer are left-aligned.
+
+So, the following table has left-aligned headers, but its body columns are left-, center-, and right-aligned respectively:
+
+~~~
+|=============|==============|=============|
+| Header A    | Header B     | Header C    |
+|:============|:============:|============:|
+| Body A1     | Body B1      | Body C1     |
+|-------------|--------------|-------------|
+| Body A2     | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+You can use different alignments for the header and the body of the table.
+
+This table is just like the previous one, but it has left-aligned (Header A), centered (Header B) and right-aligned (Header C) header columns, with right-aligned, left-aligned and then centered body columns.
+
+~~~
+|:============|:============:|============:|
+| Header A    | Header B     | Header C    |
+|============:|:=============|:===========:|
+| Body A1     | Body B1      | Body C1     |
+|-------------|--------------|-------------|
+| Body A2     | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+You can also override the alignment of an individual cell. This table is just like the previous one, but its Body B2 cell is overridden to be centered not left-aligned:
+
+~~~
+|:============|:============:|============:|
+| Header A    | Header B     | Header C    |
+|============:|:=============|:===========:|
+| Body A1     | Body B1      | Body C1     |
+|-------------|:------------:|-------------|
+| Body A2     | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+Formatting a separator row (`====`) cascades downward. Header alignment cascades into the body and footer; body alignment cascades into the footer.
+
+However, individual cell separator row (`----`) footing does NOT cascade downward. It overrides an individual cell only; it does not change the column alignment going forward. In the above table, Body B3 is left-aligned (like its body column) not centered (like Body B2).
+
+This has the following consequence:
+
+The cells in the first row of a table header, table body or table footer must have the same alignment as the header, body or footer column they are in. They are used to define the alignment, not override it. If you need other cells in the table header, body or footer to have different alignments, those must do the overriding.
+
+So, if you want every other cell in a column to have a different alignment than the first non-header cell in that column, each of them must have the overridden alignment. This would not be true if alignment overrides cascaded downward, but that would confuse a lot more people than helping this small edge case.
+
+Since the alignment is done on the separator row above the first body row, it even works to align a column with no header or footer. The following columns are also left-, center-, and right-aligned respectively:
+
+~~~
+|:===========|:==========:|===========:|
+| Body A1    | Body B1    | Body C1    |
+|------------|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|============|============|============|
+~~~
+
+You can override alignments anywhere.
+
+The following table has left-aligned (A), centered (B) and right-aligned (C) header and footer columns, with right-aligned (A), left-aligned (B) and then centered (C) body columns--and it also overrides Header B2 to be right-aligned, Body A2 to be centered and Footer C2 to be left-aligned:
+
+~~~
+|:===========|:==========:|===========:|
+| Header A1  | Header B1  | Header C1  |
+|------------|-----------:|------------|
+| Header A2  | Header B2  | Header C2  |
+|------------|------------|------------|
+| Header A3  | Header B3  | Header C3  |
+|===========:|:===========|:==========:|
+| Body A1    | Body B1    | Body C1    |
+|:----------:|------------|------------|
+| Body A2    | Body B2    | Body C2    |
+|------------|------------|------------|
+| Body A3    | Body B3    | Body C3    |
+|------------|------------|------------|
+| Body A4    | Body B4    | Body C4    |
+|:===========|:==========:|===========:|
+| Footer A1  | Footer B1  | Footer C1  |
+|------------|------------|:-----------|
+| Footer A2  | Footer B2  | Footer C2  |
+|------------|------------|------------|
+| Footer A3  | Footer B3  | Footer C3  |
+|============|============|============|
+~~~
+
+However, just because you can, doesn't mean that you should.
+
+### Multiple-line rows, row spans and column spans
+
+You can have more than one row of content in cells, and there is no ambiguity since each row of cells is separated with a row of `-` signs and `|` characters:
+
+~~~
+|=============|==============|=============|
+| Header A    | Header B     | Header C    |
+|:============|:============:|============:|
+| Body A1     | Body B1      | Body C1     |
+| is really   | is here      |             |
+| really      |              |             |
+| long        |              |             |
+|-------------|--------------|-------------|
+| Body A2     | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+You can specify a column span just by skipping a `|` in the appropriate place:
+
+~~~
+|=============|==============|=============|
+| Header A    | Header B     | Header C    |
+|:============|:============:|============:|
+| Body A1 and B1 Merged      | Body C1     |
+|-------------|--------------|-------------|
+| Body A2     | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+Note that the alignment of the cell in the merged columns is that of its leftmost column, if no override is done. So, in the above table, Body A1 and B1 Merged is left-aligned not centered.
+
+Now, if you want to override the alignment on a merged cell, you do that in the leftmost cell. So, in the below table, Body A2 and B2 Merged is centered not left-aligned.
+
+~~~
+|=============|==============|=============|
+| Header A    | Header B     | Header C    |
+|:============|:============:|============:|
+| Body A1     | Body B1      | Body C1     |
+|:-----------:|--------------|-------------|
+| Body A2 and B2 Merged      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+You can specify a row span just by skipping a part-row of `-` signs in the appropriate place:
+
+~~~
+|=============|==============|=============|
+| Header A    | Header B     | Header C    |
+|:============|:============:|============:|
+| Body A1     | Body B1      | Body C1     |
+| and A2      |--------------|-------------|
+| Merged      | Body B2      | Body C2     |
+|-------------|--------------|-------------|
+| Body A3     | Body B3      | Body C3     |
+|=============|==============|=============|
+| Footer A    | Footer B     | Footer C    |
+|=============|==============|=============|
+~~~
+
+You can also individually align cells with colons in the `-` part-row **above** them. This alignment overrides any alignment already on the column, and it works for merged cells too:
+
+~~~
+|=============|===============|=============|
+| Header A    | Header B      | Header C    |
+|:============|:=============:|============:|
+| Body A1 and B1 Merged       | Body C1     |
+|------------:|:--------------|-------------|
+| Body A2     | Body B2       | Body C2     |
+|:-----------:| and B3 Merged |-------------|
+| Body A3     |               | Body C3     |
+|=============|===============|=============|
+| Footer A    | Footer B      | Footer C    |
+|=============|===============|=============|
+~~~
+
+In that table, column A is left-aligned, column B is centered and column C is right-aligned. However, cell A2 is right-aligned, cell A3 is centered and merged cell B2 and B3 is left-aligned.
+
+{#table-attributes}
+## Supported Attributes for Tables
+
+The following attributes apply to both simple tables and complex tables.
+
+If there are any errors with the supported attributes for tables, such as the `column-widths` not adding up correctly or missing `%` signs, the Markua Processor must add these errors to a list of errors and warnings that it shows the author, and just output the table with either the erroneous attribute not set or with none of the attributes set.
+
+The following is the supported attribute for table resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support:
+
+`column-widths`
+: The column widths as a comma-separated list of numbers (integers and/or floats) and/or `*` symbols, from left to right, as a percentage of the total table width. In this attribute value, * means for the column to use the remaining space, equally divided between it and any other column with the * attribute. Examples: `{column-widths: "10%,30%,*,10%"}`, `{column-widths: "10%,*,40%,*"}`, `{column-widths: "10%, 30%, *, 12.5%"}`, `{column-widths: "95%, *, *"}`. The numbers used for the column-widths percentages must sum to exactly 100 (if only numbers are used), or to less than 100 (if there are any `*`s used). Every specified value must be at least 1, and every `*` must compute to at least 1. The number of values (numbers or `*`s) must match the number of columns. Like with the `width` attribute, the percentage sign (%) is required, to make it absolutely clear that these are not measurements in pixels or points. Finally, the list may contain optional whitespace before and/or after each comma.
+
+`style`
+: The style of the table. Values can be `simple`, `grid` or any other value. All Markua Processors must support values of `simple` and `grid` for tables. The default is `simple`. A Markua Processor may use whatever formatting it wants with `simple`, but it should be clear which cells are part of the table header, body and footer. A Markua Processor may also use whatever formatting it wants with `grid`, but it must show grid lines around each table cell. If a Markua Processor does not recognize the value of the `style`, it must format it as `simple` instead of producing an error. (It can, however, produce a warning.)
+
+`width`
+: The width of the table, in percentage of page content area width (respecting margins). This is specified as a number (integer or float) between 1 and 100 followed by a percentage sign (%). The quotes are optional. So, you can say `{width: "70%"}`, `{width: 70%}`, `{width: "70.5%"}` or `{width: 70.5%}`.
+
+A Markua Processor may do whatever it wants when outputting a table. For example, a Markua Processor may choose to transform the table into an image, for maximum ebook reader compatibility--but at the expense of accessibility support in newer ebook readers.
+
 
 {#whitespace}
 # Whitespace: Spaces, Tabs and Newlines
@@ -3052,538 +3576,6 @@ This is not legal.
 ~~~
 
 If there was an id above foo, it would be legal, since it would be the id of the entire definition list. However, the id attribute above bar is not legal. A Markua Processor should ignore this id, and add an error to the list of errors.
-
-{#tables}
-# Tables
-
-Markua supports two types of tables, simple tables and complex tables. Both simple tables and complex tables can be inserted inline, or as local or web resources. Both simple tables and complex tables have the same legal attributes, so they are discussed later.
-
-## Simple Tables
-
-The following are the principles of simple tables in Markua:
-
-1. Formatting never applies to anything above it.
-2. Use the fewest formatting characters possible.
-3. Prioritize ease of writing over ease of reading.
-4. Use the fewest attributes possible.
-5. Be able to left-, center- and right- align columns.
-6. You can create a simple table even if you can't line anything up, say if you're using a variable-width font.
-
-Simple tables in Markua are virtually identical to GitHub Flavored Markdown (GFM) tables, as specified [here](https://help.github.com/en/articles/organizing-information-with-tables).
-
-The only difference between Markua simple tables and GFM tables is that in Markua simple tables you *must* start and end each the line with a pipe (`|`) character. In GFM, the starting and ending pipes are optional.
-
-Markua simple tables are best specified first by examples, and then the rules. These examples are similar to those from GFM, since the goal was to be as close to GFM as possible, without the pipe issue.
-
-Note that simple tables may leave an optional single-space gap between the separator hyphens and the pipes, for consistency with GFM. (With GFM, the examples all leave spaces, but it works both ways.)
-
-The following is how you create a simple table in Markua, with the spaces:
-
-~~~
-{optional: attribute_list}
-| Header A   | Header B   | Header C   |
-| ---------- | ---------- | ---------- |
-| Body A1    | Body B1    | Body C1    |
-| Body A2    | Body B2    | Body C2    |
-| Body A3    | Body B3    | Body C3    |
-~~~
-
-The following is how you create a simple table in Markua, without the spaces:
-
-~~~
-{optional: attribute_list}
-| Header A   | Header B   | Header C   |
-|------------|------------|------------|
-| Body A1    | Body B1    | Body C1    |
-| Body A2    | Body B2    | Body C2    |
-| Body A3    | Body B3    | Body C3    |
-~~~
-
-You don't need `type: table` when the table is defined inline, of course, since it's clear.
-
-Here are some examples of Markua simple tables...
-
-### Basic Markua Simple Table
-
-The following is a simple table, which has been formatted to line up:
-
-```
-| Header 1  | Header 2  |
-| --------- | --------- |
-| Content 1 | Content 2 |
-| Content 3 | Content 4 |
-```
-
-### Nothing Needs To Line Up
-
-The following is a simple table, which has not been formatted to line up:
-
-```
-| Header 1  | Header 2 |
-| --- | --- |
-| Content 1 | Content 2 |
-| Content 3 | Content 4 Can be Different Length |
-```
-
-Note that you need at least three hyphens (`-`) in each header separator cell, just as in GFM.
-
-### Left, Middle and Right Alignment with Colons
-
-To specify column alignment, you add a colons to the header separator row, just as in GFM. You  still need at least three hyphens per header separator cell, just as in GFM.
-
-```
-| Left | Middle  | Right |
-| :--- |  :---:  |  ---: |
-| a    | b       | c     |
-| d    | e       | f     |
-```
-
-Note that the alignment of the cell content does not matter, and the cells do not need to line up. This can also be lazily or pathologically written, and it would be both correct and incomprehensible.
-
-```
-| Left | Middle | Right |
-| :--- | :---: |---: |
-| a | b | c |
-|    d |              e |   f   |
-```
-
-### Pipes in Markua Simple Tables vs. GFM Tables
-
-The following is a table in GFM, but not in Markua:
-
-```
-header 1 | header 2
--------- | --------
-content  | content
-more     | and more
-```
-
-You might think that it's clear this is a table, and that GFM gets it right. For that case, you would be correct.
-
-However, the following is a table in GFM:
-
-```
-foo | bar
-```
-
-Now, this case is a bit surprising. Having to write backslash-escape every `|` character is not an acceptable tradeoff, in my opinion.
-
-(It is obviously not a simple table in Markua, since there are no leading or trailing pipes.)
-
-Finally, the following two lines are also considered two tables in some Markdown parsers:
-
-```
-foo `|` bar
-
-foo \| bar
-```
-
-Since Markua requires leading and trailing pipes on each line, these are obviously not Markua simple tables.
-
-Because of the leading and trailing pipe requirement, the probability of accidentally creating a table in Markua is essentially zero.
-
-## Complex Tables
-
-The following are the principles of complex tables in Markua:
-
-1. Formatting never applies to anything above it.
-2. Prioritize clarity and consistency over brevity.
-3. Prioritize ease of reading over ease of writing.
-4. Use the fewest attributes possible.
-5. Be able to left-, center- and right- align both columns and individual cells.
-6. Be able to support footers.
-7. Be able to specify multi-line header, cell and footer content.
-8. You must line everything up to create a complex table, so you must use a fixed-width font in your editor.
-
-Because of these principles, anyone trying to write a complex table correctly should produce the same result.
-
-Note that complex tables support individual alignment of each cell in the table, as well as of columns. Simple tables only support alignment of columns.
-
-The following is how you create a complex table in Markua:
-
-~~~
-{optional: attribute_list}
-|============|============|============|
-| Header A   | Header B   | Header C   |
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|============|============|============|
-| Footer A   | Footer B   | Footer C   |
-|============|============|============|
-~~~
-
-W> Unlike with simple tables, complex tables have the formatting hyphens or equals signs go all the way to the pipes (or, as you'll see later, to one character before if a colon is used to align the column or cell). They do not leave a single space gap between the formatting and the pipes.
-
-You don't need `type: table` when the table is defined inline, of course, since it's clear.
-
-### Headers and Footers
-
-The header is separated from the body cells by a section separator, i.e. a row of `=` signs and `|` characters. Every row of cells is separated by a row separator, i.e. a row of `-` signs and `|` characters. The `|` characters **MUST** line up and **MUST** start and end each line. The header and footer rows are both optional, of course.
-
-The header and footer rows are both optional. The following are also legal tables...
-
-A header row and three body rows:
-
-~~~
-|============|============|============|
-| Header A   | Header B   | Header C   |
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|============|============|============|
-~~~
-
-Just body rows:
-
-~~~
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|============|============|============|
-~~~
-
-Header, one body row, footer:
-
-~~~
-|============|============|============|
-| Header A   | Header B   | Header C   |
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|============|============|============|
-| Footer A   | Footer B   | Footer C   |
-|============|============|============|
-~~~
-
-No footer:
-
-~~~
-|============|============|============|
-| Header A   | Header B   | Header C   |
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|============|============|============|
-~~~
-
-No header:
-
-~~~
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|============|============|============|
-| Footer A   | Footer B   | Footer C   |
-|============|============|============|
-~~~
-
-If there are only two rows separated by a section separator, they are interpreted as a header and a body row:
-
-~~~
-|============|============|============|
-| Header A   | Header B   | Header C   |
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|============|============|============|
-~~~
-
-If there are only two rows separated by a row separator, they are just two body rows:
-
-~~~
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|============|============|============|
-~~~
-
-If there is only one row, it is interpreted as a body row, not a header row:
-
-~~~
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|============|============|============|
-~~~
-
-Finally, headers and footers can have multiple rows in them. This won't be used that frequently, but it is fully supported:
-
-~~~
-|============|============|============|
-| Header A1  | Header B1  | Header C1  |
-|------------|------------|------------|
-| Header A2  | Header B2  | Header C2  |
-|------------|------------|------------|
-| Header A3  | Header B3  | Header C3  |
-|============|============|============|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|------------|------------|------------|
-| Body A4    | Body B4    | Body C4    |
-|============|============|============|
-| Footer A1  | Footer B1  | Footer C1  |
-|------------|------------|------------|
-| Footer A2  | Footer B2  | Footer C2  |
-|------------|------------|------------|
-| Footer A3  | Footer B3  | Footer C3  |
-|============|============|============|
-~~~
-
-You may initially think that typing row separators would be annoying. My recommended approach is to write the table first, and then copy and paste the row separators. If you get the column widths wrong, updating row separators is a headache, and you'll end up copying and pasting them anyway.
-
-### Column and Cell Alignment
-
-You can also specify the left, center and right alignment of columns. This can be done separately for the header, for the body, and for the footer. Also, any individual table cell--except the first one in the header, body or footer--can override the column alignment of the header, body, and footer.
-
-This is in keeping with the principles that formatting never applies to anything above it, and to use the fewest formatting characters possible.
-
-The exact rules will be specified shortly, but it helps to start with a few examples.
-
-This table has a left-aligned column with a header of Header A, a centered column with a header of Header B, and a right-aligned column with a header of Header C:
-
-~~~
-|:============|:============:|============:|
-| Header A    | Header B     | Header C    |
-|=============|==============|=============|
-| Body A1     | Body B1      | Body C1     |
-|-------------|--------------|-------------|
-| Body A2     | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-By default, all cells in the table header, body and footer are left-aligned.
-
-So, the following table has left-aligned headers, but its body columns are left-, center-, and right-aligned respectively:
-
-~~~
-|=============|==============|=============|
-| Header A    | Header B     | Header C    |
-|:============|:============:|============:|
-| Body A1     | Body B1      | Body C1     |
-|-------------|--------------|-------------|
-| Body A2     | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-You can use different alignments for the header and the body of the table.
-
-This table is just like the previous one, but it has left-aligned (Header A), centered (Header B) and right-aligned (Header C) header columns, with right-aligned, left-aligned and then centered body columns.
-
-~~~
-|:============|:============:|============:|
-| Header A    | Header B     | Header C    |
-|============:|:=============|:===========:|
-| Body A1     | Body B1      | Body C1     |
-|-------------|--------------|-------------|
-| Body A2     | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-You can also override the alignment of an individual cell. This table is just like the previous one, but its Body B2 cell is overridden to be centered not left-aligned:
-
-~~~
-|:============|:============:|============:|
-| Header A    | Header B     | Header C    |
-|============:|:=============|:===========:|
-| Body A1     | Body B1      | Body C1     |
-|-------------|:------------:|-------------|
-| Body A2     | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-Formatting a separator row (`====`) cascades downward. Header alignment cascades into the body and footer; body alignment cascades into the footer.
-
-However, individual cell separator row (`----`) footing does NOT cascade downward. It overrides an individual cell only; it does not change the column alignment going forward. In the above table, Body B3 is left-aligned (like its body column) not centered (like Body B2).
-
-This has the following consequence:
-
-The cells in the first row of a table header, table body or table footer must have the same alignment as the header, body or footer column they are in. They are used to define the alignment, not override it. If you need other cells in the table header, body or footer to have different alignments, those must do the overriding.
-
-So, if you want every other cell in a column to have a different alignment than the first non-header cell in that column, each of them must have the overridden alignment. This would not be true if alignment overrides cascaded downward, but that would confuse a lot more people than helping this small edge case.
-
-Since the alignment is done on the separator row above the first body row, it even works to align a column with no header or footer. The following columns are also left-, center-, and right-aligned respectively:
-
-~~~
-|:===========|:==========:|===========:|
-| Body A1    | Body B1    | Body C1    |
-|------------|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|============|============|============|
-~~~
-
-You can override alignments anywhere.
-
-The following table has left-aligned (A), centered (B) and right-aligned (C) header and footer columns, with right-aligned (A), left-aligned (B) and then centered (C) body columns--and it also overrides Header B2 to be right-aligned, Body A2 to be centered and Footer C2 to be left-aligned:
-
-~~~
-|:===========|:==========:|===========:|
-| Header A1  | Header B1  | Header C1  |
-|------------|-----------:|------------|
-| Header A2  | Header B2  | Header C2  |
-|------------|------------|------------|
-| Header A3  | Header B3  | Header C3  |
-|===========:|:===========|:==========:|
-| Body A1    | Body B1    | Body C1    |
-|:----------:|------------|------------|
-| Body A2    | Body B2    | Body C2    |
-|------------|------------|------------|
-| Body A3    | Body B3    | Body C3    |
-|------------|------------|------------|
-| Body A4    | Body B4    | Body C4    |
-|:===========|:==========:|===========:|
-| Footer A1  | Footer B1  | Footer C1  |
-|------------|------------|:-----------|
-| Footer A2  | Footer B2  | Footer C2  |
-|------------|------------|------------|
-| Footer A3  | Footer B3  | Footer C3  |
-|============|============|============|
-~~~
-
-However, just because you can, doesn't mean that you should.
-
-### Multiple-line rows, row spans and column spans
-
-You can have more than one row of content in cells, and there is no ambiguity since each row of cells is separated with a row of `-` signs and `|` characters:
-
-~~~
-|=============|==============|=============|
-| Header A    | Header B     | Header C    |
-|:============|:============:|============:|
-| Body A1     | Body B1      | Body C1     |
-| is really   | is here      |             |
-| really      |              |             |
-| long        |              |             |
-|-------------|--------------|-------------|
-| Body A2     | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-You can specify a column span just by skipping a `|` in the appropriate place:
-
-~~~
-|=============|==============|=============|
-| Header A    | Header B     | Header C    |
-|:============|:============:|============:|
-| Body A1 and B1 Merged      | Body C1     |
-|-------------|--------------|-------------|
-| Body A2     | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-Note that the alignment of the cell in the merged columns is that of its leftmost column, if no override is done. So, in the above table, Body A1 and B1 Merged is left-aligned not centered.
-
-Now, if you want to override the alignment on a merged cell, you do that in the leftmost cell. So, in the below table, Body A2 and B2 Merged is centered not left-aligned.
-
-~~~
-|=============|==============|=============|
-| Header A    | Header B     | Header C    |
-|:============|:============:|============:|
-| Body A1     | Body B1      | Body C1     |
-|:-----------:|--------------|-------------|
-| Body A2 and B2 Merged      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-You can specify a row span just by skipping a part-row of `-` signs in the appropriate place:
-
-~~~
-|=============|==============|=============|
-| Header A    | Header B     | Header C    |
-|:============|:============:|============:|
-| Body A1     | Body B1      | Body C1     |
-| and A2      |--------------|-------------|
-| Merged      | Body B2      | Body C2     |
-|-------------|--------------|-------------|
-| Body A3     | Body B3      | Body C3     |
-|=============|==============|=============|
-| Footer A    | Footer B     | Footer C    |
-|=============|==============|=============|
-~~~
-
-You can also individually align cells with colons in the `-` part-row **above** them. This alignment overrides any alignment already on the column, and it works for merged cells too:
-
-~~~
-|=============|===============|=============|
-| Header A    | Header B      | Header C    |
-|:============|:=============:|============:|
-| Body A1 and B1 Merged       | Body C1     |
-|------------:|:--------------|-------------|
-| Body A2     | Body B2       | Body C2     |
-|:-----------:| and B3 Merged |-------------|
-| Body A3     |               | Body C3     |
-|=============|===============|=============|
-| Footer A    | Footer B      | Footer C    |
-|=============|===============|=============|
-~~~
-
-In that table, column A is left-aligned, column B is centered and column C is right-aligned. However, cell A2 is right-aligned, cell A3 is centered and merged cell B2 and B3 is left-aligned.
-
-{#table-attributes}
-## Supported Attributes for Tables
-
-The following attributes apply to both simple tables and complex tables.
-
-If there are any errors with the supported attributes for tables, such as the `column-widths` not adding up correctly or missing `%` signs, the Markua Processor must add these errors to a list of errors and warnings that it shows the author, and just output the table with either the erroneous attribute not set or with none of the attributes set.
-
-The following is the supported attribute for table resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support:
-
-`column-widths`
-: The column widths as a comma-separated list of numbers (integers and/or floats) and/or `*` symbols, from left to right, as a percentage of the total table width. In this attribute value, * means for the column to use the remaining space, equally divided between it and any other column with the * attribute. Examples: `{column-widths: "10%,30%,*,10%"}`, `{column-widths: "10%,*,40%,*"}`, `{column-widths: "10%, 30%, *, 12.5%"}`, `{column-widths: "95%, *, *"}`. The numbers used for the column-widths percentages must sum to exactly 100 (if only numbers are used), or to less than 100 (if there are any `*`s used). Every specified value must be at least 1, and every `*` must compute to at least 1. The number of values (numbers or `*`s) must match the number of columns. Like with the `width` attribute, the percentage sign (%) is required, to make it absolutely clear that these are not measurements in pixels or points. Finally, the list may contain optional whitespace before and/or after each comma.
-
-`style`
-: The style of the table. Values can be `simple`, `grid` or any other value. All Markua Processors must support values of `simple` and `grid` for tables. The default is `simple`. A Markua Processor may use whatever formatting it wants with `simple`, but it should be clear which cells are part of the table header, body and footer. A Markua Processor may also use whatever formatting it wants with `grid`, but it must show grid lines around each table cell. If a Markua Processor does not recognize the value of the `style`, it must format it as `simple` instead of producing an error. (It can, however, produce a warning.)
-
-`width`
-: The width of the table, in percentage of page content area width (respecting margins). This is specified as a number (integer or float) between 1 and 100 followed by a percentage sign (%). The quotes are optional. So, you can say `{width: "70%"}`, `{width: 70%}`, `{width: "70.5%"}` or `{width: 70.5%}`.
-
-A Markua Processor may do whatever it wants when outputting a table. For example, a Markua Processor may choose to transform the table into an image, for maximum ebook reader compatibility--but at the expense of accessibility support in newer ebook readers.
 
 # Block Elements
 
