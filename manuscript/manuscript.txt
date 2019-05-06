@@ -1861,11 +1861,11 @@ These simple goals have far-reaching consequences:
 {#single-newlines}
 ### Single Newline = Forced Line Break
 
-In Markua, however, a forced line break in the input is a forced line break in all output formats. This is true for paragraphs, lists, blockquotes, asides and blurbs.
+In Markua, a forced line break in the input is a forced line break in all output formats. This is true for paragraphs, lists, blockquotes, asides and blurbs.
 
 In ancient history, some text editors did not automatically wrap lines of text, so manual wrapping of plain text files was a good thing to do. Also, for computer programmers, we still do not wrap our text when programming. However, for writing, automatic wrapping of paragraphs is essential for staying in the flow while writing, and for being able to edit your text without needing to re-wrap every line in a paragraph. This is one decision that even Microsoft Word gets right.
 
-The handling of single newlines is the largest difference between Markua and Markdown. To learn more, see the newlines [discussion](#markdown-newlines) in the Markdown chapter later.
+The handling of single newlines is the largest difference between Markua and Markdown. To learn more, see the newlines [discussion](#markdown-newlines) in the Markdown chapter.
 
 The following is an example of Markua's single newlines:
 
@@ -1901,25 +1901,30 @@ So, if you're writing a sonnet, you can't manually indent the last two lines jus
 
 Unlike Markdown, all trailing spaces at the end of a line are ignored by Markua. This way, there is no [reliance on invisible formatting to produce newlines](#single-newlines), and editors which strip trailing spaces have no effect on a Markua document.
 
-### Internal Spaces are Collapsed to One Space, Except At the End of Sentences
+### Consecutive Spaces are Collapsed to One Space
 
-Markua handles internal whitespace in a paragraph in a similar way to Markdown:
+Multiple internal spaces in the middle of a paragraph are all collapsed to one space. The following paragraphs are the same:
 
-First, in Markua and Markdown, multiple internal spaces or tabs in the middle of a sentence are all collapsed to one space.
+```
+This is foo. This is bar.
 
-However, a Markua Processor should be smart about interpreting what is the end of a sentence, and handle that specially.
+This is foo.  This is bar.
 
-At the end of sentences that aren't followed by newlines, a Markua Processor may output one space, one and a half spaces, two spaces or some other amount of space. (Yes, one and a half spaces at the end of a sentence is a real thing, and it is arguably the one true amount of space at the end of a sentence.)
+This  is  foo.    This is      bar.
+```
 
-The amount of space chosen to be output at the end of sentences must be output by the Markua Processor at the end of all sentences which aren't followed by newlines, regardless of whether any given sentence has one or two spaces at its end.
+### A Markua Processor may Separate Sentences with Custom Whitespace
 
-But what's the end of a sentence?
+A Markua Processor may choose to detect what the end of a sentence is, and output a custom amount of whitespace between sentences within a paragraph. Regardless of whether this is one space, one and a half spaces, two spaces, or some other amount of space, the amount of chosen to separate sentences within paragraphs must be identical. (Yes, one and a half spaces at the end of a sentence is a real choice to output, and it is arguably better than one or two spaces. However, good luck trying to type it!)
 
-This would be a lot easier to determine if all authors typed two spaces at the end of their sentences! This way, a Markua Processor could easily determine that something like "Mr. Armstrong" did not, in fact, contain the end of a sentence.
+This can be accomplished by a Markua Processor in two ways:
 
-However, many authors type one space at the end of their sentences. So, a Markua Processor should use heuristics to determine what is the end of a sentence and what is not.
+1. Don't even try to determine what a sentence is, and always output one space after periods.
+2. Determine what a sentence is, and output a custom amount of space after it.
 
-Regardless of how it made the determination about whether a sentence has ended, if a Markua Processor decides that something is, in fact, the end of a sentence, it must output the same amount of space every time. This can be one space, one and a half spaces, two spaces or some other amount.
+Either way, the amount of space after the end of a sentence must be the same for all sentences, regardless of how many spaces the author(s) typed. This way, multiple authors can collaborate on a Markua document and it will look consistent in the output, even if some authors use one space after sentences and other authors use two spaces after sentences.
+
+Finally, note that determining the end of a sentence would be easier if all authors typed two spaces at the end of their sentences! This way, a Markua Processor could easily determine that something like "Mr. Armstrong" did not, in fact, contain the end of a sentence between `Mr.` and `Armstrong`.
 
 {#lists}
 # Lists
