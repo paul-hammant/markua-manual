@@ -1842,9 +1842,7 @@ The goal for the handling of normal whitespace (spaces, tabs and newlines) in Ma
 
 Note that these decisions about normal whitespace handling are decisions about prose, not poetry. Poetry has its own rules, and in poetry, all whitespace is preserved unchanged. The way this is accomplished is that poetry, whether in an external file or in the body of a Markua document itself, is handled as a [poetry resource](#poetry).
 
-So, with poetry taken care of, the question of prose remains.
-
-There are the four principles of Markua's whitespace handling:
+For prose, Markua has four principles of whitespace handling:
 
 1. You should be able to look at a Markua document and know what is produced. Invisible formatting is frowned upon.
 2. Paragraphs and sentences should be handled consistently, regardless of indentation and spaces after periods.
@@ -1855,7 +1853,7 @@ These simple goals have far-reaching consequences:
 
 1. Whitespace at the end of a line or file is ignored.
 2. It doesn't matter how many spaces you add after a sentence.
-3. All consecutive blank lines after the first blank line are ignored when separating paragraphs, and all consecutive blank lines after the second blank line are ignored when separating lists. [TODO - lists check]
+3. All consecutive blank lines after the first blank line are ignored when separating paragraphs, and all consecutive blank lines after the second blank line are ignored when separating lists.
 4. You can't manually wrap text with newlines being used as though they are spaces, but you can add a forced line break just by hitting the Enter key.
 
 ## Newlines
