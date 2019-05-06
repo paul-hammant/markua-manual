@@ -698,7 +698,7 @@ The type and the format can also be inferred from the file extension and, in the
 
 The following table shows the mapping of local file extensions to the default `format` and `type` inferred. Note that these are just defaults: a resource can be set to be any type and format using the attribute list, and this overrides what is inferred from the file extension.
 
-{caption: "Formats Mapped to Local Resource Types"}
+{caption: "Formats Mapped to Local Resource Types", id: "resource-types-and-formats"}
 | Extension    | `format`     | `type`   | Description         |
 | :----------- | :----------: | :------: | ------------------- |
 | `.asciimath` | `asciimath`  | `math`   | AsciiMath math      |
@@ -730,7 +730,7 @@ Also, as discussed in the [code](#code) section, Markua Processors must interpre
 
 If the type is not specified in the attribute list, the format determines the type. The formats can either be specified by the `format` attribute or (in most cases) inferred from the file extension for local and web resources. (Inline resources obviously have no file extension, since they are contained in the body of a Markua document.)
 
-As an author, all you typically do is provide the correct file extension or set the format in the attribute list. Markua recognizes the format, and uses it to determine the type. If the format is unrecognized, then the resource is treated as a resource of type `code` and with a format of `guess`.
+As an author, all you typically do is provide the correct file extension for a local resource or set the format in the attribute list. Markua recognizes the format, and uses it to determine the type. If the format is unrecognized, then the resource is treated as a resource of type `code` and with a format of `guess`.
 
 It's important to emphasize that the type and format of a resource can be overridden using an attribute list. In rare instances, it is useful to override the `type` and `format` which have been inferred by the Markua Processor based on the file extension of the resource. This is done by specifying a type and/or format in the attribute list of the resource.
 
