@@ -743,7 +743,7 @@ Three examples of when this could be desired are:
 In the chapters ahead, we will consider each of the types of resources in more detail, as well as the various formats that they support. We will also discuss the supported attributes for each resource type. Resources have different default attributes based on their type, format and insertion method.
 
 {#images}
-# Images
+## Images
 
 The syntax to insert an image is the same compact and consistent syntax that is used for any resource. Local and web resource locations are supported for any type of image; inline resource locations are supported for SVG images only.
 
@@ -757,7 +757,7 @@ Note that regardless of the image location, a Markua Processor can embed the ima
 
 Images have some of the only non-semantic formatting in Markua. Images can have `width`, `height`, and `align` or `float` attributes, or can be `fullbleed`. These settings, which also apply to the posters for videos, are so universal when applied to images that it would be too purist for Markua to insist that the only way to format images was to add a `class` element, and then style the `class` of the image elsewhere. Markua is semantic, but it's also pragmatic: by providing a few basic ways to format images, it enables authors to make in-progress books look good enough to publish in-progress.
 
-## Supported Attributes for Images
+### Supported Attributes for Images
 
 The following are the supported attributes for image resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support:
 
@@ -787,7 +787,7 @@ The following are the supported attributes for image resources, in addition to t
 
 Note that if only one of `width` and `height` are specified, the Markua Processor should scale the image proportionally if possible (again, respecting margins). If both `width` and `height` are specified, the Markua Processor should scale the image accordingly, ignoring the aspect ratio. (So, it's almost always a bad idea to specify both `width` and `height`.)
 
-## Local Images
+### Local Images
 
 The following are some examples of local images:
 
@@ -811,7 +811,7 @@ Here's a paragraph after the third figure.
 
 In the above example, the first and third images were directly in the `resources` directory, whereas the second image was in an `images` subdirectory of the `resources` directory.
 
-## Web Images
+### Web Images
 
 The following are some examples of web images:
 
@@ -833,7 +833,7 @@ Here's a paragraph between the second and third figures.
 Here's a paragraph after the third figure.
 ~~~
 
-## Inline Images (SVG only)
+### Inline Images (SVG only)
 
 SVG images are just XML text, so they can be inserted inline in Markua:
 
@@ -850,13 +850,13 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-## Images, Attributes and Links
+### Images, Attributes and Links
 
 As discussed previously, images support `url`, `cite` and `alt` attributes. Images also support captions, like all resources inserted as figures.
 
 As discussed previously, the exact question of what to do with `cite` and `url` attributes is dependent on the implementation of the Markua Processor. This can also vary based on context. The following examples will make this clear, using Leanpub as an example.
 
-## Setting the `url` Attribute
+### Setting the `url` Attribute
 
 ```
 {url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -868,7 +868,7 @@ Here's what Leanpub will do with these attributes:
 1. There is no caption.
 2. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 
-## Setting the `caption` and `url` Attributes
+### Setting the `caption` and `url` Attributes
 
 ```
 {url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -881,7 +881,7 @@ Here's what Leanpub will do with these attributes:
 2. The caption will link to <https://peterarmstrong.com/pictures/1.jpg>.
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 
-## Setting the `caption` and `url` Attributes
+### Setting the `caption` and `url` Attributes
 
 ```
 {caption: "A Piece of Cake", url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -896,7 +896,7 @@ To be redundant, here's what Leanpub will do with these attributes:
 2. The caption will link to <https://peterarmstrong.com/pictures/1.jpg>.
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 
-## Setting the `alt`, `caption` and `url` Attributes
+### Setting the `alt`, `caption` and `url` Attributes
 
 ```
 {alt: "a slice of chocolate cake", url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -910,7 +910,7 @@ Here's what Leanpub will do with these attributes:
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 4. The text "a slice of chocolate cake" will be provided as alt text (for accessibility) in all output formats which support it.
 
-## Setting the `url`, `caption` and `alt` Text
+### Setting the `url`, `caption` and `alt` Text
 
 ```
 {alt: "a slice of chocolate cake", cite: "Peter's Food Photography", url: "http://peterarmstrong.com/pictures/1.jpg"}
@@ -924,7 +924,7 @@ Here's what Leanpub will do with these attributes:
 3. The image itself will link to <https://peterarmstrong.com/pictures/1.jpg>.
 4. The alt text will be provided as alt text in HTML output, for accessibility support.
 
-## Adding a Link Around an Image
+### Adding a Link Around an Image
 
 Besides using `url` attributes to create links out of images, you can also use the Markua link syntax around an images itself. This is the standard Markdown link syntax which Markua inherited unchanged.
 
@@ -963,7 +963,7 @@ Here, this would link to `http://markua.com`, not `http://leanpub.com`, and the 
 However, to be clear: never write Markua like this.
 
 {#video}
-# Video
+## Video
 
 The syntax to insert a video is the same compact and consistent syntax that is used for any resource. Local and web resource locations are supported for both video formats; inline resource locations for video are obviously not supported.
 
@@ -979,7 +979,7 @@ Per the [table](#resource-types-and-formats) of resource types and formats, the 
 
 We will discuss the supported and the default attributes for videos, and then show examples of videos being inserted for both local and web videos.
 
-## Supported Attributes for Video
+### Supported Attributes for Video
 
 The following are the supported attributes for video resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support. Note that the `caption`, `class`, `fullbleed`, `height` and `width` attributes apply to the `poster` image for the video--not to the video itself during playback.
 
@@ -1010,7 +1010,7 @@ The following are the supported attributes for video resources, in addition to t
 `width`
 : This applies to the `poster` image for the video, and works just like it does with images.
 
-## Local Video
+### Local Video
 
 ~~~
 Here's a paragraph before the figure.
@@ -1020,7 +1020,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-## Web Video
+### Web Video
 
 ~~~
 Here's a paragraph before the figure.
@@ -1034,7 +1034,7 @@ Here's a paragraph after the figure.
 Ironically, it took me about a year after that talk was recorded to finally figure out what Markua was.
 
 {#audio}
-# Audio
+## Audio
 
 Just as with video, the audio support in ebooks and on the web is more varied than for images. With audio, there are MP3, AAC, Ogg and WAV formats all in widespread use, and there are a number of other formats with supporters. It's entirely likely that many ebook readers won't support any of them.
 
@@ -1046,14 +1046,14 @@ The syntax to insert an audio file is the same compact and consistent syntax tha
 
 We will discuss the supported and the default attributes for audio files, and then show examples of audio being inserted for both local and web audio files.
 
-## Supported Attributes for Audio
+### Supported Attributes for Audio
 
 The following are the supported attributes for audio resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support.
 
 `transcript`
 : The URL or path to a transcript of the audio, which should be shown to people who cannot hear audio. This helps people with auditory disabilities view course material, and helps with ADA compliance. Transcripts should be produced and handled in an identical way to `video` resources. For example, Leanpub does this. See the Video resource section above for more information.
 
-## Local Audio
+### Local Audio
 
 ~~~
 The full version of the talk is here:
@@ -1061,7 +1061,7 @@ The full version of the talk is here:
 ![Full Talk](talk.m4a)
 ~~~
 
-## Web Audio
+### Web Audio
 
 ~~~
 The full version of the talk is here:
@@ -1070,7 +1070,7 @@ The full version of the talk is here:
 ~~~
 
 {#code}
-# Code
+## Code
 
 Code can be a local, web or inline resource, just like any other resource, and the same resource syntax applies to code as to all other resources.
 
@@ -1097,7 +1097,7 @@ The default value of the format attribute for code is complex:
 Note that the default format can be overridden by specifying it via an attribute list, or after the three backticks in syntactic sugar.
 
 {#supported-attributes-for-code}
-## Supported Attributes for Code
+### Supported Attributes for Code
 
 The following are the supported attributes for code resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support.
 
@@ -1113,7 +1113,7 @@ The following are the supported attributes for code resources, in addition to th
 `crop-end`
 : This attribute ends the range started with crop-start. The default value of crop-end is to be omitted, which is equivalent to specifying the last line of the file.
 
-### Default Value of the `format` attribute in Inline Code Samples
+#### Default Value of the `format` attribute in Inline Code Samples
 
 The default value of the `format` attribute for a code resource inserted as a figure varies based on context.
 
@@ -1125,7 +1125,7 @@ With three backticks the default format is `guess`, and with three tildes, the d
 
 The default value of block code resources inserted with three backticks can be overridden from `guess` to some other value by setting by the `default-code-language` attribute on the entire Markua document. (This attribute has no effect on resources inserted with three tildes.) The default value of code span resources inserted as spans with single backticks can be overridden from the default value of `text` to some other value by setting the `default-code-span-language` on the entire Markua document.
 
-## Local Code Resources
+### Local Code Resources
 
 Local code resources can be inserted as a figure. In all the following examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
@@ -1171,7 +1171,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-## Web Code Resources
+### Web Code Resources
 
 Web code resources function identically to how local code resources work, including the significance of file extensions. The only differences is that the files are on the web.
 
@@ -1198,11 +1198,11 @@ If you don't want to take chances you can do this:
 Note that in the above examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
 {#inline-code-resources}
-## Inline Code Resources
+### Inline Code Resources
 
 Inline code resources are the most flexible way to insert code. They are the only way to insert code as a span resource, and the most straightforward way to add short code examples as figures.
 
-### Span
+#### Span
 
 The format of an inline code resource inserted as a span is:
 
@@ -1222,7 +1222,7 @@ Hello World in Ruby is a simple `puts "hello world"`{format: ruby} statement.
 
 Note that there is no syntactic sugar for this, since I don't like this, and I want it to be as distasteful as possible. So, this is a sort of "syntactic salt". Syntax highlighting does not make much sense for code which is inserted in the middle of a sentence--there's just not enough code there for it to be worthwhile. However, in Markua, any span can have an attribute list attached to it (in order to add index entries, for example), so there is no reason to explicitly forbid specifying a format in the attribute list.
 
-### Figure
+#### Figure
 
 Inline code resources work great as figures.
 
@@ -1325,7 +1325,7 @@ Initialized empty Git repository in /path/to/repo
 ```
 ~~~
 
-## Marking Code as Added or Deleted
+### Marking Code as Added or Deleted
 
 Markua supports marking code as added or deleted, which can be helpful if you are writing a computer programming book and want to indicate what code should be added or removed to a larger program.
 
@@ -1337,12 +1337,12 @@ The Markua Processor will then be able to determine which code is being deleted 
 
 Finally, while syntax highlighting is optional in a Markua Processor, if a Markua Processor does support syntax highlighting it is allowed for the Markua Processor to not do any syntax highlighting when there is the presence of any of any special `markua-*` comments. Syntax highlighting may make it harder to notice the added and removed code, if they are formatted with bold and strikethrough respectively.
 
-## Line Wrapping in Code Resources
+### Line Wrapping in Code Resources
 
 Code resources should have newlines added by the author to ensure that automatic line wrapping is not relied upon. Markua Processors may wrap lines to ensure that all code is visible on a page, and *may* add continuation characters (like the backslash `\` character) in the output to indicate that a line has been automatically wrapped. However, adding a continuation character is not a requirement, nor is the choice of which continuation character is used.
 
 {#poetry}
-# Poetry
+## Poetry
 
 Poetry can be a local, web or inline resource, just like any other resource, and the same resource syntax applies to poetry as to all other resources.
 
@@ -1351,7 +1351,7 @@ Poetry can only be inserted as a figure. It cannot be inserted as a span resourc
 Markua specifies only one specific file extension to be associated with a type of `poetry`: the `.text` extension, which is for the format of `poetry`.
 
 {#supported-attributes-for-poetry}
-## Supported Attributes for Poetry
+### Supported Attributes for Poetry
 
 The following are the supported attributes for poetry resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support.
 
@@ -1361,7 +1361,7 @@ The following are the supported attributes for poetry resources, in addition to 
 Note that inside a poetry resource, Markua [text formatting](#text-formatting) still applies. You can't do arbitrary Markua stuff like headings, images and tables, but you can do the text formatting like bold, italic, strikethrough, etc. So, if you want to write poetry involving asterisks and underscores, use a code block.
 
 {#spacing-poetry-and-newlines}
-## Spacing, Poetry and Newlines
+### Spacing, Poetry and Newlines
 
 Regardless of the value of the `monospaced` attribute, all whitespace inside a poetry resource is respected. This includes all spaces and newlines, regardless of whether they are leading, internal or trailing spaces, and regardless of the number of consecutive newlines.
 
@@ -1371,7 +1371,7 @@ Markua Processors may wrap lines to ensure that all poetry is visible on a page,
 
 Obviously, seeing a continuation character is in poetry is terrible, so the author should consider this a mistake that needs to be fixed by manually line wrapping.
 
-## Local Poetry Resources
+### Local Poetry Resources
 
 Local poetry resources look like many other resources inserted as figures. The text in the square brackets is the figure caption, like it is in all figures.
 
@@ -1386,7 +1386,7 @@ Here's an E. E. Cummings poem:
 ![I Will Be](iwillbe.text)
 ~~~
 
-## Web Poetry Resources
+### Web Poetry Resources
 
 Web poetry resources function identically to how local poetry resources work, including the significance of file extensions. The only differences is that the files are on the web.
 
@@ -1399,7 +1399,7 @@ Here's a paragraph after the figure.
 ~~~
 
 {#inline-poetry-resources}
-## Inline Poetry Resources
+### Inline Poetry Resources
 
 With an inline poetry resource, the default value of the `monospaced` attribute for a poetry resource varies based on the delimiter used.
 
@@ -1466,7 +1466,7 @@ me   ow
 ~~~
 
 {#tables}
-# Tables
+## Tables
 
 Tables are important elements in many Markua documents. Tables are also resources, albeit with a special syntax when used as an inline resource.
 
@@ -1487,7 +1487,7 @@ To insert a table defined inline, you just insert it by typing the table in an a
 
 Markua supports two types of tables, simple tables and complex tables. Both simple tables and complex tables can be inserted inline, or as local or web resources. Both simple tables and complex tables have the same legal attributes.
 
-## Simple Tables
+### Simple Tables
 
 The following are the principles of simple tables in Markua:
 
@@ -1532,7 +1532,7 @@ You don't need `type: table` when the table is defined inline, of course, since 
 
 Here are some examples of Markua simple tables...
 
-### Basic Markua Simple Table
+#### Basic Markua Simple Table
 
 The following is a simple table, which has been formatted to line up:
 
@@ -1543,7 +1543,7 @@ The following is a simple table, which has been formatted to line up:
 | Content 3 | Content 4 |
 ```
 
-### Nothing Needs To Line Up
+#### Nothing Needs To Line Up
 
 The following is a simple table, which has not been formatted to line up:
 
@@ -1556,7 +1556,7 @@ The following is a simple table, which has not been formatted to line up:
 
 Note that you need at least three hyphens (`-`) in each header separator cell, just as in GFM.
 
-### Left, Middle and Right Alignment with Colons
+#### Left, Middle and Right Alignment with Colons
 
 To specify column alignment, you add a colons to the header separator row, just as in GFM. You  still need at least three hyphens per header separator cell, just as in GFM.
 
@@ -1576,7 +1576,7 @@ Note that the alignment of the cell content does not matter, and the cells do no
 |    d |              e |   f   |
 ```
 
-### Pipes in Markua Simple Tables vs. GFM Tables
+#### Pipes in Markua Simple Tables vs. GFM Tables
 
 The following is a table in GFM, but not in Markua:
 
@@ -1611,7 +1611,7 @@ Since Markua requires leading and trailing pipes on each line, these are obvious
 
 Because of the leading and trailing pipe requirement, the probability of accidentally creating a table in Markua is essentially zero.
 
-## Complex Tables
+### Complex Tables
 
 The following are the principles of complex tables in Markua:
 
@@ -1649,7 +1649,7 @@ W> Unlike with simple tables, complex tables have the formatting hyphens or equa
 
 You don't need `type: table` when the table is defined inline, of course, since it's clear.
 
-### Headers and Footers
+#### Headers and Footers
 
 The header is separated from the body cells by a section separator, i.e. a row of `=` signs and `|` characters. Every row of cells is separated by a row separator, i.e. a row of `-` signs and `|` characters. The `|` characters **MUST** line up and **MUST** start and end each line. The header and footer rows are both optional, of course.
 
@@ -1777,7 +1777,7 @@ Finally, headers and footers can have multiple rows in them. This won't be used 
 
 You may initially think that typing row separators would be annoying. My recommended approach is to write the table first, and then copy and paste the row separators. If you get the column widths wrong, updating row separators is a headache, and you'll end up copying and pasting them anyway.
 
-### Column and Cell Alignment
+#### Column and Cell Alignment
 
 You can also specify the left, center and right alignment of columns. This can be done separately for the header, for the body, and for the footer. Also, any individual table cell--except the first one in the header, body or footer--can override the column alignment of the header, body, and footer.
 
@@ -1905,7 +1905,7 @@ The following table has left-aligned (A), centered (B) and right-aligned (C) hea
 
 However, just because you can, doesn't mean that you should.
 
-### Multiple-line rows, row spans and column spans
+#### Multiple-line rows, row spans and column spans
 
 You can have more than one row of content in cells, and there is no ambiguity since each row of cells is separated with a row of `-` signs and `|` characters:
 
@@ -1995,7 +1995,7 @@ You can also individually align cells with colons in the `-` part-row **above** 
 In that table, column A is left-aligned, column B is centered and column C is right-aligned. However, cell A2 is right-aligned, cell A3 is centered and merged cell B2 and B3 is left-aligned.
 
 {#table-attributes}
-## Supported Attributes for Tables
+### Supported Attributes for Tables
 
 The following attributes apply to both simple tables and complex tables.
 
@@ -2015,7 +2015,7 @@ The following is the supported attribute for table resources, in addition to the
 A Markua Processor may do whatever it wants when outputting a table. For example, a Markua Processor may choose to transform the table into an image, for maximum ebook reader compatibility--but at the expense of accessibility support in newer ebook readers.
 
 {#math}
-# Math
+## Math
 
 Math can be a local, web or inline resource, just like any other resource, and the same resource syntax applies to code as to all other resources.
 
@@ -2023,7 +2023,7 @@ Per the [table](#resource-types-and-formats) of resource types and formats, the 
 
 Note that Markua processors do not need to support either math markup syntax (LaTeX math or MathML). If a Markua Processor does not support a math markup syntax, it should simply render the text of the math resource as unformatted monospaced text, much like a code resource of format `text`.
 
-## Supported Attributes for Math
+### Supported Attributes for Math
 
 The following is the supported attribute for math resources, in addition to the `type`, `format`, `caption` and `class` attributes which all resources support:
 
@@ -2032,7 +2032,7 @@ The following is the supported attribute for math resources, in addition to the 
 
 Note that for math, the `format` is the name of the syntax used to write the mathematical equations. There are two special types of `format` for math baked into Markua: `latex` for LaTeX math and `mathml` for MathML math.
 
-## Local Math Resources
+### Local Math Resources
 
 Local math resources can be inserted as a figure. In all the following examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
@@ -2045,7 +2045,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-## Web Math Resources
+### Web Math Resources
 
 This is identical to how local math resources work, including the significance of file extensions. The only difference is that the files are on the web.
 
@@ -2060,17 +2060,17 @@ Here's a paragraph after the figure.
 
 Note that in the above examples of figures, the text in the square brackets is the figure caption, like it is in all figures.
 
-## Inline Math Resources
+### Inline Math Resources
 
 Inline math resources are the most flexible way to insert math. They are the only way to insert math as a span resource, and the most straightforward way to add short math examples as figures. LaTeX math, AsciiMath and MathML can be inserted inline as a span or figure.
 
-### Span
+#### Span
 
 Being able to insert a math resource as a span is important, as it lets you write things like one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`$ inside sentences. This can be done with LaTeX math, AsciiMath, or (in theory) MathML.
 
 To insert math as inline math, use a `$` after closing backtick for LaTeX math, an `@` after the closing backtick for AsciiMath, or an attribute list specifying a `format` of `latex`, `asciimath` or `mathml`. If none of these is done, the content of the backticks is treated as code and is output verbatim as monospaced text.
 
-#### LaTeX math
+##### LaTeX math
 
 There is syntactic sugar for LaTeX math which is inserted as a span, using the `$` character after the closing backtick:
 
@@ -2086,7 +2086,7 @@ If you don't like syntactic sugar, you can also use {format: latex} after the in
 Here's one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`{format: latex} inside a sentence.
 ~~~
 
-#### AsciiMath
+##### AsciiMath
 
 [AsciiMath](http://asciimath.org/) is a way of producing simple MathML equations, using about 1% of the typing. It's more terse than LaTeX math.
 
@@ -2104,7 +2104,7 @@ If you don't like syntactic sugar, you can also use {format: asciimath} after th
 Here's one of the kinematic equations `d = v_i t + 1/2 at^2`{format: asciimath} inside a sentence.
 ~~~
 
-#### MathML
+##### MathML
 
 Technically you can insert MathML as an inline span resource, as long as you remove all the newlines. There is no syntactic sugar for this, since it is almost always a bad idea:
 
@@ -2118,7 +2118,7 @@ While it would almost always be a bad idea to insert MathML as a span resource, 
 
 If you're going to insert MathML, it should be inserted as a figure, with newlines used inside the MathML to format it in a somewhat readable way.
 
-### Figure
+#### Figure
 
 Both LaTeX math, AsciiMath and MathML can be inserted inline as a figure.
 
@@ -2135,7 +2135,7 @@ All three let you produce mathematical equations like this:
 \left(\sum_{i=1}^n b_i^2\right)^{1/2}
 ```
 
-#### LaTeX math
+##### LaTeX math
 
 Here's how you do this using LaTeX math...
 
@@ -2185,7 +2185,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-#### AsciiMath
+##### AsciiMath
 
 Here's how you do this using AsciiMath...
 
@@ -2228,7 +2228,7 @@ Here's a paragraph after the figure.
 
 If you wonder why I'm a fan of AsciiMath: I actually got that right on the first try at the [AsciiMath website](http://asciimath.org/).
 
-#### MathML
+##### MathML
 
 There is no syntactic sugar for MathML.
 
