@@ -301,7 +301,7 @@ Markua is very strict about its heading syntax. Specifically, to create a Markua
 
 A Markua heading needs a blank line above and below it. However, due to the rules for [blank lines and file concatenating](#concatenating), you can omit the blank line before a heading which is the first line of a file and omit the blank line after a heading which is the last line of a file.
 
-If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for sections, etc.
+If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a paragraph starting with a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for section or lower level headings (adding a trailing `#` after a chapter heading makes it into a legal part heading), etc.
 
 {#paragraphs}
 # Paragraphs and Blank Lines
