@@ -4071,7 +4071,7 @@ This works for most block elements, like lists, figures and tables. It does **NO
 
 ## Quizzes and Exercises
 
-The final two block elements that Markua provides are quizzes and exercises. These two block elements are very special, however, in that they enable a single Markua document to construct everything from traditional textbooks and paper-based quizzes to entire online courses (or MOOCs). So, they're discussed in [their own chapter](#quizzes-and-exercises).
+The final two block elements that Markua provides are quizzes and exercises. These two block elements are very special, however, in that they enable a single Markua document to construct everything from traditional textbooks and paper-based quizzes to entire online courses (or MOOCs). So, they're discussed in [their own chapter](#courses).
 
 # Span Elements
 
@@ -5202,8 +5202,12 @@ The following settings are defined by Markua, but only make sense in the context
 `default-random-question-order`
 : `true` or `false`. The default is `false`. This sets the default behaviour of the quiz or exercise. If `true`, the questions are randomly arranged; if `false`, they are presented in the order written.
 
-{#quizzes-and-exercises}
-# Quizzes and Exercises
+{#courses}
+# Courses
+
+Markua was initially designed for the writing of books, but it has been extended to support creating courses. For example, Leanpub authors can click a button to create a massive open online course (MOOC), complete with automated marking, entirely from a Markua document.
+
+**To convert a book into a course, all you need to do is add quizzes and exercises.**
 
 Quizzes and exercises are essentially the same. The only difference is that quizzes are intended to be marked, and exercises are not. Because of their similarities, they are discussed here together.
 
@@ -5254,8 +5258,8 @@ c) 7
 
 Just like with quiz, with an exercise the `id` attribute is **required**. This is so the identity of an exercise can be preserved across generations of a course.
 
-{#quiz-headings}
-## Quiz and Exercise Headings and Other Content
+{#quizzes-and-exercises}
+## Quizzes and Exercises
 
 A quiz or exercise can contain any Markua content, not just questions and answers. This is true regardless of whether the quiz or exercise is in a MOOC, an ebook or on paper. Note that video and audio resources don't work so well on paper, however.
 
@@ -5344,7 +5348,7 @@ However, it is also an error to parse quiz syntax outside a quiz or exercise blo
 `version`
 : The version of the quiz. This does not replace the function of the `id`; it's more for use in analytics by the instructor. The default is `1`.
 
-As [discussed above](#quiz-headings), there is no `title` or `caption` attribute for a quiz--you can just add a heading inside the quiz or exercise itself, using the normal Markua formatting for a chapter heading.
+As [discussed above](#quizzes-and-exercises), there is no `title` or `caption` attribute for a quiz--you can just add a heading inside the quiz or exercise itself, using the normal Markua formatting for a chapter heading.
 
 ## Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 
