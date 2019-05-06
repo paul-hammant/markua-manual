@@ -1881,130 +1881,13 @@ This is also in paragraph two, also preceded by a forced line break.
 This is paragraph three.
 ~~~
 
-### Three or More Newlines = Two Newlines = One Blank Line
+### Two or More Newlines = One Blank Line
 
-Markua handles two consecutive newlines identically to Markdown: they produce a blank line, which separates block elements like paragraphs from each other.
+Two or more consecutive newlines produce exactly one blank line, which separates block elements like paragraphs from each other. So, there is no reason to use more than two consecutive newlines.
 
-Similarly, Markua handles three or more consecutive newlines identically to Markdown: they produce one blank line, as though only two newlines had been typed.
+When writing prose, there's basically no reason to add multiple blank lines. Worse, the most popular reason is a bad one: to attempt to manually accomplish a page break, or to make something look like a section break. However, Markua has special syntax for [scene breaks](#scene-breaks) and [page breaks](#page-breaks), which should be used for these purposes.
 
-When writing prose, there's basically no reason to add multiple blank lines. Worse, the most popular reason is a bad one: to hopefully accomplish a page break, or to make something look like a section break. However, Markua has special syntax for [scene breaks](#scene-breaks) and [page breaks](#page-breaks), which should be used for these purposes.
-
-### How to Force Whitespace Using Code Spans or Blocks
-
-Inside a code span or block, whitespace must be preserved by a Markua Processor. So, if you're trying to insert a bunch of whitespace for some strange reason, this is how you do it.
-
-So, there are five spaces between foo and bar here, three inside the backticks, and two outside them: foo `   ` bar. Similarly, there are five blank lines between these two paragraphs:
-
-~~~
-Yada yada yada
-
-```
-
-
-
-```
-
-Yada yada yada
-~~~
-
-You can also use the poetry block syntax, if you want your whitespace to be more poetic:
-
-~~~
-Yada yada yada
-
----
-
-
-
----
-
-Yada yada yada
-~~~
-
-{#concatenating}
-### Blank Lines and Concatenating
-
-TODO - rewrite this
-
-* One Blank Line Is Added When Concatenating Manuscript Files
-* All Blank Lines at the Beginning and End of a File are Removed
-
-A Markua document can be written in one file or multiple manuscript files. If a manuscript is written in multiple files, these files are concatenated together by the Markua Processor to produce one temporary manuscript file, and that one file is used as the input.
-
-Importantly, in order to avoid a number of bugs, the files are not just concatenated together unchanged--they **must** be concatenated together by Markua Processors with **two newlines** (i.e. one blank line) added between the end of each file and the beginning of the next file.
-
-This is needed in order to separate the content of the two files with one blank line between them, in order to prevent a number of surprises for authors. Note that because of this rule, a paragraph (or any other block element) cannot span multiple manuscript files.
-
-Since a blank line is added when concatenating multiple manuscript files, there is no good reason to support blank lines, or lines containing only whitespace, at the beginning or end of a file. So, all blank lines and all whitespace-only lines at the beginning or end of a file are removed.
-
-This is especially important with the whitespace at the end of a file: trailing whitespace at the end of a file is invisible to the author, and supporting invisible formatting--whether at the end of a line or the end of a file--is insanity.
-
-As discussed, one blank line is added when concatenating multiple manuscript files. To see why this rule is important, consider the following single-file Markua document:
-
-{caption: manuscript.txt}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-Suppose instead a multiple-file approach was used, in which there were two files, ch1.txt and ch2.txt, with the following content:
-
-{caption: ch1.txt}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-~~~
-
-{caption: ch2.txt}
-~~~
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-If Markua did not add any newlines between files, then these files would produce the following manuscript:
-
-{caption: Incorrect Temporary Auto-Created Manuscript #1}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.# Chapter Two
-
-Yada yada yada.
-~~~
-
-If Markua only added one newline when concatenating, this would produce the following manuscript:
-
-{caption: Incorrect Temporary Auto-Created Manuscript #2}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-# Chapter Two
-
-Yada yada yada.
-~~~
-
-However, since Markua requires that headings be separated by blank lines above and below them, the Chapter Two heading would not be a heading. It would be considered part of the previous paragraph! This would be very surprising and the source of a number of bugs. Worse, since a number of text editors such as Emacs have a "strip blank lines at the end of files" setting, it would be possible to introduce such a bug if Markua simply relied on blank lines being added to the end of a file by the author.
-
-So, because of the blank line rule, concatenating the files produces the same manuscript as the single-file manuscript above:
-
-{caption: Correct Temporary Auto-Created Manuscript}
-~~~
-# Chapter One
-
-Lorem ipsum dolor.
-
-# Chapter Two
-
-Yada yada yada.
-~~~
+There's also a horrible hack to force whitespace, which works both to add spaces or blank lines. This is discussed [later](#whitespace-hack).
 
 ## Spaces and Tabs
 
@@ -4578,7 +4461,7 @@ Here's a block placeholder as the only content of a block:
 You cannot insert that block placeholder in a span context like in this paragraph.
 ~~~
 
-# Edge Cases
+# Obscure Details
 
 ## Nesting Formatting
 
@@ -4611,7 +4494,7 @@ So, to use a curly brace as an actual curly brace character, you need to backsla
 
 Similarly, a backtick is special. In text content (such as this paragraph), a backtick starts an inline span resource such as a code resource. And three backticks on a line by themselves start a code block.
 
-## Code Spans and Backticks (`` ` ``)
+## Backticks (`` ` ``)
 
 You can create a code span by using pairs of 1, 2 or 3 backticks to surround a span of text within a paragraph, like this:
 
@@ -4730,6 +4613,124 @@ If you don't want to use it, you don't need to learn about it.
 ~~~
 
 Note that to hide an entire chapter or section, it's cleaner to use the `book` attribute, described [here](#conditional-inclusion).
+
+{#whitespace-hack}
+## A Hack for Forcing Whitespace
+
+Inside a code span or block, whitespace must be preserved by a Markua Processor. So, if you're trying to insert a bunch of whitespace for some strange reason, there is a straightforward hack to do so.
+
+So, there are five spaces between foo and bar here, three inside the backticks, and two outside them: foo `   ` bar. Similarly, there are five blank lines between these two paragraphs:
+
+~~~
+Yada yada yada
+
+```
+
+
+
+```
+
+Yada yada yada
+~~~
+
+You can also use the poetry block syntax, if you want your whitespace to be more poetic:
+
+~~~
+Yada yada yada
+
+---
+
+
+
+---
+
+Yada yada yada
+~~~
+
+Again, this is a total hack. It should not be used to accomplish pagination or otherwise format a Markua document. However, if you want to do it, now you know how to do it.
+
+{#concatenating}
+## Concatenating Files and Blank Lines
+
+A Markua document can be written in one file or multiple manuscript files. If a manuscript is written in multiple files, these files are concatenated together by the Markua Processor to produce one temporary manuscript file, and that one file is used as the input.
+
+Importantly, in order to avoid a number of bugs, the files are not just concatenated together unchanged--they **must** be concatenated together by Markua Processors in the following way:
+
+1. All newlines at the beginning and the end of each file are removed.
+2. Two newlines are added between the end of each file and the beginning of the next file.
+
+So, after this process, exactly one blank line separates the contents of each manuscript file.
+
+This prevents a number of surprises for authors, and is consistent in design: just as Markua does not support invisible formatting at the end of a line, it does not support invisible formatting at the end of a file.
+
+Note that because of this rule, a paragraph (or any other block element) cannot span multiple manuscript files.
+
+To see why this approach is so important, consider the following single-file Markua document:
+
+{caption: manuscript.txt}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+
+# Chapter Two
+
+Yada yada yada.
+~~~
+
+Suppose instead a multiple-file approach was used, in which there were two files, ch1.txt and ch2.txt, with the following content:
+
+{caption: ch1.txt}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+~~~
+
+{caption: ch2.txt}
+~~~
+# Chapter Two
+
+Yada yada yada.
+~~~
+
+If Markua did not add any newlines between files, then these files would produce the following incorrect manuscript:
+
+{caption: incorrect concatenation}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.# Chapter Two
+
+Yada yada yada.
+~~~
+
+If Markua only added one newline when concatenating, this would produce the following incorrect manuscript:
+
+{caption: also incorrect concatenation}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+# Chapter Two
+
+Yada yada yada.
+~~~
+
+However, since Markua requires that headings be separated by blank lines above and below them, the Chapter Two heading would not be a heading. It would be considered part of the previous paragraph! This would be very surprising and the source of a number of bugs. Worse, since a number of text editors such as Emacs have a "strip blank lines at the end of files" setting, it would be possible to introduce such a bug if Markua simply relied on blank lines being added to the end of a file by the author.
+
+So, because of the blank line rule, concatenating the files produces the same manuscript as the single-file manuscript above:
+
+{caption: correct concatenation}
+~~~
+# Chapter One
+
+Lorem ipsum dolor.
+
+# Chapter Two
+
+Yada yada yada.
+~~~
 
 # Metadata
 
@@ -5827,19 +5828,7 @@ The decision in Markua to treat single newlines as forced line breaks means that
 
 Worse, some text editors (like Emacs, the editor I use) can be configured to remove trailing spaces at the ends of lines automatically when a file is saved. So, it's possible for me to dramatically modify a Markdown document by simply opening it and saving it unedited. Yikes!
 
-### Three or More Newlines = Two Newlines = One Blank Line
-
-Markua handles two consecutive newlines identically to Markdown: they produce a blank line, which separates block elements like paragraphs from each other.
-
-Similarly, Markua handles three or more consecutive newlines identically to Markdown: they produce one blank line, as though only two newlines had been typed.
-
-When writing prose, there's basically no reason to add multiple blank lines. Worse, the most popular reason is a bad one: to hopefully accomplish a page break, or to make something look like a section break. However, Markua has special syntax for [scene breaks](#scene-breaks) and [page breaks](#page-breaks), which should be used for these purposes.
-
-
-
-
-
-
+Note that Markua handles two or more consecutive newlines identically to Markdown: they produce exactly one blank line, which separates block elements like paragraphs from each other.
 
 ## Headings
 
