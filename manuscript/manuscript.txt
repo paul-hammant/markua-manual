@@ -5726,6 +5726,37 @@ A Markua Processor must treat any error in the numbering of question alternates 
 
 # Miscellany
 
+## Definitions of Characters and Lines
+
+Any sequence of [characters](#character) is a valid Markua document.
+
+A [character]{#def-character} is a Unicode code point. Although some code points (for example, combining accents) do not correspond to characters in an intuitive sense, all code points count as characters for purposes of this spec.
+
+This spec does not specify an encoding; it thinks of lines as composed of [characters](#character) rather than bytes. A conforming parser may be limited to a certain encoding.
+
+A [line]{#def-line} is a sequence of zero or more [characters] other than newline (`U+000A`) or carriage return (`U+000D`), followed by a [line ending] or by the end of file.
+
+A [line ending]{#def-line-ending} is a newline (`U+000A`), a carriage return (`U+000D`) not followed by a newline, or a carriage return and a following newline.
+
+A line containing no characters, or a line containing only spaces (`U+0020`) or tabs (`U+0009`), is called a [blank line](@).
+
+The following definitions of character classes will be used in this spec:
+
+A [whitespace character]{#def-whitespace-character} is a space (`U+0020`), tab (`U+0009`), newline (`U+000A`), line tabulation (`U+000B`), form feed (`U+000C`), or carriage return (`U+000D`).
+
+[Whitespace]{#def-whitespace} is a sequence of one or more [whitespace characters].
+
+A [Unicode whitespace character]{#def-unicode-whitespace-character} is any code point in the Unicode `Zs` general category, or a tab (`U+0009`), carriage return (`U+000D`), newline (`U+000A`), or form feed (`U+000C`).
+
+[Unicode whitespace]{#def-unicode-whitespace} is a sequence of one or more [Unicode whitespace characters](#def-unicode-whitespace-character).
+
+A [space]{#def-space} is `U+0020`.
+A [non-whitespace character]{#def-non-whitespace-character} is any character that is not a [whitespace character](#def-whitespace-character).
+
+An [ASCII punctuation character]{#ascii-punctuation-character} is `!`, `"`, `#`, `$`, `%`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `-`, `.`, `/` (U+0021–2F), `:`, `;`, `<`, `=`, `>`, `?`, `@` (U+003A–0040), `[`, `\`, `]`, `^`, `_`, `` ` `` (U+005B–0060), `{`, `|`, `}`, or `~` (U+007B–007E).
+
+A [punctuation character]{#punctuation-character} is an [ASCII punctuation character](#ascii-punctuation-character) or anything in the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
+
 ## Nesting Formatting
 
 It is possible to nest formatting. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
@@ -6092,7 +6123,7 @@ These are some issues raised in CommonMark that I should think about and/or disc
 ~~~
 
 
-{#mapping}
+{#html-mapping}
 # HTML Mapping
 
 This chapter is the specification of the mapping of Markua to HTML.
@@ -6359,35 +6390,6 @@ code {
 
 # Preliminaries
 
-## Characters and lines
- Any sequence of [characters] is a valid Markua document.
-
-A [character](@) is a Unicode code point.  Although some code points (for example, combining accents) do not correspond to characters in an intuitive sense, all code points count as characters for purposes of this spec.
-
-This spec does not specify an encoding; it thinks of lines as composed of [characters] rather than bytes.  A conforming parser may be limited to a certain encoding.
-
-A [line](@) is a sequence of zero or more [characters] other than newline (`U+000A`) or carriage return (`U+000D`), followed by a [line ending] or by the end of file.
-
-A [line ending](@) is a newline (`U+000A`), a carriage return (`U+000D`) not followed by a newline, or a carriage return and a following newline.
-
-A line containing no characters, or a line containing only spaces (`U+0020`) or tabs (`U+0009`), is called a [blank line](@).
-
-The following definitions of character classes will be used in this spec:
-
-A [whitespace character](@) is a space (`U+0020`), tab (`U+0009`), newline (`U+000A`), line tabulation (`U+000B`), form feed (`U+000C`), or carriage return (`U+000D`).
-
-[Whitespace](@) is a sequence of one or more [whitespace characters].
-
-A [Unicode whitespace character](@) is any code point in the Unicode `Zs` general category, or a tab (`U+0009`), carriage return (`U+000D`), newline (`U+000A`), or form feed (`U+000C`).
-
-[Unicode whitespace](@) is a sequence of one or more [Unicode whitespace characters].
-
-A [space](@) is `U+0020`.
-A [non-whitespace character](@) is any character that is not a [whitespace character].
-
-An [ASCII punctuation character](@) is `!`, `"`, `#`, `$`, `%`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `-`, `.`, `/` (U+0021–2F), `:`, `;`, `<`, `=`, `>`, `?`, `@` (U+003A–0040), `[`, `\`, `]`, `^`, `_`, `` ` `` (U+005B–0060), `{`, `|`, `}`, or `~` (U+007B–007E).
-
-A [punctuation character](@) is an [ASCII punctuation character] or anything in the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
 
 ## Tabs
 
