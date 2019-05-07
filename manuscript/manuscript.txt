@@ -217,9 +217,11 @@ Perhaps most important, Markua is built on Markdown. So, Markua literally would 
 
 Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
 
-## Copyright and Creative Commons Attribution
+## Copyright and Creative Commons Attribution of the CommonMark Spec
 
 The Markua Specification is copyright © 2014 - 2019 Peter Armstrong. The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license. Portions of the Markua Specification, primarily in the Mapping chapter, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
+
+Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the parts of the CommonMark Spec were incorporated into the Markua Specification is that the CommonMark Spec is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to incorporate and adapt the parts of the CommonMark Spec which apply.
 
 {#text-formatting}
 # Text Formatting
@@ -6086,7 +6088,6 @@ These are some issues raised in CommonMark that I should think about and/or disc
 {#mapping}
 # Mapping
 
-A> Portions of this part are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the CommonMark Spec was used as the basis for parts of Part 5 is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to start with the CommonMark Spec, delete the sections which don't apply, and change those that do.
 
 
 
