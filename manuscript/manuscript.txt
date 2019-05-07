@@ -219,7 +219,7 @@ Finally, I would like to thank my wife Caroline and my son Evan: while this is n
 
 ## Copyright and Creative Commons Attribution
 
-The Markua Specification is copyright © 2014 - 2019 Peter Armstrong. The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license. Portions of the Markua Specification, especially in the Mapping chapter, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
+The Markua Specification is copyright © 2014 - 2019 Peter Armstrong. The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license. Portions of the Markua Specification, primarily in the Mapping chapter, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
 
 {#text-formatting}
 # Text Formatting
@@ -4492,13 +4492,15 @@ Finally, if you incorrectly nest the asterisk and underscore formatting characte
 
 ## Consecutive Lists
 
-The following are two lists:
+The following are two consecutive lists, a numbered list and a bulleted list, inside one paragraph:
 
 ~~~
+Yada yada yada
 1. fee
 2. fie
 -  foe
 -  fum
+Yada yada yada
 ~~~
 
 ## Escaping Special Characters with Backslash (`\`)
@@ -5950,6 +5952,14 @@ The design of Markua headings meets these requirements, in what I think is an op
 
 In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` produces an _underline_ unless the `italicize-underlines` global setting is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
 
+## Lists
+
+Markdown allows top-level lists to be indented by up to three spaces before the list delimiter. Markua does not allow this.
+
+Markdown allows list markers to be followed by one or more spaces or a tab. Markua only allows single spaces.
+
+Markua splits lists simple and complex lists, and defines indentation rules about the use of tabs and spaces accordingly. Markdown has a number of fairly loose rules about lists and indentation.
+
 ## Numbered Lists
 
 Note that Markua calls numbered lists "numbered", whereas in Markdown they are called "ordered".
@@ -6035,10 +6045,50 @@ These are the top 10 differences between Markua and LFM:
 
 Besides these 10 differences, there are a number of smaller ones, which you will discover if you compare the Markua Specification to the [Leanpub Flavoured Markdown Manual](https://leanpub.com/leanpubflavouredmarkdownmanual/).
 
+# TODO
+
+These are some issues raised in CommonMark that I should think about and/or discuss with Scott...
+
+~~~
+8.  What are the precedence rules for the markers of inline structure?
+    For example, is the following a valid link, or does the code span
+    take precedence ?
+
+    ``` markdown
+    [a backtick (`)](/url) and [another backtick (`)](/url).
+    ```
+
+9.  What are the precedence rules for markers of emphasis and strong
+    emphasis?  For example, how should the following be parsed?
+
+    ``` markdown
+    *foo *bar* baz*
+    ```
+
+11. Can list items include section headings?  (`Markdown.pl` does not
+    allow this, but does allow blockquotes to include headings.)
+
+    ``` markdown
+    - # Heading
+    ```
+
+12. Can list items be empty?
+
+    ``` markdown
+    * a
+    *
+    * b
+    ```
+
+~~~
+
+
 {#mapping}
 # Mapping
 
 A> Portions of this part are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the CommonMark Spec was used as the basis for parts of Part 5 is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to start with the CommonMark Spec, delete the sections which don't apply, and change those that do.
+
+
 
 The way I'm planning to write this section is as follows:
 
@@ -6060,7 +6110,7 @@ Not only are there no required output formats for a Markua Processor, the mappin
 
 There is, however, some HTML mapping specified.
 
-TODO
+## CSS Hint
 
 The reasoning here is simple: in source code, whitespace matters, so it must not get collapsed into a single space. Thankfully, this is easy to do. If a Markua Processor is producing HTML, the following CSS prevents spaces from being collapsed to one space:
 
@@ -6072,174 +6122,189 @@ code {
 
 (There may be other CSS in future which meets this requirement, so this exact CSS is not a requirement for a Markua Processor to use. However, the behaviour that results when this CSS is added is a requirement for a Markua Processor.)
 
+## About
 
-# CommonMark Spec
-
-7.  When list markers change from numbers to bullets, do we have
-    two lists or one?  (The Markdown syntax description suggests two,
-    but the perl scripts and many other implementations produce one.)
-
-    ``` markdown
-    ```
-
-8.  What are the precedence rules for the markers of inline structure?
-    For example, is the following a valid link, or does the code span
-    take precedence ?
-
-    ``` markdown
-    [a backtick (`)](/url) and [another backtick (`)](/url).
-    ```
-
-9.  What are the precedence rules for markers of emphasis and strong
-    emphasis?  For example, how should the following be parsed?
-
-    ``` markdown
-    *foo *bar* baz*
-    ```
-
-10. What are the precedence rules between block-level and inline-level
-    structure?  For example, how should the following be parsed?
-
-    ``` markdown
-    - `a long code span can contain a hyphen like this
-      - and it can screw things up`
-    ```
-
-11. Can list items include section headings?  (`Markdown.pl` does not
-    allow this, but does allow blockquotes to include headings.)
-
-    ``` markdown
-    - # Heading
-    ```
-
-12. Can list items be empty?
-
-    ``` markdown
-    * a
-    *
-    * b
-    ```
-
-13. Can link references be defined inside block quotes or list items?
-
-    ``` markdown
-    > Blockquote [foo].
-    >
-    > [foo]: /url
-    ```
-
-14. If there are multiple definitions for the same reference, which takes
-    precedence?
-
-    ``` markdown
-    [foo]: /url1
-    [foo]: /url2
-
-    [foo][]
-    ```
-
-In the absence of a spec, early implementers consulted `Markdown.pl`
-to resolve these ambiguities.  But `Markdown.pl` was quite buggy, and
-gave manifestly bad results in many cases, so it was not a
-satisfactory replacement for a spec.
-
-Because there is no unambiguous spec, implementations have diverged
-considerably.  As a result, users are often surprised to find that
-a document that renders one way on one system (say, a GitHub wiki)
-renders differently on another (say, converting to docbook using
-pandoc).  To make matters worse, because nothing in Markdown counts
-as a "syntax error," the divergence often isn't discovered right away.
-
-## About this document
-
-This document attempts to specify Markdown syntax unambiguously.
-It contains many examples with side-by-side Markdown and
-HTML.  These are intended to double as conformance tests.  An
-accompanying script `spec_tests.py` can be used to run the tests
-against any Markdown program:
+This chapter attempts to specify Markua syntax unambiguously. It contains many examples with side-by-side Markua and HTML. It is based on the CommonMark Spec. These examples are intended to double as conformance tests. An accompanying script `spec_tests.py` can (TODO - once we update it) be used to run the tests against any Markua Processor:
 
     python test/spec_tests.py --spec spec.txt --program PROGRAM
 
-Since this document describes how Markdown is to be parsed into
-an abstract syntax tree, it would have made sense to use an abstract
-representation of the syntax tree instead of HTML.  But HTML is capable
-of representing the structural distinctions we need to make, and the
-choice of HTML for the tests makes it possible to run the tests against
-an implementation without writing an abstract syntax tree renderer.
-
-This document is generated from a text file, `spec.txt`, written
-in Markdown with a small extension for the side-by-side tests.
-The script `tools/makespec.py` can be used to convert `spec.txt` into
-HTML or CommonMark (which can then be converted into other formats).
-
 In the examples, the `→` character is used to represent tabs.
+
+
+## An Unofficial HTML Mapping
+
+This is a (very) incomplete mapping from Markua to HTML5.
+
+Not only is it incomplete, it is not canonical. Implementors of Markua Processors can output any HTML that they choose, as long as it is sensible. Markua is very feature-rich, and specifying every single detail of the HTML output would highly limit flexibility. Furthermore, implementors of Markua Processors don't even have to output HTML at all. They can choose to simply output LaTeX, for example.
+
+So, the reason why I'm providing this is not as a set of requirements, but merely as an example of how Markua can be output as HTML.
+
+For the most part, the HTML mapping which is specified here relates to the type of formatting that a book designer typically has no discretion to change. This includes things like bold, italics, paragraphs, single newlines, etc.
+
+This HTML mapping also specifies things for which it makes not much sense for there to be much variation in the generated HTML. This includes things like headings and figures--even though they may be styled radically differently in CSS, the HTML that produces them might as well be fairly consistent.
+
+Hopefully this HTML mapping helps implementors of Markua Processors do the relatively straightforward parts of the HTML mapping in a similar way, and then get on to the interesting parts of the Markua Specification where there is more room for creativity.
+
+This chapter is ordered in a similar way to the rest of the Markua spec, but only the section where it is helpful to provide an HTML mapping are included.
+
+Again, this is just an unofficial, incomplete mapping from Markua to HTML5. It is very similar to what is done by Leanpub in generating the HTML (and EPUB) versions of our ebooks.
+
+{#tag-semantics}
+## Tag Semantics
+
+Before getting to the heart of this chapter, first a brief note about `<b>` vs. `<strong>` tags, `<i>` vs. `<em>` tags and Markdown compatibility.
+
+If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
+
+Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
+
+If you think this, you are clearly not familiar with the work of the W3C.
+
+The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5:
+
+* [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element)
+* [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element)
+* [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element)
+* [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element)
+
+The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
+
+Anyway, the following is the state of the world now:
+
+* There are many people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text.
+* There are other people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
+
+As such, it is the opinion of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. So, there's a setting.
+
+If you want to make Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
+
+```
+{
+html-style: markdown
+italicize-underlines: true
+}
+```
+
+The default value of these settings is the other way:
+
+```
+{
+html-style: default
+italicize-underlines: false
+}
+```
+
+
+## How This Chapter Is Structured
+
+The examples in this chapter show Markua text input and HTML output.
+
+Every Markua text example is a complete Markua document. If it is processed by a Markua Processor, the HTML which is produced should include the output. Now, since Markua does not specify the exact content of the HTML, the boilerplate before and after the HTML Output is not specified or included.
+
+It can, however, be as simple as the following:
+
+```
+<html><head></head><body>
+(...the HTML output...)
+</body></html>
+```
+
+Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
+
+Finally, Markua does not specify any CSS. However, occasionally CSS advice will be offered. This is because certain semantically meaningful formatting (like strikethrough) is done in HTML via CSS.
+
+## Text Formatting
+
+{#text_formatting_html}
+The syntax for text formatting is described [here](#text_formatting).
+
+### CSS Advice
+
+The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
+
+~~~
+.strikethrough {
+  text-decoration: line-through;
+}
+~~~
+
+##### Example
+
+This example uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
+
+###### Markua Syntax
+
+{#input_text_formatting_1}
+~~~
+* Italic: *one asterisk*
+* Underlined: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Underlined: ___three underscores___
+* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output_text_formatting_1}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Underlined: <u>one underscore</u></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
+  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+
+
+
+
+# CommonMark Spec
 
 # Preliminaries
 
 ## Characters and lines
+ Any sequence of [characters] is a valid Markua document.
 
-Any sequence of [characters] is a valid CommonMark
-document.
+A [character](@) is a Unicode code point.  Although some code points (for example, combining accents) do not correspond to characters in an intuitive sense, all code points count as characters for purposes of this spec.
 
-A [character](@) is a Unicode code point.  Although some
-code points (for example, combining accents) do not correspond to
-characters in an intuitive sense, all code points count as characters
-for purposes of this spec.
+This spec does not specify an encoding; it thinks of lines as composed of [characters] rather than bytes.  A conforming parser may be limited to a certain encoding.
 
-This spec does not specify an encoding; it thinks of lines as composed
-of [characters] rather than bytes.  A conforming parser may be limited
-to a certain encoding.
+A [line](@) is a sequence of zero or more [characters] other than newline (`U+000A`) or carriage return (`U+000D`), followed by a [line ending] or by the end of file.
 
-A [line](@) is a sequence of zero or more [characters]
-other than newline (`U+000A`) or carriage return (`U+000D`),
-followed by a [line ending] or by the end of file.
+A [line ending](@) is a newline (`U+000A`), a carriage return (`U+000D`) not followed by a newline, or a carriage return and a following newline.
 
-A [line ending](@) is a newline (`U+000A`), a carriage return
-(`U+000D`) not followed by a newline, or a carriage return and a
-following newline.
-
-A line containing no characters, or a line containing only spaces
-(`U+0020`) or tabs (`U+0009`), is called a [blank line](@).
+A line containing no characters, or a line containing only spaces (`U+0020`) or tabs (`U+0009`), is called a [blank line](@).
 
 The following definitions of character classes will be used in this spec:
 
-A [whitespace character](@) is a space
-(`U+0020`), tab (`U+0009`), newline (`U+000A`), line tabulation (`U+000B`),
-form feed (`U+000C`), or carriage return (`U+000D`).
+A [whitespace character](@) is a space (`U+0020`), tab (`U+0009`), newline (`U+000A`), line tabulation (`U+000B`), form feed (`U+000C`), or carriage return (`U+000D`).
 
-[Whitespace](@) is a sequence of one or more [whitespace
-characters].
+[Whitespace](@) is a sequence of one or more [whitespace characters].
 
-A [Unicode whitespace character](@) is
-any code point in the Unicode `Zs` general category, or a tab (`U+0009`),
-carriage return (`U+000D`), newline (`U+000A`), or form feed
-(`U+000C`).
+A [Unicode whitespace character](@) is any code point in the Unicode `Zs` general category, or a tab (`U+0009`), carriage return (`U+000D`), newline (`U+000A`), or form feed (`U+000C`).
 
-[Unicode whitespace](@) is a sequence of one
-or more [Unicode whitespace characters].
+[Unicode whitespace](@) is a sequence of one or more [Unicode whitespace characters].
 
 A [space](@) is `U+0020`.
+A [non-whitespace character](@) is any character that is not a [whitespace character].
 
-A [non-whitespace character](@) is any character
-that is not a [whitespace character].
+An [ASCII punctuation character](@) is `!`, `"`, `#`, `$`, `%`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `-`, `.`, `/` (U+0021–2F), `:`, `;`, `<`, `=`, `>`, `?`, `@` (U+003A–0040), `[`, `\`, `]`, `^`, `_`, `` ` `` (U+005B–0060), `{`, `|`, `}`, or `~` (U+007B–007E).
 
-An [ASCII punctuation character](@)
-is `!`, `"`, `#`, `$`, `%`, `&`, `'`, `(`, `)`,
-`*`, `+`, `,`, `-`, `.`, `/` (U+0021–2F),
-`:`, `;`, `<`, `=`, `>`, `?`, `@` (U+003A–0040),
-`[`, `\`, `]`, `^`, `_`, `` ` `` (U+005B–0060),
-`{`, `|`, `}`, or `~` (U+007B–007E).
-
-A [punctuation character](@) is an [ASCII
-punctuation character] or anything in
-the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
+A [punctuation character](@) is an [ASCII punctuation character] or anything in the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
 
 ## Tabs
 
-Tabs in lines are not expanded to [spaces].  However,
-in contexts where whitespace helps to define block structure,
-tabs behave as if they were replaced by spaces with a tab stop
-of 4 characters.
+Tabs in lines are not expanded to [spaces].  However, in contexts where whitespace helps to define block structure, tabs behave as if they were replaced by spaces with a tab stop of 4 characters.
 
 Thus, for example, a tab can be used instead of four spaces
 in an indented code block.  (Note, however, that internal
@@ -6867,626 +6932,6 @@ ATX headings can be empty:
 <h3></h3>
 ```
 
-
-## Setext headings
-
-A [setext heading](@) consists of one or more
-lines of text, each containing at least one [non-whitespace
-character], with no more than 3 spaces indentation, followed by
-a [setext heading underline].  The lines of text must be such
-that, were they not followed by the setext heading underline,
-they would be interpreted as a paragraph:  they cannot be
-interpretable as a [code fence], [ATX heading][ATX headings],
-[block quote][block quotes], [thematic break][thematic breaks],
-[list item][list items], or [HTML block][HTML blocks].
-
-A [setext heading underline](@) is a sequence of
-`=` characters or a sequence of `-` characters, with no more than 3
-spaces indentation and any number of trailing spaces.  If a line
-containing a single `-` can be interpreted as an
-empty [list items], it should be interpreted this way
-and not as a [setext heading underline].
-
-The heading is a level 1 heading if `=` characters are used in
-the [setext heading underline], and a level 2 heading if `-`
-characters are used.  The contents of the heading are the result
-of parsing the preceding lines of text as CommonMark inline
-content.
-
-In general, a setext heading need not be preceded or followed by a
-blank line.  However, it cannot interrupt a paragraph, so when a
-setext heading comes after a paragraph, a blank line is needed between
-them.
-
-Simple examples:
-
-```example
-Foo *bar*
-=========
-
-Foo *bar*
----------
-.
-<h1>Foo <em>bar</em></h1>
-<h2>Foo <em>bar</em></h2>
-```
-
-
-The content of the header may span more than one line:
-
-```example
-Foo *bar
-baz*
-====
-.
-<h1>Foo <em>bar
-baz</em></h1>
-```
-
-The contents are the result of parsing the headings's raw
-content as inlines.  The heading's raw content is formed by
-concatenating the lines and removing initial and final
-[whitespace].
-
-```example
-  Foo *bar
-baz*→
-====
-.
-<h1>Foo <em>bar
-baz</em></h1>
-```
-
-
-The underlining can be any length:
-
-```example
-Foo
--------------------------
-
-Foo
-=
-.
-<h2>Foo</h2>
-<h1>Foo</h1>
-```
-
-
-The heading content can be indented up to three spaces, and need
-not line up with the underlining:
-
-```example
-   Foo
----
-
-  Foo
------
-
-  Foo
-  ===
-.
-<h2>Foo</h2>
-<h2>Foo</h2>
-<h1>Foo</h1>
-```
-
-
-Four spaces indent is too much:
-
-```example
-    Foo
-    ---
-
-    Foo
----
-.
-<pre><code>Foo
----
-
-Foo
-</code></pre>
-<hr />
-```
-
-
-The setext heading underline can be indented up to three spaces, and
-may have trailing spaces:
-
-```example
-Foo
-   ----
-.
-<h2>Foo</h2>
-```
-
-
-Four spaces is too much:
-
-```example
-Foo
-    ---
-.
-<p>Foo
----</p>
-```
-
-
-The setext heading underline cannot contain internal spaces:
-
-```example
-Foo
-= =
-
-Foo
---- -
-.
-<p>Foo
-= =</p>
-<p>Foo</p>
-<hr />
-```
-
-
-Trailing spaces in the content line do not cause a line break:
-
-```example
-Foo
------
-.
-<h2>Foo</h2>
-```
-
-
-Nor does a backslash at the end:
-
-```example
-Foo\
-----
-.
-<h2>Foo\</h2>
-```
-
-
-Since indicators of block structure take precedence over
-indicators of inline structure, the following are setext headings:
-
-```example
-`Foo
-----
-`
-
-<a title="a lot
----
-of dashes"/>
-.
-<h2>`Foo</h2>
-<p>`</p>
-<h2>&lt;a title=&quot;a lot</h2>
-<p>of dashes&quot;/&gt;</p>
-```
-
-
-The setext heading underline cannot be a [lazy continuation
-line] in a list item or block quote:
-
-```example
-> Foo
----
-.
-<blockquote>
-<p>Foo</p>
-</blockquote>
-<hr />
-```
-
-
-```example
-> foo
-bar
-===
-.
-<blockquote>
-<p>foo
-bar
-===</p>
-</blockquote>
-```
-
-
-```example
-- Foo
----
-.
-<ul>
-<li>Foo</li>
-</ul>
-<hr />
-```
-
-
-A blank line is needed between a paragraph and a following
-setext heading, since otherwise the paragraph becomes part
-of the heading's content:
-
-```example
-Foo
-Bar
----
-.
-<h2>Foo
-Bar</h2>
-```
-
-
-But in general a blank line is not required before or after
-setext headings:
-
-```example
----
-Foo
----
-Bar
----
-Baz
-.
-<hr />
-<h2>Foo</h2>
-<h2>Bar</h2>
-<p>Baz</p>
-```
-
-
-Setext headings cannot be empty:
-
-```example
-
-====
-.
-<p>====</p>
-```
-
-
-Setext heading text lines must not be interpretable as block
-constructs other than paragraphs.  So, the line of dashes
-in these examples gets interpreted as a thematic break:
-
-```example
----
----
-.
-<hr />
-<hr />
-```
-
-
-```example
-- foo
------
-.
-<ul>
-<li>foo</li>
-</ul>
-<hr />
-```
-
-
-```example
-    foo
----
-.
-<pre><code>foo
-</code></pre>
-<hr />
-```
-
-
-```example
-> foo
------
-.
-<blockquote>
-<p>foo</p>
-</blockquote>
-<hr />
-```
-
-
-If you want a heading with `> foo` as its literal text, you can
-use backslash escapes:
-
-```example
-\> foo
-------
-.
-<h2>&gt; foo</h2>
-```
-
-
-**Compatibility note:**  Most existing Markdown implementations
-do not allow the text of setext headings to span multiple lines.
-But there is no consensus about how to interpret
-
-``` markdown
-Foo
-bar
----
-baz
-```
-
-One can find four different interpretations:
-
-1. paragraph "Foo", heading "bar", paragraph "baz"
-2. paragraph "Foo bar", thematic break, paragraph "baz"
-3. paragraph "Foo bar --- baz"
-4. heading "Foo bar", paragraph "baz"
-
-We find interpretation 4 most natural, and interpretation 4
-increases the expressive power of CommonMark, by allowing
-multiline headings.  Authors who want interpretation 1 can
-put a blank line after the first paragraph:
-
-```example
-Foo
-
-bar
----
-baz
-.
-<p>Foo</p>
-<h2>bar</h2>
-<p>baz</p>
-```
-
-
-Authors who want interpretation 2 can put blank lines around
-the thematic break,
-
-```example
-Foo
-bar
-
----
-
-baz
-.
-<p>Foo
-bar</p>
-<hr />
-<p>baz</p>
-```
-
-
-or use a thematic break that cannot count as a [setext heading
-underline], such as
-
-```example
-Foo
-bar
-* * *
-baz
-.
-<p>Foo
-bar</p>
-<hr />
-<p>baz</p>
-```
-
-
-Authors who want interpretation 3 can use backslash escapes:
-
-```example
-Foo
-bar
-\---
-baz
-.
-<p>Foo
-bar
----
-baz</p>
-```
-
-
-## Indented code blocks
-
-An [indented code block](@) is composed of one or more
-[indented chunks] separated by blank lines.
-An [indented chunk](@) is a sequence of non-blank lines,
-each indented four or more spaces. The contents of the code block are
-the literal contents of the lines, including trailing
-[line endings], minus four spaces of indentation.
-An indented code block has no [info string].
-
-An indented code block cannot interrupt a paragraph, so there must be
-a blank line between a paragraph and a following indented code block.
-(A blank line is not needed, however, between a code block and a following
-paragraph.)
-
-```example
-    a simple
-      indented code block
-.
-<pre><code>a simple
-  indented code block
-</code></pre>
-```
-
-
-If there is any ambiguity between an interpretation of indentation
-as a code block and as indicating that material belongs to a [list
-item][list items], the list item interpretation takes precedence:
-
-```example
-  - foo
-
-    bar
-.
-<ul>
-<li>
-<p>foo</p>
-<p>bar</p>
-</li>
-</ul>
-```
-
-
-```example
-1.  foo
-
-    - bar
-.
-<ol>
-<li>
-<p>foo</p>
-<ul>
-<li>bar</li>
-</ul>
-</li>
-</ol>
-```
-
-
-
-The contents of a code block are literal text, and do not get parsed
-as Markdown:
-
-```example
-    <a/>
-    *hi*
-
-    - one
-.
-<pre><code>&lt;a/&gt;
-*hi*
-
-- one
-</code></pre>
-```
-
-
-Here we have three chunks separated by blank lines:
-
-```example
-    chunk1
-
-    chunk2
-
-
-
-    chunk3
-.
-<pre><code>chunk1
-
-chunk2
-
-
-
-chunk3
-</code></pre>
-```
-
-
-Any initial spaces beyond four will be included in the content, even
-in interior blank lines:
-
-```example
-    chunk1
-
-      chunk2
-.
-<pre><code>chunk1
-
-  chunk2
-</code></pre>
-```
-
-
-An indented code block cannot interrupt a paragraph.  (This
-allows hanging indents and the like.)
-
-```example
-Foo
-    bar
-
-.
-<p>Foo
-bar</p>
-```
-
-
-However, any non-blank line with fewer than four leading spaces ends
-the code block immediately.  So a paragraph may occur immediately
-after indented code:
-
-```example
-    foo
-bar
-.
-<pre><code>foo
-</code></pre>
-<p>bar</p>
-```
-
-
-And indented code can occur immediately before and after other kinds of
-blocks:
-
-```example
-# Heading
-    foo
-Heading
-------
-    foo
-----
-.
-<h1>Heading</h1>
-<pre><code>foo
-</code></pre>
-<h2>Heading</h2>
-<pre><code>foo
-</code></pre>
-<hr />
-```
-
-
-The first line can be indented more than four spaces:
-
-```example
-        foo
-    bar
-.
-<pre><code>    foo
-bar
-</code></pre>
-```
-
-
-Blank lines preceding or following an indented code block
-are not included in it:
-
-```example
-
-
-    foo
-
-
-.
-<pre><code>foo
-</code></pre>
-```
-
-
-Trailing spaces are included in the code block's content:
-
-```example
-    foo
-.
-<pre><code>foo
-</code></pre>
-```
-
-
-
 ## Fenced code blocks
 
 A [code fence](@) is a sequence
@@ -7910,1149 +7355,6 @@ Closing code fences cannot have [info strings]:
 <pre><code>``` aaa
 </code></pre>
 ```
-
-
-
-## HTML blocks
-
-An [HTML block](@) is a group of lines that is treated
-as raw HTML (and will not be escaped in HTML output).
-
-There are seven kinds of [HTML block], which can be defined by their
-start and end conditions.  The block begins with a line that meets a
-[start condition](@) (after up to three spaces optional indentation).
-It ends with the first subsequent line that meets a matching [end
-condition](@), or the last line of the document, or the last line of
-the [container block](#container-blocks) containing the current HTML
-block, if no line is encountered that meets the [end condition].  If
-the first line meets both the [start condition] and the [end
-condition], the block will contain just that line.
-
-1.  **Start condition:**  line begins with the string `<script`,
-`<pre`, or `<style` (case-insensitive), followed by whitespace,
-the string `>`, or the end of the line.\
-**End condition:**  line contains an end tag
-`</script>`, `</pre>`, or `</style>` (case-insensitive; it
-need not match the start tag).
-
-2.  **Start condition:** line begins with the string `<!--`.\
-**End condition:**  line contains the string `-->`.
-
-3.  **Start condition:** line begins with the string `<?`.\
-**End condition:** line contains the string `?>`.
-
-4.  **Start condition:** line begins with the string `<!`
-followed by an uppercase ASCII letter.\
-**End condition:** line contains the character `>`.
-
-5.  **Start condition:**  line begins with the string
-`<![CDATA[`.\
-**End condition:** line contains the string `]]>`.
-
-6.  **Start condition:** line begins the string `<` or `</`
-followed by one of the strings (case-insensitive) `address`,
-`article`, `aside`, `base`, `basefont`, `blockquote`, `body`,
-`caption`, `center`, `col`, `colgroup`, `dd`, `details`, `dialog`,
-`dir`, `div`, `dl`, `dt`, `fieldset`, `figcaption`, `figure`,
-`footer`, `form`, `frame`, `frameset`,
-`h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `head`, `header`, `hr`,
-`html`, `iframe`, `legend`, `li`, `link`, `main`, `menu`, `menuitem`,
-`nav`, `noframes`, `ol`, `optgroup`, `option`, `p`, `param`,
-`section`, `source`, `summary`, `table`, `tbody`, `td`,
-`tfoot`, `th`, `thead`, `title`, `tr`, `track`, `ul`, followed
-by [whitespace], the end of the line, the string `>`, or
-the string `/>`.\
-**End condition:** line is followed by a [blank line].
-
-7.  **Start condition:**  line begins with a complete [open tag]
-(with any [tag name] other than `script`,
-`style`, or `pre`) or a complete [closing tag],
-followed only by [whitespace] or the end of the line.\
-**End condition:** line is followed by a [blank line].
-
-HTML blocks continue until they are closed by their appropriate
-[end condition], or the last line of the document or other [container
-block](#container-blocks).  This means any HTML **within an HTML
-block** that might otherwise be recognised as a start condition will
-be ignored by the parser and passed through as-is, without changing
-the parser's state.
-
-For instance, `<pre>` within a HTML block started by `<table>` will not affect
-the parser state; as the HTML block was started in by start condition 6, it
-will end at any blank line. This can be surprising:
-
-```example
-<table><tr><td>
-<pre>
-**Hello**,
-
-_world_.
-</pre>
-</td></tr></table>
-.
-<table><tr><td>
-<pre>
-**Hello**,
-<p><em>world</em>.
-</pre></p>
-</td></tr></table>
-```
-
-In this case, the HTML block is terminated by the newline — the `**Hello**`
-text remains verbatim — and regular parsing resumes, with a paragraph,
-emphasised `world` and inline and block HTML following.
-
-All types of [HTML blocks] except type 7 may interrupt
-a paragraph.  Blocks of type 7 may not interrupt a paragraph.
-(This restriction is intended to prevent unwanted interpretation
-of long tags inside a wrapped paragraph as starting HTML blocks.)
-
-Some simple examples follow.  Here are some basic HTML blocks
-of type 6:
-
-```example
-<table>
-  <tr>
-    <td>
-           hi
-    </td>
-  </tr>
-</table>
-
-okay.
-.
-<table>
-  <tr>
-    <td>
-           hi
-    </td>
-  </tr>
-</table>
-<p>okay.</p>
-```
-
-
-```example
- <div>
-  *hello*
-         <foo><a>
-.
- <div>
-  *hello*
-         <foo><a>
-```
-
-
-A block can also start with a closing tag:
-
-```example
-</div>
-*foo*
-.
-</div>
-*foo*
-```
-
-
-Here we have two HTML blocks with a Markdown paragraph between them:
-
-```example
-<DIV CLASS="foo">
-
-*Markdown*
-
-</DIV>
-.
-<DIV CLASS="foo">
-<p><em>Markdown</em></p>
-</DIV>
-```
-
-
-The tag on the first line can be partial, as long
-as it is split where there would be whitespace:
-
-```example
-<div id="foo"
-  class="bar">
-</div>
-.
-<div id="foo"
-  class="bar">
-</div>
-```
-
-
-```example
-<div id="foo" class="bar
-  baz">
-</div>
-.
-<div id="foo" class="bar
-  baz">
-</div>
-```
-
-
-An open tag need not be closed:
-```example
-<div>
-*foo*
-
-*bar*
-.
-<div>
-*foo*
-<p><em>bar</em></p>
-```
-
-
-
-A partial tag need not even be completed (garbage
-in, garbage out):
-
-```example
-<div id="foo"
-*hi*
-.
-<div id="foo"
-*hi*
-```
-
-
-```example
-<div class
-foo
-.
-<div class
-foo
-```
-
-
-The initial tag doesn't even need to be a valid
-tag, as long as it starts like one:
-
-```example
-<div *???-&&&-<---
-*foo*
-.
-<div *???-&&&-<---
-*foo*
-```
-
-
-In type 6 blocks, the initial tag need not be on a line by
-itself:
-
-```example
-<div><a href="bar">*foo*</a></div>
-.
-<div><a href="bar">*foo*</a></div>
-```
-
-
-```example
-<table><tr><td>
-foo
-</td></tr></table>
-.
-<table><tr><td>
-foo
-</td></tr></table>
-```
-
-
-Everything until the next blank line or end of document
-gets included in the HTML block.  So, in the following
-example, what looks like a Markdown code block
-is actually part of the HTML block, which continues until a blank
-line or the end of the document is reached:
-
-```example
-<div></div>
-``` c
-int x = 33;
-```
-.
-<div></div>
-``` c
-int x = 33;
-```
-```
-
-
-To start an [HTML block] with a tag that is *not* in the
-list of block-level tags in (6), you must put the tag by
-itself on the first line (and it must be complete):
-
-```example
-<a href="foo">
-*bar*
-</a>
-.
-<a href="foo">
-*bar*
-</a>
-```
-
-
-In type 7 blocks, the [tag name] can be anything:
-
-```example
-<Warning>
-*bar*
-</Warning>
-.
-<Warning>
-*bar*
-</Warning>
-```
-
-
-```example
-<i class="foo">
-*bar*
-</i>
-.
-<i class="foo">
-*bar*
-</i>
-```
-
-
-```example
-</ins>
-*bar*
-.
-</ins>
-*bar*
-```
-
-
-These rules are designed to allow us to work with tags that
-can function as either block-level or inline-level tags.
-The `<del>` tag is a nice example.  We can surround content with
-`<del>` tags in three different ways.  In this case, we get a raw
-HTML block, because the `<del>` tag is on a line by itself:
-
-```example
-<del>
-*foo*
-</del>
-.
-<del>
-*foo*
-</del>
-```
-
-
-In this case, we get a raw HTML block that just includes
-the `<del>` tag (because it ends with the following blank
-line).  So the contents get interpreted as CommonMark:
-
-```example
-<del>
-
-*foo*
-
-</del>
-.
-<del>
-<p><em>foo</em></p>
-</del>
-```
-
-
-Finally, in this case, the `<del>` tags are interpreted
-as [raw HTML] *inside* the CommonMark paragraph.  (Because
-the tag is not on a line by itself, we get inline HTML
-rather than an [HTML block].)
-
-```example
-<del>*foo*</del>
-.
-<p><del><em>foo</em></del></p>
-```
-
-
-HTML tags designed to contain literal content
-(`script`, `style`, `pre`), comments, processing instructions,
-and declarations are treated somewhat differently.
-Instead of ending at the first blank line, these blocks
-end at the first line containing a corresponding end tag.
-As a result, these blocks can contain blank lines:
-
-A pre tag (type 1):
-
-```example
-<pre language="haskell"><code>
-import Text.HTML.TagSoup
-
-main :: IO ()
-main = print $ parseTags tags
-</code></pre>
-okay
-.
-<pre language="haskell"><code>
-import Text.HTML.TagSoup
-
-main :: IO ()
-main = print $ parseTags tags
-</code></pre>
-<p>okay</p>
-```
-
-
-A script tag (type 1):
-
-```example
-<script type="text/javascript">
-// JavaScript example
-
-document.getElementById("demo").innerHTML = "Hello JavaScript!";
-</script>
-okay
-.
-<script type="text/javascript">
-// JavaScript example
-
-document.getElementById("demo").innerHTML = "Hello JavaScript!";
-</script>
-<p>okay</p>
-```
-
-
-A style tag (type 1):
-
-```example
-<style
-  type="text/css">
-h1 {color:red;}
-
-p {color:blue;}
-</style>
-okay
-.
-<style
-  type="text/css">
-h1 {color:red;}
-
-p {color:blue;}
-</style>
-<p>okay</p>
-```
-
-
-If there is no matching end tag, the block will end at the
-end of the document (or the enclosing [block quote][block quotes]
-or [list item][list items]):
-
-```example
-<style
-  type="text/css">
-
-foo
-.
-<style
-  type="text/css">
-
-foo
-```
-
-
-```example
-> <div>
-> foo
-
-bar
-.
-<blockquote>
-<div>
-foo
-</blockquote>
-<p>bar</p>
-```
-
-
-```example
-- <div>
-- foo
-.
-<ul>
-<li>
-<div>
-</li>
-<li>foo</li>
-</ul>
-```
-
-
-The end tag can occur on the same line as the start tag:
-
-```example
-<style>p{color:red;}</style>
-*foo*
-.
-<style>p{color:red;}</style>
-<p><em>foo</em></p>
-```
-
-
-```example
-<!-- foo -->*bar*
-*baz*
-.
-<!-- foo -->*bar*
-<p><em>baz</em></p>
-```
-
-
-Note that anything on the last line after the
-end tag will be included in the [HTML block]:
-
-```example
-<script>
-foo
-</script>1. *bar*
-.
-<script>
-foo
-</script>1. *bar*
-```
-
-
-A comment (type 2):
-
-```example
-<!-- Foo
-
-bar
-   baz -->
-okay
-.
-<!-- Foo
-
-bar
-   baz -->
-<p>okay</p>
-```
-
-
-
-A processing instruction (type 3):
-
-```example
-<?php
-
-  echo '>';
-
-?>
-okay
-.
-<?php
-
-  echo '>';
-
-?>
-<p>okay</p>
-```
-
-
-A declaration (type 4):
-
-```example
-<!DOCTYPE html>
-.
-<!DOCTYPE html>
-```
-
-
-CDATA (type 5):
-
-```example
-<![CDATA[
-function matchwo(a,b)
-{
-  if (a < b && a < 0) then {
-    return 1;
-
-  } else {
-
-    return 0;
-  }
-}
-]]>
-okay
-.
-<![CDATA[
-function matchwo(a,b)
-{
-  if (a < b && a < 0) then {
-    return 1;
-
-  } else {
-
-    return 0;
-  }
-}
-]]>
-<p>okay</p>
-```
-
-
-The opening tag can be indented 1-3 spaces, but not 4:
-
-```example
-  <!-- foo -->
-
-    <!-- foo -->
-.
-  <!-- foo -->
-<pre><code>&lt;!-- foo --&gt;
-</code></pre>
-```
-
-
-```example
-  <div>
-
-    <div>
-.
-  <div>
-<pre><code>&lt;div&gt;
-</code></pre>
-```
-
-
-An HTML block of types 1--6 can interrupt a paragraph, and need not be
-preceded by a blank line.
-
-```example
-Foo
-<div>
-bar
-</div>
-.
-<p>Foo</p>
-<div>
-bar
-</div>
-```
-
-
-However, a following blank line is needed, except at the end of
-a document, and except for blocks of types 1--5, [above][HTML
-block]:
-
-```example
-<div>
-bar
-</div>
-*foo*
-.
-<div>
-bar
-</div>
-*foo*
-```
-
-
-HTML blocks of type 7 cannot interrupt a paragraph:
-
-```example
-Foo
-<a href="bar">
-baz
-.
-<p>Foo
-<a href="bar">
-baz</p>
-```
-
-
-This rule differs from John Gruber's original Markdown syntax
-specification, which says:
-
-> The only restrictions are that block-level HTML elements —
-> e.g. `<div>`, `<table>`, `<pre>`, `<p>`, etc. — must be separated from
-> surrounding content by blank lines, and the start and end tags of the
-> block should not be indented with tabs or spaces.
-
-In some ways Gruber's rule is more restrictive than the one given
-here:
-
-- It requires that an HTML block be preceded by a blank line.
-- It does not allow the start tag to be indented.
-- It requires a matching end tag, which it also does not allow to
-  be indented.
-
-Most Markdown implementations (including some of Gruber's own) do not
-respect all of these restrictions.
-
-There is one respect, however, in which Gruber's rule is more liberal
-than the one given here, since it allows blank lines to occur inside
-an HTML block.  There are two reasons for disallowing them here.
-First, it removes the need to parse balanced tags, which is
-expensive and can require backtracking from the end of the document
-if no matching end tag is found. Second, it provides a very simple
-and flexible way of including Markdown content inside HTML tags:
-simply separate the Markdown from the HTML using blank lines:
-
-Compare:
-
-```example
-<div>
-
-*Emphasized* text.
-
-</div>
-.
-<div>
-<p><em>Emphasized</em> text.</p>
-</div>
-```
-
-
-```example
-<div>
-*Emphasized* text.
-</div>
-.
-<div>
-*Emphasized* text.
-</div>
-```
-
-
-Some Markdown implementations have adopted a convention of
-interpreting content inside tags as text if the open tag has
-the attribute `markdown=1`.  The rule given above seems a simpler and
-more elegant way of achieving the same expressive power, which is also
-much simpler to parse.
-
-The main potential drawback is that one can no longer paste HTML
-blocks into Markdown documents with 100% reliability.  However,
-*in most cases* this will work fine, because the blank lines in
-HTML are usually followed by HTML block tags.  For example:
-
-```example
-<table>
-
-<tr>
-
-<td>
-Hi
-</td>
-
-</tr>
-
-</table>
-.
-<table>
-<tr>
-<td>
-Hi
-</td>
-</tr>
-</table>
-```
-
-
-There are problems, however, if the inner tags are indented
-*and* separated by spaces, as then they will be interpreted as
-an indented code block:
-
-```example
-<table>
-
-  <tr>
-
-    <td>
-      Hi
-    </td>
-
-  </tr>
-
-</table>
-.
-<table>
-  <tr>
-<pre><code>&lt;td&gt;
-  Hi
-&lt;/td&gt;
-</code></pre>
-  </tr>
-</table>
-```
-
-
-Fortunately, blank lines are usually not necessary and can be
-deleted.  The exception is inside `<pre>` tags, but as described
-[above][HTML blocks], raw HTML blocks starting with `<pre>`
-*can* contain blank lines.
-
-## Link reference definitions
-
-A [link reference definition](@)
-consists of a [link label], indented up to three spaces, followed
-by a colon (`:`), optional [whitespace] (including up to one
-[line ending]), a [link destination],
-optional [whitespace] (including up to one
-[line ending]), and an optional [link
-title], which if it is present must be separated
-from the [link destination] by [whitespace].
-No further [non-whitespace characters] may occur on the line.
-
-A [link reference definition]
-does not correspond to a structural element of a document.  Instead, it
-defines a label which can be used in [reference links]
-and reference-style [images] elsewhere in the document.  [Link
-reference definitions] can come either before or after the links that use
-them.
-
-```example
-[foo]: /url "title"
-
-[foo]
-.
-<p><a href="/url" title="title">foo</a></p>
-```
-
-
-```example
-   [foo]:
-      /url
-           'the title'
-
-[foo]
-.
-<p><a href="/url" title="the title">foo</a></p>
-```
-
-
-```example
-[Foo*bar\]]:my_(url) 'title (with parens)'
-
-[Foo*bar\]]
-.
-<p><a href="my_(url)" title="title (with parens)">Foo*bar]</a></p>
-```
-
-
-```example
-[Foo bar]:
-<my url>
-'title'
-
-[Foo bar]
-.
-<p><a href="my%20url" title="title">Foo bar</a></p>
-```
-
-
-The title may extend over multiple lines:
-
-```example
-[foo]: /url '
-title
-line1
-line2
-'
-
-[foo]
-.
-<p><a href="/url" title="
-title
-line1
-line2
-">foo</a></p>
-```
-
-
-However, it may not contain a [blank line]:
-
-```example
-[foo]: /url 'title
-
-with blank line'
-
-[foo]
-.
-<p>[foo]: /url 'title</p>
-<p>with blank line'</p>
-<p>[foo]</p>
-```
-
-
-The title may be omitted:
-
-```example
-[foo]:
-/url
-
-[foo]
-.
-<p><a href="/url">foo</a></p>
-```
-
-
-The link destination may not be omitted:
-
-```example
-[foo]:
-
-[foo]
-.
-<p>[foo]:</p>
-<p>[foo]</p>
-```
-
- However, an empty link destination may be specified using
- angle brackets:
-
-```example
-[foo]: <>
-
-[foo]
-.
-<p><a href="">foo</a></p>
-```
-
-The title must be separated from the link destination by
-whitespace:
-
-```example
-[foo]: <bar>(baz)
-
-[foo]
-.
-<p>[foo]: <bar>(baz)</p>
-<p>[foo]</p>
-```
-
-
-Both title and destination can contain backslash escapes
-and literal backslashes:
-
-```example
-[foo]: /url\bar\*baz "foo\"bar\baz"
-
-[foo]
-.
-<p><a href="/url%5Cbar*baz" title="foo&quot;bar\baz">foo</a></p>
-```
-
-
-A link can come before its corresponding definition:
-
-```example
-[foo]
-
-[foo]: url
-.
-<p><a href="url">foo</a></p>
-```
-
-
-If there are several matching definitions, the first one takes
-precedence:
-
-```example
-[foo]
-
-[foo]: first
-[foo]: second
-.
-<p><a href="first">foo</a></p>
-```
-
-
-As noted in the section on [Links], matching of labels is
-case-insensitive (see [matches]).
-
-```example
-[FOO]: /url
-
-[Foo]
-.
-<p><a href="/url">Foo</a></p>
-```
-
-
-```example
-[ΑΓΩ]: /φου
-
-[αγω]
-.
-<p><a href="/%CF%86%CE%BF%CF%85">αγω</a></p>
-```
-
-
-Here is a link reference definition with no corresponding link.
-It contributes nothing to the document.
-
-```example
-[foo]: /url
-.
-```
-
-
-Here is another one:
-
-```example
-[
-foo
-]: /url
-bar
-.
-<p>bar</p>
-```
-
-
-This is not a link reference definition, because there are
-[non-whitespace characters] after the title:
-
-```example
-[foo]: /url "title" ok
-.
-<p>[foo]: /url &quot;title&quot; ok</p>
-```
-
-
-This is a link reference definition, but it has no title:
-
-```example
-[foo]: /url
-"title" ok
-.
-<p>&quot;title&quot; ok</p>
-```
-
-
-This is not a link reference definition, because it is indented
-four spaces:
-
-```example
-    [foo]: /url "title"
-
-[foo]
-.
-<pre><code>[foo]: /url &quot;title&quot;
-</code></pre>
-<p>[foo]</p>
-```
-
-
-This is not a link reference definition, because it occurs inside
-a code block:
-
-```example
-```
-[foo]: /url
-```
-
-[foo]
-.
-<pre><code>[foo]: /url
-</code></pre>
-<p>[foo]</p>
-```
-
-
-A [link reference definition] cannot interrupt a paragraph.
-
-```example
-Foo
-[bar]: /baz
-
-[bar]
-.
-<p>Foo
-[bar]: /baz</p>
-<p>[bar]</p>
-```
-
-
-However, it can directly follow other block elements, such as headings
-and thematic breaks, and it need not be followed by a blank line.
-
-```example
-# [Foo]
-[foo]: /url
-> bar
-.
-<h1><a href="/url">Foo</a></h1>
-<blockquote>
-<p>bar</p>
-</blockquote>
-```
-
-```example
-[foo]: /url
-bar
-===
-[foo]
-.
-<h1>bar</h1>
-<p><a href="/url">foo</a></p>
-```
-
-```example
-[foo]: /url
-===
-[foo]
-.
-<p>===
-<a href="/url">foo</a></p>
-```
-
-
-Several [link reference definitions]
-can occur one after another, without intervening blank lines.
-
-```example
-[foo]: /foo-url "foo"
-[bar]: /bar-url
-  "bar"
-[baz]: /baz-url
-
-[foo],
-[bar],
-[baz]
-.
-<p><a href="/foo-url" title="foo">foo</a>,
-<a href="/bar-url" title="bar">bar</a>,
-<a href="/baz-url">baz</a></p>
-```
-
-
-[Link reference definitions] can occur
-inside block containers, like lists and block quotations.  They
-affect the entire document, not just the container in which they
-are defined:
-
-```example
-[foo]
-
-> [foo]: /url
-.
-<p><a href="/url">foo</a></p>
-<blockquote>
-</blockquote>
-```
-
-
-Whether something is a [link reference definition] is
-independent of whether the link reference it defines is
-used in the document.  Thus, for example, the following
-document contains just a link reference definition, and
-no visible content:
-
-```example
-[foo]: /url
-.
-```
-
 
 ## Paragraphs
 
@@ -10569,192 +8871,6 @@ baz</li>
 ```
 
 
-### Motivation
-
-John Gruber's Markdown spec says the following about list items:
-
-1. "List markers typically start at the left margin, but may be indented
-   by up to three spaces. List markers must be followed by one or more
-   spaces or a tab."
-
-2. "To make lists look nice, you can wrap items with hanging indents....
-   But if you don't want to, you don't have to."
-
-3. "List items may consist of multiple paragraphs. Each subsequent
-   paragraph in a list item must be indented by either 4 spaces or one
-   tab."
-
-4. "It looks nice if you indent every line of the subsequent paragraphs,
-   but here again, Markdown will allow you to be lazy."
-
-5. "To put a blockquote within a list item, the blockquote's `>`
-   delimiters need to be indented."
-
-6. "To put a code block within a list item, the code block needs to be
-   indented twice — 8 spaces or two tabs."
-
-These rules specify that a paragraph under a list item must be indented
-four spaces (presumably, from the left margin, rather than the start of
-the list marker, but this is not said), and that code under a list item
-must be indented eight spaces instead of the usual four.  They also say
-that a block quote must be indented, but not by how much; however, the
-example given has four spaces indentation.  Although nothing is said
-about other kinds of block-level content, it is certainly reasonable to
-infer that *all* block elements under a list item, including other
-lists, must be indented four spaces.  This principle has been called the
-*four-space rule*.
-
-The four-space rule is clear and principled, and if the reference
-implementation `Markdown.pl` had followed it, it probably would have
-become the standard.  However, `Markdown.pl` allowed paragraphs and
-sublists to start with only two spaces indentation, at least on the
-outer level.  Worse, its behavior was inconsistent: a sublist of an
-outer-level list needed two spaces indentation, but a sublist of this
-sublist needed three spaces.  It is not surprising, then, that different
-implementations of Markdown have developed very different rules for
-determining what comes under a list item.  (Pandoc and python-Markdown,
-for example, stuck with Gruber's syntax description and the four-space
-rule, while discount, redcarpet, marked, PHP Markdown, and others
-followed `Markdown.pl`'s behavior more closely.)
-
-Unfortunately, given the divergences between implementations, there
-is no way to give a spec for list items that will be guaranteed not
-to break any existing documents.  However, the spec given here should
-correctly handle lists formatted with either the four-space rule or
-the more forgiving `Markdown.pl` behavior, provided they are laid out
-in a way that is natural for a human to read.
-
-The strategy here is to let the width and indentation of the list marker
-determine the indentation necessary for blocks to fall under the list
-item, rather than having a fixed and arbitrary number.  The writer can
-think of the body of the list item as a unit which gets indented to the
-right enough to fit the list marker (and any indentation on the list
-marker).  (The laziness rule, #5, then allows continuation lines to be
-unindented if needed.)
-
-This rule is superior, we claim, to any rule requiring a fixed level of
-indentation from the margin.  The four-space rule is clear but
-unnatural. It is quite unintuitive that
-
-``` markdown
-- foo
-
-  bar
-
-  - baz
-```
-
-should be parsed as two lists with an intervening paragraph,
-
-``` html
-<ul>
-<li>foo</li>
-</ul>
-<p>bar</p>
-<ul>
-<li>baz</li>
-</ul>
-```
-
-as the four-space rule demands, rather than a single list,
-
-``` html
-<ul>
-<li>
-<p>foo</p>
-<p>bar</p>
-<ul>
-<li>baz</li>
-</ul>
-</li>
-</ul>
-```
-
-The choice of four spaces is arbitrary.  It can be learned, but it is
-not likely to be guessed, and it trips up beginners regularly.
-
-Would it help to adopt a two-space rule?  The problem is that such
-a rule, together with the rule allowing 1--3 spaces indentation of the
-initial list marker, allows text that is indented *less than* the
-original list marker to be included in the list item. For example,
-`Markdown.pl` parses
-
-``` markdown
-   - one
-
-  two
-```
-
-as a single list item, with `two` a continuation paragraph:
-
-``` html
-<ul>
-<li>
-<p>one</p>
-<p>two</p>
-</li>
-</ul>
-```
-
-and similarly
-
-``` markdown
->   - one
->
->  two
-```
-
-as
-
-``` html
-<blockquote>
-<ul>
-<li>
-<p>one</p>
-<p>two</p>
-</li>
-</ul>
-</blockquote>
-```
-
-This is extremely unintuitive.
-
-Rather than requiring a fixed indent from the margin, we could require
-a fixed indent (say, two spaces, or even one space) from the list marker (which
-may itself be indented).  This proposal would remove the last anomaly
-discussed.  Unlike the spec presented above, it would count the following
-as a list item with a subparagraph, even though the paragraph `bar`
-is not indented as far as the first paragraph `foo`:
-
-``` markdown
- 10. foo
-
-   bar
-```
-
-Arguably this text does read like a list item with `bar` as a subparagraph,
-which may count in favor of the proposal.  However, on this proposal indented
-code would have to be indented six spaces after the list marker.  And this
-would break a lot of existing Markdown, which has the pattern:
-
-``` markdown
-1.  foo
-
-        indented code
-```
-
-where the code is indented eight spaces.  The spec above, by contrast, will
-parse this text as expected, since the code block's indentation is measured
-from the beginning of `foo`.
-
-The one case that needs special treatment is a list item that *starts*
-with indented code.  How much indentation is required in that case, since
-we don't have a "first paragraph" to measure from?  Rule #2 simply stipulates
-that in such cases, we require one space indentation from the list marker
-(and then the normal four spaces for the indented code).  This will match the
-four-space rule in cases where the list marker plus its initial indentation
-takes four spaces (a common case), but diverge in other cases.
-
 ## Lists
 
 A [list](@) is a sequence of one or more
@@ -10818,9 +8934,7 @@ Changing the bullet or ordered list delimiter starts a new list:
 ```
 
 
-In CommonMark, a list can interrupt a paragraph. That is,
-no blank line is needed to separate a paragraph from a following
-list:
+In Markua, a list can be nested inside a paragraph.
 
 ```example
 Foo
@@ -10834,19 +8948,7 @@ Foo
 </ul>
 ```
 
-`Markdown.pl` does not allow this, through fear of triggering a list
-via a numeral in a hard-wrapped line:
-
-``` markdown
-The number of windows in my house is
-14.  The number of doors is 6.
-```
-
-Oddly, though, `Markdown.pl` *does* allow a blockquote to
-interrupt a paragraph, even though the same considerations might
-apply.
-
-In CommonMark, we do allow lists to interrupt paragraphs, for
+In Markua, we do allow lists to interrupt paragraphs, for
 two reasons.  First, it is natural and not uncommon for people
 to start lists without blank lines:
 
@@ -11553,12 +9655,12 @@ with the following exceptions:
 
 - Entity and character references cannot stand in place of
   special characters that define structural elements in
-  CommonMark.  For example, although `&#42;` can be used
+  Markua.  For example, although `&#42;` can be used
   in place of a literal `*` character, `&#42;` cannot replace
   `*` in emphasis delimiters, bullet list markers, or thematic
   breaks.
 
-Conforming CommonMark parsers need not store information about
+Conforming Markua parsers need not store information about
 whether a particular character was represented in the source
 using a Unicode character or an entity reference.
 
@@ -11699,7 +9801,7 @@ text in code spans and code blocks:
 
 
 Entity and numeric character references cannot be used
-in place of symbols indicating structure in CommonMark
+in place of symbols indicating structure in Markua
 documents.
 
 ```example
@@ -15264,153 +13366,6 @@ Multiple     spaces
 <p>Multiple     spaces</p>
 ```
 
-{#unofficial_html_mapping}
-# An Unofficial HTML Mapping
-
-This is a (very) incomplete mapping from Markua to HTML5.
-
-Not only is it incomplete, it is not canonical. Implementors of Markua Processors can output any HTML that they choose, as long as it is sensible. Markua is very feature-rich, and specifying every single detail of the HTML output would highly limit flexibility. Furthermore, implementors of Markua Processors don't even have to output HTML at all. They can choose to simply output LaTeX, for example.
-
-So, the reason why I'm providing this is not as a set of requirements, but merely as an example of how Markua can be output as HTML.
-
-For the most part, the HTML mapping which is specified here relates to the type of formatting that a book designer typically has no discretion to change. This includes things like bold, italics, paragraphs, single newlines, etc.
-
-This HTML mapping also specifies things for which it makes not much sense for there to be much variation in the generated HTML. This includes things like headings and figures--even though they may be styled radically differently in CSS, the HTML that produces them might as well be fairly consistent.
-
-Hopefully this HTML mapping helps implementors of Markua Processors do the relatively straightforward parts of the HTML mapping in a similar way, and then get on to the interesting parts of the Markua Specification where there is more room for creativity.
-
-This chapter is ordered in a similar way to the rest of the Markua spec, but only the section where it is helpful to provide an HTML mapping are included.
-
-Again, this is just an unofficial, incomplete mapping from Markua to HTML5. It is very similar to what is done by Leanpub in generating the HTML (and EPUB) versions of our ebooks.
-
-{#tag-semantics}
-## Tag Semantics
-
-Before getting to the heart of this chapter, first a brief note about `<b>` vs. `<strong>` tags, `<i>` vs. `<em>` tags and Markdown compatibility.
-
-If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
-
-Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
-
-If you think this, you are clearly not familiar with the work of the W3C.
-
-The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5:
-
-* [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element)
-* [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element)
-* [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element)
-* [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element)
-
-The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
-
-Anyway, the following is the state of the world now:
-
-* There are many people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text.
-* There are other people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
-
-As such, it is the opinion of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. So, there's a setting.
-
-If you want to make Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
-
-```
-{
-html-style: markdown
-italicize-underlines: true
-}
-```
-
-The default value of these settings is the other way:
-
-```
-{
-html-style: default
-italicize-underlines: false
-}
-```
-
-## How This Chapter Is Structured
-
-The examples in this chapter show Markua text input and HTML output.
-
-Every Markua text example is a complete Markua document. If it is processed by a Markua Processor, the HTML which is produced should include the output. Now, since Markua does not specify the exact content of the HTML, the boilerplate before and after the HTML Output is not specified or included.
-
-It can, however, be as simple as the following:
-
-```
-<html><head></head><body>
-(...the HTML output...)
-</body></html>
-```
-
-Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
-
-Finally, Markua does not specify any CSS. However, occasionally CSS advice will be offered. This is because certain semantically meaningful formatting (like strikethrough) is done in HTML via CSS.
-
-## Text Formatting
-
-{#text_formatting_html}
-The syntax for text formatting is described [here](#text_formatting).
-
-### CSS Advice
-
-The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
-
-~~~
-.strikethrough {
-  text-decoration: line-through;
-}
-~~~
-
-##### Example
-
-This example uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
-
-###### Markua Syntax
-
-{#input_text_formatting_1}
-~~~
-* Italic: *one asterisk*
-* Underlined: _one underscore_
-* Bold: **two asterisks** or __two underscores__
-* Bold + Italic: ***three asterisks***
-* Bold + Underlined: ___three underscores___
-* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
-* Strikethrough: ~~two tildes~~
-* Superscript: 5^3^ = 125
-* Subscript: H~2~O
-~~~
-
-###### HTML Output
-
-{#output_text_formatting_1}
-~~~
-<ul>
-  <li>Italic: <i>one asterisk</i></li>
-  <li>Underlined: <u>one underscore</u></li>
-  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
-  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
-  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
-  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
-  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
-  <li>Superscript: 5<sup>3</sup> = 125</li>
-  <li>Subscript: H<sub>2</sub>O</li>
-</ul>
-~~~
-
-
-
-
-{
-title: Markua Specification
-authors: Peter Armstrong
-contributors: Scott Patten, Braden Simpson and Len Epp
-copyright: Peter Armstrong
-}
-
-
-
-
-##### CSS Recommendations
 
 
 ## Headings
