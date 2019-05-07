@@ -217,6 +217,10 @@ Perhaps most important, Markua is built on Markdown. So, Markua literally would 
 
 Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
 
+## Copyright and Creative Commons Attribution
+
+The Markua Specification is copyright © 2014 - 2019 Peter Armstrong. The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license. Portions of the Markua Specification, especially in the Mapping chapter, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
+
 {#text-formatting}
 # Text Formatting
 
@@ -2608,6 +2612,14 @@ ii. bar
 iii. baz
 ~~~
 
+You cannot, however, indent your numbered list delimiters. The following is not a list, but instead is an oddly-formatted paragraph:
+
+~~~
+ 8. foo
+ 9. bar
+10. baz
+~~~
+
 ### In Markua, It's Hard to Accidentally Make a Numbered List
 
 Markdown has the interesting combination of supporting one element lists and ignoring the number that a list starts with. This means it's possible to inadvertently start a numbered list by beginning any line with a number followed by a period. The example that John Gruber [cites](http://daringfireball.net/projects/markdown/syntax) is the following:
@@ -2931,7 +2943,9 @@ You can do everything with a complex list that you can do with a simple list. Th
 
 However, you can do a lot more with a complex list as well.
 
-You can add optional blank lines between some or all of the nested lists, just for readability:
+First, you can add optional blank lines between the items for readability.
+
+Note that the same decision must apply for each list level: you can't have blank lines between some items in a list and not others. You can, however, have blank lines between items in one level but not in others. Here's an example of using blank lines in the outer list and in the first nested list, but not in the second and third nested lists:
 
 ~~~
 1. foo
@@ -4475,6 +4489,17 @@ If, however, the `italicize-underlines` global setting is `true`, the following 
 Finally, if you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
 
 `*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
+
+## Consecutive Lists
+
+The following are two lists:
+
+~~~
+1. fee
+2. fie
+-  foe
+-  fum
+~~~
 
 ## Escaping Special Characters with Backslash (`\`)
 
@@ -6050,89 +6075,11 @@ code {
 
 # CommonMark Spec
 
-## Why is a spec needed?
-
-John Gruber's [canonical description of Markdown's
-syntax](http://daringfireball.net/projects/markdown/syntax)
-does not specify the syntax unambiguously.  Here are some examples of
-questions it does not answer:
-
-1.  How much indentation is needed for a sublist?  The spec says that
-    continuation paragraphs need to be indented four spaces, but is
-    not fully explicit about sublists.  It is natural to think that
-    they, too, must be indented four spaces, but `Markdown.pl` does
-    not require that.  This is hardly a "corner case," and divergences
-    between implementations on this issue often lead to surprises for
-    users in real documents. (See [this comment by John
-    Gruber](http://article.gmane.org/gmane.text.markdown.general/1997).)
-
-2.  Is a blank line needed before a block quote or heading?
-    Most implementations do not require the blank line.  However,
-    this can lead to unexpected results in hard-wrapped text, and
-    also to ambiguities in parsing (note that some implementations
-    put the heading inside the blockquote, while others do not).
-    (John Gruber has also spoken [in favor of requiring the blank
-    lines](http://article.gmane.org/gmane.text.markdown.general/2146).)
-
-3.  Is a blank line needed before an indented code block?
-    (`Markdown.pl` requires it, but this is not mentioned in the
-    documentation, and some implementations do not require it.)
-
-    ``` markdown
-    paragraph
-        code?
-    ```
-
-4.  What is the exact rule for determining when list items get
-    wrapped in `<p>` tags?  Can a list be partially "loose" and partially
-    "tight"?  What should we do with a list like this?
-
-    ``` markdown
-    1. one
-
-    2. two
-    3. three
-    ```
-
-    Or this?
-
-    ``` markdown
-    1.  one
-        - a
-
-        - b
-    2.  two
-    ```
-
-    (There are some relevant comments by John Gruber
-    [here](http://article.gmane.org/gmane.text.markdown.general/2554).)
-
-5.  Can list markers be indented?  Can ordered list markers be right-aligned?
-
-    ``` markdown
-     8. item 1
-     9. item 2
-    10. item 2a
-    ```
-
-6.  Is this one list with a thematic break in its second item,
-    or two lists separated by a thematic break?
-
-    ``` markdown
-    * a
-    * * * * *
-    * b
-    ```
-
 7.  When list markers change from numbers to bullets, do we have
     two lists or one?  (The Markdown syntax description suggests two,
     but the perl scripts and many other implementations produce one.)
 
     ``` markdown
-    1. fee
-    2. fie
-    -  foe
-    -  fum
     ```
 
 8.  What are the precedence rules for the markers of inline structure?
