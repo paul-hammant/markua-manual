@@ -5715,7 +5715,7 @@ Question alternates can also be grouped by a `choose-questions` attribute attach
 
 A Markua Processor must treat any error in the numbering of question alternates (and the questions which follow) as an error, and not generate the quiz if there is any error. This is preferable to a Markua Processor of trying to guess at what the author meant, and trying to do the right thing. Fixing a syntax error takes a couple minutes of editing and a few minutes to publish the book or course again. However, fixing the consequences of a quiz being administered to hundreds--or thousands, or tens of thousands--of people with an incorrect number of questions, or with questions incorrectly used as alternates for each other, would be much more difficult.
 
-# Obscure Details
+# Miscellany
 
 ## Nesting Formatting
 
@@ -6026,7 +6026,7 @@ Markua supports this method of inserting block elements.
 
 However, Markua is more than just a way of producing HTML. Markua is a way of authoring books. HTML is just one of the many output formats of Markua. And in books, there is a long history of embedding lists, code samples and figures in the middle of a paragraph--not in a separate top-level element, in the actual middle of the paragraph. So, Markua [supports this too](#inserting-into-paras).
 
-# Differences with Leanpub Flavoured Markdown (LFM)
+## Differences with Leanpub Flavoured Markdown (LFM)
 
 Besides differences with Markdown in general, Markua also has a number of specific differences with Leanpub Flavoured Markdown (LFM).
 
@@ -6131,6 +6131,44 @@ This chapter attempts to specify Markua syntax unambiguously. It contains many e
 In the examples, the `→` character is used to represent tabs.
 
 
+{#tag-semantics}
+## Emphasis in HTML and the `html-style` Setting
+
+Before getting to the heart of this chapter, first a brief note about `<b>` vs. `<strong>` tags, `<i>` vs. `<em>` tags and Markdown compatibility.
+
+If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
+
+Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
+
+If you think this, you are clearly not familiar with the work of the W3C.
+
+The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5: [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element), [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element), [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element) and [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element). The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
+
+Anyway, the state of the world is that there are intelligent people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text. There are other intelligent people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
+
+In short, it is the position of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. (If there was one correct answer, and if it was `<strong>` and `<em>`, then the `<b>` and `<i>` tags would not exist.)
+
+So, Markua has an `html-style` setting, which can be `default` or `markdown`.
+
+The default value of the setting is for bold to produce `<b>` and italic to produce `<i>`. This is the most literal meaning of bold and italic.
+
+```
+{
+html-style: default
+italicize-underlines: false
+}
+```
+
+If you want to make Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
+
+```
+{
+html-style: markdown
+italicize-underlines: true
+}
+```
+
+
 ## An Unofficial HTML Mapping
 
 This is a (very) incomplete mapping from Markua to HTML5.
@@ -6149,50 +6187,6 @@ This chapter is ordered in a similar way to the rest of the Markua spec, but onl
 
 Again, this is just an unofficial, incomplete mapping from Markua to HTML5. It is very similar to what is done by Leanpub in generating the HTML (and EPUB) versions of our ebooks.
 
-{#tag-semantics}
-## Tag Semantics
-
-Before getting to the heart of this chapter, first a brief note about `<b>` vs. `<strong>` tags, `<i>` vs. `<em>` tags and Markdown compatibility.
-
-If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
-
-Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
-
-If you think this, you are clearly not familiar with the work of the W3C.
-
-The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5:
-
-* [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element)
-* [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element)
-* [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element)
-* [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element)
-
-The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
-
-Anyway, the following is the state of the world now:
-
-* There are many people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text.
-* There are other people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
-
-As such, it is the opinion of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. So, there's a setting.
-
-If you want to make Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
-
-```
-{
-html-style: markdown
-italicize-underlines: true
-}
-```
-
-The default value of these settings is the other way:
-
-```
-{
-html-style: default
-italicize-underlines: false
-}
-```
 
 
 ## How This Chapter Is Structured
@@ -14886,6 +14880,8 @@ I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing]
 
 Here's a list of many of the parts of Markua which are still not supported in Leanpub:
 
+- SVG support
+- Support External and local tables, tables as resources in general
 - Support everything in Images, Attributes and Links section
 - Support Multiple Selection questions
 - The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
@@ -14893,9 +14889,7 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
 - There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
 - There is no more type attribute on quizzes. Quizzes are always marked.
-- Support Nested Lists.
 - Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
-- Confirm ids work on definition list items.
 - Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
 - Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
 - Support poetry in external files and poetry resources in general.
@@ -14912,8 +14906,6 @@ Here's a list of many of the parts of Markua which are still not supported in Le
 - The kerning on figure captions is a disaster. It looks like one word!
 - Support crosslinks on spans
 - Our definition lists sometimes don't force newlines after the term, e.g. “type This is the resource type..."
-- SVG support
-- Support External and local tables, tables as resources in general
 - Be stricter about headers (#foo should not start a chapter, blank lines before and after, etc.)
 - Support inline resources
 - Support type attribute on resources
