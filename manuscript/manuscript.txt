@@ -5053,7 +5053,7 @@ If a Markua Processor also provides a UI to define settings which are specified 
 : The default language that code which an inline code span resource is foramtted as. The default is `text`. If you set this to `ruby`, it is the equivalent of setting `{format: ruby}` as an inline attribute list on every code span resource by default, e.g. `` `puts "hi"`{format: ruby} ``. If you need to override a specific resource to not be ruby, you would set `{format: text}`.
 
 `html-style`
-: `default` or `markdown`. The default value is `default`. If this setting is `default`, then **bold text** should produce a `<b>` tag, and *italic text* should produce an `<i>` tag. If this setting is `markdown`, then **bold text** should produce a `<strong>` tag, and *italic text* should produce an `<em>` tag. The choice is between `default` and `markdown` instead of between `simple` and `complex`, `semantic` or `pedantic`, so that fewer people are offended. For details, see the [Tag Semantics](#tag-semantics) section.
+: `default` or `markdown`. The default value is `default`. If this setting is `default`, then **bold text** should produce a `<b>` tag, and *italic text* should produce an `<i>` tag. If this setting is `markdown`, then **bold text** should produce a `<strong>` tag, and *italic text* should produce an `<em>` tag. The choice is between `default` and `markdown` instead of between `simple` and `complex`, `semantic` or `pedantic`, so that fewer people are offended. For details, see the section [The `html-style` Setting](#html-style-setting).
 
 `italicize-underlines`{#italicize-underlines}
 : `true` or `false`. The default value is `false`. If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text. If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks). There are two reasons that the default value of this setting is `false`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
@@ -6090,32 +6090,94 @@ These are some issues raised in CommonMark that I should think about and/or disc
 
 
 {#mapping}
-# Mapping
+# HTML Mapping
+
+This chapter is the specification of the mapping of Markua to HTML.
+
+Markua Specification defines the syntax and semantics of a plain text writing format. This writing format can be used to produce a type of document which can be understood by a Markua Processor. The Markua Specification defines the input to a Markua Processor, but it does not precisely define all outputs.
+
+A Markua Processor must be able to properly parse a Markua document and output at least one suitable output format, such as PDF, EPUB, MOBI, HTML, LaTeX, InDesign or even a MOOC. (For the programmers: `/dev/null` may be web scale, but it is not a good output format for a Markua Processor.)
+
+For example, the output formats which Leanpub produces from a Markua document are: PDF, EPUB, MOBI, HTML, InDesign and a complete MOOC. (Leanpub uses LaTeX internally when generating its PDFs, but it does not make the LaTeX available for download.)
+
+To be clear: there is no requirement for a Markua Processor to be able to output HTML. The only requirement is that there is some useful output. That said, the reason that the HTML mapping is defined in the Markua Specification is that it will typically be supported by almost every Markua Processor, and it is nicer to read than a representation of a parse tree.
+
+Please note that this is not a complete specification of the mapping of Markua to HTML. It is only a specification of the parts of the HTML mapping where there is no need to have flexibility on the part of the Markua Processor.
+
+The HTML mapping should be thought of specifying HTML fragments, not documents. In all of the examples, a Markua Processor may add more HTML before and after the relevant content.
+
+This chapter is ordered in a similar way to the rest of the Markua spec, but only the sections where it is helpful to provide an HTML mapping are included.
+
+## Global Settings
+
+The HTML which is output by a Markua Processor can be affected by certain global settings.
+
+These are the default values of these settings:
+
+```
+{
+html-style: default
+italicize-underlines: false
+}
+```
+
+If you want to make the HTML which is output by Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
+
+```
+{
+html-style: markdown
+italicize-underlines: true
+}
+```
+
+In the examples in this chapter, the global settings will be at the defaults unless a settings block is provided.
+
+Before getting to the heart of this chapter, these settings will be discussed briefly.
+
+{#html-style-setting}
+### The `html-style` Setting
+
+If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
+
+Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
+
+If you think this, you are clearly not familiar with the work of the W3C.
+
+The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5: [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element), [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element), [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element) and [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element). The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
+
+Anyway, the state of the world is that there are intelligent people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text. There are other intelligent people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
+
+So, it is the position of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. (If there was one correct answer, and if that answer was `<strong>` and `<em>`, then presumably the `<b>` and `<i>` tags would not exist.)
+
+So, Markua has an `html-style` setting, which can be `default` or `markdown`. The default value of the setting is `default`, and it means for bold to produce `<b>` and italic to produce `<i>`. The most literal meaning of bold and italic are, it turns out, "bold" and "italic".
+
+### The `italicize-underlines` Setting
+
+TODO
+
+## How This Chapter Is Structured
+
+The examples in this chapter show Markua text input and HTML output.
+
+Every Markua text example is a complete Markua document. If it is processed by a Markua Processor, the HTML which is produced should include the output. Now, since Markua does not specify the exact content of the HTML, the boilerplate before and after the HTML Output is not specified or included.
+
+It can, however, be as simple as the following:
+
+```
+<html><head></head><body>
+(...the HTML output...)
+</body></html>
+```
+
+Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
+
+Finally, Markua does not specify any CSS. However, occasionally CSS advice will be offered. This is because certain semantically meaningful formatting (like strikethrough) is done in HTML via CSS.
 
 
 
+## A Note about CSS
 
-The way I'm planning to write this section is as follows:
-
-1. Paste in the entire CommonMark spec, 0.29 version.
-2. Delete everything which does not apply.
-3. Modify everything which does apply to fit the Markua spec.
-
-This part is the formal specification of Markua and its mapping to HTML.
-
-The Markua specification specifies the Markua syntax and the conceptual mapping from Markua syntax to book concepts.
-
-It also specifies a partial HTML mapping.
-
-To be clear: the Markua Specification defines the syntax and semantics of a plain text writing format. This writing format can be used to produce a type of document which can be understood by a Markua Processor. **The Markua Specification defines the input to a Markua Processor, but it does not precisely define all outputs.**
-
-Markua Processors can output any number of output formats from a Markua document. For example, Leanpub can output PDF, EPUB, MOBI, HTML and InDesign all from the same Markua document. None of these output formats is required to be supported by a given Markua Processor. To be useful, however, a Markua Processor should output *some* output format. (For the programmers: `/dev/null` is not a good Markua Processor.)
-
-Not only are there no required output formats for a Markua Processor, the mapping from a Markua document to any output format is also not fully specified--not even for HTML.
-
-There is, however, some HTML mapping specified.
-
-## CSS Hint
+xxx
 
 The reasoning here is simple: in source code, whitespace matters, so it must not get collapsed into a single space. Thankfully, this is easy to do. If a Markua Processor is producing HTML, the following CSS prevents spaces from being collapsed to one space:
 
@@ -6136,42 +6198,6 @@ This chapter attempts to specify Markua syntax unambiguously. It contains many e
 In the examples, the `→` character is used to represent tabs.
 
 
-{#tag-semantics}
-## Emphasis in HTML and the `html-style` Setting
-
-Before getting to the heart of this chapter, first a brief note about `<b>` vs. `<strong>` tags, `<i>` vs. `<em>` tags and Markdown compatibility.
-
-If you're familiar with Markdown, you will notice a difference with how Markdown produces bold and italic and how Markua does. There's a good, albeit long, explanation for this--if you like such things, read on.
-
-Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
-
-If you think this, you are clearly not familiar with the work of the W3C.
-
-The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5: [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element), [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element), [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element) and [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element). The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
-
-Anyway, the state of the world is that there are intelligent people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text. There are other intelligent people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
-
-In short, it is the position of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. (If there was one correct answer, and if it was `<strong>` and `<em>`, then the `<b>` and `<i>` tags would not exist.)
-
-So, Markua has an `html-style` setting, which can be `default` or `markdown`.
-
-The default value of the setting is for bold to produce `<b>` and italic to produce `<i>`. This is the most literal meaning of bold and italic.
-
-```
-{
-html-style: default
-italicize-underlines: false
-}
-```
-
-If you want to make Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
-
-```
-{
-html-style: markdown
-italicize-underlines: true
-}
-```
 
 
 ## An Unofficial HTML Mapping
@@ -6194,23 +6220,6 @@ Again, this is just an unofficial, incomplete mapping from Markua to HTML5. It i
 
 
 
-## How This Chapter Is Structured
-
-The examples in this chapter show Markua text input and HTML output.
-
-Every Markua text example is a complete Markua document. If it is processed by a Markua Processor, the HTML which is produced should include the output. Now, since Markua does not specify the exact content of the HTML, the boilerplate before and after the HTML Output is not specified or included.
-
-It can, however, be as simple as the following:
-
-```
-<html><head></head><body>
-(...the HTML output...)
-</body></html>
-```
-
-Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
-
-Finally, Markua does not specify any CSS. However, occasionally CSS advice will be offered. This is because certain semantically meaningful formatting (like strikethrough) is done in HTML via CSS.
 
 ## Text Formatting
 
