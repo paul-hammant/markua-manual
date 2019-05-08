@@ -238,21 +238,30 @@ Some portions of the Markua specification have not yet been implemented in Leanp
 
 I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
 
-Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself:
+Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself.
+
+How to read this:
+* If nothing or *unknown* is stated, then the implementation status of the given feature is unclear.
+* If there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then (works) will be shown.
+* If a given section only has issues which are explained in subsections, then (see below) will be shown
+
+If you find any issues which are not listed here, please email <mailto:hello@leanpub.com>.
 
 ### Text Formatting
 
-Everything here should work.
+(works)
 
 ### Headings for Parts, Chapters and Sections
 
-Everything here should work.
+(works)
 
 ### Paragraphs and Blank Lines
 
-Everything here should work.
+(works)
 
 ### Resources
+
+- Code and images basically work, but many other types of resources have issues. See below for details.
 
 #### Resource Insertion Methods
 
@@ -264,7 +273,10 @@ Everything here should work.
 
 #### Images
 
-- SVG support is not implemented yet
+- SVG support is not implemented yet (external or inline)
+- Some attributes are not supported fully
+- Support image attributes align, cite, url
+- Support inline resources (e.g. inline SVG images)
 
 #### Video
 
@@ -273,50 +285,65 @@ Everything here should work.
 
 #### Audio
 
+- This is not implemented fully yet.
+
 #### Code
 
 - Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
+- Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
 
 #### Poetry
+
+- This is not implemented yet.
 
 #### Tables
 
 - Support external tables
 - Support table of tables (like table of contents)
 - Table caption issue with unquoted captions
+- Support table widths attributes on columns
 
 #### Math
 
 - Support AsciiMath
 - Support MathML
+- Support the `{format: blah}` format of attribute on math blocks and spans
 
 ### Whitespace: Spaces, Tabs and Newlines
 
+(works)
+
 #### Newlines
+
+(works)
 
 #### Spaces and Tabs
 
+(works)
+
 ### Lists
+
+(works)
 
 #### Bulleted Lists
 
-Everything here should work.
+(works)
 
 #### Numbered Lists
 
-Everything here should work.
+(works)
 
 #### Simple Lists
 
-Everything here should work.
+(works)
 
 #### Flat Lists
 
-Everything here should work.
+(works)
 
 #### Complex Lists
 
-Everything here should work.
+(works)
 
 ### Definition Lists
 
@@ -324,130 +351,146 @@ Everything here should work.
 
 ### Block Elements
 
+(works)
+
 #### Scene Breaks (`* * *`)
+
+(works)
 
 #### Page Breaks (`===`)
 
+(works)
+
 #### Blockquotes (`>`)
+
+- Support cite and url attributes for blockquotes
+- Support blockquotes inside of a paragraph (currently they force new paragraphs before and after them)
 
 #### Asides (`A>` or `{aside}`)
 
+(works)
+
 #### Blurbs (`B>` or `{blurb}`)
+
+(works)
 
 #### Inserting Block Elements Inside Paragraphs
 
+*unknown*
+
 #### Quizzes and Exercises
+
+- Figure out correct behaviour for the TOC
 
 ### Span Elements
 
+(see below)
+
 #### Links
+
+*unknown*
 
 #### Explicitly Creating Spans with `[`...`]`
 
+(works)
+
 #### Footnotes and Endnotes
+
+(works)
 
 #### Crosslinks and ids
 
+- Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
 - Support crosslinks on spans
 - The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
 
 #### Character Substitution
 
+- Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
+
 #### Escaping Special Characters with Backslash (`\`)
+
+*unknown*
 
 #### Backticks (`` ` ``)
 
+*unknown*
+
 #### Unicode Entities with `\u`
+
+*unknown*
 
 #### Nesting Formatting
 
-Everything here should work.
+(works)
 
 #### Emoji
 
-This is not implemented yet.
+- This is not implemented yet.
+- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
 
 #### Placeholders
 
-This is not implemented yet.
+- This is not implemented yet.
 
 #### CriticMarkup
 
-This is not implemented yet.
+- This is not implemented yet.
 
 #### A Hack for Forcing Whitespace
 
+(works)
+
 #### Concatenating Files and Blank Lines
+
+(works)
 
 ### Metadata
 
+- Many features here are unimplemented. See below for details.
+
 #### Attributes
+
+- Support ids and other attributes on span elements
 
 #### Index Entries
 
+- This is not implemented yet.
+
 #### Directives
+
+- Many directives are not implemented yet.
+- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives (e.g. `{section: mainmatter}`)once supported in Leanpub.
+- Support `exercise-answers` and `quiz-answers`.
+- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
+- Use `table-of-contents` not `toc`.
+- Support language directives
+- Support Conditional Inclusion Attributes on Headings (all that works right now is `book` and `sample`)
 
 #### Settings
 
+- Many settings are not implemented yet.
+
 ### Courses
 
+(see below)
+
 #### Quizzes and Exercises
+
+- Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
 
 #### Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 
 - Multiple Selection questions are not implemented yet
+- Written questions are not supported yet
 
 #### Markua Processor Behaviour
 
+*unknown*
+
 #### Question Alternates
 
-- TODO
-
-
-many of the parts of Markua which are still not supported in Leanpub. The:
-
-TODO - update this
-
-- Support everything in Images, Attributes and Links section
-- Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
-- There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
-- Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
-- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
-- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
-- Support poetry in external files and poetry resources in general.
-- Support updates to en dashes, em dashes, scene breaks and page breaks.
-- Support parentheses in numbered lists
-- Support the other directives.
-- Support `cite` and `url` on blockquotes.
-- Use `table-of-contents` not `toc`.
-- Support `exercise-answers` and `quiz-answers`.
-- Auto-create `images`, `audio`, `video`, `code`, `math` and `tables` directories in resources directory.
-- Support `cite` and `url` attributes on images.
-- Tables seem to [mess up the alignment](#tables) of some text after them.
-- The kerning on figure captions is a disaster. It looks like one word!
-- Support inline resources
-- Support image attributes align, cite, url
-- Decide what we are doing with the cite and url attributes
-- Support three-tildes defaults to text, backticks default to guess approach
-- Support inline math with format attribute
-- Support table widths attributes on columns
-- Support descending lists
-- Support specs for all of the list types
-- Support multi-paragraph lists and whitespace
-- Support max list-nesting in Markua of three levels
-- Support scene breaks and page-breaks
-- Support blockquotes inside of a paragraph
-- Support cite and url attributes for blockquotes
-- Does this quiz or exercise heading show up in the ToC?
-- Support ids and other attributes on span elements
-- Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
-- Support Emoji
-- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
-- Support CriticMarkup.
-- Support index entries and index generation.
-- Support language directives
-- Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
-- Investigate regression of formatting in caption attributes of figures; should support text formatting
+(works)
 
 {#copyright-ccby-commonmark}
 ## Copyright, CC BY-SA License, and CC Attribution of CommonMark
@@ -5087,6 +5130,8 @@ Markua headings (part, chapter, section, sub-section, etc.) and figures can all 
 Markua headings (and *only* headings) may have various attributes which specify which output formats their content (of the part, chapter, section, sub-section, etc.) should be included in. If the given attribute is not present, the default value of it is that specified by the nearest ancestor heading. If no such attribute is present at a top-level heading, the default is given by the default value for the attribute defined of Markua.
 
 There are eight attributes which specify conditional inclusion in output targets; four for books, and four for courses.
+
+W> The only ones which currently work in Leanpub are `book` and `sample`.
 
 `book`
 : If `true`, include this heading and its content (including nested sections, subsections, etc.) in the book (PDF, EPUB and/or MOBI) that is being generated. If `false`, omit it. The default is `true`. Setting this to `false` is an easy way to "comment out" a section of your book.
