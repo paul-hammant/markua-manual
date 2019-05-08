@@ -6166,7 +6166,7 @@ W> TODO - update the `spec_tests` script or provide a new one to do this based o
 
 ## Format of the Inputs
 
-In the examples, the `→` character is used to represent tabs.
+In the examples, the `→` `=>` → => character is used to represent tabs.
 
 There are two reasons for this:
 
