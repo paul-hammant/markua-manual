@@ -242,255 +242,205 @@ Here's a list of what still needs to be implemented in Leanpub's Markua implemen
 
 How to read this:
 * If nothing or *unknown* is stated, then the implementation status of the given feature is unclear.
-* If there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then (works) will be shown.
-* If a given section only has issues which are explained in subsections, then (see below) will be shown
+* If there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown.
+* If a given section only has issues which are explained in subsections, then *(see below)* will be shown
 
 If you find any issues which are not listed here, please email <mailto:hello@leanpub.com>.
 
-### Text Formatting
+Text Formatting
+: *(works)*
 
-(works)
+Headings for Parts, Chapters and Sections
+: *(works)*
 
-### Headings for Parts, Chapters and Sections
+Paragraphs and Blank Lines
+: *(works)*
 
-(works)
+Resources
+: Code and images basically work, but many other types of resources have issues. See below for details.
 
-### Paragraphs and Blank Lines
+Resource Insertion Methods
+: The `class` attribute is not used.
 
-(works)
+Resource Types and Formats
+: Support type attribute on resources
 
-### Resources
+Images
+: SVG support is not implemented yet (external or inline)
+: Some attributes are not supported fully
+: Support image attributes align, cite, url
+: Support inline resources (e.g. inline SVG images)
 
-- Code and images basically work, but many other types of resources have issues. See below for details.
+Video
+: Support video attributes embed, fullbleed, height, width
+: Specifically forbid local video resources
 
-#### Resource Insertion Methods
+Audio
+: This is not implemented fully yet.
 
-- The `class` attribute is not used.
+Code
+: Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
+: Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
 
-#### Resource Types and Formats
+Poetry
+: This is not implemented yet.
 
-- Support type attribute on resources
+Tables
+: Support external tables
+: Support table of tables (like table of contents)
+: Table caption issue with unquoted captions
+: Support table widths attributes on columns
 
-#### Images
+Math
+: Support AsciiMath
+: Support MathML
+: Support the `{format: blah}` format of attribute on math blocks and spans
 
-- SVG support is not implemented yet (external or inline)
-- Some attributes are not supported fully
-- Support image attributes align, cite, url
-- Support inline resources (e.g. inline SVG images)
+Whitespace: Spaces, Tabs and Newlines
+: *(works)*
 
-#### Video
+Newlines
+: *(works)*
 
-- Support video attributes embed, fullbleed, height, width
-- Specifically forbid local video resources
+Spaces and Tabs
+: *(works)*
 
-#### Audio
+Lists
+: *(works)*
 
-- This is not implemented fully yet.
+Bulleted Lists
+: *(works)*
 
-#### Code
+Numbered Lists
+: *(works)*
 
-- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
-- Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
+Simple Lists
+: *(works)*
 
-#### Poetry
+Flat Lists
+: *(works)*
 
-- This is not implemented yet.
+Complex Lists
+: *(works)*
 
-#### Tables
+Definition Lists
+: Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
 
-- Support external tables
-- Support table of tables (like table of contents)
-- Table caption issue with unquoted captions
-- Support table widths attributes on columns
+Block Elements
+: *(works)*
 
-#### Math
+Scene Breaks (`* * *`)
+: *(works)*
 
-- Support AsciiMath
-- Support MathML
-- Support the `{format: blah}` format of attribute on math blocks and spans
+Page Breaks (`===`)
+: *(works)*
 
-### Whitespace: Spaces, Tabs and Newlines
+Blockquotes (`>`)
+: Support cite and url attributes for blockquotes
+: Support blockquotes inside of a paragraph (currently they force new paragraphs before and after them)
 
-(works)
+Asides (`A>` or `{aside}`)
+: *(works)*
 
-#### Newlines
+Blurbs (`B>` or `{blurb}`)
+: *(works)*
 
-(works)
-
-#### Spaces and Tabs
-
-(works)
-
-### Lists
-
-(works)
-
-#### Bulleted Lists
-
-(works)
-
-#### Numbered Lists
-
-(works)
-
-#### Simple Lists
-
-(works)
-
-#### Flat Lists
-
-(works)
-
-#### Complex Lists
-
-(works)
-
-### Definition Lists
-
-- Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
-
-### Block Elements
-
-(works)
-
-#### Scene Breaks (`* * *`)
-
-(works)
-
-#### Page Breaks (`===`)
-
-(works)
-
-#### Blockquotes (`>`)
-
-- Support cite and url attributes for blockquotes
-- Support blockquotes inside of a paragraph (currently they force new paragraphs before and after them)
-
-#### Asides (`A>` or `{aside}`)
-
-(works)
-
-#### Blurbs (`B>` or `{blurb}`)
-
-(works)
-
-#### Inserting Block Elements Inside Paragraphs
+Inserting Block Elements Inside Paragraphs
 
 *unknown*
 
-#### Quizzes and Exercises
+Quizzes and Exercises
+: Figure out correct behaviour for the TOC
 
-- Figure out correct behaviour for the TOC
+Span Elements
+: *(see below)*
 
-### Span Elements
-
-(see below)
-
-#### Links
+Links
 
 *unknown*
 
-#### Explicitly Creating Spans with `[`...`]`
+Explicitly Creating Spans with `[`...`]`
+: *(works)*
 
-(works)
+Footnotes and Endnotes
+: *(works)*
 
-#### Footnotes and Endnotes
+Crosslinks and ids
+: Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
+: Support crosslinks on spans
+: The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
 
-(works)
+Character Substitution
+: Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
 
-#### Crosslinks and ids
-
-- Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
-- Support crosslinks on spans
-- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
-
-#### Character Substitution
-
-- Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
-
-#### Escaping Special Characters with Backslash (`\`)
+Escaping Special Characters with Backslash (`\`)
 
 *unknown*
 
-#### Backticks (`` ` ``)
+Backticks (`` ` ``)
 
 *unknown*
 
-#### Unicode Entities with `\u`
+Unicode Entities with `\u`
 
 *unknown*
 
-#### Nesting Formatting
+Nesting Formatting
+: *(works)*
 
-(works)
+Emoji
+: This is not implemented yet.
+: Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
 
-#### Emoji
+Placeholders
+: This is not implemented yet.
 
-- This is not implemented yet.
-- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
+CriticMarkup
+: This is not implemented yet.
 
-#### Placeholders
+A Hack for Forcing Whitespace
+: *(works)*
 
-- This is not implemented yet.
+Concatenating Files and Blank Lines
+: *(works)*
 
-#### CriticMarkup
+Metadata
+: Many features here are unimplemented. See below for details.
 
-- This is not implemented yet.
+Attributes
+: Support ids and other attributes on span elements
 
-#### A Hack for Forcing Whitespace
+Index Entries
+: This is not implemented yet.
 
-(works)
+Directives
+: Many directives are not implemented yet.
+: Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives (e.g. `{section: mainmatter}`)once supported in Leanpub.
+: Support `exercise-answers` and `quiz-answers`.
+: Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
+: Use `table-of-contents` not `toc`.
+: Support language directives
+: Support Conditional Inclusion Attributes on Headings (all that works right now is `book` and `sample`)
 
-#### Concatenating Files and Blank Lines
+Settings
+: Many settings are not implemented yet.
 
-(works)
+Courses
+: *(see below)*
 
-### Metadata
+Quizzes and Exercises
+: Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
 
-- Many features here are unimplemented. See below for details.
+Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
+: Multiple Selection questions are not implemented yet
+: Written questions are not supported yet
 
-#### Attributes
-
-- Support ids and other attributes on span elements
-
-#### Index Entries
-
-- This is not implemented yet.
-
-#### Directives
-
-- Many directives are not implemented yet.
-- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives (e.g. `{section: mainmatter}`)once supported in Leanpub.
-- Support `exercise-answers` and `quiz-answers`.
-- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
-- Use `table-of-contents` not `toc`.
-- Support language directives
-- Support Conditional Inclusion Attributes on Headings (all that works right now is `book` and `sample`)
-
-#### Settings
-
-- Many settings are not implemented yet.
-
-### Courses
-
-(see below)
-
-#### Quizzes and Exercises
-
-- Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
-
-#### Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
-
-- Multiple Selection questions are not implemented yet
-- Written questions are not supported yet
-
-#### Markua Processor Behaviour
+Markua Processor Behaviour
 
 *unknown*
 
-#### Question Alternates
-
-(works)
+Question Alternates
+: *(works)*
 
 {#copyright-ccby-commonmark}
 ## Copyright, CC BY-SA License, and CC Attribution of CommonMark
