@@ -6173,7 +6173,7 @@ There are two reasons for this:
 1. It makes it clear whether tabs or spaces are being used.
 2. It makes the examples closer to those of CommonMark, and enables some reuse between them.
 
-This does mean, however, that the test script must convert the → characters into tabs before the inputs are passed to the Markua Processor. Similarly, if you are going to try any of these examples yourself with a Markua Processor like Leanpub, you need to replace all → characters with tabs.
+This does mean, however, that the test script must convert the `→` characters into tabs before the inputs are passed to the Markua Processor. Similarly, if you are going to try any of these examples yourself with a Markua Processor like Leanpub, you need to replace all `→` characters with tabs.
 
 ## A Note about CSS
 
@@ -6222,7 +6222,7 @@ The following CSS rule is recommended for strikethrough, since CSS is how strike
 
 Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-tf-1}
 ~~~
@@ -6258,7 +6258,7 @@ Note that this example, like all examples where a settings hash is not provided,
 
 This example makes the default settings explicitly specified. The output is the same as the previous example.
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-tf-2}
 ~~~
@@ -6298,7 +6298,7 @@ italicize-underlines: false
 
 This example overrides italicize-underlines to `true`.
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-tf-3}
 ~~~
@@ -6338,7 +6338,7 @@ italicize-underlines: true
 
 This example overrides italicize-underlines to `true` and html-style to `markdown`.
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-tf-4}
 ~~~
@@ -6383,7 +6383,7 @@ View the [specification](#headings).
 
 This example shows the correct use of headings. Incorrect heading uses are in subsequent examples.
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-h-1}
 ~~~
@@ -6440,7 +6440,7 @@ This is a paragraph.
 
 This example shows incorrect uses of headings. None of the things below are headings, since the trailing `#` signs are wrong.
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-h-2}
 ~~~
@@ -12567,7 +12567,7 @@ The syntax for spaces, newlines and indentation is described [here](#spaces).
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-whitespace_1}
 ~~~
@@ -12591,7 +12591,7 @@ This is paragraph three.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-single_newlines_1}
 ~~~
@@ -12631,7 +12631,7 @@ If there are n newlines after a paragraph, there are n-2 break tags in the HTML 
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-three_or_more_newlines_1}
 ~~~
@@ -12666,7 +12666,7 @@ The End
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-leading_spaces_1}
 ~~~
@@ -12690,7 +12690,7 @@ My mistress when she walks treads on the ground.<br/>
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-internal_spaces_1}
 ~~~
@@ -12715,7 +12715,7 @@ The syntax for images is described [here](#images).
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-local_images_1}
 ~~~
@@ -12762,7 +12762,7 @@ Here's a paragraph after the third figure.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-web_images_1}
 ~~~
@@ -12809,7 +12809,7 @@ Here's a paragraph after the third figure.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-inline_images_1}
 ~~~
@@ -12851,7 +12851,7 @@ The syntax for video is described [here](#video).
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-local_video_1}
 ~~~
@@ -12878,7 +12878,7 @@ Here's a paragraph after the figure.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-web_video_1}
 ~~~
@@ -12912,7 +12912,7 @@ The syntax for audio is described [here](#audio).
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-local_audio_1}
 ~~~
@@ -12936,7 +12936,7 @@ The full version of the talk is here:
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-local_audio_1}
 ~~~
@@ -12979,7 +12979,7 @@ puts "world"
 ```
 ~~~
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-local_code_figure_1}
 ~~~
@@ -13021,7 +13021,7 @@ puts "world"
 ```
 ~~~
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-web_code_figure_1}
 ~~~
@@ -13051,7 +13051,7 @@ puts "world"</code></pre>
 
 ##### Span Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-inline_code_span_1}
 ~~~
@@ -13067,7 +13067,7 @@ Hello in Ruby is a `puts "hello"` statement.
 
 ##### Figure Example 1
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-inline_code_figure_1}
 ~~~
@@ -13099,7 +13099,7 @@ puts "world"</code></pre>
 
 ##### Figure Example 2
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-inline_code_figure_2}
 ```
@@ -13133,7 +13133,7 @@ puts "world"</code></pre>
 
 ##### Example 1: Using three tildes
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-typewriter_poetry_1}
 ```
@@ -13173,7 +13173,7 @@ me   ow</code></pre>
 
 ##### Example 2: Using three backticks plus the `text` format via syntactic sugar
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-typewriter_poetry_2}
 ~~~
@@ -13211,7 +13211,7 @@ me   ow</code></pre>
 
 ##### Example 3: Using three backticks plus the `text` format specified in an attribute list
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-typewriter_poetry_3}
 ~~~
@@ -13257,7 +13257,7 @@ Markua does not specify how math is output in HTML. It is perfectly acceptable f
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-unordered_list_1}
 ~~~
@@ -13351,7 +13351,7 @@ dolor
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-not_lists_1}
 ~~~
@@ -13397,7 +13397,7 @@ sit
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_1}
 ~~~
@@ -13475,7 +13475,7 @@ etc.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_2}
 ~~~
@@ -13554,7 +13554,7 @@ etc.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_3}
 ~~~
@@ -13631,7 +13631,7 @@ etc.
 
 ##### Example 4: Uppercase Roman Numerals
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_4}
 ~~~
@@ -13708,7 +13708,7 @@ etc.
 
 ##### Example 5: Lowercase Roman Numerals
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_5}
 ~~~
@@ -13785,7 +13785,7 @@ etc.
 
 ##### Example 6: In Markua, A Single Element Ordered List is Not a List
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_6}
 ~~~
@@ -13837,7 +13837,7 @@ amet
 
 ##### Example 7: Ordered List Numbering Rules
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ordered_lists_7}
 ~~~
@@ -13963,7 +13963,7 @@ c. three</p>
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-multi_para_lists_1}
 ~~~
@@ -14010,7 +14010,7 @@ Here's a paragraph after the list.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-nested_lists_1}
 ~~~
@@ -14064,7 +14064,7 @@ Here's a paragraph after the list.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-spli_1}
 ~~~
@@ -14099,7 +14099,7 @@ Here's a paragraph after the list.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-mpli_1}
 ~~~
@@ -14148,7 +14148,7 @@ Here's a paragraph after the list.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-definition_lists_1}
 ~~~
@@ -14207,7 +14207,7 @@ Tables are always output inside a `<figure>`, and table captions are always outp
 
 ##### Example 1: No Leading Pipes, No Caption
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-simple_tables_1}
 ~~~
@@ -14254,7 +14254,7 @@ Content A3 | Content B3 | Content C3
 
 ##### Example 2: Leading Pipes, Caption
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-simple_tables_2}
 ~~~
@@ -14305,7 +14305,7 @@ Content A3 | Content B3 | Content C3
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-complex_tables_1}
 ~~~
@@ -14371,7 +14371,7 @@ In HTML, scene breaks are always mapped to `<hr/>`. Book designers can use CSS t
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-scene_break_1}
 ~~~
@@ -14401,7 +14401,7 @@ This is after the second scene break.
 
 ##### Example 1: Blockquotes that are Siblings of Paragraphs
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-blockquotes_1}
 ~~~
@@ -14441,7 +14441,7 @@ This is the third paragraph.
 
 ##### Example 2: Blockquotes that are Nested in Paragraphs
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-blockquotes_2}
 ~~~
@@ -14483,7 +14483,7 @@ This is part of the second paragraph.</p>
 
 ##### Example 3: Blockquotes with Attribute Lists
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-blockquotes_3}
 ~~~
@@ -14526,7 +14526,7 @@ That's it!
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-asides_1}
 ~~~
@@ -14580,7 +14580,7 @@ This is still the first paragraph.</p>
 
 ##### Example 1: Normal Blurbs
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-blurbs_1}
 ~~~
@@ -14632,7 +14632,7 @@ This is still the first paragraph.</p>
 
 ##### Example 2: Blurb Classes
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-blurbs_2}
 ~~~
@@ -14675,7 +14675,7 @@ B> This is a warning blurb.
 
 ##### Example 3: Syntactic Sugar for Blurb Classes
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-blurbs_3}
 ~~~
@@ -14715,7 +14715,7 @@ W> This is a warning blurb.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-ibeip_1}
 ~~~
@@ -14809,7 +14809,7 @@ This sentence is also in paragraph six.</p>
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-links_1}
 ~~~
@@ -14835,7 +14835,7 @@ Markua does not specify how footnotes and endnotes are output in HTML. A Markua 
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-crosslinks_ids_1}
 ~~~
@@ -14874,7 +14874,7 @@ The [quick sly fox]{#quick_sly} jumped over the lazy dogs.
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-soft_hyphen_1}
 ~~~
@@ -14912,7 +14912,7 @@ Markua does, however, strongly recommend that the entries in a Table of Contents
 
 ##### Example
 
-###### Markua Syntax
+###### Markua Document
 
 {#input-comments_1}
 ~~~
