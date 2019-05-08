@@ -5728,7 +5728,7 @@ A Markua Processor must treat any error in the numbering of question alternates 
 
 ## Definitions of Characters and Lines
 
-Any sequence of [characters](#character) is a valid Markua document.
+Any sequence of [characters](#def-character) is a valid Markua document.
 
 A [character]{#def-character} is a Unicode code point. Although some code points (for example, combining accents) do not correspond to characters in an intuitive sense, all code points count as characters for purposes of this spec.
 
@@ -5899,7 +5899,7 @@ Markdown's reference link syntax and its implicit link name shortcuts are not su
 
 ## No Relative URLs
 
-In Markdown links, a URL can be either absolute (starting with `http://` or `https://`) or relative (just referring to a path like /foo/bar.html), since relative URLs can make sense when writing blog posts which live on web servers. In Markua, however, all URLs must be absolute (starting with `http://` or `https://`).
+In Markdown links, a URL can be either absolute (starting with `http://` or `https://`) or relative (just referring to a path like `/foo/bar.html`), since relative URLs can make sense when writing blog posts which live on web servers. In Markua, however, all URLs must be absolute (starting with `http://` or `https://`). (Yes, crosslinks can be thought of as relative URLs, but that's not what the point is.)
 
 {#markdown-newlines}
 ## Newlines
@@ -6134,9 +6134,11 @@ For example, the output formats which Leanpub produces from a Markua document ar
 
 The Markua Specification does not precisely define all output formats or the content of those output formats. The only required output format is HTML, and HTML is the only output format where any specification is provided. The reason that HTML is a required output format for a Markua Processor to be able to help ensure conformance to the Markua Specification.
 
-This chapter contains many examples with Markua and the corresponding HTML. Some of these examples are based on the CommonMark Spec, as [discussed earlier](#copyright-ccby-commonmark). These examples are intended to double as conformance tests. An accompanying script (TODO - update the spec_tests script or provide a new one) be used to run the tests against any Markua Processor which outputs HTML:
+This chapter contains many examples with Markua and the corresponding HTML. Some of these examples are based on the CommonMark Spec, as [discussed earlier](#copyright-ccby-commonmark). These examples are intended to double as conformance tests. An accompanying script can be used to run the tests against any Markua Processor which outputs HTML:
 
     python test/spec_tests.py --spec spec.txt --program PROGRAM
+
+W> TODO - update the spec_tests script or provide a new one to do this based on the Markua spec.
 
 Please note that this is not a complete specification of the HTML documents produced by Markua Processors. It is only a specification of the parts of the HTML mapping where there is no need to have flexibility on the part of the Markua Processor. The HTML mapping should be thought of specifying HTML fragments, not documents. In all of the examples, a Markua Processor may add more HTML before and after the relevant content. The test is that the HTML produced contains the specified output, not that it is identical to the specified output.
 
@@ -6184,18 +6186,28 @@ italicize-underlines: true
 
 In the examples in this chapter, the global settings will be at the defaults unless a settings hash is provided.
 
-{#text_formatting_html}
+{#text-formatting-html}
 ## Text Formatting
 
-View the [specification](#text_formatting).
+View the [specification](#text-formatting).
 
-##### Example TF-1
+### CSS Note
+
+The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
+
+~~~
+.strikethrough {
+  text-decoration: line-through;
+}
+~~~
+
+##### Example TF1
 
 Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
 
 ###### Markua Syntax
 
-{#input_text_formatting_1}
+{#input-tf1}
 ~~~
 * Italic: *one asterisk*
 * Underlined: _one underscore_
@@ -6210,7 +6222,7 @@ Note that this example, like all examples where a settings hash is not provided,
 
 ###### HTML Output
 
-{#output_text_formatting_1}
+{#output-tf1}
 ~~~
 <ul>
   <li>Italic: <i>one asterisk</i></li>
@@ -6225,13 +6237,13 @@ Note that this example, like all examples where a settings hash is not provided,
 </ul>
 ~~~
 
-##### Example TF-2
+##### Example TF2
 
 This example makes the default settings explicitly specified.
 
 ###### Markua Syntax
 
-{#input_text_formatting_1}
+{#input-tf2}
 ~~~
 {
 html-style: default
@@ -6250,7 +6262,7 @@ italicize-underlines: false
 
 ###### HTML Output
 
-{#output_text_formatting_1}
+{#output-tf2}
 ~~~
 <ul>
   <li>Italic: <i>one asterisk</i></li>
@@ -6265,13 +6277,55 @@ italicize-underlines: false
 </ul>
 ~~~
 
+##### Example TF-3
+
+This example makes the default settings explicitly specified.
+
+###### Markua Syntax
+
+{#input-text_formatting_1}
+~~~
+{
+html-style: default
+italicize-underlines: false
+}
+* Italic: *one asterisk*
+* Underlined: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Underlined: ___three underscores___
+* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-text_formatting_1}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Underlined: <u>one underscore</u></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
+  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+
+
 ##### Example TF-2
 
 This example makes the default settings explicitly specified.
 
 ###### Markua Syntax
 
-{#input_text_formatting_1}
+{#input-text_formatting_1}
 ~~~
 {
 html-style: default
@@ -6290,7 +6344,7 @@ italicize-underlines: true
 
 ###### HTML Output
 
-{#output_text_formatting_1}
+{#output-text_formatting_1}
 ~~~
 <ul>
   <li>Italic: <i>one asterisk</i></li>
@@ -6312,7 +6366,7 @@ italicize-underlines: true
 
 ###### Markua Syntax
 
-{#input_text_formatting_1}
+{#input-text_formatting_1}
 ~~~
 {
 html-style: markdown
@@ -6331,7 +6385,7 @@ italicize-underlines: true
 
 ###### HTML Output
 
-{#output_text_formatting_1}
+{#output-text_formatting_1}
 ~~~
 <ul>
   <li>Italic: <i>one asterisk</i></li>
@@ -6348,17 +6402,68 @@ italicize-underlines: true
 
 
 
-### CSS Advice
 
-The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
 
+
+{#headings_html}
+The syntax for headings is described [here](#headings).
+
+In this mapping, both parts and chapters produce an `h1` in HTML. This is mildly surprising, but entirely appropriate. For books which have no parts, the chapter is the topmost organizational unit. In a book with parts, it is more important for chapters to behave the same way that they do in a book without parts (i.e. to be created with `# Title` and to produce an `h1`) than to be correctly "contained" (if you think like an outliner) inside the Part.
+
+##### Example
+
+###### Markua Syntax
+
+{#input-headings_1}
 ~~~
-.strikethrough {
-  text-decoration: line-through;
-}
+# Part (h1) #
+
+This is a paragraph.
+
+# Chapter (also h1)
+
+This is a paragraph.
+
+## Section (h2)
+
+This is a paragraph.
+
+### Sub-Section (h3)
+
+This is a paragraph.
+
+#### Sub-Sub-Section (h4)
+
+This is a paragraph.
+
+##### Sub-Sub-Sub-Section (h5)
+
+This is a paragraph.
+
+###### Sub-Sub-Sub-Sub-Section (h6)
+
+This is a paragraph.
 ~~~
 
+###### HTML Output
 
+{#output-headings_1}
+~~~
+<h1 class="part">Part (h1)</h1>
+<p>This is a paragraph.</p>
+<h1 class="chapter">Chapter (also h1)</h1>
+<p>This is a paragraph.</p>
+<h2 class="section">Section (h2)</h2>
+<p>This is a paragraph.</p>
+<h3 class="sub-section">Sub-Section (h3)</h3>
+<p>This is a paragraph.</p>
+<h4 class="sub-sub-section">Sub-Sub-Section (h4)</h4>
+<p>This is a paragraph.</p>
+<h5 class="sub-sub-sub-section">Sub-Sub-Sub-Section (h5)</h5>
+<p>This is a paragraph.</p>
+<h6 class="sub-sub-sub-sub-section">Sub-Sub-Sub-Sub-Section (h6)</h6>
+<p>This is a paragraph.</p>
+~~~
 
 
 
@@ -6366,111 +6471,8 @@ The following CSS rule is recommended for strikethrough, since CSS is how strike
 
 ## TODO
 
-The reasoning here is simple: in source code, whitespace matters, so it must not get collapsed into a single space. Thankfully, this is easy to do. If a Markua Processor is producing HTML, the following CSS prevents spaces from being collapsed to one space:
-
-```
-code {
-  white-space: pre;
-}
-```
-
-(There may be other CSS in future which meets this requirement, so this exact CSS is not a requirement for a Markua Processor to use. However, the behaviour that results when this CSS is added is a requirement for a Markua Processor.)
 
 
-
-
-
-
-
-
-
-
-
-# CommonMark Spec
-
-# Preliminaries
-
-
-## Tabs
-
-Tabs in lines are not expanded to [spaces].  However, in contexts where whitespace helps to define block structure, tabs behave as if they were replaced by spaces with a tab stop of 4 characters.
-
-Thus, for example, a tab can be used instead of four spaces
-in an indented code block.  (Note, however, that internal
-tabs are passed through as literal tabs, not expanded to
-spaces.)
-
-```example
-→foo→baz→→bim
-.
-<pre><code>foo→baz→→bim
-</code></pre>
-```
-
-```example
-  →foo→baz→→bim
-.
-<pre><code>foo→baz→→bim
-</code></pre>
-```
-
-```example
-    a→a
-    ὐ→a
-.
-<pre><code>a→a
-ὐ→a
-</code></pre>
-```
-
-In the following example, a continuation paragraph of a list
-item is indented with a tab; this has exactly the same effect
-as indentation with four spaces would:
-
-```example
-  - foo
-
-→bar
-.
-<ul>
-<li>
-<p>foo</p>
-<p>bar</p>
-</li>
-</ul>
-```
-
-```example
-- foo
-
-→→bar
-.
-<ul>
-<li>
-<p>foo</p>
-<pre><code>  bar
-</code></pre>
-</li>
-</ul>
-```
-
-Normally the `>` that begins a block quote may be followed
-optionally by a space, which is not considered part of the
-content.  In the following case `>` is followed by a tab,
-which is treated as if it were expanded into three spaces.
-Since one of these spaces is considered part of the
-delimiter, `foo` is considered to be indented six spaces
-inside the block quote context, so we get an indented
-code block starting with two spaces.
-
-```example
->→→foo
-.
-<blockquote>
-<pre><code>  foo
-</code></pre>
-</blockquote>
-```
 
 ```example
 -→→foo
@@ -12479,67 +12481,26 @@ Multiple     spaces
 
 
 
-## Headings - Back to Markua stuff
+## Back to Markua stuff
 
-{#headings_html}
-The syntax for headings is described [here](#headings).
+The reasoning here is simple: in source code, whitespace matters, so it must not get collapsed into a single space. Thankfully, this is easy to do. If a Markua Processor is producing HTML, the following CSS prevents spaces from being collapsed to one space:
 
-In this mapping, both parts and chapters produce an `h1` in HTML. This is mildly surprising, but entirely appropriate. For books which have no parts, the chapter is the topmost organizational unit. In a book with parts, it is more important for chapters to behave the same way that they do in a book without parts (i.e. to be created with `# Title` and to produce an `h1`) than to be correctly "contained" (if you think like an outliner) inside the Part.
+```
+code {
+  white-space: pre;
+}
+```
 
-##### Example
+(There may be other CSS in future which meets this requirement, so this exact CSS is not a requirement for a Markua Processor to use. However, the behaviour that results when this CSS is added is a requirement for a Markua Processor.)
 
-###### Markua Syntax
 
-{#input_headings_1}
-~~~
-# Part (h1) #
 
-This is a paragraph.
 
-# Chapter (also h1)
 
-This is a paragraph.
 
-## Section (h2)
+xxx
 
-This is a paragraph.
 
-### Sub-Section (h3)
-
-This is a paragraph.
-
-#### Sub-Sub-Section (h4)
-
-This is a paragraph.
-
-##### Sub-Sub-Sub-Section (h5)
-
-This is a paragraph.
-
-###### Sub-Sub-Sub-Sub-Section (h6)
-
-This is a paragraph.
-~~~
-
-###### HTML Output
-
-{#output_headings_1}
-~~~
-<h1 class="part">Part (h1)</h1>
-<p>This is a paragraph.</p>
-<h1 class="chapter">Chapter (also h1)</h1>
-<p>This is a paragraph.</p>
-<h2 class="section">Section (h2)</h2>
-<p>This is a paragraph.</p>
-<h3 class="sub-section">Sub-Section (h3)</h3>
-<p>This is a paragraph.</p>
-<h4 class="sub-sub-section">Sub-Sub-Section (h4)</h4>
-<p>This is a paragraph.</p>
-<h5 class="sub-sub-sub-section">Sub-Sub-Sub-Section (h5)</h5>
-<p>This is a paragraph.</p>
-<h6 class="sub-sub-sub-sub-section">Sub-Sub-Sub-Sub-Section (h6)</h6>
-<p>This is a paragraph.</p>
-~~~
 
 ## Spaces, Newlines and Indentation
 
@@ -12552,7 +12513,7 @@ The syntax for spaces, newlines and indentation is described [here](#spaces).
 
 ###### Markua Syntax
 
-{#input_whitespace_1}
+{#input-whitespace_1}
 ~~~
 I'm paragraph one. Yay!
 
@@ -12563,7 +12524,7 @@ This is paragraph three.
 
 ###### HTML Output
 
-{#output_whitespace_1}
+{#output-whitespace_1}
 ~~~
 <p>I'm paragraph one. Yay!</p>
 <p>This is paragraph two.</p>
@@ -12576,7 +12537,7 @@ This is paragraph three.
 
 ###### Markua Syntax
 
-{#input_single_newlines_1}
+{#input-single_newlines_1}
 ~~~
 I'm paragraph one. Yay!
 
@@ -12595,7 +12556,7 @@ This is paragraph four.
 
 ###### HTML Output
 
-{#output_single_newlines_1}
+{#output-single_newlines_1}
 ~~~
 <p>I'm paragraph one. Yay!</p>
 <p>This is paragraph two.<br/>
@@ -12616,7 +12577,7 @@ If there are n newlines after a paragraph, there are n-2 break tags in the HTML 
 
 ###### Markua Syntax
 
-{#input_three_or_more_newlines_1}
+{#input-three_or_more_newlines_1}
 ~~~
 This paragraph is followed by two newlines.
 
@@ -12633,7 +12594,7 @@ The End
 
 ###### HTML Output
 
-{#output_three_or_more_newlines_1}
+{#output-three_or_more_newlines_1}
 ~~~
 <p>This paragraph is followed by two newlines.</p>
 <p>This paragraph is followed by three newlines.</p>
@@ -12651,7 +12612,7 @@ The End
 
 ###### Markua Syntax
 
-{#input_leading_spaces_1}
+{#input-leading_spaces_1}
 ~~~
 I grant I never saw a goddess go;
 My mistress when she walks treads on the ground.
@@ -12661,7 +12622,7 @@ My mistress when she walks treads on the ground.
 
 ###### HTML Output
 
-{#output_leading_spaces_1}
+{#output-leading_spaces_1}
 ~~~
 <p>I grant I never saw a goddess go;<br/>
 My mistress when she walks treads on the ground.<br/>
@@ -12675,14 +12636,14 @@ My mistress when she walks treads on the ground.<br/>
 
 ###### Markua Syntax
 
-{#input_internal_spaces_1}
+{#input-internal_spaces_1}
 ~~~
 foo   bar
 ~~~
 
 ###### HTML Output
 
-{#output_internal_spaces_1}
+{#output-internal_spaces_1}
 ~~~
 <p>foo bar</p>
 ~~~
@@ -12700,7 +12661,7 @@ The syntax for images is described [here](#images).
 
 ###### Markua Syntax
 
-{#input_local_images_1}
+{#input-local_images_1}
 ~~~
 Here's a paragraph before the first figure.
 
@@ -12721,7 +12682,7 @@ Here's a paragraph after the third figure.
 
 ###### HTML Output
 
-{#output_local_images_1}
+{#output-local_images_1}
 ~~~
 <p>Here's a paragraph before the first figure.</p>
 <div class="figure">
@@ -12747,7 +12708,7 @@ Here's a paragraph after the third figure.
 
 ###### Markua Syntax
 
-{#input_web_images_1}
+{#input-web_images_1}
 ~~~
 Here's a paragraph before the first figure.
 
@@ -12768,7 +12729,7 @@ Here's a paragraph after the third figure.
 
 ###### HTML Output
 
-{#output_web_images_1}
+{#output-web_images_1}
 ~~~
 <p>Here's a paragraph before the first figure.</p>
 <div class="figure">
@@ -12794,7 +12755,7 @@ Here's a paragraph after the third figure.
 
 ###### Markua Syntax
 
-{#input_inline_images_1}
+{#input-inline_images_1}
 ~~~
 Here's a paragraph before the figure.
 
@@ -12812,7 +12773,7 @@ Here's a paragraph after the figure.
 
 Note that any alt text specified in the figure attribute list must be set as the `<desc>` attribute in the SVG.
 
-{#output_inline_images_1}
+{#output-inline_images_1}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -12836,7 +12797,7 @@ The syntax for video is described [here](#video).
 
 ###### Markua Syntax
 
-{#input_local_video_1}
+{#input-local_video_1}
 ~~~
 Here's a paragraph before the figure.
 
@@ -12847,7 +12808,7 @@ Here's a paragraph after the figure.
 
 ###### HTML Output
 
-{#output_local_video_1}
+{#output-local_video_1}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -12863,7 +12824,7 @@ Here's a paragraph after the figure.
 
 ###### Markua Syntax
 
-{#input_web_video_1}
+{#input-web_video_1}
 ~~~
 Here's a paragraph before the figure.
 
@@ -12875,7 +12836,7 @@ Here's a paragraph after the figure.
 
 ###### HTML Output
 
-{#output_web_video_1}
+{#output-web_video_1}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -12897,7 +12858,7 @@ The syntax for audio is described [here](#audio).
 
 ###### Markua Syntax
 
-{#input_local_audio_1}
+{#input-local_audio_1}
 ~~~
 The full version of the talk is here:
 
@@ -12906,7 +12867,7 @@ The full version of the talk is here:
 
 ###### HTML Output
 
-{#output_local_audio_1}
+{#output-local_audio_1}
 ~~~
 <p>The full version of the talk is here:</p>
 <div class="figure">
@@ -12921,7 +12882,7 @@ The full version of the talk is here:
 
 ###### Markua Syntax
 
-{#input_local_audio_1}
+{#input-local_audio_1}
 ~~~
 The full version of the talk is here:
 
@@ -12930,7 +12891,7 @@ The full version of the talk is here:
 
 ###### HTML Output
 
-{#output_local_audio_1}
+{#output-local_audio_1}
 ~~~
 <p>The full version of the talk is here:</p>
 <div class="figure">
@@ -12964,7 +12925,7 @@ puts "world"
 
 ###### Markua Syntax
 
-{#input_local_code_figure_1}
+{#input-local_code_figure_1}
 ~~~
 Here's a paragraph before the figure.
 
@@ -12976,7 +12937,7 @@ Here's a paragraph after the figure.
 
 ###### HTML Output
 
-{#output_local_code_figure_1}
+{#output-local_code_figure_1}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -13006,7 +12967,7 @@ puts "world"
 
 ###### Markua Syntax
 
-{#input_web_code_figure_1}
+{#input-web_code_figure_1}
 ~~~
 Here's a paragraph before the figure.
 
@@ -13018,7 +12979,7 @@ Here's a paragraph after the figure.
 
 ###### HTML Output
 
-{#output_web_code_figure_1}
+{#output-web_code_figure_1}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -13036,14 +12997,14 @@ puts "world"</code></pre>
 
 ###### Markua Syntax
 
-{#input_inline_code_span_1}
+{#input-inline_code_span_1}
 ~~~
 Hello in Ruby is a `puts "hello"` statement.
 ~~~
 
 ###### HTML Output
 
-{#output_inline_code_span_1}
+{#output-inline_code_span_1}
 ~~~
 <p>Hello in Ruby is a <code>puts "hello"</code> statement.</p>
 ~~~
@@ -13052,7 +13013,7 @@ Hello in Ruby is a `puts "hello"` statement.
 
 ###### Markua Syntax
 
-{#input_inline_code_figure_1}
+{#input-inline_code_figure_1}
 ~~~
 Here's a paragraph before the figure.
 
@@ -13068,7 +13029,7 @@ Here's a paragraph after the figure.
 
 ###### HTML Output
 
-{#output_inline_code_figure_1}
+{#output-inline_code_figure_1}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -13084,7 +13045,7 @@ puts "world"</code></pre>
 
 ###### Markua Syntax
 
-{#input_inline_code_figure_2}
+{#input-inline_code_figure_2}
 ```
 Here's a paragraph before the figure.
 
@@ -13100,7 +13061,7 @@ Here's a paragraph after the figure.
 
 ###### HTML Output
 
-{#output_inline_code_figure_2}
+{#output-inline_code_figure_2}
 ~~~
 <p>Here's a paragraph before the figure.</p>
 <div class="figure">
@@ -13118,7 +13079,7 @@ puts "world"</code></pre>
 
 ###### Markua Syntax
 
-{#input_typewriter_poetry_1}
+{#input-typewriter_poetry_1}
 ```
 Here's a paragraph before the poetry.
 
@@ -13139,7 +13100,7 @@ Here's a paragraph after the poetry.
 
 Typewriter poetry is output with the `<pre><code>` combination, just like any other inline code resource with a format of `text`. It is up to a book designer to use CSS to style the poetry accordingly.
 
-{#output_typewriter_poetry_1}
+{#output-typewriter_poetry_1}
 ~~~
 <p>Here's a paragraph before the poetry.</p>
 <div class="figure">
@@ -13158,7 +13119,7 @@ me   ow</code></pre>
 
 ###### Markua Syntax
 
-{#input_typewriter_poetry_2}
+{#input-typewriter_poetry_2}
 ~~~
 Here's a paragraph before the poetry.
 
@@ -13177,7 +13138,7 @@ Here's a paragraph after the poetry.
 
 ###### HTML Output
 
-{#output_typewriter_poetry_2}
+{#output-typewriter_poetry_2}
 ~~~
 <p>Here's a paragraph before the poetry.</p>
 <div class="figure">
@@ -13196,7 +13157,7 @@ me   ow</code></pre>
 
 ###### Markua Syntax
 
-{#input_typewriter_poetry_3}
+{#input-typewriter_poetry_3}
 ~~~
 Here's a paragraph before the poetry.
 
@@ -13215,7 +13176,7 @@ Here's a paragraph after the poetry.
 
 ###### HTML Output
 
-{#output_typewriter_poetry_3}
+{#output-typewriter_poetry_3}
 ~~~
 <p>Here's a paragraph before the poetry.</p>
 <div class="figure">
@@ -13242,7 +13203,7 @@ Markua does not specify how math is output in HTML. It is perfectly acceptable f
 
 ###### Markua Syntax
 
-{#input_unordered_list_1}
+{#input-unordered_list_1}
 ~~~
 lorem
 
@@ -13287,7 +13248,7 @@ dolor
 
 ###### HTML Output
 
-{#output_unordered_list_1}
+{#output-unordered_list_1}
 ~~~
 <p>lorem</p>
 <ul>
@@ -13336,7 +13297,7 @@ dolor
 
 ###### Markua Syntax
 
-{#input_not_lists_1}
+{#input-not_lists_1}
 ~~~
 lorem
 
@@ -13359,7 +13320,7 @@ sit
 
 ###### HTML Output
 
-{#output_not_lists_1}
+{#output-not_lists_1}
 ~~~
 <p>lorem</p>
 <p>+ foo</p>
@@ -13382,7 +13343,7 @@ sit
 
 ###### Markua Syntax
 
-{#input_ordered_lists_1}
+{#input-ordered_lists_1}
 ~~~
 lorem
 
@@ -13419,7 +13380,7 @@ etc.
 
 ###### HTML Output
 
-{#output_ordered_lists_1}
+{#output-ordered_lists_1}
 ~~~
 <p>lorem</p>
 <ol>
@@ -13460,7 +13421,7 @@ etc.
 
 ###### Markua Syntax
 
-{#input_ordered_lists_2}
+{#input-ordered_lists_2}
 ~~~
 lorem
 
@@ -13497,7 +13458,7 @@ etc.
 
 ###### HTML Output
 
-{#output_ordered_lists_2}
+{#output-ordered_lists_2}
 ~~~
 <p>lorem</p>
 <ol type="A">
@@ -13539,7 +13500,7 @@ etc.
 
 ###### Markua Syntax
 
-{#input_ordered_lists_3}
+{#input-ordered_lists_3}
 ~~~
 lorem
 
@@ -13576,7 +13537,7 @@ etc.
 
 ###### HTML Output
 
-{#output_ordered_lists_3}
+{#output-ordered_lists_3}
 ~~~
 <p>lorem</p>
 <ol type="a">
@@ -13616,7 +13577,7 @@ etc.
 
 ###### Markua Syntax
 
-{#input_ordered_lists_4}
+{#input-ordered_lists_4}
 ~~~
 lorem
 
@@ -13653,7 +13614,7 @@ etc.
 
 ###### HTML Output
 
-{#output_ordered_lists_4}
+{#output-ordered_lists_4}
 ~~~
 <p>lorem</p>
 <ol type="I">
@@ -13693,7 +13654,7 @@ etc.
 
 ###### Markua Syntax
 
-{#input_ordered_lists_5}
+{#input-ordered_lists_5}
 ~~~
 lorem
 
@@ -13730,7 +13691,7 @@ etc.
 
 ###### HTML Output
 
-{#output_ordered_lists_5}
+{#output-ordered_lists_5}
 ~~~
 <p>lorem</p>
 <ol type="i">
@@ -13770,7 +13731,7 @@ etc.
 
 ###### Markua Syntax
 
-{#input_ordered_lists_6}
+{#input-ordered_lists_6}
 ~~~
 foo
 
@@ -13801,7 +13762,7 @@ amet
 
 ###### HTML Output
 
-{#output_ordered_lists_6}
+{#output-ordered_lists_6}
 ~~~
 <p>foo</p>
 <p>1. This isn't a list.</p>
@@ -13822,7 +13783,7 @@ amet
 
 ###### Markua Syntax
 
-{#input_ordered_lists_7}
+{#input-ordered_lists_7}
 ~~~
 This makes an ordered list with decimal numbers (1, 2, 3):
 
@@ -13889,7 +13850,7 @@ That's it!
 
 ###### HTML Output
 
-{#output_ordered_lists_7}
+{#output-ordered_lists_7}
 ~~~
 <p>This makes an ordered list with decimal numbers:</p>
 <ol>
@@ -13948,7 +13909,7 @@ c. three</p>
 
 ###### Markua Syntax
 
-{#input_multi_para_lists_1}
+{#input-multi_para_lists_1}
 ~~~
 Here's a paragraph before the list.
 
@@ -13970,7 +13931,7 @@ Here's a paragraph after the list.
 
 ###### HTML Output
 
-{#output_multi_para_lists_1}
+{#output-multi_para_lists_1}
 ~~~
 <p>Here's a paragraph before the list.</p>
 <ol>
@@ -13995,7 +13956,7 @@ Here's a paragraph after the list.
 
 ###### Markua Syntax
 
-{#input_nested_lists_1}
+{#input-nested_lists_1}
 ~~~
 * Foo
   1. One
@@ -14012,7 +13973,7 @@ Here's a paragraph after the list.
 
 ###### HTML Output
 
-{#output_nested_lists_1}
+{#output-nested_lists_1}
 ~~~
 <ul>
   <li>
@@ -14049,7 +14010,7 @@ Here's a paragraph after the list.
 
 ###### Markua Syntax
 
-{#input_spli_1}
+{#input-spli_1}
 ~~~
 * Foo
   {caption: "Hello World in Ruby"}
@@ -14062,7 +14023,7 @@ Here's a paragraph after the list.
 
 ###### HTML Output
 
-{#output_spli_1}
+{#output-spli_1}
 ~~~
 <ul>
   <li>
@@ -14084,7 +14045,7 @@ Here's a paragraph after the list.
 
 ###### Markua Syntax
 
-{#input_mpli_1}
+{#input-mpli_1}
 ~~~
 * This is paragraph 1 in the first list item.
 
@@ -14105,7 +14066,7 @@ Here's a paragraph after the list.
 
 ###### HTML Output
 
-{#output_mpli_1}
+{#output-mpli_1}
 ~~~
 <ul>
   <li>
@@ -14133,7 +14094,7 @@ Here's a paragraph after the list.
 
 ###### Markua Syntax
 
-{#input_definition_lists_1}
+{#input-definition_lists_1}
 ~~~
 Here's a paragraph before the list.
 
@@ -14159,7 +14120,7 @@ Here's a paragraph after the list.
 
 ###### HTML Output
 
-{#output_definition_lists_1}
+{#output-definition_lists_1}
 ~~~
 <p>Here's a paragraph before the list.</p>
 <dl>
@@ -14192,7 +14153,7 @@ Tables are always output inside a `<figure>`, and table captions are always outp
 
 ###### Markua Syntax
 
-{#input_simple_tables_1}
+{#input-simple_tables_1}
 ~~~
 Header A   | Header B   | Header C
 -----------|------------|-----------
@@ -14203,7 +14164,7 @@ Content A3 | Content B3 | Content C3
 
 ###### HTML Output
 
-{#output_simple_tables_1}
+{#output-simple_tables_1}
 ~~~
 <figure>
   <table>
@@ -14239,7 +14200,7 @@ Content A3 | Content B3 | Content C3
 
 ###### Markua Syntax
 
-{#input_simple_tables_2}
+{#input-simple_tables_2}
 ~~~
 {caption: "A Simple Table"}
 | Header A   | Header B   | Header C   |
@@ -14251,7 +14212,7 @@ Content A3 | Content B3 | Content C3
 
 ###### HTML Output
 
-{#output_simple_tables_2}
+{#output-simple_tables_2}
 ~~~
 <figure>
   <figcaption>A Simple Table</figcaption>
@@ -14290,7 +14251,7 @@ Content A3 | Content B3 | Content C3
 
 ###### Markua Syntax
 
-{#input_complex_tables_1}
+{#input-complex_tables_1}
 ~~~
 {caption: "A Complex Table"}
 |=============|===============|=============|
@@ -14308,7 +14269,7 @@ Content A3 | Content B3 | Content C3
 
 ###### HTML Output
 
-{#output_complex_tables_1}
+{#output-complex_tables_1}
 ~~~
 <figure>
   <figcaption>A Complex Table</figcaption>
@@ -14356,7 +14317,7 @@ In HTML, scene breaks are always mapped to `<hr/>`. Book designers can use CSS t
 
 ###### Markua Syntax
 
-{#input_scene_break_1}
+{#input-scene_break_1}
 ~~~
 This is before the first scene break.
 
@@ -14371,7 +14332,7 @@ This is after the second scene break.
 
 ###### HTML Output
 
-{#output_scene_break_1}
+{#output-scene_break_1}
 ~~~
 <p>This is before the first scene break.</p>
 <hr/>
@@ -14386,7 +14347,7 @@ This is after the second scene break.
 
 ###### Markua Syntax
 
-{#input_blockquotes_1}
+{#input-blockquotes_1}
 ~~~
 This is the first paragraph.
 
@@ -14407,7 +14368,7 @@ This is the third paragraph.
 
 ###### HTML Output
 
-{#output_blockquotes_1}
+{#output-blockquotes_1}
 ~~~
 <p>This is the first paragraph.</p>
 <blockquote>
@@ -14426,7 +14387,7 @@ This is the third paragraph.
 
 ###### Markua Syntax
 
-{#input_blockquotes_2}
+{#input-blockquotes_2}
 ~~~
 This is the first paragraph.
 
@@ -14447,7 +14408,7 @@ This is the third paragraph.
 
 ###### HTML Output
 
-{#output_blockquotes_2}
+{#output-blockquotes_2}
 ~~~
 <p>This is the first paragraph.</p>
 <p>This is the second paragraph.<br/>
@@ -14468,7 +14429,7 @@ This is part of the second paragraph.</p>
 
 ###### Markua Syntax
 
-{#input_blockquotes_3}
+{#input-blockquotes_3}
 ~~~
 Lots of people have opinions about software.
 
@@ -14489,7 +14450,7 @@ That's it!
 
 ###### HTML Output
 
-{#output_blockquotes_3}
+{#output-blockquotes_3}
 ~~~
 <p>Lots of people have opinions about software.</p>
 <p>Here's the most famous recent one:</p>
@@ -14511,7 +14472,7 @@ That's it!
 
 ###### Markua Syntax
 
-{#input_asides_1}
+{#input-asides_1}
 ~~~
 This is the first paragraph.
 A> This is a short aside.
@@ -14538,7 +14499,7 @@ This is the third paragraph.
 
 ###### HTML Output
 
-{#output_asides_1}
+{#output-asides_1}
 ~~~
 <p>This is the first paragraph.<br/>
 <aside>
@@ -14565,7 +14526,7 @@ This is still the first paragraph.</p>
 
 ###### Markua Syntax
 
-{#input_blurbs_1}
+{#input-blurbs_1}
 ~~~
 This is the first paragraph.
 B> This is a short blurb.
@@ -14592,7 +14553,7 @@ This is the third paragraph.
 
 ###### HTML Output
 
-{#output_blurbs_1}
+{#output-blurbs_1}
 ~~~
 <p>This is the first paragraph.<br/>
 <aside class="blurb">
@@ -14617,7 +14578,7 @@ This is still the first paragraph.</p>
 
 ###### Markua Syntax
 
-{#input_blurbs_2}
+{#input-blurbs_2}
 ~~~
 {class: discussion}
 B> This is a discussion blurb.
@@ -14637,7 +14598,7 @@ B> This is a warning blurb.
 
 ###### HTML Output
 
-{#output_blurbs_2}
+{#output-blurbs_2}
 ~~~
 <aside class="blurb discussion">
   <p>This is a discussion blurb.</p>
@@ -14660,7 +14621,7 @@ B> This is a warning blurb.
 
 ###### Markua Syntax
 
-{#input_blurbs_3}
+{#input-blurbs_3}
 ~~~
 D> This is a discussion blurb.
 
@@ -14675,7 +14636,7 @@ W> This is a warning blurb.
 
 ###### HTML Output
 
-{#output_blurbs_3}
+{#output-blurbs_3}
 ~~~
 <aside class="blurb discussion">
   <p>This is a discussion blurb.</p>
@@ -14700,7 +14661,7 @@ W> This is a warning blurb.
 
 ###### Markua Syntax
 
-{#input_ibeip_1}
+{#input-ibeip_1}
 ~~~
 This is paragraph one.
 
@@ -14738,7 +14699,7 @@ This is paragraph eight.
 
 ###### HTML Output
 
-{#output_ibeip_1}
+{#output-ibeip_1}
 ~~~
 <p>This is paragraph one.</p>
 
@@ -14794,7 +14755,7 @@ This sentence is also in paragraph six.</p>
 
 ###### Markua Syntax
 
-{#input_links_1}
+{#input-links_1}
 ~~~
 Markua was developed at [Leanpub](http://leanpub.com).
 
@@ -14803,7 +14764,7 @@ Markua was developed at <http://leanpub.com>.
 
 ###### HTML Output
 
-{#output_links_1}
+{#output-links_1}
 ~~~
 Markua was developed at <a href="http://leanpub.com">Leanpub</a>.
 
@@ -14820,7 +14781,7 @@ Markua does not specify how footnotes and endnotes are output in HTML. A Markua 
 
 ###### Markua Syntax
 
-{#input_crosslinks_ids_1}
+{#input-crosslinks_ids_1}
 ~~~
 {id: id1}
 This is a paragraph with an id of `id1`.
@@ -14841,7 +14802,7 @@ The [quick sly fox]{#quick_sly} jumped over the lazy dogs.
 
 ###### HTML Output
 
-{#output_crosslinks_ids_1}
+{#output-crosslinks_ids_1}
 ~~~
 <h1>Crosslink Example</h1>
 <p id="id1">This is a paragraph with an id of <code>id1</code>.</p>
@@ -14859,14 +14820,14 @@ The [quick sly fox]{#quick_sly} jumped over the lazy dogs.
 
 ###### Markua Syntax
 
-{#input_soft_hyphen_1}
+{#input-soft_hyphen_1}
 ~~~
 My name is Rumpel\-stiltskin.
 ~~~
 
 ###### HTML Output
 
-{#output_soft_hyphen_1}
+{#output-soft_hyphen_1}
 ~~~
 <p>My name is Rumpel&shy;stiltskin.</p>
 ~~~
@@ -14897,7 +14858,7 @@ Markua does, however, strongly recommend that the entries in a Table of Contents
 
 ###### Markua Syntax
 
-{#input_comments_1}
+{#input-comments_1}
 ~~~
 This is included.
 <!--
@@ -14908,7 +14869,7 @@ This is also included.
 
 ###### HTML Output
 
-{#output_comments_1}
+{#output-comments_1}
 ~~~
 <p>This is included.</p>
 <p>This is also included.</p>
