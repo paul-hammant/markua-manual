@@ -217,6 +217,83 @@ Perhaps most important, Markua is built on Markdown. So, Markua literally would 
 
 Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
 
+{#markua-specification-status}
+## Markua Specification Status
+
+This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
+
+To read the specification manuscript in Markua, see <https://github.com/markuadoc/markua>.
+
+To stay current on Markua progress, follow [@peterarmstrong](https://twitter.com/peterarmstrong) or [@leanpub](https://twitter.com/leanpub) on Twitter.
+
+{#leanpub-markua-implementation-status}
+## Leanpub's Markua Implementation Status
+
+Markua support is currently in beta on Leanpub.
+
+Some portions of the Markua specification have not yet been implemented in Leanpub. Most of these portions have no corresponding syntax in [Leanpub Flavoured Markdown](https://leanpub.com/help/manual). Leanpub Flavoured Markdown has been used in Leanpub for over 8 years.
+
+I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
+
+Here's a list of many of the parts of Markua which are still not supported in Leanpub:
+
+TODO - update this
+
+- SVG support
+- Support External and local tables, tables as resources in general
+- Support everything in Images, Attributes and Links section
+- Support Multiple Selection questions
+- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
+- Definition list id attributes on definition list items do not work yet.
+- Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
+- There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
+- There is no more type attribute on quizzes. Quizzes are always marked.
+- Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
+- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
+- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
+- Support poetry in external files and poetry resources in general.
+- Support updates to en dashes, em dashes, scene breaks and page breaks.
+- Support parentheses in numbered lists
+- Remove HTML comment syntax, since the CriticMarkup comment syntax is enough.
+- Support the other directives.
+- Support `cite` and `url` on blockquotes.
+- Use `table-of-contents` not `toc`.
+- Support `exercise-answers` and `quiz-answers`.
+- Auto-create `images`, `audio`, `video`, `code`, `math` and `tables` directories in resources directory.
+- Support `cite` and `url` attributes on images.
+- Tables seem to [mess up the alignment](#tables) of some text after them.
+- The kerning on figure captions is a disaster. It looks like one word!
+- Support crosslinks on spans
+- Our definition lists sometimes don't force newlines after the term, e.g. “type This is the resource type..."
+- Be stricter about headers (#foo should not start a chapter, blank lines before and after, etc.)
+- Support inline resources
+- Support type attribute on resources
+- Support image attributes align, cite, url
+- Decide what we are doing with the cite and url attributes
+- Specifically forbid local video resources
+- Support video attributes embed, fullbleed, height, width
+- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
+- Support three-tildes defaults to text, backticks default to guess approach
+- Support inline math with format attribute
+- Support table widths attributes on columns
+- Support descending lists
+- Support specs for all of the list types
+- Support multi-paragraph lists and whitespace
+- Support max list-nesting in Markua of three levels
+- Support scene breaks and page-breaks
+- Support blockquotes inside of a paragraph
+- Support cite and url attributes for blockquotes
+- Does this quiz or exercise heading show up in the ToC?
+- Support ids and other attributes on span elements
+- Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
+- Support Emoji
+- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
+- Support CriticMarkup.
+- Support index entries and index generation.
+- Support language directives
+- Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
+- Investigate regression of formatting in caption attributes of figures; should support text formatting
+
 {#copyright-ccby-commonmark}
 ## Copyright, CC BY-SA License, and CC Attribution of CommonMark
 
@@ -14982,80 +15059,3 @@ ambivalent.</span>. If you don't want to use it, you don't need to learn about i
 ~~~
 
 {backmatter}
-
-{#markua-specification-status}
-# Markua Specification Status
-
-This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
-
-To read the specification manuscript in Markua, see <https://github.com/markuadoc/markua>.
-
-To stay current on Markua progress, follow [@peterarmstrong](https://twitter.com/peterarmstrong) or [@leanpub](https://twitter.com/leanpub) on Twitter.
-
-{#leanpub-markua-implementation-status}
-# Leanpub's Markua Implementation Status
-
-Markua support is currently in beta on Leanpub.
-
-Some portions of the Markua specification have not yet been implemented in Leanpub. Most of these portions have no corresponding syntax in [Leanpub Flavoured Markdown](https://leanpub.com/help/manual). Leanpub Flavoured Markdown has been used in Leanpub for over 8 years.
-
-I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
-
-Here's a list of many of the parts of Markua which are still not supported in Leanpub:
-
-- SVG support
-- Support External and local tables, tables as resources in general
-- Support everything in Images, Attributes and Links section
-- Support Multiple Selection questions
-- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
-- Definition list id attributes on definition list items do not work yet.
-- Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
-- There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
-- There is no more type attribute on quizzes. Quizzes are always marked.
-- Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
-- Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
-- Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
-- Support poetry in external files and poetry resources in general.
-- Support updates to en dashes, em dashes, scene breaks and page breaks.
-- Support parentheses in numbered lists
-- Remove HTML comment syntax, since the CriticMarkup comment syntax is enough.
-- Support the other directives.
-- Support `cite` and `url` on blockquotes.
-- Use `table-of-contents` not `toc`.
-- Support `exercise-answers` and `quiz-answers`.
-- Auto-create `images`, `audio`, `video`, `code`, `math` and `tables` directories in resources directory.
-- Support `cite` and `url` attributes on images.
-- Tables seem to [mess up the alignment](#tables) of some text after them.
-- The kerning on figure captions is a disaster. It looks like one word!
-- Support crosslinks on spans
-- Our definition lists sometimes don't force newlines after the term, e.g. “type This is the resource type..."
-- Be stricter about headers (#foo should not start a chapter, blank lines before and after, etc.)
-- Support inline resources
-- Support type attribute on resources
-- Support image attributes align, cite, url
-- Decide what we are doing with the cite and url attributes
-- Specifically forbid local video resources
-- Support video attributes embed, fullbleed, height, width
-- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
-- Support three-tildes defaults to text, backticks default to guess approach
-- Support inline math with format attribute
-- Support table widths attributes on columns
-- Support `-` for lists
-- Support tab instead of space for lists
-- Support descending lists
-- Support specs for all of the list types
-- Support multi-paragraph lists and whitespace
-- Support max list-nesting in Markua of three levels
-- Support scene breaks and page-breaks
-- Support blockquotes inside of a paragraph
-- Support cite and url attributes for blockquotes
-- Does this quiz or exercise heading show up in the ToC?
-- Support ids and other attributes on span elements
-- Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
-- Support Emoji
-- Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
-- Support CriticMarkup.
-- Support index entries and index generation.
-- Support language directives
-- Support conditional inclusion targets for books and courses: `book`, `sample`, `instructor`, `course`, `course-sample` and `course-instructor`
-- Investigate regression of formatting in caption attributes of figures; should support text formatting
