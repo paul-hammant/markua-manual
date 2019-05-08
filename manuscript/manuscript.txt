@@ -6201,13 +6201,13 @@ The following CSS rule is recommended for strikethrough, since CSS is how strike
 }
 ~~~
 
-##### Example TF1
+##### Text Formatting: Example 1
 
 Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
 
 ###### Markua Syntax
 
-{#input-tf1}
+{#input-text-formatting-1}
 ~~~
 * Italic: *one asterisk*
 * Underlined: _one underscore_
@@ -6222,7 +6222,7 @@ Note that this example, like all examples where a settings hash is not provided,
 
 ###### HTML Output
 
-{#output-tf1}
+{#output-text-formatting-1}
 ~~~
 <ul>
   <li>Italic: <i>one asterisk</i></li>
@@ -6237,13 +6237,151 @@ Note that this example, like all examples where a settings hash is not provided,
 </ul>
 ~~~
 
-##### Example TF2
+##### Text Formatting: Example 2
 
-This example makes the default settings explicitly specified.
+This example makes the default settings explicitly specified. The output is the same as the previous example.
 
 ###### Markua Syntax
 
-{#input-tf2}
+{#input-text-formatting-2}
+~~~
+{
+html-style: default
+italicize-underlines: false
+}
+* Italic: *one asterisk*
+* Underlined: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Underlined: ___three underscores___
+* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-text-formatting-2}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Underlined: <u>one underscore</u></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
+  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+##### Text Formatting: Example 3
+
+This example overrides italicize-underlines to `true`.
+
+###### Markua Syntax
+
+{#input-text-formatting-3}
+~~~
+{
+html-style: default
+italicize-underlines: true
+}
+* Italic: *one asterisk*
+* Italic: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Italic: ___three underscores___
+* Bold + Italic: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-text-formatting-3}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Italic: <i>one underscore</i></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Italic: <b><i>three underscores</i></b></li>
+  <li>Bold + Italic: <b><i>four underscores</i></b> or <b><i>four asterisks</i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+##### Text Formatting: Example 4
+
+This example overrides italicize-underlines to `true` and html-style to `markdown`.
+
+###### Markua Syntax
+
+{#input-text-formatting-4}
+~~~
+{
+html-style: markdown
+italicize-underlines: true
+}
+* Italic: *one asterisk*
+* Italic: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Italic: ___three underscores___
+* Bold + Italic: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-text-formatting-4}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Italic: <i>one underscore</i></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Italic: <b><i>three underscores</i></b></li>
+  <li>Bold + Italic: <b><i>four underscores</i></b> or <b><i>four asterisks</i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###### Markua Syntax
+
+
+###### Markua Syntax
+
+{#input-text-formatting-2}
 ~~~
 {
 html-style: default
@@ -6277,11 +6415,7 @@ italicize-underlines: false
 </ul>
 ~~~
 
-##### Example TF-3
 
-This example makes the default settings explicitly specified.
-
-###### Markua Syntax
 
 {#input-text_formatting_1}
 ~~~
@@ -6293,7 +6427,7 @@ italicize-underlines: false
 * Underlined: _one underscore_
 * Bold: **two asterisks** or __two underscores__
 * Bold + Italic: ***three asterisks***
-* Bold + Underlined: ___three underscores___
+* Bold + Underlined Forced Italic: ___three underscores___
 * Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
 * Strikethrough: ~~two tildes~~
 * Superscript: 5^3^ = 125
