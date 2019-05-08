@@ -2804,6 +2804,23 @@ Yada yada yada
 Yada yada yada
 ```
 
+### Consecutive Lists
+
+The following example contains three paragraphs. The second paragraph contains two consecutive lists, a numbered list and a bulleted list:
+
+~~~
+Paragraph one...
+
+Yada yada yada
+1. fee
+2. fie
+-  foe
+-  fum
+Yada yada yada
+
+Paragraph two...
+~~~
+
 ### Numbered List Numbering Rules
 
 *This section is highly technical, and can be [skipped](#simple-lists) or quickly skimmed by almost all authors. It's probably only interesting to someone writing a Markua Processor.*
@@ -5865,19 +5882,6 @@ A [non-whitespace character]{#def-non-whitespace-character} is any character tha
 An [ASCII punctuation character]{#ascii-punctuation-character} is `!`, `"`, `#`, `$`, `%`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `-`, `.`, `/` (U+0021–2F), `:`, `;`, `<`, `=`, `>`, `?`, `@` (U+003A–0040), `[`, `\`, `]`, `^`, `_`, `` ` `` (U+005B–0060), `{`, `|`, `}`, or `~` (U+007B–007E).
 
 A [punctuation character]{#punctuation-character} is an [ASCII punctuation character](#ascii-punctuation-character) or anything in the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
-
-## Consecutive Lists
-
-The following are two consecutive lists, a numbered list and a bulleted list, inside one paragraph:
-
-~~~
-Yada yada yada
-1. fee
-2. fie
--  foe
--  fum
-Yada yada yada
-~~~
 
 
 {#markdown}
