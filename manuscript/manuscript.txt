@@ -9363,8 +9363,7 @@ TODO
 
 * * *
 
-# TODO - This is from CommonMark. Incorporate or delete. #
-
+# TODO - This is from CommonMark. Incorporate or delete.
 
 ```example
 -→→foo
