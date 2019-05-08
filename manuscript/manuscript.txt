@@ -264,7 +264,7 @@ Superscript
 Subscript
 : To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
 
-View the [HTML mapping](#text_formatting_html).
+View the [HTML mapping](#text-formatting-html).
 
 {#headings}
 # Headings for Parts, Chapters and Sections
@@ -316,7 +316,7 @@ A Markua heading needs a blank line above and below it. However, due to the rule
 
 If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a paragraph starting with a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for section or lower level headings (adding a trailing `#` after a chapter heading makes it into a legal part heading), etc.
 
-View the [HTML mapping](#headings_html).
+View the [HTML mapping](#headings-html).
 
 {#paragraphs}
 # Paragraphs and Blank Lines
