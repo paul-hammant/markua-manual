@@ -238,45 +238,57 @@ Some portions of the Markua specification have not yet been implemented in Leanp
 
 I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
 
-Here's a list of the status of Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself:
+Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself:
 
 ### Text Formatting
 
-Everything in this chapter should work.
+Everything here should work.
 
 ### Headings for Parts, Chapters and Sections
 
-Everything in this chapter should work.
+Everything here should work.
 
 ### Paragraphs and Blank Lines
 
-Everything in this chapter should work.
+Everything here should work.
 
 ### Resources
 
-Everything in this chapter should work, except the things listed in the sections below.
-
 #### Resource Insertion Methods
-
-Everything in this section should work, except:
 
 - The `class` attribute is not used.
 
 #### Resource Types and Formats
 
+- Support type attribute on resources
+
 #### Images
 
+- SVG support is not implemented yet
+
 #### Video
+
+- Support video attributes embed, fullbleed, height, width
+- Specifically forbid local video resources
 
 #### Audio
 
 #### Code
 
+- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
+
 #### Poetry
 
 #### Tables
 
+- Support external tables
+- Support table of tables (like table of contents)
+- Table caption issue with unquoted captions
+
 #### Math
+
+- Support AsciiMath
+- Support MathML
 
 ### Whitespace: Spaces, Tabs and Newlines
 
@@ -288,15 +300,27 @@ Everything in this section should work, except:
 
 #### Bulleted Lists
 
+Everything here should work.
+
 #### Numbered Lists
+
+Everything here should work.
 
 #### Simple Lists
 
+Everything here should work.
+
 #### Flat Lists
+
+Everything here should work.
 
 #### Complex Lists
 
+Everything here should work.
+
 ### Definition Lists
+
+- Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
 
 ### Block Elements
 
@@ -324,6 +348,9 @@ Everything in this section should work, except:
 
 #### Crosslinks and ids
 
+- Support crosslinks on spans
+- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
+
 #### Character Substitution
 
 #### Escaping Special Characters with Backslash (`\`)
@@ -334,11 +361,19 @@ Everything in this section should work, except:
 
 #### Nesting Formatting
 
+Everything here should work.
+
 #### Emoji
+
+This is not implemented yet.
 
 #### Placeholders
 
+This is not implemented yet.
+
 #### CriticMarkup
+
+This is not implemented yet.
 
 #### A Hack for Forcing Whitespace
 
@@ -360,6 +395,8 @@ Everything in this section should work, except:
 
 #### Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 
+- Multiple Selection questions are not implemented yet
+
 #### Markua Processor Behaviour
 
 #### Question Alternates
@@ -369,26 +406,17 @@ Everything in this section should work, except:
 
 many of the parts of Markua which are still not supported in Leanpub. The:
 
-
-
 TODO - update this
 
-- SVG support
-- Support External and local tables, tables as resources in general
 - Support everything in Images, Attributes and Links section
-- Support Multiple Selection questions
-- The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
-- Definition list id attributes on definition list items do not work yet.
 - Quizzes and exercises: support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
 - There are now `exercise` (unmarked) and `quiz` (marked) as separate elements, much like `aside` and `blurb` are separate.
-- There is no more type attribute on quizzes. Quizzes are always marked.
 - Support Nesting Block Elements in List Items. Ensure that nesting code resources works.
 - Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives once supported in Leanpub.
 - Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
 - Support poetry in external files and poetry resources in general.
 - Support updates to en dashes, em dashes, scene breaks and page breaks.
 - Support parentheses in numbered lists
-- Remove HTML comment syntax, since the CriticMarkup comment syntax is enough.
 - Support the other directives.
 - Support `cite` and `url` on blockquotes.
 - Use `table-of-contents` not `toc`.
@@ -397,16 +425,9 @@ TODO - update this
 - Support `cite` and `url` attributes on images.
 - Tables seem to [mess up the alignment](#tables) of some text after them.
 - The kerning on figure captions is a disaster. It looks like one word!
-- Support crosslinks on spans
-- Our definition lists sometimes don't force newlines after the term, e.g. “type This is the resource type..."
-- Be stricter about headers (#foo should not start a chapter, blank lines before and after, etc.)
 - Support inline resources
-- Support type attribute on resources
 - Support image attributes align, cite, url
 - Decide what we are doing with the cite and url attributes
-- Specifically forbid local video resources
-- Support video attributes embed, fullbleed, height, width
-- Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
 - Support three-tildes defaults to text, backticks default to guess approach
 - Support inline math with format attribute
 - Support table widths attributes on columns
@@ -4994,15 +5015,23 @@ An attribute list is one or more key-value, comma-separated pairs:
 
 Note that you can skip the space between the colon and the value: the following `{format: ruby}` and `{format:ruby}` both work. However, for consistency I recommend always adding a space.
 
+Note that the values can be in quotes. These quotes are double quotes (`"`), not single quotes (`'`).
+
+TODO - support single quotes after all?
+
+Regardless of whether quotes are used, leading and trailing spaces are removed from all attribute values, but internal spaces are preserved.
+
 An attribute list can be inserted into a Markua document in one of three ways:
 
 1. Immediately above a block element (e.g. heading, figure, aside, blurb, quiz, etc.), with **one newline** separating it from the block element.
 2. Immediately after a span element (e.g. a word, italicized phrase, etc.) in normal paragraphs and in similarly-simple contexts, with **no spaces** separating it from the span element.
 3. On a line by itself, with one blank line above and below it. In this format, the attribute list contains [directives](#directives).
 
+If there is an error in the syntax of an attribute list, or if the Markua processor does not support an attribute list in a given context, it should just ignore the attribute list and add a warning to any list of warnings when generating the book.
+
 Regarding #2 and #3: Any line outside of a code resource which starts with an opening curly brace `{` and ends with a closing curly brace `}` is assumed to be an attribute list, and will not be output by a Markua Processor. If you want to start a line with a literal opening curly brace `{` you need to preface it with a backslash (`\`).
 
-Regarding #2: There is some deliberate ambiguity here. If a Markua processor cannot handle the attribute list (including just an id attribute added with {#id_syntactic_sugar} in the given context, it should just ignore the attribute list and add a warning to any list of warnings when generating the book. For example, Leanpub does not support attribute lists in headers or in captions. So, in Leanpub, you cannot do this:
+Regarding #2: There is some deliberate ambiguity here. For example, Leanpub does not support attribute lists in headers or in captions. So, in Leanpub, you cannot do this:
 
 ~~~
 # Chapter One{#one}
@@ -5040,7 +5069,7 @@ If a key is duplicated in an attribute list, the first key value is used and sub
 
 ### Attribute Values
 
-All attributes are text. Markua Processors should interpret text values of "true" and "false" as representing true and false. Quotes are optional for attribute values, and are only needed if the attribute value contains whitespace or special characters.
+All attributes are text. Markua Processors should interpret text values of "true" and "false" as representing true and false. Quotes, by which I mean double quotes (`"`) not single quotes (`'`), are optional for attribute values, and are only needed if the attribute value contains whitespace or special characters.
 
 If a text attribute value contains a quote, it must be "escaped" with a backslash: e.g. `{caption: "\"Fresh\" Fish"}`
 
