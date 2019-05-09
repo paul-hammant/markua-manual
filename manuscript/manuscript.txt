@@ -1,5 +1,3 @@
-{mainmatter}
-
 # Philosophy
 
 ## The Magical Typewriter
@@ -430,12 +428,14 @@ Index Entries
 
 Directives
 : Many directives are not implemented yet.
-: Add section directives to Leanpub, and convert the frontmatter and mainmatter directives in this spec to Markua section directives (e.g. `{section: mainmatter}`)once supported in Leanpub.
+: Add section directives to Leanpub
+: Remove the `{frontmatter}`, `{mainmatter}` and `{backmatter}` LFM directives once Markua section directives (e.g. `{section: mainmatter}`) are supported.
 : Support `exercise-answers` and `quiz-answers`.
 : Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
 : Use `table-of-contents` not `toc`.
 : Support language directives
 : Support Conditional Inclusion Attributes on Headings (all that works right now is `book` and `sample`)
+: Remove the `{pagebreak}` directive in Markua mode (this is from LFM)
 
 Settings
 : Many settings are not implemented yet.
@@ -6300,7 +6300,7 @@ Markua supports this method of inserting block elements.
 
 However, Markua is more than just a way of producing HTML. Markua is a way of authoring books. HTML is just one of the many output formats of Markua. And in books, there is a long history of embedding lists, code samples and figures in the middle of a paragraph--not in a separate top-level element, in the actual middle of the paragraph. So, Markua [supports this too](#inserting-into-paras).
 
-## Differences with Leanpub Flavoured Markdown (LFM)
+# Differences with Leanpub Flavoured Markdown (LFM)
 
 Besides differences with Markdown in general, Markua also has a number of specific differences with Leanpub Flavoured Markdown (LFM).
 
@@ -6322,7 +6322,7 @@ Besides these 10 differences, there are a number of smaller ones, which you will
 {#parsing-and-html-mapping}
 # Parsing and HTML Mapping
 
-A> If you are an author who is just looking to write in Markua, you can stop reading now. This chapter is not for you. And, since it's the last chapter in the spec, you're done!
+A> If you are an author who is just looking to write in Markua, you can stop reading now. This chapter is not for you. And, since it's the last chapter in the spec, you're done. Go write your book!
 
 This chapter contains two things:
 
@@ -6336,6 +6336,42 @@ For example, the output formats which Leanpub produces from a single Markua docu
 The Markua Specification does not precisely define all output formats or the content of those output formats. Instead, the only required output format of a Markua Processor is HTML. Also, HTML is the only output format where any specification is provided. The reason that HTML is a required output format for a Markua Processor to be able to help ensure conformance to the Markua Specification.
 
 This chapter is ordered in a similar way to the rest of the Markua spec, but only the sections where it is helpful to provide an HTML mapping are included.
+
+## TODO
+
+These are some issues raised in CommonMark that I should think about and/or discuss with Scott...
+
+~~~
+8.  What are the precedence rules for the markers of inline structure?
+    For example, is the following a valid link, or does the code span
+    take precedence ?
+
+    ``` markdown
+    [a backtick (`)](/url) and [another backtick (`)](/url).
+    ```
+
+9.  What are the precedence rules for markers of emphasis and strong
+    emphasis?  For example, how should the following be parsed?
+
+    ``` markdown
+    *foo *bar* baz*
+    ```
+
+11. Can list items include section headings?  (`Markdown.pl` does not
+    allow this, but does allow blockquotes to include headings.)
+
+    ``` markdown
+    - # Heading
+    ```
+
+12. Can list items be empty?
+
+    ``` markdown
+    * a
+    *
+    * b
+    ```
+~~~
 
 ## Format of the HTML Output Fragments
 
@@ -6374,7 +6410,7 @@ There are two reasons for this:
 
 This does mean, however, that the test script must convert the `→` characters into tabs before the inputs are passed to the Markua Processor. Similarly, if you are going to try any of these examples yourself with a Markua Processor like Leanpub, you need to replace all `→` characters with tabs.
 
-## A Note about CSS
+## CSS Notes
 
 Markua does not specify any CSS. However, advice will sometimes be offered in "CSS Note" sections. This is because certain semantically meaningful formatting (like strikethrough) is only done in HTML via CSS.
 
@@ -6404,7 +6440,7 @@ In the examples in this chapter, the global settings will be at the defaults unl
 
 ## Definitions of Characters and Lines
 
-The following is the precise definition of characters, lines, etc in a Markua document. For compatibility with CommonMark, this is identical to that used in the CommonMark specification, and is taken verbatim from it.
+The following is the precise definition of characters, lines, etc in a Markua document. For compatibility with CommonMark, **this definition is identical to that used in the CommonMark specification**, and is taken verbatim from it.
 
 Any sequence of [characters](#def-character) is a valid Markua document.
 
@@ -6435,42 +6471,6 @@ An [ASCII punctuation character]{#ascii-punctuation-character} is `!`, `"`, `#`,
 
 A [punctuation character]{#punctuation-character} is an [ASCII punctuation character](#ascii-punctuation-character) or anything in the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
 
-## TODO
-
-These are some issues raised in CommonMark that I should think about and/or discuss with Scott...
-
-~~~
-8.  What are the precedence rules for the markers of inline structure?
-    For example, is the following a valid link, or does the code span
-    take precedence ?
-
-    ``` markdown
-    [a backtick (`)](/url) and [another backtick (`)](/url).
-    ```
-
-9.  What are the precedence rules for markers of emphasis and strong
-    emphasis?  For example, how should the following be parsed?
-
-    ``` markdown
-    *foo *bar* baz*
-    ```
-
-11. Can list items include section headings?  (`Markdown.pl` does not
-    allow this, but does allow blockquotes to include headings.)
-
-    ``` markdown
-    - # Heading
-    ```
-
-12. Can list items be empty?
-
-    ``` markdown
-    * a
-    *
-    * b
-    ```
-~~~
-
 {#text-formatting-html}
 ## Text Formatting
 
@@ -6488,7 +6488,7 @@ The following CSS rule is recommended for strikethrough, since CSS is how strike
 
 ##### Example TF-1
 
-Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`.
+Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`. (If you like your emphasis `<strong>` and `<em>`, you set `html-style: markdown`. See below for examples of this.)
 
 ###### Markua Document
 
