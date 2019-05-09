@@ -251,7 +251,7 @@ Text Formatting
 : *(works)*
 
 Headings for Parts, Chapters and Sections
-: *(works)*
+: A header without a blank line after it should result in plain text, not a header
 
 Paragraphs and Blank Lines
 : *(works)*
@@ -270,6 +270,10 @@ Images
 : Some attributes are not supported fully
 : Support image attributes align, cite, url
 : Support inline resources (e.g. inline SVG images)
+: Fully support fullbleed attribute, not just in PDF
+: Prevent fullbleed attribute from leaking into EPUB (whitelist?)
+: Fix bugs with height attribute
+: Support image attributes cite, url
 
 Video
 : Support video attributes embed, fullbleed, height, width
@@ -281,20 +285,27 @@ Audio
 Code
 : Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
 : Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
+: The amounth of space after code figures should be more configurable.
+: Support inline local code resources, which are output as a span or figure based on 1 or n lines
+: Support syntax highlighting of inline code spans
+: We should not be collapsing spaces in code spans in HTML and EPUB.
 
 Poetry
 : This is not implemented yet.
 
 Tables
+: For simple tables, ensure that separators have at least three dashes and that other restrictions are enforced
 : Support external tables
 : Support table of tables (like table of contents)
 : Table caption issue with unquoted captions
 : Support table widths attributes on columns
+: For complex tables, column alignment is interpreted as on a cell, not the whole column
 
 Math
 : Support AsciiMath
 : Support MathML
 : Support the `{format: blah}` format of attribute on math blocks and spans
+: Support inline math resources
 
 Whitespace: Spaces, Tabs and Newlines
 : *(works)*
@@ -336,18 +347,17 @@ Page Breaks (`===`)
 : *(works)*
 
 Blockquotes (`>`)
-: Support cite and url attributes for blockquotes
+: Support cite and url attributes
 : Support blockquotes inside of a paragraph (currently they force new paragraphs before and after them)
 
 Asides (`A>` or `{aside}`)
 : *(works)*
 
 Blurbs (`B>` or `{blurb}`)
-: *(works)*
+: Blurbs separated with blank lines are incorrectly combined
 
 Inserting Block Elements Inside Paragraphs
-
-*unknown*
+: *unknown*
 
 Quizzes and Exercises
 : Figure out correct behaviour for the TOC
@@ -356,17 +366,18 @@ Span Elements
 : *(see below)*
 
 Links
-
-*unknown*
+: Add warning about relative URLs
 
 Explicitly Creating Spans with `[`...`]`
 : *(works)*
 
 Footnotes and Endnotes
-: *(works)*
+: Need to allow carets (`^`) in link text which are not in footnotes
+: Endnotes do not show up in EPUB
+: Do more testing on footnotes to ensure they work when nested inside nested block elements etc.
 
 Crosslinks and ids
-: Support Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks
+: Support "Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks" section
 : Support crosslinks on spans
 : The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
 
@@ -374,19 +385,16 @@ Character Substitution
 : Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
 
 Escaping Special Characters with Backslash (`\`)
-
-*unknown*
+: *unknown*
 
 Backticks (`` ` ``)
-
-*unknown*
+: Support "if you want to output a backtick in a code span, you need to delimit the code span using two backticks"
 
 Unicode Entities with `\u`
-
-*unknown*
+: This is not implemented yet.
 
 Nesting Formatting
-: *(works)*
+: When text formatting is incorrectly nested we need to output all the `*` and `_` characters
 
 Emoji
 : This is not implemented yet.
@@ -406,9 +414,12 @@ Concatenating Files and Blank Lines
 
 Metadata
 : Many features here are unimplemented. See below for details.
+: We need to support Markua span formatting on custom copyright messages
 
 Attributes
 : Support ids and other attributes on span elements
+: Raise user-visible errors for illegal attribute values
+: Support `web` and `course-web` conditional inclusion attributes
 
 Index Entries
 : This is not implemented yet.
@@ -424,20 +435,25 @@ Directives
 
 Settings
 : Many settings are not implemented yet.
+: Get rid of code that treats Settings.txt as a special file in Markua books
+: Handle curly braces in settings block
 
 Courses
 : *(see below)*
 
 Quizzes and Exercises
+: Need to prevent two consecutive exercises from being combined into one
 : Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
+: In an answer, semicolons inside of quotes should be treated as plain text
+: Option to show {answer}...{/answer} content for Exercise questions in the back of a book
+: implement auto-submit and time-limit for quizzes
 
 Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 : Multiple Selection questions are not implemented yet
 : Written questions are not supported yet
 
 Markua Processor Behaviour
-
-*unknown*
+: *unknown*
 
 Question Alternates
 : *(works)*
