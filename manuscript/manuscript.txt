@@ -280,7 +280,7 @@ Video
 : Specifically forbid local video resources
 
 Audio
-: This is not implemented fully yet.
+: This is not implemented fully yet. Currently local audio does not work, and the only supported audio is a web resource.
 
 Code
 : Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
@@ -393,6 +393,10 @@ Backticks (`` ` ``)
 Unicode Entities with `\u`
 : This is not implemented yet.
 
+Internationalization
+: We need to use the correct type of quotation marks for Polish, Swedish, etc.
+: In books whose main language is English, there are display issues with characters from other languages (e.g. Tamil)
+
 Nesting Formatting
 : When text formatting is incorrectly nested we need to output all the `*` and `_` characters
 
@@ -446,7 +450,7 @@ Quizzes and Exercises
 : Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
 : In an answer, semicolons inside of quotes should be treated as plain text
 : Option to show {answer}...{/answer} content for Exercise questions in the back of a book
-: implement auto-submit and time-limit for quizzes
+: Implement auto-submit and time-limit for quizzes
 
 Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 : Multiple Selection questions are not implemented yet
@@ -4703,6 +4707,10 @@ Some example unicode entities which may be useful for a Markua Processor to supp
 Now, there's no guarantee that a given Unicode character will be present in a given font.
 
 If a Markua Processor recognizes that a given Unicode character is not present in the font it is currently using, it may switch to a font that it knows will support that character. However, it is entirely acceptable for a Markua Processor to not do anything fancy, and to just attempt to output the character in the font it is using. In this case, what will typically happen is that the font will output a box in place of the missing character. These boxes are affectionately referred to as "tofu" by font people. (You may also encounter a diamond with a question mark in it in this case.)
+
+## Internationalization
+
+Markua Processors may detect the language of the Markua document and output various text in the correct manner. This includes the localization of things like punctuation, the table of contents, etc.
 
 ## Nesting Formatting
 
