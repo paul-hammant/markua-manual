@@ -582,6 +582,8 @@ This is paragraph three.
 
 There are other more technical rules about spaces, newlines and indentation, which are discussed [later](#whitespace).
 
+View the [HTML mapping](#paragraphs-html).
+
 {#resources}
 # Resources
 
@@ -6319,29 +6321,29 @@ These are the top 10 differences between Markua and LFM:
 
 Besides these 10 differences, there are a number of smaller ones, which you will discover if you compare the Markua Specification to the [Leanpub Flavoured Markdown Manual](https://leanpub.com/leanpubflavouredmarkdownmanual/).
 
-{#parsing-and-html-mapping}
-# Parsing and HTML Mapping
+{#todo}
+# TODO
 
-A> If you are an author who is just looking to write in Markua, you can stop reading now. This chapter is not for you. And, since it's the last chapter in the spec, you're done. Go write your book!
-
-This chapter contains two things:
-
-1. A discussion of concerns which only apply to people building Markua Processors.
-2. The specification of the mapping of Markua to HTML.
-
-A Markua Processor must be able to properly parse a Markua document and output HTML, as well as any other suitable output formats. (For the programmers: `/dev/null` may be web scale, but it is not a good output format for a Markua Processor.)
-
-For example, the output formats which Leanpub produces from a single Markua document are: PDF, EPUB, MOBI, HTML, InDesign and (if applicable) a course with quizzes, exercises and automated marking.
-
-The Markua Specification does not precisely define all output formats or the content of those output formats. Instead, the only required output format of a Markua Processor is HTML. Also, HTML is the only output format where any specification is provided. The reason that HTML is a required output format for a Markua Processor to be able to help ensure conformance to the Markua Specification.
-
-This chapter is ordered in a similar way to the rest of the Markua spec, but only the sections where it is helpful to provide an HTML mapping are included.
-
-## TODO
-
-These are some issues raised in CommonMark that I should think about and/or discuss with Scott...
+These are some issues that I should think about more and/or discuss with Scott...
 
 ~~~
+- how many characters does a backslash escape escape?
+does this work, or blow up:
+
+### foo \###
+
+- can headings be empty?
+
+#
+
+##
+
+###
+
+
+
+From CommonMark:
+
 8.  What are the precedence rules for the markers of inline structure?
     For example, is the following a valid link, or does the code span
     take precedence ?
@@ -6372,6 +6374,24 @@ These are some issues raised in CommonMark that I should think about and/or disc
     * b
     ```
 ~~~
+
+{#parsing-and-html-mapping}
+# Parsing and HTML Mapping
+
+A> If you are an author who is just looking to write in Markua, you can stop reading now. This chapter is not for you. And, since it's the last chapter in the spec, you're done. Go write your book!
+
+This chapter contains two things:
+
+1. A discussion of concerns which only apply to people building Markua Processors.
+2. The specification of the mapping of Markua to HTML.
+
+A Markua Processor must be able to properly parse a Markua document and output HTML, as well as any other suitable output formats. (For the programmers: `/dev/null` may be web scale, but it is not a good output format for a Markua Processor.)
+
+For example, the output formats which Leanpub produces from a single Markua document are: PDF, EPUB, MOBI, HTML, InDesign and (if applicable) a course with quizzes, exercises and automated marking.
+
+The Markua Specification does not precisely define all output formats or the content of those output formats. Instead, the only required output format of a Markua Processor is HTML. Also, HTML is the only output format where any specification is provided. The reason that HTML is a required output format for a Markua Processor to be able to help ensure conformance to the Markua Specification.
+
+This chapter is ordered in a similar way to the rest of the Markua spec, but only the sections where it is helpful to provide an HTML mapping are included.
 
 ## Format of the HTML Output Fragments
 
@@ -6791,9 +6811,76 @@ This is a paragraph.
 <p>This is a paragraph.</p>
 ~~~
 
+##### Example H-3
+
+A trailing `#` not separated by a space is part of the heading text.
+
+###### Markua Document
+
+{#input-h-3}
+~~~
+# foo#
+
+bar
+~~~
+
+###### HTML Output
+
+{#output-h-3}
+~~~
+<h1>foo#</h1>
+<p>bar</p>
+~~~
+
+##### Example H-4
+
+Backslash-escaped `#` characters are part of the heading text.
+
+###### Markua Document
+
+{#input-h-4}
+~~~
+# foo \#
+
+bar
+~~~
+
+###### HTML Output
+
+{#output-h-4}
+~~~
+<h1>foo #</h1>
+<p>bar</p>
+~~~
+
+{#paragraphs-html}
 ## Paragraphs and Blank Lines
 
-TODO
+View the [specification](#paragraphs).
+
+##### Example P-1
+
+This is the basic example of paragraphs.
+
+###### Markua Document
+
+{#input-p-1}
+~~~
+I'm paragraph one. Yay!
+
+This is paragraph two. It's just that easy.
+
+This is paragraph three.
+~~~
+
+###### HTML Output
+
+{#output-p-1}
+~~~
+<p>I'm paragraph one. Yay!</p>
+<p>This is paragraph two. It's just that easy.</p>
+<p>This is paragraph three.</p>
+~~~
 
 ## Resources
 
@@ -9391,12 +9478,12 @@ bar
 ```
 
 
-## Insecure characters
+### Insecure characters
 
 For security reasons, the Unicode character `U+0000` must be replaced
 with the REPLACEMENT CHARACTER (`U+FFFD`).
 
-# Blocks and inlines
+## Blocks and inlines
 
 We can think of a document as a sequence of
 [blocks](@)---structural elements like paragraphs, block
@@ -9405,7 +9492,7 @@ block quotes and list items) contain other blocks; others (like
 headings and paragraphs) contain [inline](@) content---text,
 links, emphasized text, images, code spans, and so on.
 
-## Precedence
+### Precedence
 
 Indicators of block structure always take precedence over indicators
 of inline structure.  So, for example, the following is a list with
@@ -9431,19 +9518,19 @@ step.  Note that the first step requires processing lines in sequence,
 but the second can be parallelized, since the inline parsing of
 one block element does not affect the inline parsing of any other.
 
-## Container blocks and leaf blocks
+### Container blocks and leaf blocks
 
 We can divide blocks into two types:
 [container blocks](@),
 which can contain other blocks, and [leaf blocks](@),
 which cannot.
 
-# Leaf blocks
+## Leaf blocks
 
 This section describes the different kinds of leaf block that make up a
 Markdown document.
 
-## Thematic breaks
+### Thematic breaks
 
 A line consisting of 0-3 spaces of indentation, followed by a sequence
 of three or more matching `-`, `_`, or `*` characters, each followed
@@ -9667,226 +9754,10 @@ If you want a thematic break in a list item, use a different bullet:
 ```
 
 
-## ATX headings
-
-An [ATX heading](@)
-consists of a string of characters, parsed as inline content, between an
-opening sequence of 1--6 unescaped `#` characters and an optional
-closing sequence of any number of unescaped `#` characters.
-The opening sequence of `#` characters must be followed by a
-[space] or by the end of line. The optional closing sequence of `#`s must be
-preceded by a [space] and may be followed by spaces only.  The opening
-`#` character may be indented 0-3 spaces.  The raw contents of the
-heading are stripped of leading and trailing spaces before being parsed
-as inline content.  The heading level is equal to the number of `#`
-characters in the opening sequence.
-
-Simple headings:
-
-```example
-# foo
-## foo
-### foo
-#### foo
-##### foo
-###### foo
-.
-<h1>foo</h1>
-<h2>foo</h2>
-<h3>foo</h3>
-<h4>foo</h4>
-<h5>foo</h5>
-<h6>foo</h6>
-```
 
 
-More than six `#` characters is not a heading:
-
-```example
-####### foo
-.
-<p>####### foo</p>
-```
 
 
-At least one space is required between the `#` characters and the
-heading's contents, unless the heading is empty.  Note that many
-implementations currently do not require the space.  However, the
-space was required by the
-[original ATX implementation](http://www.aaronsw.com/2002/atx/atx.py),
-and it helps prevent things like the following from being parsed as
-headings:
-
-```example
-#5 bolt
-
-#hashtag
-.
-<p>#5 bolt</p>
-<p>#hashtag</p>
-```
-
-
-This is not a heading, because the first `#` is escaped:
-
-```example
-\## foo
-.
-<p>## foo</p>
-```
-
-
-Contents are parsed as inlines:
-
-```example
-# foo *bar* \*baz\*
-.
-<h1>foo <em>bar</em> *baz*</h1>
-```
-
-
-Leading and trailing [whitespace] is ignored in parsing inline content:
-
-```example
-#                  foo
-.
-<h1>foo</h1>
-```
-
-
-One to three spaces indentation are allowed:
-
-```example
- ### foo
-  ## foo
-   # foo
-.
-<h3>foo</h3>
-<h2>foo</h2>
-<h1>foo</h1>
-```
-
-
-Four spaces are too much:
-
-```example
-    # foo
-.
-<pre><code># foo
-</code></pre>
-```
-
-
-```example
-foo
-    # bar
-.
-<p>foo
-# bar</p>
-```
-
-
-A closing sequence of `#` characters is optional:
-
-```example
-## foo ##
-  ###   bar    ###
-.
-<h2>foo</h2>
-<h3>bar</h3>
-```
-
-
-It need not be the same length as the opening sequence:
-
-```example
-# foo ##################################
-##### foo ##
-.
-<h1>foo</h1>
-<h5>foo</h5>
-```
-
-
-Spaces are allowed after the closing sequence:
-
-```example
-### foo ###
-.
-<h3>foo</h3>
-```
-
-
-A sequence of `#` characters with anything but [spaces] following it
-is not a closing sequence, but counts as part of the contents of the
-heading:
-
-```example
-### foo ### b
-.
-<h3>foo ### b</h3>
-```
-
-
-The closing sequence must be preceded by a space:
-
-```example
-# foo#
-.
-<h1>foo#</h1>
-```
-
-
-Backslash-escaped `#` characters do not count as part
-of the closing sequence:
-
-```example
-### foo \###
-## foo #\##
-# foo \#
-.
-<h3>foo ###</h3>
-<h2>foo ###</h2>
-<h1>foo #</h1>
-```
-
-
-ATX headings need not be separated from surrounding content by blank
-lines, and they can interrupt paragraphs:
-
-```example
-****
-## foo
-****
-.
-<hr />
-<h2>foo</h2>
-<hr />
-```
-
-
-```example
-Foo bar
-# baz
-Bar foo
-.
-<p>Foo bar</p>
-<h1>baz</h1>
-<p>Bar foo</p>
-```
-
-
-ATX headings can be empty:
-
-```example
-##
-#
-### ###
-.
-<h2></h2>
-<h1></h1>
-<h3></h3>
-```
 
 ## Fenced code blocks
 
