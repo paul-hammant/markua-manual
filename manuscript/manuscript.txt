@@ -6756,13 +6756,7 @@ If you want a thematic break in a list item, use a different bullet:
 </ul>
 ```
 
-
-
-
-
-
-
-## Fenced code blocks
+### Code Blocks
 
 A [code fence](@) is a sequence
 of at least three consecutive backtick characters (`` ` ``) or
@@ -7295,8 +7289,7 @@ bbb
 bbb</p>
 ```
 
-
-## Blank lines
+### Blank lines
 
 [Blank lines] between block-level elements are ignored,
 except for the role they play in determining whether a [list]
@@ -7317,11 +7310,6 @@ aaa
 <p>aaa</p>
 <h1>aaa</h1>
 ```
-
-
-
-
-
 
 ## Container blocks
 
@@ -15161,58 +15149,3 @@ TODO
 ### Question Alternates
 
 TODO
-
-* * *
-
-# TODO - This is from CommonMark. Incorporate or delete.
-
-```example
--→→foo
-.
-<ul>
-<li>
-<pre><code>  foo
-</code></pre>
-</li>
-</ul>
-```
-
-
-```example
-    foo
-→bar
-.
-<pre><code>foo
-bar
-</code></pre>
-```
-
-```example
- - foo
-   - bar
-→ - baz
-.
-<ul>
-<li>foo
-<ul>
-<li>bar
-<ul>
-<li>baz</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-```
-
-```example
-#→Foo
-.
-<h1>Foo</h1>
-```
-
-```example
-*→*→*→
-.
-<hr />
-```
