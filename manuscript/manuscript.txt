@@ -9799,14 +9799,9 @@ closing backtick strings to be equal in length:
 
 ## Emphasis and strong emphasis
 
-A> The rules that Markua follows for emphasis are as close to those in the CommonMark Spec as possible, for compatibility with CommonMark. The only exception is that Markua can be configured (and is configured by default) to produce `<b>` instead of `<strong>`, `<i>` instead of `<em>` and `<u>` instead of `<i>` in certain cases. So, to keep this section as close to the CommonMark Spec as possible, **every** example in it is assumed to have the following settings block at the top of the file, unless otherwise stated:
+A> The rules that Markua follows for emphasis are as close to those in the CommonMark Spec as possible, for compatibility with CommonMark. Also, the text in this section is almost entirely from the CommonMark Spec, to emphasize this point.
 A>
-A> ```
-A> {
-A> html-style: markdown
-A> italicize-underlines: true
-A> }
-A> ```
+A> The only difference between Markua and CommonMark in terms of emphasis and strong emphasis is that Markua can be configured (and is configured by default) to produce `<b>` instead of `<strong>`, `<i>` instead of `<em>` and `<u>` instead of `<i>`. So, a settings block is shown for every example, to be clear which settings are in use.
 
 John Gruber's original [Markdown syntax description](http://daringfireball.net/projects/markdown/syntax#em) says:
 
@@ -9920,13 +9915,76 @@ Where rules 1--12 above are compatible with multiple parsings, the following pri
 
 These rules can be illustrated through a series of examples.
 
+##### Example SB-1
+
 Rule 1:
 
-```example
+###### Markua Document
+
+{#input-es-1}
+~~~
+{
+html-style: markdown
+italicize-underlines: true
+}
 *foo bar*
-.
+~~~
+
+###### HTML Output
+
+{#output-es-1}
+~~~
 <p><em>foo bar</em></p>
-```
+~~~
+
+##### Example SB-1
+
+Rule 1:
+
+###### Markua Document
+
+{#input-es-1}
+~~~
+{
+html-style: default
+italicize-underlines: true
+}
+*foo bar*
+~~~
+
+###### HTML Output
+
+{#output-es-1}
+~~~
+<p><em>foo bar</em></p>
+~~~
+
+##### Example SB-1
+
+Rule 1:
+
+###### Markua Document
+
+{#input-es-1}
+~~~
+{
+html-style: markdown
+italicize-underlines: true
+}
+*foo bar*
+~~~
+
+###### HTML Output
+
+{#output-es-1}
+~~~
+<p><em>foo bar</em></p>
+~~~
+
+
+
+
+
 
 
 This is not emphasis, because the opening `*` is followed by
