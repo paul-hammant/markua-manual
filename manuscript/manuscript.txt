@@ -787,6 +787,30 @@ These are some examples of figures with both alt text and a figure caption:
 ```
 ~~~
 
+TODO
+guessing is always {type: code}
+
+```
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+this ^ is code, hope you guess it is svg or xml for syntax highlight
+
+correct way:
+
+```xml
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+this is how you write about SVG code.
+
+xml = show the xml, don't make this a picture...
+
+
 #### The Figure Attribute List Takes Precedence
 
 It is always an error to specify an attribute both in the attribute list for a figure and in the syntactic sugar locations, either after the backticks or in the square brackets.
@@ -2525,6 +2549,28 @@ Here's a paragraph after the figure.
 ~~~
 
 If you wonder why I'm a fan of AsciiMath: I actually got that right on the first try at the [AsciiMath website](http://asciimath.org/).
+
+NOTE:
+
+TODO
+
+If you want to write about asciimath, and show the code:
+
+{type: code}
+```asciimath
+abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
+```
+
+{type: code, format: asciimath}
+```
+abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
+```
+
+guessing is always {type: code}
+```
+abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
+```
+
 
 ##### MathML
 
