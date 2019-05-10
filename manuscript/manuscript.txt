@@ -6535,8 +6535,88 @@ which cannot.
 
 # Leaf blocks
 
-This section describes the different kinds of leaf block that make up a
-Markdown document.
+This section describes the different kinds of leaf block that make up a Markua document.
+
+### Scene Breaks (`* * *`)
+
+View the [specification](#scene-breaks).
+
+In HTML, scene breaks are always mapped to `<hr/>`. Book designers can use CSS to replace th e `<hr/>` with whatever they want: there are no other ways to produce an `<hr/>` in Markua, so an `<hr/>` always means scene break.
+
+##### Example SB-1
+
+###### Markua Document
+
+{#input-scene-break-1}
+~~~
+Paragraph one
+
+* * *
+
+Paragraph two
+
+***
+
+Paragraph three
+
+*********
+
+Paragraph four
+
+*  *   *
+
+Paragraph five
+~~~
+
+###### HTML Output
+
+{#output-scene-break-1}
+~~~
+<p>Paragraph one</p>
+<hr/>
+<p>Paragraph two</p>
+<hr/>
+<p>Paragraph three</p>
+<hr/>
+<p>Paragraph four</p>
+<hr/>
+<p>Paragraph five</p>
+~~~
+
+##### Example SB-2
+
+Note that `---` on a line by itself starts a poetry block, instead of inserting a scene break.
+
+###### Markua Document
+
+{#input-scene-break-2}
+~~~
+Paragraph one
+
+* *
+
+Paragraph two
+
+**
+
+Paragraph three
+~~~
+
+###### HTML Output
+
+{#output-scene-break-2}
+~~~
+<p>Paragraph one</p>
+<p>* *</p>
+<p>Paragraph two</p>
+<p>**</p>
+<p>Paragraph three</p>
+~~~
+
+### Page Breaks (`===`)
+
+TODO
+
 
 ## Thematic breaks
 
@@ -14485,45 +14565,6 @@ Here's a paragraph after the list.
 ~~~
 
 ## Block Elements
-
-TODO
-
-### Scene Breaks (`* * *`)
-
-TODO
-
-In HTML, scene breaks are always mapped to `<hr/>`. Book designers can use CSS to replace th e `<hr/>` with whatever they want: there are no other ways to produce an `<hr/>` in Markua, so an `<hr/>` always means scene break.
-
-##### Example
-
-###### Markua Document
-
-{#input-scene_break_1}
-~~~
-This is before the first scene break.
-
-* * *
-
-This is after the first scene break and before the second.
-
----
-
-This is after the second scene break.
-~~~
-
-###### HTML Output
-
-{#output-scene_break_1}
-~~~
-<p>This is before the first scene break.</p>
-<hr/>
-<p>This is after the first scene break and before the second.</p>
-<hr/>
-<p>This is after the second scene break.</p>
-~~~
-
-
-### Page Breaks (`===`)
 
 TODO
 
