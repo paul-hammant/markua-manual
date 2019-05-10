@@ -1,3 +1,8 @@
+{#markua-for-authors}
+# Markua for Authors #
+
+This is the part of the Markua Specification which is intended for authors. If you are an author who is looking to write a book or course in Markua, this is the part you should read! If you are a programmer who is implementing a Markua Processor, you will want to read both this part and the [Parsing Markua](#parsing-markua) part after it.
+
 # Philosophy
 
 ## The Magical Typewriter
@@ -469,7 +474,7 @@ The Markua Specification is copyright © 2014 - 2019 Peter Armstrong.
 
 The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license.
 
-Portions of the Markua Specification related to the mapping of Markua to HTML, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. These portions are almost entirely contained in the [Parsing and HTML Mapping](#parsing-and-html-mapping) chapter, which is the last chapter of the Markua Specification.
+Portions of the Markua Specification related to the mapping of Markua to HTML, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. These portions are almost entirely contained in the [Parsing Markua](#parsing-markua) part, which is the second part of the Markua Specification.
 
 Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the parts of the CommonMark Spec were incorporated into the Markua Specification is that the CommonMark Spec is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to incorporate and adapt the parts of the CommonMark Spec which apply.
 
@@ -6375,27 +6380,27 @@ From CommonMark:
     ```
 ~~~
 
-{#parsing-and-html-mapping}
-# Parsing and HTML Mapping
+{#parsing-markua}
+# Parsing Markua #
 
-## Introduction
+If you are an author who is looking to write a book or course in Markua, you can stop reading now. This part is not for you; it's just for people who are writing code to build a Markua Processor. Stop reading this and go write your book or course!
 
-A> If you are an author who is just looking to write in Markua, you can stop reading now. This chapter is not for you. And, since it's the last chapter in the spec, you're done. Go write your book!
+# Introduction
 
-This chapter contains two things:
+This part contains two things:
 
 1. A discussion of concerns which only apply to people building Markua Processors.
-2. The specification of the mapping of Markua to HTML.
+2. The specification of the mapping of much of Markua to HTML.
 
-A Markua Processor must be able to properly parse a Markua document and output HTML, as well as any other suitable output formats. (For the programmers: `/dev/null` may be web scale, but it is not a good output format for a Markua Processor.)
+A Markua Processor must be able to properly parse a Markua document and output HTML, as well as any other suitable output formats. (`/dev/null` may be web scale, but it is not a good output format for a Markua Processor.)
 
 For example, the output formats which Leanpub produces from a single Markua document are: PDF, EPUB, MOBI, HTML, InDesign and (if applicable) a course with quizzes, exercises and automated marking.
 
 The Markua Specification does not precisely define all output formats or the content of those output formats. Instead, the only required output format of a Markua Processor is HTML. Also, HTML is the only output format where any specification is provided. The reason that HTML is a required output format for a Markua Processor to be able to help ensure conformance to the Markua Specification.
 
-This chapter is ordered in a similar way to the rest of the Markua spec, but only the sections where it is helpful to provide an HTML mapping are included.
+For ease of comparison with CommonMark, this part is organized as much like the CommonMark Spec as possible.
 
-### Format of the HTML Output Fragments
+## Format of the HTML Output Fragments
 
 Please note that this is not a complete specification of the HTML documents produced by Markua Processors. It is only a specification of the parts of the HTML mapping where there is no need to have flexibility on the part of the Markua Processor. The HTML mapping should be thought of specifying HTML fragments, not documents. In all of the examples, a Markua Processor may add more HTML before and after the relevant content. The test is that the HTML produced contains the specified output, not that it is identical to the specified output.
 
@@ -6411,7 +6416,7 @@ It can, however, be as simple as the following:
 
 Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
 
-### Running the Tests
+## Running the Tests
 
 This chapter contains many examples with Markua and the corresponding HTML. Some of these examples are based on the CommonMark Spec, as [discussed earlier](#copyright-ccby-commonmark). These examples are intended to double as conformance tests. An accompanying script can be used to run the tests against any Markua Processor which outputs HTML:
 
@@ -6421,7 +6426,7 @@ python test/spec_tests.py --spec spec.txt --program PROGRAM
 
 W> TODO - update the `spec_tests` script or provide a new one to do this based on the Markua spec.
 
-### Format of the Inputs
+## Format of the Inputs
 
 In the examples, the `→` `=>` → => character is used to represent tabs.
 
@@ -6432,11 +6437,11 @@ There are two reasons for this:
 
 This does mean, however, that the test script must convert the `→` characters into tabs before the inputs are passed to the Markua Processor. Similarly, if you are going to try any of these examples yourself with a Markua Processor like Leanpub, you need to replace all `→` characters with tabs.
 
-### CSS Notes
+## CSS Notes
 
 Markua does not specify any CSS. However, advice will sometimes be offered in "CSS Note" sections. This is because certain semantically meaningful formatting (like strikethrough) is only done in HTML via CSS.
 
-### Global Settings
+## Global Settings
 
 The HTML which is output by a Markua Processor can be affected by certain global settings.
 
@@ -6460,9 +6465,9 @@ italicize-underlines: true
 
 In the examples in this chapter, the global settings will be at the defaults unless a settings hash is provided.
 
-## Preliminaries
+# Preliminaries
 
-### Definitions of Characters and Lines
+## Definitions of Characters and Lines
 
 The following is the precise definition of characters, lines, etc in a Markua document. For compatibility with CommonMark, **this definition is identical to that used in the CommonMark specification**, and is taken verbatim from it.
 
@@ -6495,19 +6500,19 @@ An [ASCII punctuation character]{#ascii-punctuation-character} is `!`, `"`, `#`,
 
 A [punctuation character]{#punctuation-character} is an [ASCII punctuation character](#ascii-punctuation-character) or anything in the general Unicode categories  `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
 
-### Tabs
+## Tabs
 
 Tabs are different from spaces.
 
-### Insecure characters
+## Insecure characters
 
 For security reasons, the Unicode character `U+0000` must be replaced with the REPLACEMENT CHARACTER (`U+FFFD`).
 
-## Blocks and inlines
+# Blocks and inlines
 
 We can think of a document as a sequence of [blocks](@)---structural elements like paragraphs, block quotations, lists, headings, rules, and code blocks.  Some blocks (like block quotes and list items) contain other blocks; others (like headings and paragraphs) contain [inline](@) content---text, links, emphasized text, images, code spans, and so on.
 
-### Precedence
+## Precedence
 
 Indicators of block structure always take precedence over indicators of inline structure.  So, for example, the following is a list with two items, not a list with one item containing a code span:
 
@@ -6523,17 +6528,17 @@ Indicators of block structure always take precedence over indicators of inline s
 
 This means that parsing can proceed in two steps:  first, the block structure of the document can be discerned; second, text lines inside paragraphs, headings, and other block constructs can be parsed for inline structure.  The second step requires information about link reference definitions that will be available only at the end of the first step.  Note that the first step requires processing lines in sequence, but the second can be parallelized, since the inline parsing of one block element does not affect the inline parsing of any other.
 
-### Container blocks and leaf blocks
+## Container blocks and leaf blocks
 
 We can divide blocks into two types: [container blocks](@), which can contain other blocks, and [leaf blocks](@),
 which cannot.
 
-## Leaf blocks
+# Leaf blocks
 
 This section describes the different kinds of leaf block that make up a
 Markdown document.
 
-### Thematic breaks
+## Thematic breaks
 
 A line consisting of 0-3 spaces of indentation, followed by a sequence
 of three or more matching `-`, `_`, or `*` characters, each followed
@@ -6756,7 +6761,7 @@ If you want a thematic break in a list item, use a different bullet:
 </ul>
 ```
 
-### Code Blocks
+## Code Blocks
 
 A [code fence](@) is a sequence
 of at least three consecutive backtick characters (`` ` ``) or
@@ -7180,7 +7185,7 @@ Closing code fences cannot have [info strings]:
 </code></pre>
 ```
 
-## Paragraphs
+# Paragraphs
 
 A sequence of non-blank lines that cannot be interpreted as other
 kinds of blocks forms a [paragraph](@).
@@ -7289,7 +7294,7 @@ bbb
 bbb</p>
 ```
 
-### Blank lines
+## Blank lines
 
 [Blank lines] between block-level elements are ignored,
 except for the role they play in determining whether a [list]
@@ -7311,7 +7316,7 @@ aaa
 <h1>aaa</h1>
 ```
 
-## Container blocks
+# Container blocks
 
 A [container block](#container-blocks) is a block that has other
 blocks as its contents.  There are two basic kinds of container blocks:
@@ -7331,7 +7336,7 @@ to define the syntax, although it does not give a recipe for *parsing*
 these constructions.  (A recipe is provided below in the section entitled
 [A parsing strategy](#appendix-a-parsing-strategy).)
 
-### Block quotes
+## Block quotes
 
 A [block quote marker](@)
 consists of 0-3 spaces of initial indent, plus (a) the character `>` together
@@ -7758,7 +7763,7 @@ the `>`:
 
 
 
-### List items
+## List items
 
 A [list marker](@) is a
 [bullet list marker] or an [ordered list marker].
@@ -8692,7 +8697,7 @@ baz</li>
 ```
 
 
-### Lists
+## Lists
 
 A [list](@) is a sequence of one or more
 list items [of the same type].  The list items
@@ -9310,7 +9315,7 @@ Here the outer list is loose, the inner list tight:
 ```
 
 
-## Inlines
+# Inlines
 
 Inlines are parsed sequentially from the beginning of the character
 stream to the end (left to right, in left-to-right languages).
@@ -9326,7 +9331,7 @@ Thus, for example, in
 backtick.
 
 
-### Backslash escapes
+## Backslash escapes
 
 Any ASCII punctuation character may be backslash-escaped:
 
@@ -9465,7 +9470,7 @@ foo
 
 
 
-### Entity and numeric character references
+## Entity and numeric character references
 
 Valid HTML entity references and numeric character references
 can be used in place of the corresponding Unicode character,
@@ -9666,7 +9671,7 @@ bar</p>
 ```
 
 
-### Code spans
+## Code spans
 
 A [backtick string](@)
 is a string of one or more backtick characters (`` ` ``) that is neither
@@ -9899,7 +9904,7 @@ closing backtick strings to be equal in length:
 ```
 
 
-### Emphasis and strong emphasis
+## Emphasis and strong emphasis
 
 John Gruber's original [Markdown syntax
 description](http://daringfireball.net/projects/markdown/syntax#em) says:
@@ -11245,7 +11250,7 @@ __a<http://foo.bar/?q=__>
 
 
 
-### Links
+## Links
 
 A link contains [link text] (the visible text), a [link destination]
 (the URI that is the link destination), and optionally a [link title].
@@ -11717,7 +11722,7 @@ and autolinks over link grouping:
 <p>[foo<a href="http://example.com/?search=%5D(uri)">http://example.com/?search=](uri)</a></p>
 ```
 
-### Images
+## Images
 
 Syntax for images is like the syntax for links, with one
 difference. Instead of [link text], we have an
@@ -11904,7 +11909,7 @@ If you want a link after a literal `!`, backslash-escape the
 ```
 
 
-### Autolinks
+## Autolinks
 
 [Autolink](@)s are absolute URIs and email addresses inside
 `<` and `>`. They are parsed as links, with the URL or email address
@@ -12090,7 +12095,7 @@ foo@bar.example.com
 <p>foo@bar.example.com</p>
 ```
 
-### Hard line breaks
+## Hard line breaks
 
 A line break (not in a code span or HTML tag) that does not occur at the end of a block is parsed as a [hard line break](@) (rendered in HTML as a `<br />` tag):
 
@@ -12182,7 +12187,7 @@ foo
 <h3>foo</h3>
 ```
 
-### Textual content
+## Textual content
 
 Any characters not given an interpretation by the above rules will
 be parsed as plain textual content.
@@ -12209,22 +12214,12 @@ Multiple     spaces
 <p>Multiple     spaces</p>
 ```
 
-
-
-
-
-
-# TODO
-
-
-
-
 {#text-formatting-html}
-## Text Formatting
+# Text Formatting
 
 View the [specification](#text-formatting).
 
-### CSS Note
+## CSS Note
 
 The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
 
@@ -12391,7 +12386,7 @@ italicize-underlines: true
 ~~~
 
 {#headings-html}
-## Headings for Parts, Chapters and Sections
+# Headings for Parts, Chapters and Sections
 
 View the [specification](#headings).
 
@@ -12582,7 +12577,7 @@ bar
 ~~~
 
 {#paragraphs-html}
-## Paragraphs and Blank Lines
+# Paragraphs and Blank Lines
 
 View the [specification](#paragraphs).
 
@@ -12610,19 +12605,19 @@ This is paragraph three.
 <p>This is paragraph three.</p>
 ~~~
 
-## Resources
+# Resources
 
 TODO
 
-### Resource Insertion Methods
+## Resource Insertion Methods
 
 TODO
 
-### Resource Types and Formats
+## Resource Types and Formats
 
 TODO
 
-### Images
+## Images
 
 TODO
 
@@ -12676,7 +12671,7 @@ Here's a paragraph after the third figure.
 <p>Here's a paragraph after the third figure.</p>
 ~~~
 
-#### Web Images
+### Web Images
 
 ##### Example
 
@@ -12723,7 +12718,7 @@ Here's a paragraph after the third figure.
 <p>Here's a paragraph after the third figure.</p>
 ~~~
 
-#### Inline Images (SVG only)
+### Inline Images (SVG only)
 
 ##### Example
 
@@ -12761,7 +12756,7 @@ Note that any alt text specified in the figure attribute list must be set as the
 ~~~
 
 
-### Video
+## Video
 
 TODO
 
@@ -12769,9 +12764,9 @@ TODO
 {#video_html}
 The syntax for video is described [here](#video).
 
-#### Local Video
+### Local Video
 
-##### Example
+#### Example
 
 ###### Markua Document
 
@@ -12825,7 +12820,7 @@ Here's a paragraph after the figure.
 <p>Here's a paragraph after the figure.</p>
 ~~~
 
-### Audio
+## Audio
 
 TODO
 
@@ -12833,7 +12828,7 @@ TODO
 {#audio_html}
 The syntax for audio is described [here](#audio).
 
-#### Local Audio
+### Local Audio
 
 ##### Example
 
@@ -12857,7 +12852,7 @@ The full version of the talk is here:
 </div>
 ~~~
 
-#### Web Audio
+### Web Audio
 
 ##### Example
 
@@ -12881,7 +12876,7 @@ The full version of the talk is here:
 </div>
 ~~~
 
-### Code
+## Code
 
 TODO
 
@@ -12942,7 +12937,7 @@ puts "world"</code></pre>
 <p>Here's a paragraph after the figure.</p>
 ~~~
 
-#### Web Code Resources
+### Web Code Resources
 
 ###### Dependencies
 
@@ -12984,7 +12979,7 @@ puts "world"</code></pre>
 <p>Here's a paragraph after the figure.</p>
 ~~~
 
-#### Inline Code Resources
+### Inline Code Resources
 
 ##### Span Example
 
@@ -13066,7 +13061,7 @@ puts "world"</code></pre>
 <p>Here's a paragraph after the figure.</p>
 ~~~
 
-### Poetry
+## Poetry
 
 TODO
 
@@ -13187,13 +13182,13 @@ me   ow</code></pre>
 <p>Here's a paragraph after the poetry.</p>
 ~~~
 
-### Tables
+## Tables
 
 TODO
 
 Tables are always output inside a `<figure>`, and table captions are always output as a `<figcaption>` of the `<figure>`, instead of as a `<caption>` of a `<table>`. This way, the captions can be handled the same way as other figures, and the tables can benefit from the figure styling.
 
-### Simple Tables
+## Simple Tables
 
 ##### Example 1: No Leading Pipes, No Caption
 
@@ -13291,7 +13286,7 @@ Content A3 | Content B3 | Content C3
 </figure>
 ~~~
 
-### Complex Tables
+## Complex Tables
 
 ##### Example
 
@@ -13354,28 +13349,28 @@ Content A3 | Content B3 | Content C3
 ~~~
 
 
-### Math
+## Math
 
 Markua does not specify how math is output in HTML. It is perfectly acceptable for a Markua Processor to output any math block as an image or as the LaTeX or MathML text of the math equation itself.
 
-## Whitespace: Spaces, Tabs and Newlines
+# Whitespace: Spaces, Tabs and Newlines
 
 TODO
 
-### Newlines
+## Newlines
 
 TODO
 
-### Spaces and Tabs
+## Spaces and Tabs
 
 TODO
 
-### TODO - incorporate this into the above
+## TODO - incorporate this into the above
 
 {#spaces_html}
 The syntax for spaces, newlines and indentation is described [here](#spaces).
 
-### Paragraphs and Blank Lines
+## Paragraphs and Blank Lines
 
 ##### Example
 
@@ -13399,7 +13394,7 @@ This is paragraph three.
 <p>This is paragraph three.</p>
 ~~~
 
-### Single Newlines
+## Single Newlines
 
 ##### Example
 
@@ -13437,7 +13432,7 @@ Heading Text!!!</h1>
 <p>This is paragraph four.</p>
 ~~~
 
-### Three or More Newlines
+## Three or More Newlines
 
 If there are n newlines after a paragraph, there are n-2 break tags in the HTML output, for all n > 2.
 
@@ -13474,7 +13469,7 @@ The End
 <p>The End</p>
 ~~~
 
-### Leading Spaces (Prose vs. Poetry)
+## Leading Spaces (Prose vs. Poetry)
 
 ##### Example
 
@@ -13498,7 +13493,7 @@ My mistress when she walks treads on the ground.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;As any she belied with false compare.</p>
 ~~~
 
-### Internal Spaces Are Collapsed to One Space
+## Internal Spaces Are Collapsed to One Space
 
 ##### Example
 
@@ -13517,11 +13512,11 @@ foo   bar
 ~~~
 
 
-## Lists
+# Lists
 
 TODO
 
-### Bulleted Lists
+## Bulleted Lists
 
 TODO
 
