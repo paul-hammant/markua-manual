@@ -6426,17 +6426,6 @@ python test/spec_tests.py --spec spec.txt --program PROGRAM
 
 W> TODO - update the `spec_tests` script or provide a new one to do this based on the Markua spec.
 
-## Format of the Inputs
-
-In the examples, the `→` `=>` → => character is used to represent tabs.
-
-There are two reasons for this:
-
-1. It makes it clear whether tabs or spaces are being used.
-2. It makes the examples closer to those of CommonMark, and enables some reuse between them.
-
-This does mean, however, that the test script must convert the `→` characters into tabs before the inputs are passed to the Markua Processor. Similarly, if you are going to try any of these examples yourself with a Markua Processor like Leanpub, you need to replace all `→` characters with tabs.
-
 ## CSS Notes
 
 Markua does not specify any CSS. However, advice will sometimes be offered in "CSS Note" sections. This is because certain semantically meaningful formatting (like strikethrough) is only done in HTML via CSS.
@@ -6503,6 +6492,17 @@ A [punctuation character]{#punctuation-character} is an [ASCII punctuation chara
 ## Tabs
 
 Tabs are different from spaces.
+
+In all the examples which follow, the `→` character is used to represent tabs.
+
+There are two reasons for this:
+
+1. It makes it clear whether tabs or spaces are being used.
+2. It makes the examples closer to those of CommonMark, and enables some reuse between them.
+
+This does mean, however, that the test script must convert the `→` characters into tabs before the inputs are passed to the Markua Processor. Similarly, if you are going to try any of these examples yourself with a Markua Processor like Leanpub, you need to replace all `→` characters with tabs.
+
+Note that since Markua does not support indented code blocks, much of the discussion you would find in the equivalent section of the CommonMark Spec does not apply here. Tabs are discussed in Markua primarily in the context of simple lists.
 
 ## Insecure characters
 
