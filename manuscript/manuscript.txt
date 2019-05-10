@@ -148,7 +148,7 @@ puts "hello"
 You can also include single lines of code like `puts "hello"` in paragraphs.
 
 > Blockquotes are really easy too.
-> *--Peter Armstrong*
+> --Peter Armstrong, *The Markua Specification*
 
 Finally, you can do that with math `d = v_i t + \frac{1}{2} a t^2`$ too.
 ~~~
@@ -206,6 +206,23 @@ So, I started over. I started with Markdown. I then removed or changed the few t
 ## Why the Name "Markua"?
 
 When I set out to specify Markua, I realized I needed a name. I wanted a name that conveyed the warmth and love that I have for Markdown, for writing and for writers, while not implying endorsement by John Gruber in any way. I also did not want a name which referenced Leanpub: Markua is a standalone specification with its own identity, which anyone (including Leanpub competitors) can freely implement. Finally, I was on vacation in Hawaii when I named Markua, and I wanted something that sounded happy, friendly and almost Hawaiian. (Yes, I'm aware that there is no r in Hawaiian.) I also wanted a name that had its .com domain name available, and that was short and spellable, for branding purposes. The Markua name does have all these properties, and I feel it is a really good brand for what I'm trying to accomplish.
+
+{#handling-errors-and-warnings}
+## Handling Errors and Warnings
+
+Throughout the Markua Specification, you will encounter the phrase "is an error" when describing incorrect Markua formatting. This can be as simple as too many consecutive asterisks in formatting text, to as complex as bugs with list indentation or table formatting.
+
+You will also encounter the phrase "should produce a warning" for other types of issues with a Markua document which are warnings, not errors. This includes things like unrecognized or unsupported attributes.
+
+Whenever a Markua Processor encounters something which is an error or should produce a warning, it should do the following:
+
+1. If it is an error, treat the erroneous Markua formatting as plain paragraph text. If it is as warning, format the Markua as well as possible.
+2. Add an error or warning message to a list of error and warning messages. The content of this message should ideally be helpful, and indicate the position of the error or warning in the Markua document, whether it is an error or a warning, and as much information about the error or warning as is helpful.
+3. Continue processing the remainder of the Markua document. It would be really annoying for authors to only get one error or warning at a time from a Markua Processor.
+
+When a Markua Processor is done processing a Markua document, it should provide the list of errors and warnings to the author via the appropriate channels. For a web-based tool, this can be a web page and/or an email message. For a command-line tool, this can be command-line output and/or an error log file.
+
+A Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
 
 ## Acknowledgments
 
@@ -514,28 +531,9 @@ Superscript
 Subscript
 : To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
 
-Note that more than four consecutive underscores or asterisks is an error. Error handling is discussed in the next chapter.
+Note that more than four consecutive underscores or asterisks is an error.
 
 View the [HTML mapping](#text-formatting-html).
-
-{#handling-errors-and-warnings}
-# Handling Errors and Warnings
-
-Throughout the Markua Specification, you will encounter the phrase "is an error" when describing incorrect Markua formatting.
-
-This can be as simple as too many consecutive asterisks in formatting text, to as complex as bugs with list indentation or table formatting.
-
-There are other types of issues with a Markua document which are warnings, not errors. This includes issues like unrecognized or unsupported attributes.
-
-Whenever a Markua Processor encounters an error or warning in a Markua document, it should do the following:
-
-1. If it is an error, treat the erroneous Markua formatting as plain paragraph text. If it is as warning, format the Markua as well as possible.
-2. Add an error or warning message to a list of error and warning messages. The content of this message should ideally be helpful, and indicate the position of the error or warning in the Markua document, whether it is an error or a warning, and as much information about the error or warning as is helpful.
-3. Continue processing the remainder of the Markua document. It would be really annoying for authors to only get one error or warning at a time from a Markua Processor.
-
-When a Markua Processor is done processing a Markua document, it should provide the list of errors and warnings to the author via the appropriate channels. For a web-based tool, this can be a web page and/or an email message. For a command-line tool, this can be command-line output and/or an error log file.
-
-A Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
 
 {#headings}
 # Headings for Parts, Chapters and Sections
