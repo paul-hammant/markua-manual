@@ -224,6 +224,10 @@ When a Markua Processor is done processing a Markua document, it should provide 
 
 A Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
 
+If a Markua Processor is generating an executable course, such as the MOOCs produced by Leanpub, it must not produce a new course version if there are any fatal errors.
+
+TODO - fatal error vs. non-fatal error. neither blocks processing, but fatal error blocks course and  book gen. invalid quizzes and exercises are fatal errors for courses.
+
 ## Acknowledgments
 
 I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
@@ -583,7 +587,7 @@ Markua is very strict about its heading syntax. Specifically, to create a Markua
 
 A Markua heading needs a blank line above and below it. However, due to the rules for [blank lines and file concatenating](#concatenating), you can omit the blank line before a heading which is the first line of a file and omit the blank line after a heading which is the last line of a file.
 
-It is an error for a heading to be blank or to be placed inside a list item.
+It is an error for a heading to be empty (only containing whitespace) or to be placed inside a list item.
 
 If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a paragraph starting with a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for section or lower level headings (adding a trailing `#` after a chapter heading makes it into a legal part heading), etc.
 
@@ -5069,7 +5073,7 @@ Note that you can skip the space between the colon and the value: the following 
 
 Note that the values can be in quotes. These quotes are double quotes (`"`), not single quotes (`'`).
 
-TODO - support single quotes after all?
+TODO - support single quotes as well, you can nest single inside double and vice-versa. only diff is you can nest the opp quote inside it.
 
 Regardless of whether quotes are used, leading and trailing spaces are removed from all attribute values, but internal spaces are preserved.
 
@@ -6364,31 +6368,28 @@ As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of 
 {#todo}
 # TODO
 
-These are some issues that I should think about more and/or discuss with Scott...
+DECISION: code spans cannot contain line breaks. For this you must use code blocks. Too confusing and inconsistent.
 
-1. I think I'm going to ban code **spans** containing newlines. (For those, you need to use code blocks.)
+
+BREAK TAGS:
+
+<br/>
+
+<br />
+
+
+Emphasis can contain line breaks.
+
+
 
 2. How many characters does a backslash escape escape?
 
-   Does this work, or blow up:
+one
 
-~~~
-### foo \###
-~~~
-
-   Does this work, or blow up:
-
-~~~
-# foo \##
-~~~
-
-   Does this work, or blow up:
-
-~~~
-# foo \# #
-~~~
 
 3. Can headings be empty?
+
+NO
 
 ~~~
 #
@@ -6401,9 +6402,18 @@ These are some issues that I should think about more and/or discuss with Scott..
 
 12. Can list items be empty?
 
+
     ```
+    *
+    *
+    *
+    ``
+
+   ```
     * a
     *
+      * bar
+      *
     * b
     ```
 
@@ -7240,8 +7250,7 @@ This is paragraph three.
 
 # Container blocks
 
-A [container block](#container-blocks) is a block that has other
-blocks as its contents.  There are two basic kinds of container blocks:
+A [container block](#container-blocks) is a block that has other blocks as its contents.  There are two basic kinds of container blocks:
 [block quotes] and [list items].
 [Lists] are meta-containers for [list items].
 
