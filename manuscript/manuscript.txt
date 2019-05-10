@@ -843,7 +843,7 @@ The [code](#code) and [math](#math) resources are described more fully later.
 
 When a resource is inserted as a span, the resource is inserted as part of the flow of text of a paragraph with no newlines before or after it. A span resource is intended to be extremely short and simple.
 
-By default, the format of an inline resource is `text` for code. For math, you specify `latex` with a `$` and `asciimath` with an `@` after the closing backtick. For an image, it is determined by the file extension.
+By default, the format of an inline resource is `text` for code. For math, you specify `latex` with a `$` (or with `{format: latexmath}`) and `asciimath` with an `@` (or with `{format: asciimath}`) after the closing backtick. For an image, it is determined by the file extension.
 
 However, to support rare use cases, any span can have an attribute list. The attribute list on a span is specified immediately after the closing backtick. Span attribute lists can be used to set the format explicitly.
 
@@ -855,7 +855,7 @@ Yada yada `puts "hi"`{format: ruby} yada yada.
 This resource would be treated as LaTeX math:
 
 ~~~
-Yada yada `some LaTeX math here`{format: latex} yada yada.
+Yada yada `some LaTeX math here`{format: latexmath} yada yada.
 ~~~
 
 This is identical to using a `$`:
@@ -993,7 +993,6 @@ The following table shows the mapping of local file extensions to the default `f
 {caption: "Formats Mapped to Local Resource Types", id: "resource-types-and-formats"}
 | Extension    | `format`     | `type`   | Description         |
 | :----------- | :----------: | :------: | ------------------- |
-| `.asciimath` | `asciimath`  | `math`   | AsciiMath math      |
 | `.aac`       | `aac`        | `audio`  | AAC audio           |
 | `.m4a`       | `aac`        | `audio`  | AAC audio           |
 | `.mp3`       | `mp3`        | `audio`  | MP3 audio           |
@@ -1009,9 +1008,11 @@ The following table shows the mapping of local file extensions to the default `f
 | `.png`       | `png`        | `image`  | PNG image           |
 | `.svg`       | `svg`        | `image`  | SVG image           |
 | `.svgz`      | `svgz`       | `image`  | Zipped SVG          |
+| `.asciimath` | `asciimath`  | `math`   | AsciiMath math      |
 | `.mathml`    | `mathml`     | `math`   | MathML math         |
-| `.tex`       | `latex`      | `math`   | LaTeX math          |
-| `.text`      | `poetry`     | `poetry` | Poetry              |
+| `.latexmath` | `latexmath`  | `math`   | LaTeX math          |
+| `.tex`       | `latex`      | `code`   | LaTeX text          |
+| `.text`      | `poetry`     | `poetry` | Poetry              | TODO
 | `.tbl`       | `table`      | `table`  | Markua table        |
 | `.mp4`       | `mp4`        | `video`  | MP4 video           |
 | `.webm`      | `webm`       | `video`  | WebM video          |
@@ -2377,10 +2378,10 @@ Here's one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`$ inside a 
 
 The `$` character indicates the inline resource is LaTeX math.
 
-If you don't like syntactic sugar, you can also use {format: latex} after the inline span resource:
+If you don't like syntactic sugar, you can also use {format: latexmath} after the inline span resource:
 
 ~~~
-Here's one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`{format: latex} inside a sentence.
+Here's one of the kinematic equations `d = v_i t + \frac{1}{2} a t^2`{format: latexmath} inside a sentence.
 ~~~
 
 ##### AsciiMath
@@ -2419,7 +2420,7 @@ If you're going to insert MathML, it should be inserted as a figure, with newlin
 
 Both LaTeX math, AsciiMath and MathML can be inserted inline as a figure.
 
-* LaTeX math can be inserted by specifying either `latex` or `$` after three backticks, or by specifying an attribute list of `{format: latex}`.
+* LaTeX math can be inserted by specifying either `latex` or `$` after three backticks, or by specifying an attribute list of `{format: latexmath}`.
 * AsciiMath can be inserted by specifying either `asciimath` or `@` after three backticks, or by specifying an attribute list of `{format: asciimath}`.
 * MathML math can be inserted by specifying `mathml` after three backticks, or by specifying an attribute list of `{format: mathml}`.
 
@@ -2456,7 +2457,7 @@ Here's the same thing, with the full format after the backticks:
 ~~~
 Here's a paragraph before the figure.
 
-```latex
+```latexmath
 \left|\sum_{i=1}^n a_ib_i\right|
 \le
 \left(\sum_{i=1}^n a_i^2\right)^{1/2}
@@ -2471,7 +2472,7 @@ Here's the same thing again, with a full attribute list:
 ~~~
 Here's a paragraph before the figure.
 
-{format: latex}
+{format: latexmath}
 ```
 \left|\sum_{i=1}^n a_ib_i\right|
 \le
