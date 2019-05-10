@@ -474,7 +474,7 @@ The Markua Specification is copyright © 2014 - 2019 Peter Armstrong.
 
 The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license.
 
-Portions of the Markua Specification related to the mapping of Markua to HTML, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. These portions are almost entirely contained in the [Parsing Markua](#parsing-markua) part, which is the second part of the Markua Specification.
+Portions of the Markua Specification related to the parsing of Markua and the mapping of Markua to HTML, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. These portions are almost entirely contained in the [Parsing Markua](#parsing-markua) part, which is the second part of the Markua Specification.
 
 Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the parts of the CommonMark Spec were incorporated into the Markua Specification is that the CommonMark Spec is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to incorporate and adapt the parts of the CommonMark Spec which apply.
 
@@ -1469,13 +1469,18 @@ Note that in the above examples of figures, the text in the square brackets is t
 
 Inline code resources are the most flexible way to insert code. They are the only way to insert code as a span resource, and the most straightforward way to add short code examples as figures.
 
-#### Span
+{#code-spans}
+#### Code Spans
 
 The format of an inline code resource inserted as a span is:
 
 ~~~
 Yada yada `some code here` yada yada.
 ~~~
+
+Since "inline code resource which is inserted as a span" is a mouthful, this is just called a code span.
+
+It is an error for a code spans to contain newlines. Code spans which contain newlines should be rendererd as normal paragraph text, and an error should be added to the list of errors.
 
 The format of code inserted as a span defaults to `text`. However, you can override this by attaching an attribute list to the end of a span.
 
@@ -6326,24 +6331,38 @@ These are the top 10 differences between Markua and LFM:
 
 Besides these 10 differences, there are a number of smaller ones, which you will discover if you compare the Markua Specification to the [Leanpub Flavoured Markdown Manual](https://leanpub.com/leanpubflavouredmarkdownmanual/).
 
+{#parsing-markua}
+# Parsing Markua #
+
+If you are an author who is looking to write a book or course in Markua, you can stop reading now. This part is not for you; it's just for people who are writing code to build a Markua Processor. Stop reading this and go write your book or course!
+
+As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of CommonMark](#copyright-ccby-commonmark), portions of this part are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
+
 {#todo}
 # TODO
 
 These are some issues that I should think about more and/or discuss with Scott...
 
+1. I think I'm going to ban code **spans** containing newlines. (For those, you need to use code blocks.)
+
+2. How many characters does a backslash escape escape?
+
+   Does this work, or blow up:
+
 ~~~
-- how many characters does a backslash escape escape?
-does this work, or blow up:
-
 ### foo \###
+~~~
 
-- can headings be empty?
+3. Can headings be empty?
 
+~~~
 #
 
 ##
 
 ###
+~~~
+
 
 
 
@@ -6379,11 +6398,6 @@ From CommonMark:
     * b
     ```
 ~~~
-
-{#parsing-markua}
-# Parsing Markua #
-
-If you are an author who is looking to write a book or course in Markua, you can stop reading now. This part is not for you; it's just for people who are writing code to build a Markua Processor. Stop reading this and go write your book or course!
 
 # Introduction
 
@@ -7158,28 +7172,18 @@ bbb
 <p>bbb</p>
 ```
 
+## Blank Lines
 
-Final spaces are stripped before inline parsing, so a paragraph
-that ends with two or more spaces will not end with a [hard line
-break]:
-
-```example
-aaa
-bbb
-.
-<p>aaa<br />
-bbb</p>
-```
-
-## Blank lines
-
-[Blank lines] between block-level elements are ignored,
-except for the role they play in determining whether a [list]
-is [tight] or [loose].
+[Blank lines] between block-level elements are ignored, except for the role they play in determining whether a [list] is [tight] or [loose].
 
 Blank lines at the beginning and end of the document are also ignored.
 
-```example
+##### Example BL-1
+
+###### Markua Document
+
+{#input-bl-1}
+~~~
 
 
 aaa
@@ -7188,10 +7192,39 @@ aaa
 # aaa
 
 
-.
+~~~
+
+###### HTML Output
+
+{#output-bl-1}
+~~~
 <p>aaa</p>
 <h1>aaa</h1>
-```
+~~~
+
+##### Example BL-2
+
+###### Markua Document
+
+{#input-bl-2}
+~~~
+I'm paragraph one. Yay!
+
+This is paragraph two.
+
+This is paragraph three.
+~~~
+
+###### HTML Output
+
+{#output-bl-2}
+~~~
+<p>I'm paragraph one. Yay!</p>
+<p>This is paragraph two.</p>
+<p>This is paragraph three.</p>
+~~~
+
+
 
 # Container blocks
 
@@ -9547,25 +9580,16 @@ bar</p>
 <p>[a](url &quot;tit&quot;)</p>
 ```
 
-
 ## Code spans
 
-A [backtick string](@)
-is a string of one or more backtick characters (`` ` ``) that is neither
-preceded nor followed by a backtick.
+xxx
 
-A [code span](@) begins with a backtick string and ends with
-a backtick string of equal length.  The contents of the code span are
-the characters between the two backtick strings, normalized in the
-following ways:
+A [backtick string](@) is a string of one or more backtick characters (`` ` ``) that is neither preceded nor followed by a backtick.
+
+A [code span](@) begins with a backtick string and ends with a backtick string of equal length.  The contents of the code span are the characters between the two backtick strings, normalized in the following ways:
 
 - First, [line endings] are converted to [spaces].
-- If the resulting string both begins *and* ends with a [space]
-  character, but does not consist entirely of [space]
-  characters, a single [space] character is removed from the
-  front and back.  This allows you to include code that begins
-  or ends with backtick characters, which must be separated by
-  whitespace from the opening or closing backtick strings.
+- If the resulting string both begins *and* ends with a [space] character, but does not consist entirely of [space] characters, a single [space] character is removed from the front and back.  This allows you to include code that begins or ends with backtick characters, which must be separated by whitespace from the opening or closing backtick strings.
 
 This is a simple code span:
 
@@ -9662,13 +9686,6 @@ baz`
 .
 <p><code>foo   bar  baz</code></p>
 ```
-
-Note that browsers will typically collapse consecutive spaces
-when rendering `<code>` elements, so it is recommended that
-the following CSS be used:
-
-    code{white-space: pre-wrap;}
-
 
 Note that backslash escapes do not work in code spans. All backslashes
 are treated literally:
@@ -11974,7 +11991,28 @@ foo@bar.example.com
 
 ## Hard line breaks
 
+Unlike Markdown, all line breaks which are not in code blocks
+
+xxx
+
 A line break (not in a code span or HTML tag) that does not occur at the end of a block is parsed as a [hard line break](@) (rendered in HTML as a `<br />` tag):
+
+##### Example
+
+###### Markua Document
+
+{#input-single_newlines_1}
+~~~
+I'm paragraph one. Yay!
+
+This is paragraph two.
+This is *still* in paragraph two, preceded by a forced line break.
+This is also in paragraph two, also preceded by a forced line break.
+
+This is paragraph three.
+~~~
+
+
 
 ```example
 foo
@@ -12755,20 +12793,19 @@ The full version of the talk is here:
 
 ## Code
 
-TODO
+{#code-html}
+The syntax for code is described [here](#code).
 
-The reasoning here is simple: in source code, whitespace matters, so it must not get collapsed into a single space. Thankfully, this is easy to do. If a Markua Processor is producing HTML, the following CSS prevents spaces from being collapsed to one space:
+### CSS Note
+
+In source code, whitespace matters, so it must not get collapsed into a single space. However, browsers will typically collapse consecutive spaces when rendering `<code>` elements. To prevent this, it is recommended that the following CSS be used:
 
 ```
 code {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 ```
 
-(There may be other CSS in future which meets this requirement, so this exact CSS is not a requirement for a Markua Processor to use. However, the behaviour that results when this CSS is added is a requirement for a Markua Processor.)
-
-{#code_html}
-The syntax for code is described [here](#code).
 
 Markua only specifies how code which has a format of `text` is formatted. All other formats of code are unspecified, since the behaviour depends on whether the programming language is recognized by the Markua Processor, whether syntax highlighting is enabled, and on what type and version of syntax highlighting library (e.g. Pygments) is used.
 
@@ -13244,48 +13281,6 @@ TODO
 
 ## TODO - incorporate this into the above
 
-{#spaces_html}
-The syntax for spaces, newlines and indentation is described [here](#spaces).
-
-## Paragraphs and Blank Lines
-
-##### Example
-
-###### Markua Document
-
-{#input-whitespace_1}
-~~~
-I'm paragraph one. Yay!
-
-This is paragraph two.
-
-This is paragraph three.
-~~~
-
-###### HTML Output
-
-{#output-whitespace_1}
-~~~
-<p>I'm paragraph one. Yay!</p>
-<p>This is paragraph two.</p>
-<p>This is paragraph three.</p>
-~~~
-
-## Single Newlines
-
-##### Example
-
-###### Markua Document
-
-{#input-single_newlines_1}
-~~~
-I'm paragraph one. Yay!
-
-This is paragraph two.
-This is *still* in paragraph two, preceded by a forced line break.
-This is also in paragraph two, also preceded by a forced line break.
-
-This is paragraph three.
 
 # This.
 Is.
@@ -13309,42 +13304,6 @@ Heading Text!!!</h1>
 <p>This is paragraph four.</p>
 ~~~
 
-## Three or More Newlines
-
-If there are n newlines after a paragraph, there are n-2 break tags in the HTML output, for all n > 2.
-
-##### Example
-
-###### Markua Document
-
-{#input-three_or_more_newlines_1}
-~~~
-This paragraph is followed by two newlines.
-
-This paragraph is followed by three newlines.
-
-
-This paragraph is followed by five newlines.
-
-
-
-
-The End
-~~~
-
-###### HTML Output
-
-{#output-three_or_more_newlines_1}
-~~~
-<p>This paragraph is followed by two newlines.</p>
-<p>This paragraph is followed by three newlines.</p>
-<br/>
-<p>This paragraph is followed by five newlines.</p>
-<br/>
-<br/>
-<br/>
-<p>The End</p>
-~~~
 
 ## Leading Spaces (Prose vs. Poetry)
 
