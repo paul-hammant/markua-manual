@@ -574,7 +574,7 @@ This is a paragraph.
 This is a paragraph.
 ~~~
 
-Markua is very strict about its heading syntax. Specifically, to create a Markua heading, you put the following on a line by itself:
+Markua is very strict about its heading syntax. Specifically, to create a Markua heading, you put the following either on a line by itself or inside an [aside](#asides) or [blurb](#blurbs):
 
 * between one and six pound signs (`#`)
 * followed by exactly one space (not a tab)
@@ -582,6 +582,8 @@ Markua is very strict about its heading syntax. Specifically, to create a Markua
 * followed by the combination of exactly one space and one pound sign for parts, and by nothing for chapters and sections
 
 A Markua heading needs a blank line above and below it. However, due to the rules for [blank lines and file concatenating](#concatenating), you can omit the blank line before a heading which is the first line of a file and omit the blank line after a heading which is the last line of a file.
+
+It is an error for a heading to be blank or to be placed inside a list item.
 
 If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a paragraph starting with a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for section or lower level headings (adding a trailing `#` after a chapter heading makes it into a legal part heading), etc.
 
@@ -4037,6 +4039,7 @@ Software is eating the world.
 That's it!
 ~~~
 
+{#asides}
 ## Asides (`A>` or `{aside}`)
 
 Since Markua is for writing books, including technical books, it needs not just a syntax for blockquotes--it also needs a syntax for asides and for blurbs. These syntaxes are very similar to the Markua syntax for blockquotes. Like blockquotes, any headings inside asides or blurbs do not show up in a Table of Contents (if one is present), and they can also be formatted differently by Markua Processors.
@@ -4090,6 +4093,7 @@ Multi-paragraph asides are more pleasant using this syntax.
 {/aside}
 ~~~
 
+{#blurbs}
 ## Blurbs (`B>` or `{blurb}`)
 
 Blurbs are like asides, but shorter. A blurb is not intended to span multiple pages of output.
@@ -6372,6 +6376,18 @@ These are some issues that I should think about more and/or discuss with Scott..
 ### foo \###
 ~~~
 
+   Does this work, or blow up:
+
+~~~
+# foo \##
+~~~
+
+   Does this work, or blow up:
+
+~~~
+# foo \# #
+~~~
+
 3. Can headings be empty?
 
 ~~~
@@ -6383,32 +6399,6 @@ These are some issues that I should think about more and/or discuss with Scott..
 ~~~
 
 
-
-
-From CommonMark:
-
-8.  What are the precedence rules for the markers of inline structure?
-    For example, is the following a valid link, or does the code span
-    take precedence ?
-
-    ```
-    [a backtick (`)](/url) and [another backtick (`)](/url).
-    ```
-
-9.  What are the precedence rules for markers of emphasis and strong
-    emphasis?  For example, how should the following be parsed?
-
-    ```
-    *foo *bar* baz*
-    ```
-
-11. Can list items include section headings?  (`Markdown.pl` does not
-    allow this, but does allow blockquotes to include headings.)
-
-    ```
-    - # Heading
-    ```
-
 12. Can list items be empty?
 
     ```
@@ -6416,6 +6406,9 @@ From CommonMark:
     *
     * b
     ```
+
+YES
+
 ~~~
 
 # Introduction
@@ -8605,26 +8598,6 @@ A list may be the first block in a list item:
 </li>
 </ol>
 ```
-
-
-A list item can contain a heading:
-
-```example
-- # Foo
-- Bar
-  ---
-  baz
-.
-<ul>
-<li>
-<h1>Foo</h1>
-</li>
-<li>
-<h2>Bar</h2>
-baz</li>
-</ul>
-```
-
 
 ## Lists
 
