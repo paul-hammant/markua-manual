@@ -3,13 +3,13 @@
 
 This is the part of the Markua Specification which is intended for authors. If you are an author who is looking to write a book or course in Markua, this is the part you should read! If you are a programmer who is implementing a Markua Processor, you will want to read both this part and the [Parsing Markua](#parsing-markua) part after it.
 
-A> # Note for Leanpub Authors
-A>
-A> Markua is in beta on Leanpub, and there are differences between Markua, Markdown and Leapnub Flavoured Markdown.
-A>
-A> * Leanpub's Markua support status: see [this appendix](#leanpub-markua-implementation-status)
-A> * Differences between Markua and Markdown: see [this appendix](#differences-with-markdown)
-A> * Differences between Markua and Leanpub Flavoured Markdown (LFM): see [this appendix](#differences-with-lfm)
+## Note for Leanpub Authors
+
+Markua is in beta on Leanpub, and there are differences between Markua, Markdown and Leapnub Flavoured Markdown. To learn more, see these appendices:
+
+* Status of Markua support on Leanpub: see [this appendix](#leanpub-markua-implementation-status)
+* Differences between Markua and Markdown: see [this appendix](#differences-with-markdown)
+* Differences between Markua and Leanpub Flavoured Markdown (LFM): see [this appendix](#differences-with-lfm)
 
 # Philosophy
 
