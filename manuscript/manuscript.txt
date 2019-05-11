@@ -3175,6 +3175,37 @@ Yada yada yada
 Paragraph two...
 ~~~
 
+### List Items Can Be Empty
+
+This is gross and pointless, but banning this case would be worse. The following are all legal lists:
+
+~~~
+* foo
+*
+* bar
+
+1. foo
+2.
+3. bar
+
+* lorem
+  * ipsum
+  *
+  * dolor
+*
+* sit
+  *
+  * amet
+
+*
+*
+*
+
+1.
+2.
+3.
+~~~
+
 ### Numbered List Numbering Rules
 
 *This section is highly technical, and can be [skipped](#simple-lists) or quickly skimmed by almost all authors. It's probably only interesting to someone writing a Markua Processor.*
@@ -6467,53 +6498,6 @@ Besides these 10 differences, there are a number of smaller ones, which you will
 If you are an author who is looking to write a book or course in Markua, you can stop reading now. This part is not for you; it's just for people who are writing code to build a Markua Processor. Stop reading this and go write your book or course!
 
 As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of CommonMark](#copyright-ccby-commonmark), portions of this part are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
-
-{#todo}
-# TODO
-
-
-Emphasis can contain line breaks.
-
-
-
-2. How many characters does a backslash escape escape?
-
-one
-
-
-3. Can headings be empty?
-
-NO
-
-~~~
-#
-
-##
-
-###
-~~~
-
-
-12. Can list items be empty?
-
-
-    ```
-    *
-    *
-    *
-    ``
-
-   ```
-    * a
-    *
-      * bar
-      *
-    * b
-    ```
-
-YES
-
-~~~
 
 # Introduction
 
