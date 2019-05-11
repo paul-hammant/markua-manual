@@ -1036,7 +1036,7 @@ The following table shows the mapping of local file extensions to the default `f
 | `.mathml`    | `mathml`     | `math`   | MathML math         |
 | `.latexmath` | `latexmath`  | `math`   | LaTeX math          |
 | `.tex`       | `latex`      | `code`   | LaTeX text          |
-| `.text`      | `poetry`     | `poetry` | Poetry              | TODO
+| `.poetry`    | `poetry`     | `poetry` | Poetry              |
 | `.tbl`       | `table`      | `table`  | Markua table        |
 | `.mp4`       | `mp4`        | `video`  | MP4 video           |
 | `.webm`      | `webm`       | `video`  | WebM video          |
@@ -1725,58 +1725,55 @@ Here's a paragraph after the figure.
 
 With an inline poetry resource, the default value of the `monospaced` attribute for a poetry resource varies based on the delimiter used.
 
-There are two types of delimiters that can be used to insert a poetry resource inline:
-
-`---`
-: With three hyphens, the default value of `monospaced` is `true`.
-
-`___`
-: With three underscores (`___`), the default value of `monospaced` is `false`.
-
-This way, you can vary the default value of `monospaced` without having to type an attribute list--attribute lists aren't very poetic!
-
-To repeat: regardless of the value of the `monospaced` attribute, all whitespace is respected in a poetry resource. So, you can indent the last two lines of a sonnet without requiring a monospaced font.
-
-The following example shows how you can get different default behaviour without an attribute list required:
+To insert a poetry resource inline, you use a `---` delimiter:
 
 ~~~
-Here's a Shakespearean sonnet:
+Some paragraph
 
-___
+---
+Shall I compare thee to a summer's day
+---
+
+Another paragraph
+~~~
+
+By default, the value of the `monospaced` attribute of a poetry resource is false. However, regardless of the value of the `monospaced` attribute, all whitespace is respected in a poetry resource. So, you can indent the last two lines of a sonnet with tabs or spaces without requiring a monospaced font. (The whitespace is preserved, but it is using a proportional font, not a monospaced one.)
+
+~~~
+Some paragraph
+
+---
 I grant I never saw a goddess go;
 My mistress when she walks treads on the ground.
     And yet, by heaven, I think my love as rare
     As any she belied with false compare.
-___
-
-Here's a pretend poem which wants a monospaced font:
-
 ---
-i
-  am
-      a        cat
-            a        l a z y          cat
 
-me   ow
----
+Another paragraph
 ~~~
 
-Now, if you want to add captions to the poems which are inserted as inline resources, then you're stuck adding an attribute list after all:
+Now, if you want to add a caption to your poetry, you need to use an attribute list:
 
 ~~~
-Here's a Shakespearean sonnet:
+Some paragraph
 
 {caption: "Sonnet 130"}
-___
+---
 I grant I never saw a goddess go;
 My mistress when she walks treads on the ground.
     And yet, by heaven, I think my love as rare
     As any she belied with false compare.
-___
+---
 
-Here's a pretend poem which wants a monospaced font:
+Another paragraph
+~~~
 
-{caption: "Peter's Pretentious Poem"}
+If you want to set the value of `monospaced` to true and type typewriter poetry like ee cummings, you can do this by setting the `monospaced` attribute to `true`. Here's a pretend poem which wants a monospaced font:
+
+~~~
+Some paragraph
+
+{caption: "Peter's Pretentious Poem", monospaced: true}
 ---
 i
   am
@@ -1785,7 +1782,28 @@ i
 
 me   ow
 ---
+
+Another paragraph
 ~~~
+
+Just like that poem, however, attribute lists aren't very poetic! So, you can also indicate that a poem is monospaced by adding a `*` after the opening delimiter:
+
+~~~
+Some paragraph
+
+---*
+i
+  am
+      a        cat
+            a        l a z y          cat
+
+me   ow
+---
+
+Another paragraph
+~~~
+
+There is no `*` after the closing delimiter. (This is similar to how you can add `$` or `@` after the opening delimiter to specify the type of inline math resource.)
 
 {#tables}
 ## Tables
