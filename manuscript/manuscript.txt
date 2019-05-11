@@ -6364,13 +6364,17 @@ Markua supports definition lists; Markdown does not (except via inline HTML).
 
 Markdown does not specify a table syntax. Since Markdown supports inline HTML, it does not need to--if you want a table, you can simply use an inline HTML table. Since Markua does not support inline HTML, Markua defines a [table syntax](#tables).
 
-## Code Samples
+## Code Blocks
 
 The backtick syntax of adding inline code resources as spans is identical to the code span syntax of Markdown, however the optional attribute list is Markua-specific.
 
 The syntax for inline code resource figures is similar to the "fenced code blocks" syntax of many Markdown extensions, such as PHP Markdown Extra and GitHub Flavoured Markdown.
 
 The "four space indent" method of creating code blocks in Markdown is not supported in Markua. You cannot create an inline code figure this way. It may be slightly more pleasant to read, but it's obnoxious as hell to write, and it has terrible effects on the rest of the specification.
+
+## Code Spans
+
+Finally, unlike in CommonMark, code spans cannot contain newlines in Markua. CommonMark needs to support this because it supports "soft" line breaks (which turn into single spaces). Markua only supports hard line breaks (which turn into break tags), so the main requirement to support code spans is gone. What you're left with is something which is highly confusing in how newlines within a code span would be handled, compared to how they are handled in code blocks. So, they are not supported.
 
 ## Horizontal Rules and Scene Breaks
 
@@ -6433,7 +6437,7 @@ As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of 
 {#todo}
 # TODO
 
-DECISION: code spans cannot contain line breaks. For this you must use code blocks. Too confusing and inconsistent.
+
 
 
 BREAK TAGS:
@@ -9648,14 +9652,13 @@ bar</p>
 
 ## Code spans
 
-xxx
-
 A [backtick string](@) is a string of one or more backtick characters (`` ` ``) that is neither preceded nor followed by a backtick.
 
-A [code span](@) begins with a backtick string and ends with a backtick string of equal length.  The contents of the code span are the characters between the two backtick strings, normalized in the following ways:
+Code spans cannot contain [line endings] in Markua.
 
-- First, [line endings] are converted to [spaces].
-- If the resulting string both begins *and* ends with a [space] character, but does not consist entirely of [space] characters, a single [space] character is removed from the front and back.  This allows you to include code that begins or ends with backtick characters, which must be separated by whitespace from the opening or closing backtick strings.
+A [code span](@) begins with a backtick string and ends with a backtick string of equal length.  The contents of the code span are the characters between the two backtick strings, normalized in the following way:
+
+If the resulting string both begins *and* ends with a [space] character, but does not consist entirely of [space] characters, a single [space] character is removed from the front and back.  This allows you to include code that begins or ends with backtick characters, which must be separated by whitespace from the opening or closing backtick strings.
 
 This is a simple code span:
 
