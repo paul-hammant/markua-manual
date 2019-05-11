@@ -535,7 +535,9 @@ Superscript
 Subscript
 : To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
 
-Note that more than four consecutive underscores or asterisks is an error.
+Note that any emphasis which is created with asterisks and underscores (i.e. bold, italic, underline and their combinations) can nest, and can contain line breaks. This is discussed [later](#nesting-formatting).
+
+Finally, note that more than four consecutive underscores or asterisks is an error.
 
 View the [HTML mapping](#text-formatting-html).
 
@@ -4818,9 +4820,34 @@ If a Markua Processor recognizes that a given Unicode character is not present i
 
 Markua Processors may detect the language of the Markua document and output various text in the correct manner. This includes the localization of things like punctuation, the table of contents, etc.
 
+{#nesting-formatting}
 ## Nesting Formatting
 
-It is possible to nest formatting. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
+It is possible to nest formatting.
+
+There are good reasons to do this:
+
+~~~
+*You can **bold** a word in an italic sentence.*
+~~~
+
+You can even include single newlines in the nested formatting:
+
+~~~
+This is *italic
+and **bold** and
+still italic*. Now it's not.
+~~~
+
+You cannot, however, include blank lines in nested formatting:
+
+~~~
+This is *not italic
+
+since it spans multiple paragraphs.*
+~~~
+
+You can even smush the formatting delimiters right up against each other. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
 
 So, if the `italicize-underlines` global setting is `false`, the following combinations work:
 
@@ -6438,15 +6465,6 @@ As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of 
 
 {#todo}
 # TODO
-
-
-
-
-BREAK TAGS:
-
-<br/>
-
-<br />
 
 
 Emphasis can contain line breaks.
