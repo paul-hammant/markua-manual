@@ -3,7 +3,13 @@
 
 This is the part of the Markua Specification which is intended for authors. If you are an author who is looking to write a book or course in Markua, this is the part you should read! If you are a programmer who is implementing a Markua Processor, you will want to read both this part and the [Parsing Markua](#parsing-markua) part after it.
 
-**Leanpub authors:** To see the status of Leanpub's Markua support, see [this appendix](#leanpub-markua-implementation-status).
+I> # Note for Leanpub Authors
+I>
+I> Markua is in beta on Leanpub, and there are differences between Markua, Markdown and Leapnub Flavoured Markdown.
+I>
+I> * Leanpub's Markua support status: see [this appendix](#leanpub-markua-implementation-status)
+I> * Differences between Markua and Markdown: see [this appendix]#differences-with-markdown)
+I> * Differences between Markua and Leanpub Flavoured Markdown (LFM): see [this appendix](#differences-with-lfm)
 
 # Philosophy
 
@@ -183,7 +189,7 @@ The primary reason that Markdown is a great way to write is that it was designed
 
 > The overriding design goal for Markdown's formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions. While Markdown's syntax has been influenced by several existing text-to-HTML filters, the single biggest source of inspiration for Markdown's syntax is the format of plain text email.
 
-Markua is heavily inspired by Markdown. What Markua does is to map most (not all!) Markdown syntax to book concepts, makes some small changes, and then adds some new syntax and concepts of its own. The differences between Markua and Markdown are discussed [in-depth later](#markdown). However, there's one extremely important thing to emphasize first:
+Markua is heavily inspired by Markdown. What Markua does is to map most (not all!) Markdown syntax to book concepts, makes some small changes, and then adds some new syntax and concepts of its own. The differences between Markua and Markdown are discussed [in-depth later](#differences-with-markdown). However, there's one extremely important thing to emphasize first:
 
 **The most popular subset of Markdown syntax is used virtually unchanged in Markua.**
 
@@ -6291,7 +6297,7 @@ Portions of the Markua Specification related to the parsing of Markua and the ma
 
 Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the parts of the CommonMark Spec were incorporated into the Markua Specification is that the CommonMark Spec is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to incorporate and adapt the parts of the CommonMark Spec which apply.
 
-{#markdown}
+{#differences-with-markdown}
 ## Differences with Markdown
 
 Markua has a number of differences from Markdown as defined by John Gruber. These are the main ones, at a high-level. For a detailed description of the the differences between Markua and CommonMark, compare the Mapping section of this specification to the CommonMark Spec.
@@ -6486,6 +6492,7 @@ Markua supports this method of inserting block elements.
 
 However, Markua is more than just a way of producing HTML. Markua is a way of authoring books. HTML is just one of the many output formats of Markua. And in books, there is a long history of embedding lists, code samples and figures in the middle of a paragraph--not in a separate top-level element, in the actual middle of the paragraph. So, Markua [supports this too](#inserting-into-paras).
 
+{#differences-with-lfm}
 ## Differences with Leanpub Flavoured Markdown (LFM)
 
 Besides differences with Markdown in general, Markua also has a number of specific differences with Leanpub Flavoured Markdown (LFM).
