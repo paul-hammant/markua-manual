@@ -2280,27 +2280,41 @@ Here's a paragraph after the figure.
 
 If you wonder why I'm a fan of AsciiMath: I actually got that right on the first try at the [AsciiMath website](http://asciimath.org/).
 
-NOTE:
+###### Writing about AsciiMath
 
-TODO
+If you want to write about AsciiMath, and show the actual AsciiMath code (instead of the formatted output), it needs to be of a `format` of `code`, not `math`.
 
-If you want to write about asciimath, and show the code:
+Now, you can just be lazy and not provide `format` or `type` attributes at all, since guessing when neither is present always produces a type of `code`.
+
+```
+abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
+```
+
+However, you can also just specify both, either this way...
 
 {type: code}
 ```asciimath
 abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
 ```
 
+...or this way:
+
 {type: code, format: asciimath}
 ```
 abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
 ```
 
-guessing is always {type: code}
-```
+Or you can just specify text:
+
+```text
 abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
 ```
 
+Heck, you can even use tildes:
+
+~~~
+abs(sum_(i=1)^n a_i b_i) <= (sum_(i=1)^n a_i^2)^(1/2) (sum_(i=1)^n b_i^2)^(1/2)
+~~~
 
 ##### MathML
 
