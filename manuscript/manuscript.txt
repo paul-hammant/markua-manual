@@ -12029,11 +12029,9 @@ foo@bar.example.com
 
 ## Hard line breaks
 
-Unlike Markdown, all line breaks which are not in code blocks
+Unlike Markdown, all line breaks are hard breaks, and produce `<br/>` tags in HTML. (In Markdown, a line break which is not preceded by two spaces is a "soft line break" which does not actually cause a `<br/>` tag.
 
-xxx
-
-A line break (not in a code span or HTML tag) that does not occur at the end of a block is parsed as a [hard line break](@) (rendered in HTML as a `<br />` tag):
+A> A Markua Processor may output either `<br/>` or `<br />` for break tags. The former looks nicer; the latter is more compatible with outdated web browsers.
 
 ##### Example
 
