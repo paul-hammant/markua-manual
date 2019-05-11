@@ -512,7 +512,7 @@ Italic
 : To produce *italic text*, surround it with `*one asterisk*`.
 
 Underlined
-: To produce _underlined text_, surround it with `_one underscore_`.
+: To produce _underlined text_, surround it with `_one underscore_`.  (You can force **all** underlines to produce *italic text*, however, with the [italicize-underlines](#italicize-underlines) global setting for details.)
 
 Bold
 : To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
