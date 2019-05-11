@@ -6519,6 +6519,12 @@ If you are an author who is looking to write a book or course in Markua, you can
 
 As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of CommonMark](#copyright-ccby-commonmark), portions of this part are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
 
+W> This part is an in-progress mess, compared to the previous part, Markua for Authors(#markua-for-authors). I'm publishing the Markua spec in this state for three reasons:
+W>
+W> 1. The content in this part is only useful for people building Markua parsers, which is less than 1% of the audience of this spec.
+W> 2. The Markua for Authors content is far better now than it was previously, and I don't want to block that part on this one.
+W> 3. I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
+
 # Introduction
 
 This part contains two things:
