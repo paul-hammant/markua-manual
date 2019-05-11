@@ -4768,7 +4768,9 @@ Also, note that it is **NEVER** acceptable for a Markua Processor to do this, or
 
 Curly braces and backticks are special in Markua.
 
-TODO - broaden backslash escape
+A backslash can "escape" a single character, to prevent it from having any special meaning.
+
+TODO - broaden backslash escape (see CommonMark vs Markdown).
 
 At the beginning of a line, an opening curly brace (`{`) starts an attribute list, and two opening curly braces (`{{`) start a placeholder. In the middle of a block element, an opening curly brace starts an index entry. And, at the top of a manuscript.txt file (if the single file approach is used), an opening curly brace starts a settings block.
 
@@ -5132,15 +5134,15 @@ Attributes are used to do everything from specify the language of code blocks, a
 
 An attribute list is one or more key-value, comma-separated pairs:
 
-`{key_one: value1, key_two: value_two, key_three: "value three!", key_four: true, key_five: 0, key_six: 3.14}`
+`{key_one: value_one, key_two: "value two", key_three: 'value three!', key_four: true, key_five: 0, key_six: 3.14, key_seven: this works}`
 
 Note that you can skip the space between the colon and the value: the following `{format: ruby}` and `{format:ruby}` both work. However, for consistency I recommend always adding a space.
 
-Note that the values can be in quotes. These quotes are double quotes (`"`), not single quotes (`'`).
+Note that attribute values can be in no quotes, in double quotes (`"`) or single quotes (`'`). Whenever an attribute contains spaces, using either double or single quotes is preferred to no quotes, but you can get away with using no quotes as long as the attribute value does not contain a comma.
 
-TODO - support single quotes as well, you can nest single inside double and vice-versa. only diff is you can nest the opp quote inside it.
+The choice of double or single quotes is mostly personal taste. However, inside double quotes, a double quote must be backslash-escaped (`\"`); inside  single quotes, a single quote must be backslash-escaped (`\'`). So, if your attribute value has a lot of double quotes, then it's more convenient to wrap it in single quotes, and vice-versa.
 
-Regardless of whether quotes are used, leading and trailing spaces are removed from all attribute values, but internal spaces are preserved.
+Regardless of whether quotes are used, leading and trailing spaces are removed from all attribute values, but internal spaces within the attribute values are preserved.
 
 An attribute list can be inserted into a Markua document in one of three ways:
 
