@@ -3,6 +3,8 @@
 
 This is the part of the Markua Specification which is intended for authors. If you are an author who is looking to write a book or course in Markua, this is the part you should read! If you are a programmer who is implementing a Markua Processor, you will want to read both this part and the [Parsing Markua](#parsing-markua) part after it.
 
+A> Leanpub authors: To see the status of Leanpub's Markua support, see [the Leanpub's Markua Implementation Status appendix](#leanpub-markua-implementation-status).
+
 # Philosophy
 
 ## The Magical Typewriter
@@ -206,303 +208,6 @@ So, I started over. I started with Markdown. I then removed or changed the few t
 ## Why the Name "Markua"?
 
 When I set out to specify Markua, I realized I needed a name. I wanted a name that conveyed the warmth and love that I have for Markdown, for writing and for writers, while not implying endorsement by John Gruber in any way. I also did not want a name which referenced Leanpub: Markua is a standalone specification with its own identity, which anyone (including Leanpub competitors) can freely implement. Finally, I was on vacation in Hawaii when I named Markua, and I wanted something that sounded happy, friendly and almost Hawaiian. (Yes, I'm aware that there is no r in Hawaiian.) I also wanted a name that had its .com domain name available, and that was short and spellable, for branding purposes. The Markua name does have all these properties, and I feel it is a really good brand for what I'm trying to accomplish.
-
-{#handling-errors-and-warnings}
-## Handling Errors and Warnings
-
-Markua is very easy to write in. However, it is possible (especially when creating a course) to make mistakes.
-
-There are three types of issues which can occur:
-
-Warning
-: This is a situation where the author is not making a mistake according to the Markua Specification, but the Markua Processor may not be able to do what is intended. This includes things like unrecognized or unsupported attributes, or Markua features which have not been implemented by the Markua Processor. When a Markua Processor encounters content which produces a warning, it should format the text block which contains the warning-producing content as well as possible.
-
-Error
-: This is an error made by the author which should not prevent the book or course from being produced. This describes almost every error that can be made by an author. This can be as simple as too many consecutive asterisks in formatting text, to as complex as bugs with list indentation or table formatting. When a Markua Processor encounters an error, it should format the text block which contains the error as plain paragraph text.
-
-Fatal error
-: This is an error made by the author which should prevent the book or course from being produced. This basically never happens when creating a book in Markua, but it can happen when creating a course, if a quiz or exercise is invalid. (Since quizzes and exercises can be used by Markua Processors such as Leanpub to create MOOCs which students take for marks, it's crucial for them to be valid. It would do an author a disservice to publish a course with invalid quizzes or exercises.) When a Markua Processor encounters a fatal error, it should not generate a book or course from the Markua document.
-
-Throughout the Markua Specification, you will encounter the phrases "is a fatal error", "is an error" or "should produce a warning" to describe these cases.
-
-Whenever a Markua Processor encounters something which is an error (fatal or not) or should produce a warning, it should also add an error or warning message to a list of error and warning messages. The content of this message should ideally be helpful, and indicate the position of the error or warning in the Markua document, whether it is an error or a warning, and as much information about the error or warning as is helpful.
-
-The Markua Processor should keep going whenever possible, to continue processing the remainder of the Markua document. It would be really annoying for authors to only get one error or warning at a time from a Markua Processor. You want to find as many errors and warnings as possible.
-
-When a Markua Processor is done processing a Markua document, it should provide the list of errors and warnings to the author via the appropriate channels. For a web-based tool, this can be a web page and/or an email message. For a command-line tool, this can be command-line output and/or an error log file.
-
-Finally, a Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
-
-## Acknowledgments
-
-I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
-
-First, a huge thanks to [Scott Patten](https://twitter.com/scott_patten). Scott is the lead developer of Leanpub's book generation engine. Leanpub Flavoured Markdown would not have existed without Scott's code. Furthermore, Scott provided lots of valuable feedback in the development of the Markua specification, as well as adding Markua support to Leanpub's book generation engine. Scott gave me opinionated feedback on the Markua syntax, just as Aaron Swartz gave John Gruber feedback on the Markdown syntax. In many instances, e.g. the poetry syntax, what happens is that I come up with an idea which is good but flawed, Scott points the flaws out and suggests an alternative which often feels like giving into the status quo or feels too much like programming, I get really mad, and then I come up with something better than I would have otherwise. So, Markua probably also wouldn't exist if I couldn't--repeatedly and productively--get mad at Scott. (This sums up much of Leanpub's development, actually!)
-
-Second, I'd like to thank [Len Epp](https://twitter.com/lenepp). Len has been instrumental in the development of Leanpub. He joined in the very early days, and has greatly helped our customer development process, helping (as he likes to tease me) grow Leanpub over 100x before Scott and I made him a co-founder. Besides giving the Markua spec a thorough copy edit, he has been a strong advocate for the way a non-programmer thinks about writing. For example, Len got me to change my mind about the three-or-more newline handling case--so, if you enjoy using extra newlines, you have Len to thank!
-
-Third, I'd like to thank [Braden Simpson](https://twitter.com/bradensimpson). Braden has given me great feedback on crucial design decisions such as the image syntax.
-
-I'd like to thank my father, who has read the manuscript and given me feedback more than once. I'd also like to thank a number of people, alphabetically, who have given me feedback or helped in some way: Assaf Arkin, Alberto De Lucca, André Bacci, Ann Chia-hui Tai, Axel Rauschmayer, Dave Warnock, Iva Cheung, Jacob Evelyn, Joseph Harfouch, Justin Damer, Ken Pratt, Matt Fikowski and Michael Müller.
-
-Perhaps most important, Markua is built on Markdown. So, Markua literally would not exist without John Gruber and Aaron Swartz. Markua is now also using the CommonMark spec as the basis for specifying the HTML mapping, so I am really grateful to John MacFarlane and the team behind CommonMark. Markua is also benefitting from years of feedback about Leanpub Flavoured Markdown from many Leanpub authors. If it wasn't for these authors, there would be no Leanpub, and no Markua.
-
-Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
-
-{#markua-specification-status}
-## Markua Specification Status
-
-This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
-
-To read the specification manuscript in Markua, see <https://github.com/markuadoc/markua>.
-
-To stay current on Markua progress, follow [@peterarmstrong](https://twitter.com/peterarmstrong) or [@leanpub](https://twitter.com/leanpub) on Twitter.
-
-{#leanpub-markua-implementation-status}
-## Leanpub's Markua Implementation Status
-
-Markua support is currently in beta on Leanpub.
-
-Some portions of the Markua specification have not yet been implemented in Leanpub. Most of these portions have no corresponding syntax in [Leanpub Flavoured Markdown](https://leanpub.com/help/manual). Leanpub Flavoured Markdown has been used in Leanpub for over 8 years.
-
-I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
-
-Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself.
-
-How to read this:
-* If nothing or *unknown* is stated, then the implementation status of the given feature is unclear.
-* If there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown.
-* If a given section only has issues which are explained in subsections, then *(see below)* will be shown
-
-If you find any issues which are not listed here, please email <mailto:hello@leanpub.com>.
-
-Text Formatting
-: *(works)*
-
-Headings for Parts, Chapters and Sections
-: A header without a blank line after it should result in plain text, not a header
-
-Paragraphs and Blank Lines
-: *(works)*
-
-Resources
-: Code and images basically work, but many other types of resources have issues. See below for details.
-
-Resource Insertion Methods
-: The `class` attribute is not used.
-
-Resource Types and Formats
-: Support type attribute on resources
-
-Images
-: SVG support is not implemented yet (external or inline)
-: Some attributes are not supported fully
-: Support image attributes align, cite, url
-: Support inline resources (e.g. inline SVG images)
-: Fully support fullbleed attribute, not just in PDF
-: Prevent fullbleed attribute from leaking into EPUB (whitelist?)
-: Fix bugs with height attribute
-: Support image attributes cite, url
-
-Video
-: Support video attributes embed, fullbleed, height, width
-: Specifically forbid local video resources
-
-Audio
-: This is not implemented fully yet. Currently local audio does not work, and the only supported audio is a web resource.
-
-Code
-: Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
-: Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
-: The amounth of space after code figures should be more configurable.
-: Support inline local code resources, which are output as a span or figure based on 1 or n lines
-: Support syntax highlighting of inline code spans
-: We should not be collapsing spaces in code spans in HTML and EPUB.
-
-Poetry
-: This is not implemented yet.
-
-Tables
-: For simple tables, ensure that separators have at least three dashes and that other restrictions are enforced
-: Support external tables
-: Support table of tables (like table of contents)
-: Table caption issue with unquoted captions
-: Support table widths attributes on columns
-: For complex tables, column alignment is interpreted as on a cell, not the whole column
-
-Math
-: Support AsciiMath
-: Support MathML
-: Support the `{format: blah}` format of attribute on math blocks and spans
-: Support inline math resources
-
-Whitespace: Spaces, Tabs and Newlines
-: *(works)*
-
-Newlines
-: *(works)*
-
-Spaces and Tabs
-: *(works)*
-
-Lists
-: *(works)*
-
-Bulleted Lists
-: *(works)*
-
-Numbered Lists
-: *(works)*
-
-Simple Lists
-: *(works)*
-
-Flat Lists
-: *(works)*
-
-Complex Lists
-: *(works)*
-
-Definition Lists
-: Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
-
-Block Elements
-: *(works)*
-
-Scene Breaks (`* * *`)
-: *(works)*
-
-Page Breaks (`===`)
-: *(works)*
-
-Blockquotes (`>`)
-: Support cite and url attributes
-: Support blockquotes inside of a paragraph (currently they force new paragraphs before and after them)
-
-Asides (`A>` or `{aside}`)
-: *(works)*
-
-Blurbs (`B>` or `{blurb}`)
-: Blurbs separated with blank lines are incorrectly combined
-
-Inserting Block Elements Inside Paragraphs
-: *unknown*
-
-Quizzes and Exercises
-: Figure out correct behaviour for the TOC
-
-Span Elements
-: *(see below)*
-
-Links
-: Add warning about relative URLs
-
-Explicitly Creating Spans with `[`...`]`
-: *(works)*
-
-Footnotes and Endnotes
-: Need to allow carets (`^`) in link text which are not in footnotes
-: Endnotes do not show up in EPUB
-: Do more testing on footnotes to ensure they work when nested inside nested block elements etc.
-
-Crosslinks and ids
-: Support "Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks" section
-: Support crosslinks on spans
-: The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
-
-Character Substitution
-: Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
-
-Escaping Special Characters with Backslash (`\`)
-: *unknown*
-
-Backticks (`` ` ``)
-: Support "if you want to output a backtick in a code span, you need to delimit the code span using two backticks"
-
-Unicode Entities with `\u`
-: This is not implemented yet.
-
-Internationalization
-: We need to use the correct type of quotation marks for Polish, Swedish, etc.
-: In books whose main language is English, there are display issues with characters from other languages (e.g. Tamil)
-
-Nesting Formatting
-: When text formatting is incorrectly nested we need to output all the `*` and `_` characters
-
-Emoji
-: This is not implemented yet.
-: Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
-
-Placeholders
-: This is not implemented yet.
-
-CriticMarkup
-: This is not implemented yet.
-
-A Hack for Forcing Whitespace
-: *(works)*
-
-Concatenating Files and Blank Lines
-: *(works)*
-
-Metadata
-: Many features here are unimplemented. See below for details.
-: We need to support Markua span formatting on custom copyright messages
-
-Attributes
-: Support ids and other attributes on span elements
-: Raise user-visible errors for illegal attribute values
-: Support `web` and `course-web` conditional inclusion attributes
-
-Index Entries
-: This is not implemented yet.
-
-Directives
-: Many directives are not implemented yet.
-: Add section directives to Leanpub
-: Remove the `{frontmatter}`, `{mainmatter}` and `{backmatter}` LFM directives once Markua section directives (e.g. `{section: mainmatter}`) are supported.
-: Support `exercise-answers` and `quiz-answers`.
-: Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
-: Use `table-of-contents` not `toc`.
-: Support language directives
-: Support Conditional Inclusion Attributes on Headings (all that works right now is `book` and `sample`)
-: Remove the `{pagebreak}` directive in Markua mode (this is from LFM)
-
-Settings
-: Many settings are not implemented yet.
-: Get rid of code that treats Settings.txt as a special file in Markua books
-: Handle curly braces in settings block
-
-Courses
-: *(see below)*
-
-Quizzes and Exercises
-: Need to prevent two consecutive exercises from being combined into one
-: Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
-: In an answer, semicolons inside of quotes should be treated as plain text
-: Option to show {answer}...{/answer} content for Exercise questions in the back of a book
-: Implement auto-submit and time-limit for quizzes
-
-Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
-: Multiple Selection questions are not implemented yet
-: Written questions are not supported yet
-
-Markua Processor Behaviour
-: *unknown*
-
-Question Alternates
-: *(works)*
-
-{#copyright-ccby-commonmark}
-## Copyright, CC BY-SA License, and CC Attribution of CommonMark
-
-The Markua Specification is copyright © 2014 - 2019 Peter Armstrong.
-
-The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license.
-
-Portions of the Markua Specification related to the parsing of Markua and the mapping of Markua to HTML, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. These portions are almost entirely contained in the [Parsing Markua](#parsing-markua) part, which is the second part of the Markua Specification.
-
-Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the parts of the CommonMark Spec were incorporated into the Markua Specification is that the CommonMark Spec is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to incorporate and adapt the parts of the CommonMark Spec which apply.
 
 {#text-formatting}
 # Text Formatting
@@ -6278,13 +5983,312 @@ Question alternates can also be grouped by a `choose-questions` attribute attach
 
 A Markua Processor must treat any error in the numbering of question alternates (and the questions which follow) as an error, and not generate the quiz if there is any error. This is preferable to a Markua Processor of trying to guess at what the author meant, and trying to do the right thing. Fixing a syntax error takes a couple minutes of editing and a few minutes to publish the book or course again. However, fixing the consequences of a quiz being administered to hundreds--or thousands, or tens of thousands--of people with an incorrect number of questions, or with questions incorrectly used as alternates for each other, would be much more difficult.
 
+# Appendices
+
+{#handling-errors-and-warnings}
+## Handling Errors and Warnings
+
+Markua is very easy to write in. However, it is possible (especially when creating a course) to make mistakes.
+
+There are three types of issues which can occur:
+
+Warning
+: This is a situation where the author is not making a mistake according to the Markua Specification, but the Markua Processor may not be able to do what is intended. This includes things like unrecognized or unsupported attributes, or Markua features which have not been implemented by the Markua Processor. When a Markua Processor encounters content which produces a warning, it should format the text block which contains the warning-producing content as well as possible.
+
+Error
+: This is an error made by the author which should not prevent the book or course from being produced. This describes almost every error that can be made by an author. This can be as simple as too many consecutive asterisks in formatting text, to as complex as bugs with list indentation or table formatting. When a Markua Processor encounters an error, it should format the text block which contains the error as plain paragraph text.
+
+Fatal error
+: This is an error made by the author which should prevent the book or course from being produced. This basically never happens when creating a book in Markua, but it can happen when creating a course, if a quiz or exercise is invalid. (Since quizzes and exercises can be used by Markua Processors such as Leanpub to create MOOCs which students take for marks, it's crucial for them to be valid. It would do an author a disservice to publish a course with invalid quizzes or exercises.) When a Markua Processor encounters a fatal error, it should not generate a book or course from the Markua document.
+
+Throughout the Markua Specification, you will encounter the phrases "is a fatal error", "is an error" or "should produce a warning" to describe these cases.
+
+Whenever a Markua Processor encounters something which is an error (fatal or not) or should produce a warning, it should also add an error or warning message to a list of error and warning messages. The content of this message should ideally be helpful, and indicate the position of the error or warning in the Markua document, whether it is an error or a warning, and as much information about the error or warning as is helpful.
+
+The Markua Processor should keep going whenever possible, to continue processing the remainder of the Markua document. It would be really annoying for authors to only get one error or warning at a time from a Markua Processor. You want to find as many errors and warnings as possible.
+
+When a Markua Processor is done processing a Markua document, it should provide the list of errors and warnings to the author via the appropriate channels. For a web-based tool, this can be a web page and/or an email message. For a command-line tool, this can be command-line output and/or an error log file.
+
+Finally, a Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
+
+## Acknowledgments
+
+I ([Peter Armstrong](https://twitter.com/peterarmstrong)) am the creator of Markua, but I'm getting lots of help, especially from my Leanpub cofounders Scott Patten, Len Epp and Braden Simpson.
+
+First, a huge thanks to [Scott Patten](https://twitter.com/scott_patten). Scott is the lead developer of Leanpub's book generation engine. Leanpub Flavoured Markdown would not have existed without Scott's code. Furthermore, Scott provided lots of valuable feedback in the development of the Markua specification, as well as adding Markua support to Leanpub's book generation engine. Scott gave me opinionated feedback on the Markua syntax, just as Aaron Swartz gave John Gruber feedback on the Markdown syntax. In many instances, e.g. the poetry syntax, what happens is that I come up with an idea which is good but flawed, Scott points the flaws out and suggests an alternative which often feels like giving into the status quo or feels too much like programming, I get really mad, and then I come up with something better than I would have otherwise. So, Markua probably also wouldn't exist if I couldn't--repeatedly and productively--get mad at Scott. (This sums up much of Leanpub's development, actually!)
+
+Second, I'd like to thank [Len Epp](https://twitter.com/lenepp). Len has been instrumental in the development of Leanpub. He joined in the very early days, and has greatly helped our customer development process, helping (as he likes to tease me) grow Leanpub over 100x before Scott and I made him a co-founder. Besides giving the Markua spec a thorough copy edit, he has been a strong advocate for the way a non-programmer thinks about writing. For example, Len got me to change my mind about the three-or-more newline handling case--so, if you enjoy using extra newlines, you have Len to thank!
+
+Third, I'd like to thank [Braden Simpson](https://twitter.com/bradensimpson). Braden has given me great feedback on crucial design decisions such as the image syntax.
+
+I'd like to thank my father, who has read the manuscript and given me feedback more than once. I'd also like to thank a number of people, alphabetically, who have given me feedback or helped in some way: Assaf Arkin, Alberto De Lucca, André Bacci, Ann Chia-hui Tai, Axel Rauschmayer, Dave Warnock, Iva Cheung, Jacob Evelyn, Joseph Harfouch, Justin Damer, Ken Pratt, Matt Fikowski and Michael Müller.
+
+Perhaps most important, Markua is built on Markdown. So, Markua literally would not exist without John Gruber and Aaron Swartz. Markua is now also using the CommonMark spec as the basis for specifying the HTML mapping, so I am really grateful to John MacFarlane and the team behind CommonMark. Markua is also benefitting from years of feedback about Leanpub Flavoured Markdown from many Leanpub authors. If it wasn't for these authors, there would be no Leanpub, and no Markua.
+
+Finally, I would like to thank my wife Caroline and my son Evan: while this is not as long as my other books, a lot of thought and effort went into it, and a lot of sacrifice. Thanks very much.
+
+{#markua-specification-status}
+## Markua Specification Status
+
+This is an in-progress, beta-quality specification. It is being constantly updated at <https://leanpub.com/markua>. To read the specification in PDF, EPUB, MOBI or HTML format, go there.
+
+To read the specification manuscript in Markua, see <https://github.com/markuadoc/markua>.
+
+To stay current on Markua progress, follow [@peterarmstrong](https://twitter.com/peterarmstrong) or [@leanpub](https://twitter.com/leanpub) on Twitter.
+
+{#leanpub-markua-implementation-status}
+## Leanpub's Markua Implementation Status
+
+Markua support is currently in beta on Leanpub.
+
+Some portions of the Markua specification have not yet been implemented in Leanpub. Most of these portions have no corresponding syntax in [Leanpub Flavoured Markdown](https://leanpub.com/help/manual). Leanpub Flavoured Markdown has been used in Leanpub for over 8 years.
+
+I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
+
+Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself.
+
+How to read this:
+* If nothing or *unknown* is stated, then the implementation status of the given feature is unclear.
+* If there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown.
+* If a given section only has issues which are explained in subsections, then *(see below)* will be shown
+
+If you find any issues which are not listed here, please email <mailto:hello@leanpub.com>.
+
+Text Formatting
+: *(works)*
+
+Headings for Parts, Chapters and Sections
+: A header without a blank line after it should result in plain text, not a header
+
+Paragraphs and Blank Lines
+: *(works)*
+
+Resources
+: Code and images basically work, but many other types of resources have issues. See below for details.
+
+Resource Insertion Methods
+: The `class` attribute is not used.
+
+Resource Types and Formats
+: Support type attribute on resources
+
+Images
+: SVG support is not implemented yet (external or inline)
+: Some attributes are not supported fully
+: Support image attributes align, cite, url
+: Support inline resources (e.g. inline SVG images)
+: Fully support fullbleed attribute, not just in PDF
+: Prevent fullbleed attribute from leaking into EPUB (whitelist?)
+: Fix bugs with height attribute
+: Support image attributes cite, url
+
+Video
+: Support video attributes embed, fullbleed, height, width
+: Specifically forbid local video resources
+
+Audio
+: This is not implemented fully yet. Currently local audio does not work, and the only supported audio is a web resource.
+
+Code
+: Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
+: Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
+: The amounth of space after code figures should be more configurable.
+: Support inline local code resources, which are output as a span or figure based on 1 or n lines
+: Support syntax highlighting of inline code spans
+: We should not be collapsing spaces in code spans in HTML and EPUB.
+
+Poetry
+: This is not implemented yet.
+
+Tables
+: For simple tables, ensure that separators have at least three dashes and that other restrictions are enforced
+: Support external tables
+: Support table of tables (like table of contents)
+: Table caption issue with unquoted captions
+: Support table widths attributes on columns
+: For complex tables, column alignment is interpreted as on a cell, not the whole column
+
+Math
+: Support AsciiMath
+: Support MathML
+: Support the `{format: blah}` format of attribute on math blocks and spans
+: Support inline math resources
+
+Whitespace: Spaces, Tabs and Newlines
+: *(works)*
+
+Newlines
+: *(works)*
+
+Spaces and Tabs
+: *(works)*
+
+Lists
+: *(works)*
+
+Bulleted Lists
+: *(works)*
+
+Numbered Lists
+: *(works)*
+
+Simple Lists
+: *(works)*
+
+Flat Lists
+: *(works)*
+
+Complex Lists
+: *(works)*
+
+Definition Lists
+: Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
+
+Block Elements
+: *(works)*
+
+Scene Breaks (`* * *`)
+: *(works)*
+
+Page Breaks (`===`)
+: *(works)*
+
+Blockquotes (`>`)
+: Support cite and url attributes
+: Support blockquotes inside of a paragraph (currently they force new paragraphs before and after them)
+
+Asides (`A>` or `{aside}`)
+: *(works)*
+
+Blurbs (`B>` or `{blurb}`)
+: Blurbs separated with blank lines are incorrectly combined
+
+Inserting Block Elements Inside Paragraphs
+: *unknown*
+
+Quizzes and Exercises
+: Figure out correct behaviour for the TOC
+
+Span Elements
+: *(see below)*
+
+Links
+: Add warning about relative URLs
+
+Explicitly Creating Spans with `[`...`]`
+: *(works)*
+
+Footnotes and Endnotes
+: Need to allow carets (`^`) in link text which are not in footnotes
+: Endnotes do not show up in EPUB
+: Do more testing on footnotes to ensure they work when nested inside nested block elements etc.
+
+Crosslinks and ids
+: Support "Referencing Chapter, Section and Figure Heading Names and Numbers in Crosslinks" section
+: Support crosslinks on spans
+: The `{#some-id}` syntax does not currently work when there are other attributes in the attribute list. So, in that case, you must currently use the `{id: some-id}` syntax if you are adding other attributes in a larger attribute list. You currently **CANNOT** add the `{#some-id}` to an attribute list. (This is also mentioned in the body of the spec. Once this works, remove it from both places.)
+
+Character Substitution
+: Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
+
+Escaping Special Characters with Backslash (`\`)
+: *unknown*
+
+Backticks (`` ` ``)
+: Support "if you want to output a backtick in a code span, you need to delimit the code span using two backticks"
+
+Unicode Entities with `\u`
+: This is not implemented yet.
+
+Internationalization
+: We need to use the correct type of quotation marks for Polish, Swedish, etc.
+: In books whose main language is English, there are display issues with characters from other languages (e.g. Tamil)
+
+Nesting Formatting
+: When text formatting is incorrectly nested we need to output all the `*` and `_` characters
+
+Emoji
+: This is not implemented yet.
+: Support Font Awesome in emoji syntax, such as `:fa-leanpub:`
+
+Placeholders
+: This is not implemented yet.
+
+CriticMarkup
+: This is not implemented yet.
+
+A Hack for Forcing Whitespace
+: *(works)*
+
+Concatenating Files and Blank Lines
+: *(works)*
+
+Metadata
+: Many features here are unimplemented. See below for details.
+: We need to support Markua span formatting on custom copyright messages
+
+Attributes
+: Support ids and other attributes on span elements
+: Raise user-visible errors for illegal attribute values
+: Support `web` and `course-web` conditional inclusion attributes
+
+Index Entries
+: This is not implemented yet.
+
+Directives
+: Many directives are not implemented yet.
+: Add section directives to Leanpub
+: Remove the `{frontmatter}`, `{mainmatter}` and `{backmatter}` LFM directives once Markua section directives (e.g. `{section: mainmatter}`) are supported.
+: Support `exercise-answers` and `quiz-answers`.
+: Ensure that the `toc` directive is used to position the Table of Contents, so that people can add things like endorsement pages in advance of it, etc.
+: Use `table-of-contents` not `toc`.
+: Support language directives
+: Support Conditional Inclusion Attributes on Headings (all that works right now is `book` and `sample`)
+: Remove the `{pagebreak}` directive in Markua mode (this is from LFM)
+
+Settings
+: Many settings are not implemented yet.
+: Get rid of code that treats Settings.txt as a special file in Markua books
+: Handle curly braces in settings block
+
+Courses
+: *(see below)*
+
+Quizzes and Exercises
+: Need to prevent two consecutive exercises from being combined into one
+: Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
+: In an answer, semicolons inside of quotes should be treated as plain text
+: Option to show {answer}...{/answer} content for Exercise questions in the back of a book
+: Implement auto-submit and time-limit for quizzes
+
+Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
+: Multiple Selection questions are not implemented yet
+: Written questions are not supported yet
+
+Markua Processor Behaviour
+: *unknown*
+
+Question Alternates
+: *(works)*
+
+{#copyright-ccby-commonmark}
+## Copyright, CC BY-SA License, and CC Attribution of CommonMark
+
+The Markua Specification is copyright © 2014 - 2019 Peter Armstrong.
+
+The Markua Specification is available under the Creative Commons Attribution-ShareAlike 4.0 International ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)) license.
+
+Portions of the Markua Specification related to the parsing of Markua and the mapping of Markua to HTML, are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license. These portions are almost entirely contained in the [Parsing Markua](#parsing-markua) part, which is the second part of the Markua Specification.
+
+Markua is different from CommonMark, but both have their origins in Markdown, as [originally defined by John Gruber](https://daringfireball.net/projects/markdown/syntax). The reason that the parts of the CommonMark Spec were incorporated into the Markua Specification is that the CommonMark Spec is that it is the best specification of Markdown, and for someone implementing a Markua Processor it is helpful to understand exactly how Markua differs from Markdown. So, the best way to do that is to show how Markua differs from CommonMark, and the best way to do that is to incorporate and adapt the parts of the CommonMark Spec which apply.
+
 {#markdown}
-# Differences with Markdown
+## Differences with Markdown
 
 Markua has a number of differences from Markdown as defined by John Gruber. These are the main ones, at a high-level. For a detailed description of the the differences between Markua and CommonMark, compare the Mapping section of this specification to the CommonMark Spec.
 
 {#no-inline-html}
-## No Inline HTML
+### No Inline HTML
 
 Inline HTML, in which HTML is inserted directly in the content of a Markua document, is not supported in Markua.
 
@@ -6296,16 +6300,16 @@ By not supporting inline HTML, Markua imposes more constraints on writers who wo
 
 Now, one design benefit of the support for inline HTML in Markdown is that Markdown's syntax can stay artificially small--since Markdown authors can always fall back to using HTML directly, Markdown does not need to be able to produce all of HTML. Since Markua does not support inline HTML, Markua must contain all concepts that it supports directly expressed using Markua syntax. For example, there is no official table syntax in Markdown, and Markdown authors can just use inline HTML tables. Since Markua does not support inline HTML, and since books often require tables, Markua needs to add a table syntax.
 
-## No Reference Links
+### No Reference Links
 
 Markdown's reference link syntax and its implicit link name shortcuts are not supported in Markua. Markdown is a way of writing HTML designed by bloggers, and links are so plentiful in that medium that it makes some sense to support four syntaxes to create links. In ebooks, however, links are not as prevalent, so it makes sense to be opinionated here. Furthermore, in something as large as a book, the potential for id collisions in link definitions using the reference link syntax is a lot higher than in a blog post.
 
-## No Relative URLs
+### No Relative URLs
 
 In Markdown links, a URL can be either absolute (starting with `http://` or `https://`) or relative (just referring to a path like `/foo/bar.html`), since relative URLs can make sense when writing blog posts which live on web servers. In Markua, however, all URLs must be absolute (starting with `http://` or `https://`). (Yes, crosslinks can be thought of as relative URLs, but that's not what the point is.)
 
 {#markdown-newlines}
-## Newlines
+### Newlines
 
 In Markdown, you can manually wrap headings, paragraphs, lists and blockquotes with single newlines with no effect on the HTML output. Markdown, like HTML, treats single newlines as equivalent to single spaces.
 
@@ -6317,7 +6321,7 @@ Worse, some text editors (like Emacs, the editor I use) can be configured to rem
 
 Note that Markua handles two or more consecutive newlines identically to Markdown: they produce exactly one blank line, which separates block elements like paragraphs from each other.
 
-## Headings
+### Headings
 
 Markdown is a way of writing HTML, and HTML has 6 heading levels: `h1`, `h2`, `h3`, `h4`, `h5` and `h6`. In Markdown, you can create the 6 HTML heading levels using Markdown syntax.
 
@@ -6328,7 +6332,7 @@ Markua is also a lot more strict about heading syntax than Markdown. In Markdown
 To understand Markua headings and the differences with Markdown headings, it's helpful to understand the atx and Setext headings of Markdown.
 
 {#setext_headings}
-### Setext Headings in Markdown
+#### Setext Headings in Markdown
 
 In the Setext-style of Markdown headings, top level headings can be made by adding a row of equals signs `========` below the heading, and second level headings can be made by adding a row of minus signs `--------` below the heading.
 
@@ -6354,7 +6358,7 @@ There are two main issues with this style of heading in Markdown:
 2. It is confusing: Authors are confused about how many equals or minus signs you need to use. (As we saw above, the answer is 1, which looks disgusting.) Also, it's unclear whether you need to add a blank line below the row of equals signs or minus signs, and whether a heading is still produced if this is not done.
 
 {#atx_headings}
-### atx Headings in Markdown
+#### atx Headings in Markdown
 
 In Markdown, the other heading syntax is "atx" headers. The [atx format](http://www.aaronsw.com/2002/atx/intro) was created by Aaron Swartz in 2002, and is an important predecessor to Markdown. To create an atx heading, you put the following on a line by itself, with a blank line above and below it: between one and six pound signs (`#`), followed by one or more spaces or tabs, followed by text, followed optionally by whitespace and any number of `#` characters. The number of `#` characters determines the level of heading.
 
@@ -6376,7 +6380,7 @@ These are some atx headers in Markdown:
 
 Note that all the trailing `#` characters are ignored and are not part of the heading text.
 
-### Design Goals of Markua Headings
+#### Design Goals of Markua Headings
 
 From reading the above discussion, you'll recognize that Markua headings are a subset of Markdown's atx headers. Since this is a meaningful difference, I want to explain the design goals of Markua headings:
 
@@ -6391,11 +6395,11 @@ From reading the above discussion, you'll recognize that Markua headings are a s
 
 The design of Markua headings meets these requirements, in what I think is an optimal way.
 
-## Text Formatting
+### Text Formatting
 
 In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` produces an _underline_ unless the `italicize-underlines` global setting is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
 
-## Lists
+### Lists
 
 Markdown allows top-level lists to be indented by up to three spaces before the list delimiter. Markua does not allow this.
 
@@ -6403,7 +6407,7 @@ Markdown allows list markers to be followed by one or more spaces or a tab. Mark
 
 Markua splits lists simple and complex lists, and defines indentation rules about the use of tabs and spaces accordingly. Markdown has a number of fairly loose rules about lists and indentation.
 
-## Numbered Lists
+### Numbered Lists
 
 Note that Markua calls numbered lists "numbered", whereas in Markdown they are called "ordered".
 
@@ -6413,7 +6417,7 @@ Next, Markua lets you use closing parentheses (`)`) as list item delimiters; Mar
 
 Finally, Markua defines many more types of numbered list numbering than Markdown. In Markdown, the only type of numbering supported is decimal numbering starting from 1. If you need any more features, you need to use inline HTML. However, since Markua does not support inline HTML, Markua provides more list types and features.
 
-## Bulleted Lists
+### Bulleted Lists
 
 Note that Markua calls bulleted lists "bulleted", whereas in Markdown they are called "unordered".
 
@@ -6421,15 +6425,15 @@ First, and most important: in Markdown, lists and other block elements cannot be
 
 Next, both Markua and Markdown let you start items in a bulleted list with an asterisk (`*`) or hyphen (`-`). Markdown also lets you use a plus sign (`+`), but Markua does not. Having three syntaxes is just overkill, so Markua drops the plus--it's far less common than the asterisk and hyphen. This is the same decision made by GitHub Flavored Markdown, which also [supports](https://help.github.com/articles/markdown-basics/) `*` and `-` but not `+`.
 
-## Definition Lists
+### Definition Lists
 
 Markua supports definition lists; Markdown does not (except via inline HTML).
 
-## Tables
+### Tables
 
 Markdown does not specify a table syntax. Since Markdown supports inline HTML, it does not need to--if you want a table, you can simply use an inline HTML table. Since Markua does not support inline HTML, Markua defines a [table syntax](#tables).
 
-## Code Blocks
+### Code Blocks
 
 The backtick syntax of adding inline code resources as spans is identical to the code span syntax of Markdown, however the optional attribute list is Markua-specific.
 
@@ -6437,19 +6441,19 @@ The syntax for inline code resource figures is similar to the "fenced code block
 
 The "four space indent" method of creating code blocks in Markdown is not supported in Markua. You cannot create an inline code figure this way. It may be slightly more pleasant to read, but it's obnoxious as hell to write, and it has terrible effects on the rest of the specification.
 
-## Code Spans
+### Code Spans
 
 Finally, unlike in CommonMark, code spans cannot contain newlines in Markua. CommonMark needs to support this because it supports "soft" line breaks (which turn into single spaces). Markua only supports hard line breaks (which turn into break tags), so the main requirement to support code spans is gone. What you're left with is something which is highly confusing in how newlines within a code span would be handled, compared to how they are handled in code blocks. So, they are not supported.
 
-## Horizontal Rules and Scene Breaks
+### Horizontal Rules and Scene Breaks
 
 In Markdown, there are three types of ways of producing horizontal rules in HTML: by putting three or more asterisks (`***`), hyphens (`---`) or underscores (`___`) on a line by themselves, with or without spaces between them. Markua isn't in the business of producing HTML or horizontal rules. The `***` is used for scene breaks, `___` starts poetry, and `---` starts monospaced poetry.
 
-## Images
+### Images
 
 Images in Markua are inserted in essentially the same way they are in Markdown for what Markdown calls "inline images". Markdown's inline images are not to be confused with Markua's inline image support, which means to define an SVG image in the text of a Markua document. Markdown's reference style image syntax is not supported in Markua for *any* type of resource--including images. There are two main reasons for not supporting reference style resource syntax in Markua. First, resources in Markua are complex enough without also having a reference syntax for them. Second, in something as large as a book, the potential for id collisions in link definitions using the reference link syntax is a lot higher than in the blog post length of typical Markdown documents.
 
-## Inserting Block Elements Inside Paragraphs
+### Inserting Block Elements Inside Paragraphs
 
 In Markdown, lists and other block elements cannot be nested inside a paragraph. Instead, they all function like top-level siblings to a paragraph. This makes sense since Markdown is a way of producing HTML, and in HTML5 the W3C has [told anyone who wants to embed a list inside a paragraph to go pound sand](http://www.w3.org/TR/html5/grouping-content.html#the-p-element):
 
@@ -6473,7 +6477,7 @@ Markua supports this method of inserting block elements.
 
 However, Markua is more than just a way of producing HTML. Markua is a way of authoring books. HTML is just one of the many output formats of Markua. And in books, there is a long history of embedding lists, code samples and figures in the middle of a paragraph--not in a separate top-level element, in the actual middle of the paragraph. So, Markua [supports this too](#inserting-into-paras).
 
-# Differences with Leanpub Flavoured Markdown (LFM)
+## Differences with Leanpub Flavoured Markdown (LFM)
 
 Besides differences with Markdown in general, Markua also has a number of specific differences with Leanpub Flavoured Markdown (LFM).
 
@@ -13314,6 +13318,8 @@ Content A3 | Content B3 | Content C3
 ## Math
 
 Markua does not specify how math is output in HTML. It is perfectly acceptable for a Markua Processor to output any math block as an image or as the LaTeX or MathML text of the math equation itself.
+
+If MathJax is available, it is recommended for a Markua Processor to convert AsciiMath into MathML, and then use MathJax to format it.
 
 # Whitespace: Spaces, Tabs and Newlines
 
