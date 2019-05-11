@@ -226,6 +226,19 @@ The formatting in Markua is basic, semantic text formatting.
 
 ## TODO - this is turning into a mess
 
+`italicize-single-underlines` maybe better??
+
+~~~
+*italic*
+_underlined_ or _italic_
+**bold**
+__bold__
+***bold and italic***
+___bold and underlined___
+_***bold and italic and underlined***_
+____bold and italic and underlined____
+
+
 ## Formatting
 
 Bold
@@ -265,7 +278,7 @@ Bold + Underlined
 : To produce ___bold + underlined text___, surround it with `___three underscores___`.
 
 Bold + Italic + Underlined
-: To produce ****bold + italic + underlined text****, surround it with ____either____ `****four asterisks****` or `____four underscores____`.
+: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`.
 
 ## Formatting with `italicize-underlines` set to `false`
 
@@ -276,8 +289,7 @@ Bold + Italic
 : To produce ***bold + italic text***, surround it with `***three asterisks***`, `___three underscores___`.
 
 Bold + Italic + Underlined
-: To produce ****bold + italic + underlined text****, surround it with ____either____ `****four asterisks****` or `____four underscores____`.
-
+: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`.
 
 
 
