@@ -3,7 +3,7 @@
 
 This is the part of the Markua Specification which is intended for authors. If you are an author who is looking to write a book or course in Markua, this is the part you should read! If you are a programmer who is implementing a Markua Processor, you will want to read both this part and the [Parsing Markua](#parsing-markua) part after it.
 
-A> Leanpub authors: To see the status of Leanpub's Markua support, see [this appendix](#leanpub-markua-implementation-status).
+**Leanpub authors:** To see the status of Leanpub's Markua support, see [this appendix](#leanpub-markua-implementation-status).
 
 # Philosophy
 
@@ -222,7 +222,7 @@ Italic
 : To produce *italic text*, surround it with `*one asterisk*`.
 
 Underlined
-: To produce _underlined text_, surround it with `_one underscore_`.  (You can force **all** underlines to produce *italic text*, however, with the [italicize-underlines](#italicize-underlines) global setting for details.)
+: To produce _underlined text_, surround it with `_one underscore_`.  (Note that if you want Markua to function more like Markdown, you can force all underlines to produce *italic text* by setting the `italicize-underlines` [global setting](#italicize-underlines) to `true`).
 
 Bold
 : To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
