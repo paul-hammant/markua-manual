@@ -210,23 +210,28 @@ When I set out to specify Markua, I realized I needed a name. I wanted a name th
 {#handling-errors-and-warnings}
 ## Handling Errors and Warnings
 
-Throughout the Markua Specification, you will encounter the phrase "is an error" when describing incorrect Markua formatting. This can be as simple as too many consecutive asterisks in formatting text, to as complex as bugs with list indentation or table formatting.
+Markua is very easy to write in. However, it is possible (especially when creating a course) to make mistakes.
 
-You will also encounter the phrase "should produce a warning" for other types of issues with a Markua document which are warnings, not errors. This includes things like unrecognized or unsupported attributes.
+There are three types of issues which can occur:
 
-Whenever a Markua Processor encounters something which is an error or should produce a warning, it should do the following:
+Warning
+: This is a situation where the author is not making a mistake according to the Markua Specification, but the Markua Processor may not be able to do what is intended. This includes things like unrecognized or unsupported attributes, or Markua features which have not been implemented by the Markua Processor. When a Markua Processor encounters content which produces a warning, it should format the text block which contains the warning-producing content as well as possible.
 
-1. If it is an error, treat the erroneous Markua formatting as plain paragraph text. If it is as warning, format the Markua as well as possible.
-2. Add an error or warning message to a list of error and warning messages. The content of this message should ideally be helpful, and indicate the position of the error or warning in the Markua document, whether it is an error or a warning, and as much information about the error or warning as is helpful.
-3. Continue processing the remainder of the Markua document. It would be really annoying for authors to only get one error or warning at a time from a Markua Processor.
+Error
+: This is an error made by the author which should not prevent the book or course from being produced. This describes almost every error that can be made by an author. This can be as simple as too many consecutive asterisks in formatting text, to as complex as bugs with list indentation or table formatting. When a Markua Processor encounters an error, it should format the text block which contains the error as plain paragraph text.
+
+Fatal error
+: This is an error made by the author which should prevent the book or course from being produced. This basically never happens when creating a book in Markua, but it can happen when creating a course, if a quiz or exercise is invalid. (Since quizzes and exercises can be used by Markua Processors such as Leanpub to create MOOCs which students take for marks, it's crucial for them to be valid. It would do an author a disservice to publish a course with invalid quizzes or exercises.) When a Markua Processor encounters a fatal error, it should not generate a book or course from the Markua document.
+
+Throughout the Markua Specification, you will encounter the phrases "is a fatal error", "is an error" or "should produce a warning" to describe these cases.
+
+Whenever a Markua Processor encounters something which is an error (fatal or not) or should produce a warning, it should also add an error or warning message to a list of error and warning messages. The content of this message should ideally be helpful, and indicate the position of the error or warning in the Markua document, whether it is an error or a warning, and as much information about the error or warning as is helpful.
+
+The Markua Processor should keep going whenever possible, to continue processing the remainder of the Markua document. It would be really annoying for authors to only get one error or warning at a time from a Markua Processor. You want to find as many errors and warnings as possible.
 
 When a Markua Processor is done processing a Markua document, it should provide the list of errors and warnings to the author via the appropriate channels. For a web-based tool, this can be a web page and/or an email message. For a command-line tool, this can be command-line output and/or an error log file.
 
-A Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
-
-If a Markua Processor is generating an executable course, such as the MOOCs produced by Leanpub, it must not produce a new course version if there are any fatal errors.
-
-TODO - fatal error vs. non-fatal error. neither blocks processing, but fatal error blocks course and  book gen. invalid quizzes and exercises are fatal errors for courses.
+Finally, a Markua Processor is NOT allowed to output the list of errors and warnings in the output format(s) (such as PDF, EPUB, MOBI or HTML) which it is producing.
 
 ## Acknowledgments
 
