@@ -6059,14 +6059,7 @@ Some portions of the Markua specification have not yet been implemented in Leanp
 
 I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
 
-Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself.
-
-How to read this:
-* If nothing or *unknown* is stated, then the implementation status of the given feature is unclear.
-* If there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown.
-* If a given section only has issues which are explained in subsections, then *(see below)* will be shown
-
-If you find any issues which are not listed here, please email <mailto:hello@leanpub.com>.
+Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself. Note that if there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown. Also, if a given section only has issues which are explained in subsections, then *(any issues are discussed in the specific elements below)* will be shown
 
 Text Formatting
 : *(works)*
@@ -6159,7 +6152,7 @@ Definition Lists
 : Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
 
 Block Elements
-: *(works)*
+: *(any issues are discussed in the specific elements below)*
 
 Scene Breaks (`* * *`)
 : *(works)*
@@ -6178,13 +6171,13 @@ Blurbs (`B>` or `{blurb}`)
 : Blurbs separated with blank lines are incorrectly combined
 
 Inserting Block Elements Inside Paragraphs
-: *unknown*
+: Sometimes paragraph breaks are created incorrectly (such as inserting lists into paragraphs)
 
 Quizzes and Exercises
 : Figure out correct behaviour for the TOC
 
 Span Elements
-: *(see below)*
+: Any specific issues with particular block elements are discussed in the specific elements below.
 
 Links
 : Add warning about relative URLs
@@ -6206,7 +6199,7 @@ Character Substitution
 : Support updates to en dashes, em dashes: currently `foo -- bar` and `foo--bar` both make en dashes.
 
 Escaping Special Characters with Backslash (`\`)
-: *unknown*
+: More testing is needed, and the specific spec section needs to be written better.
 
 Backticks (`` ` ``)
 : Support "if you want to output a backtick in a code span, you need to delimit the code span using two backticks"
@@ -6266,7 +6259,7 @@ Settings
 : Handle curly braces in settings block
 
 Courses
-: *(see below)*
+: *(any issues are discussed in the specific elements below)*
 
 Quizzes and Exercises
 : Need to prevent two consecutive exercises from being combined into one
@@ -6280,10 +6273,12 @@ Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 : Written questions are not supported yet
 
 Markua Processor Behaviour
-: *unknown*
+: Quizzes and exercises are currently supported a lot better on the web (where the course is actually taken) than in the downloadable material books (which are just for reference).
 
 Question Alternates
 : *(works)*
+
+If you find any issues which are not listed above, please email <mailto:hello@leanpub.com>.
 
 {#copyright-ccby-commonmark}
 ## Copyright, CC BY-SA License, and CC Attribution of CommonMark
