@@ -224,11 +224,18 @@ Markua is a plain text format designed for the writing of books. Books have vari
 
 Here's how to do basic, semantic text formatting.
 
+xxx
+
+`italicize-underlines`{#italicize-underlines}
+: `true` or `false`. The default value is `true`. If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks). If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text. If you want to learn more, read [this](#html-style-markdown).
+
+
+
 Italic
 : To produce *italic text*, surround it with `*one asterisk*`.
 
 Underlined
-: To produce _underlined text_, surround it with `_one underscore_`.  (Note that if you want Markua to function more like Markdown, you can force all underlines to produce *italic text* by setting the `italicize-underlines` [global setting](#italicize-underlines) to `true`).
+: To produce _underlined text_, surround it with `_one underscore_`. (Note that you also need to set the `italicize-underlines` [global setting](#italicize-underlines) to `false` to get this behaviour. The default value of `italicize-underlines` is true, so that by default, Markua functions like Markdown and forces all underlines to be italic.)
 
 Bold
 : To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
@@ -5335,10 +5342,10 @@ If a Markua Processor also provides a UI to define settings which are specified 
 : The default language that code which an inline code span resource is foramtted as. The default is `text`. If you set this to `ruby`, it is the equivalent of setting `{format: ruby}` as an inline attribute list on every code span resource by default, e.g. `` `puts "hi"`{format: ruby} ``. If you need to override a specific resource to not be ruby, you would set `{format: text}`.
 
 `html-style`
-: `default` or `markdown`. The default value is `default`. If this setting is `default`, then **bold text** should produce a `<b>` tag, and *italic text* should produce an `<i>` tag. If this setting is `markdown`, then **bold text** should produce a `<strong>` tag, and *italic text* should produce an `<em>` tag. The choice is between `default` and `markdown` instead of between `simple` and `complex`, `semantic` or `pedantic`, so that fewer people are offended. Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood. If you think this, you are clearly not familiar with the work of the W3C. The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5: [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element), [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element), [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element) and [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element). The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it. I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously. Anyway, the state of the world is that there are intelligent people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text. There are other intelligent people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element). So, it is the position of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. (If there was one correct answer, and if that answer was `<strong>` and `<em>`, then presumably the `<b>` and `<i>` tags would not exist.) So, Markua has an `html-style` setting, which can be `default` or `markdown`. The default value of the setting is `default`, and it means for bold to produce `<b>` and italic to produce `<i>`. The most literal meaning of bold and italic are, it turns out, "bold" and "italic".
+: `simple` or `markdown`. The default value is `markdown`. If this setting is `markdown`, then **bold text** should produce a `<strong>` tag, and *italic text* should produce an `<em>` tag. If this setting is `simple`, then **bold text** should produce a `<b>` tag, and *italic text* should produce an `<i>` tag. If you want to learn more, read [this](#html-style-markdown).
 
 `italicize-underlines`{#italicize-underlines}
-: `true` or `false`. The default value is `false`. If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text. If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks). There are two reasons that the default value of this setting is `false`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
+: `true` or `false`. The default value is `true`. If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks). If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text. If you want to learn more, read [this](#html-style-markdown).
 
 `lang`
 : The [IS0 639-3](https://en.wikipedia.org/wiki/ISO_639-3) three character language code of the language that the Markua document is written in. The default is `eng`.
@@ -6068,7 +6075,7 @@ I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing]
 Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself. Note that if there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown. Also, if a given section only has issues which are explained in subsections, then *(any issues are discussed in the specific elements below)* will be shown
 
 Text Formatting
-: *(works)*
+*(works)*
 
 Headings for Parts, Chapters and Sections
 : A header without a blank line after it should result in plain text, not a header
@@ -6237,6 +6244,8 @@ Concatenating Files and Blank Lines
 : *(works)*
 
 Metadata
+: Need to change the default value of `italicize-underlines` to `true`
+: Need to change the default value of `html-style` to `markdown`
 : Many features here are unimplemented. See below for details.
 : We need to support Markua span formatting on custom copyright messages
 
@@ -6410,9 +6419,50 @@ From reading the above discussion, you'll recognize that Markua headings are a s
 
 The design of Markua headings meets these requirements, in what I think is an optimal way.
 
-### Text Formatting
+{#html-style-markdown}
+### The `html-style` Setting
 
-In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` produces an _underline_ unless the `italicize-underlines` global setting is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
+In Markua, there is an `html-style` setting, which can be `simple` or `markdown`.
+
+The default value is `markdown`.
+
+If this setting is `markdown`, then **bold text** should produce a `<strong>` tag, and *italic text* should produce an `<em>` tag.
+
+If this setting is `simple`, then **bold text** should produce a `<b>` tag, and *italic text* should produce an `<i>` tag.
+
+Markua is a plain text format designed for the writing of books. Books contain bold and italicized text--and have done so for centuries. Because of this, you'd think that the notion of making text bold or italic would be well understood.
+
+If you think this, you are clearly not familiar with the work of the W3C. The notion of making something bold or italic is very controversial in HTML: first the `<b>` and `<i>` tags were used to do this, then they were deprecated in favour of `<strong>` and `<em>`, and now there are four main ways of adding emphasis to text in HTML5: [`<strong>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-strong-element), [`<b>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-b-element), [`<em>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-em-element) and [`<i>`](http://www.w3.org/TR/html5/text-level-semantics.html#the-i-element).
+
+The `<strong>` and `<b>` tags can wrap a span of text and add bold-esque emphasis to it, while the `<em>` and `<i>` tags can wrap a span of text and add italic-esque emphasis to it.
+
+I say "esque" since there is no guarantee that any of the four tags will actually make anything bold or italic. Seriously.
+
+Anyway, the state of the world is that there are intelligent people who think that `<strong>` and `<em>` are the only two legitimate ways to bold and italicize text. There are other intelligent people who just want to italicize or bold text in their sentences. For these people, sometimes italics are just italics, and not just when referring to [the name of a ship](https://www.w3.org/TR/html5/textlevel-semantics.html#the-i-element).
+
+So, it is the position of Markua that there is no one correct answer about what HTML should always be produced by the bolding or italicizing of text. (If there was one correct answer, and if that answer was `<strong>` and `<em>`, then presumably the `<b>` and `<i>` tags would not exist.)
+
+So, Markua has an `html-style` setting, which can be `simple` or `markdown`.
+
+The default value of the setting is `markdown`, not `simple`. This is a pragmatic decision, for increased compatibility between Markua and Markdown implementations.
+
+{#italicize-underlines-markdown}
+### The `italicize-underlines` Setting
+
+In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` can produce either *italics* or an _underline_ based on the `italicize-underlines` global setting.
+
+The default value of `italicize-underlines` is `true`, which means that by default, Markua behaves like Markdown and italicizes underlines.
+
+If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text.
+
+If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks).
+
+Arguably, `false` would have been a better choice, since it will surprise
+
+There are two reasons that the default value of this setting is `true`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
+is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
+
+
 
 ### Lists
 
@@ -6592,7 +6642,7 @@ italicize-underlines: true
 }
 ~~~
 
-In the examples in this chapter, the global settings will be at the defaults unless a settings hash is provided.
+In the examples in this part, the global settings will be set to these values (`html-style: markdown` and `italicize-underlines: true`) unless otherwise indicated by the presence of a settings block. The reason for this is simple: this part incorporates many examples from the CommonMark Spec, and rewriting them all would be painful and pointless.
 
 # Preliminaries
 
@@ -9332,9 +9382,7 @@ Here the outer list is loose, the inner list tight:
 
 # Inlines
 
-Inlines are parsed sequentially from the beginning of the character
-stream to the end (left to right, in left-to-right languages).
-Thus, for example, in
+Inlines are parsed sequentially from the beginning of the character stream to the end (left to right, in left-to-right languages). Thus, for example, in
 
 ```example
 `hi`lo`
@@ -9342,8 +9390,180 @@ Thus, for example, in
 <p><code>hi</code>lo`</p>
 ```
 
-`hi` is parsed as code, leaving the backtick at the end as a literal
-backtick.
+`hi` is parsed as code, leaving the backtick at the end as a literal backtick.
+
+{#text-formatting-html}
+## Text Formatting
+
+View the [specification](#text-formatting).
+
+
+
+## CSS Note
+
+The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
+
+~~~
+.strikethrough {
+  text-decoration: line-through;
+}
+~~~
+
+##### Example TF-1
+
+Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`. (If you like your emphasis `<strong>` and `<em>`, you set `html-style: markdown`. See below for examples of this.)
+
+###### Markua Document
+
+{#input-tf-1}
+~~~
+* Italic: *one asterisk*
+* Underlined: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Underlined: ___three underscores___
+* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-tf-1}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Underlined: <u>one underscore</u></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
+  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+##### Example TF-2
+
+This example makes the default settings explicitly specified. The output is the same as the previous example.
+
+###### Markua Document
+
+{#input-tf-2}
+~~~
+{
+html-style: default
+italicize-underlines: false
+}
+* Italic: *one asterisk*
+* Underlined: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Underlined: ___three underscores___
+* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-tf-2}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Underlined: <u>one underscore</u></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
+  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+##### Example TF-3
+
+This example overrides italicize-underlines to `true`.
+
+###### Markua Document
+
+{#input-tf-3}
+~~~
+{
+html-style: default
+italicize-underlines: true
+}
+* Italic: *one asterisk*
+* Italic: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Italic: ___three underscores___
+* Bold + Italic: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-tf-3}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Italic: <i>one underscore</i></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Italic: <b><i>three underscores</i></b></li>
+  <li>Bold + Italic: <b><i>four underscores</i></b> or <b><i>four asterisks</i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
+
+##### Example TF-4
+
+This example overrides italicize-underlines to `true` and html-style to `markdown`.
+
+###### Markua Document
+
+{#input-tf-4}
+~~~
+{
+html-style: markdown
+italicize-underlines: true
+}
+* Italic: *one asterisk*
+* Italic: _one underscore_
+* Bold: **two asterisks** or __two underscores__
+* Bold + Italic: ***three asterisks***
+* Bold + Italic: ___three underscores___
+* Bold + Italic: ____four underscores____ or ****four asterisks****
+* Strikethrough: ~~two tildes~~
+* Superscript: 5^3^ = 125
+* Subscript: H~2~O
+~~~
+
+###### HTML Output
+
+{#output-tf-4}
+~~~
+<ul>
+  <li>Italic: <i>one asterisk</i></li>
+  <li>Italic: <i>one underscore</i></li>
+  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
+  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
+  <li>Bold + Italic: <b><i>three underscores</i></b></li>
+  <li>Bold + Italic: <b><i>four underscores</i></b> or <b><i>four asterisks</i></b></li>
+  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
+  <li>Superscript: 5<sup>3</sup> = 125</li>
+  <li>Subscript: H<sub>2</sub>O</li>
+</ul>
+~~~
 
 
 ## Backslash escapes
@@ -9357,8 +9577,7 @@ Any ASCII punctuation character may be backslash-escaped:
 ```
 
 
-Backslashes before other characters are treated as literal
-backslashes:
+Backslashes before other characters are treated as literal backslashes:
 
 ```example
 \→\A\a\ \3\φ\«
@@ -9367,8 +9586,7 @@ backslashes:
 ```
 
 
-Escaped characters are treated as regular characters and do
-not have their usual Markdown meanings:
+Escaped characters are treated as regular characters and do not have their usual Markdown meanings:
 
 ```example
 \*not emphasized*
@@ -12203,176 +12421,6 @@ Multiple     spaces
 <p>Multiple     spaces</p>
 ```
 
-{#text-formatting-html}
-# Text Formatting
-
-View the [specification](#text-formatting).
-
-## CSS Note
-
-The following CSS rule is recommended for strikethrough, since CSS is how strikethrough is done in HTML:
-
-~~~
-.strikethrough {
-  text-decoration: line-through;
-}
-~~~
-
-##### Example TF-1
-
-Note that this example, like all examples where a settings hash is not provided, uses the default settings, which includes `html-style: default` and `italicize-underlines: false`. (If you like your emphasis `<strong>` and `<em>`, you set `html-style: markdown`. See below for examples of this.)
-
-###### Markua Document
-
-{#input-tf-1}
-~~~
-* Italic: *one asterisk*
-* Underlined: _one underscore_
-* Bold: **two asterisks** or __two underscores__
-* Bold + Italic: ***three asterisks***
-* Bold + Underlined: ___three underscores___
-* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
-* Strikethrough: ~~two tildes~~
-* Superscript: 5^3^ = 125
-* Subscript: H~2~O
-~~~
-
-###### HTML Output
-
-{#output-tf-1}
-~~~
-<ul>
-  <li>Italic: <i>one asterisk</i></li>
-  <li>Underlined: <u>one underscore</u></li>
-  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
-  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
-  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
-  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
-  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
-  <li>Superscript: 5<sup>3</sup> = 125</li>
-  <li>Subscript: H<sub>2</sub>O</li>
-</ul>
-~~~
-
-##### Example TF-2
-
-This example makes the default settings explicitly specified. The output is the same as the previous example.
-
-###### Markua Document
-
-{#input-tf-2}
-~~~
-{
-html-style: default
-italicize-underlines: false
-}
-* Italic: *one asterisk*
-* Underlined: _one underscore_
-* Bold: **two asterisks** or __two underscores__
-* Bold + Italic: ***three asterisks***
-* Bold + Underlined: ___three underscores___
-* Bold + Italic + Underlined: ____four underscores____ or ****four asterisks****
-* Strikethrough: ~~two tildes~~
-* Superscript: 5^3^ = 125
-* Subscript: H~2~O
-~~~
-
-###### HTML Output
-
-{#output-tf-2}
-~~~
-<ul>
-  <li>Italic: <i>one asterisk</i></li>
-  <li>Underlined: <u>one underscore</u></li>
-  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
-  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
-  <li>Bold + Underlined: <b><u>three underscores</u></b></li>
-  <li>Bold + Italic + Underlined: <b><i><u>four underscores</u></i></b> or <b><i><u>four asterisks</u></i></b></li>
-  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
-  <li>Superscript: 5<sup>3</sup> = 125</li>
-  <li>Subscript: H<sub>2</sub>O</li>
-</ul>
-~~~
-
-##### Example TF-3
-
-This example overrides italicize-underlines to `true`.
-
-###### Markua Document
-
-{#input-tf-3}
-~~~
-{
-html-style: default
-italicize-underlines: true
-}
-* Italic: *one asterisk*
-* Italic: _one underscore_
-* Bold: **two asterisks** or __two underscores__
-* Bold + Italic: ***three asterisks***
-* Bold + Italic: ___three underscores___
-* Bold + Italic: ____four underscores____ or ****four asterisks****
-* Strikethrough: ~~two tildes~~
-* Superscript: 5^3^ = 125
-* Subscript: H~2~O
-~~~
-
-###### HTML Output
-
-{#output-tf-3}
-~~~
-<ul>
-  <li>Italic: <i>one asterisk</i></li>
-  <li>Italic: <i>one underscore</i></li>
-  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
-  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
-  <li>Bold + Italic: <b><i>three underscores</i></b></li>
-  <li>Bold + Italic: <b><i>four underscores</i></b> or <b><i>four asterisks</i></b></li>
-  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
-  <li>Superscript: 5<sup>3</sup> = 125</li>
-  <li>Subscript: H<sub>2</sub>O</li>
-</ul>
-~~~
-
-##### Example TF-4
-
-This example overrides italicize-underlines to `true` and html-style to `markdown`.
-
-###### Markua Document
-
-{#input-tf-4}
-~~~
-{
-html-style: markdown
-italicize-underlines: true
-}
-* Italic: *one asterisk*
-* Italic: _one underscore_
-* Bold: **two asterisks** or __two underscores__
-* Bold + Italic: ***three asterisks***
-* Bold + Italic: ___three underscores___
-* Bold + Italic: ____four underscores____ or ****four asterisks****
-* Strikethrough: ~~two tildes~~
-* Superscript: 5^3^ = 125
-* Subscript: H~2~O
-~~~
-
-###### HTML Output
-
-{#output-tf-4}
-~~~
-<ul>
-  <li>Italic: <i>one asterisk</i></li>
-  <li>Italic: <i>one underscore</i></li>
-  <li>Bold: <b>two asterisks</b> or <b>two underscores</b></li>
-  <li>Bold + Italic: <b><i>three asterisks</i></b></li>
-  <li>Bold + Italic: <b><i>three underscores</i></b></li>
-  <li>Bold + Italic: <b><i>four underscores</i></b> or <b><i>four asterisks</i></b></li>
-  <li>Strikethrough: <span class="strikethrough">two tildes</span></li>
-  <li>Superscript: 5<sup>3</sup> = 125</li>
-  <li>Subscript: H<sub>2</sub>O</li>
-</ul>
-~~~
 
 {#headings-html}
 # Headings for Parts, Chapters and Sections
