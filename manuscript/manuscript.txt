@@ -299,7 +299,7 @@ Italic
 : To produce *italic text*, surround it with `*one asterisk*`.
 
 Underlined
-: To produce _underlined text_, surround it with `_one underscore_`. (Note that you can set an `italicize-underlines` global setting to force all underlines to produce italics. See [below](#italicize-underlines).)
+: To produce _underlined text_, surround it with `_one underscore_` and set the `italicize-underlines` global setting to `false`. (The default value of the `italicize-underlines` global setting is `true`, so that Markua behaves like Markdown by default and italicizes all underlines. See [below](#italicize-underlines) for more information.)
 
 Bold
 : To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
@@ -308,10 +308,10 @@ Bold + Italic
 : To produce ***bold + italic text***, surround it with `***three asterisks***`.
 
 Bold + Underlined
-: To produce ___bold + underlined text___, surround it with `___three underscores___`.
+: To produce ___bold + underlined text___, surround it with `___three underscores___`. (Note that the `italicize-underlines` global setting will make this bold + italic if `true`.)
 
 Bold + Italic + Underlined
-: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`. (Yes, `_***this***_` works too. See the discussion of [nesting formatting](#nesting-formatting) below.)
+: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`. (Note that the `italicize-underlines` global setting will make this just bold + italic if `true`.)
 
 Strikethrough
 : To produce ~~strikethrough text~~, surround it with `~~two tildes~~`. This is the same syntax as is used by both [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and by John Macfarlane's excellent [pandoc](http://johnmacfarlane.net/pandoc/README.html).
@@ -321,10 +321,6 @@ Superscript
 
 Subscript
 : To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
-
-Note that any emphasis which is created with asterisks and underscores (i.e. bold, italic, underline and their combinations) can nest, and can contain line breaks. This is discussed [next](#nesting-formatting).
-
-Finally, note that more than three consecutive asterisks and more than four consecutive underscores is an error. As discussed [later](#), like all errors this will cause the formatting characters to be [output as plain paragraph text](#handling-errors-and-warnings).
 
 ## Text Formatting Can Contain Single Newlines
 
@@ -337,11 +333,23 @@ and so is this*.
 
 ## Text Formatting Cannot Contain Blank Lines
 
-~~~
-This *is not italic
+It is an error for text formatting to span paragraph boundaries.
 
-and neither is this*.
 ~~~
+This *is not italic.
+
+Neither is this.*
+~~~
+
+The reason for this is that a Markua Processor parses blocks (like paragraphs and headings) and then the content of those blocks. So, if you wanted to achieve the effect shown above, you would simply type this:
+
+~~~
+This *is italic*.
+
+*So is this.*
+~~~
+
+As discussed [later](#handling-errors-and-warnings), this type of formatting error causes the Markua formatting characters to be output as plain paragraph text.
 
 {#nesting-formatting}
 ## Nesting Formatting
@@ -357,17 +365,14 @@ Here's a more complex example which contains forced line breaks:
 ~~~
 This is *italic
 and **bold** and
-still italic*. Now it's neither
+still italic*. Now it's neither.
 ~~~
 
 ## Combining Delimiters
 
-TODO
+Besides just nesting formatting with separate delimiters, you can also combine delimiters.
 
-_***bold and italic and underlined***_
-____bold and italic and underlined____
-
-You can even smush the formatting delimiters right up against each other. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
+By "combine delimiters" I mean to smush the formatting delimiters right up against each other. It is almost never desirable to do this, however, as it results in ugly Markua documents. But banning these combinations would be equally arbitrary, and more surprising.
 
 So, if the `italicize-underlines` global setting is `false`, the following combinations work:
 
@@ -380,9 +385,20 @@ If, however, the `italicize-underlines` global setting is `true`, the following 
 
 `__*this*__`, `*__this__*`, `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
 
-Finally, if you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
+If you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
 
 `*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
+
+## Redundant Delimiters are Errors
+
+Note that redundant delimiters are errors:
+
+* `_*_error_*_`, `_*_error_*_`, `**__error__**`, `__**error**__`, etc.
+
+Finally, note that more than three consecutive asterisks (`***`) or more than four consecutive underscores (`____`) is an error, which (like all errors of this type) causes the Markua formatting characters to be output as plain paragraph text. So, the following are all errors:
+
+* `****error****`, `*****error*****`, `****_error_****`, `_****error****_`, etc.
+* `_____error_____`, `______error______`, `_____*error*_____`, `*_____error_____*`, etc.
 
 {#italicize-underlines}
 ## The `italicize-underlines` Setting
@@ -391,23 +407,31 @@ Markua documents have a number of global settings, which are set once, either at
 
 One of the settings which affects basic text formatting is `italicize-underlines`, which can be `true` or `false`.
 
-TODO
+In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*, and there is no way to produce an underline in Markdown except using inline HTML. However, _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
 
-The default value is `true`, so that by default, Markua functions like Markdown and forces all underlines to be italic.
-The default value is `false`, so that Markua is simpler for new authors and has more features by default.
+In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` can produce either *italics* or an _underline_ based on the `italicize-underlines` global setting.
 
-In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` can produce either *italics* or an _underline_ based on the `italicize-underlines` global setting.
+**The default value of the `italicize-underlines` setting is `true`, so that by default Markua functions like Markdown and forces all underlines to be italic**.
 
-The default value of `italicize-underlines` is `true`, which means that by default, Markua behaves like Markdown and italicizes underlines.
+This will be a bit surprising for new authors who are discovering Markua and have never heard of Markdown, such as people writing novels in Markua. (Frankly, most novels just need italic, not underline, so this isn't a big issue.)
 
-If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text.
+However, it is my expectation that for the foreseeable future, the proportion of authors who discover Markdown first and then learn about Markua will be far, far greater. For these people, it would be a lot more surprising if all their text which they had italicized like `_this_` suddenly became underlined instead!
 
-If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks).
+Furthermore, if you've written in a certain way (like `_this_` for italic) for years, your fingers essentially just do the right thing. I want this to still feel right for these people, not something that makes them think they need to go change a global setting. Essentially no one has spent years writing in Markua, so this is much less of an issue for them!
 
-Arguably, `false` would have been a better choice, since it will surprise
+To be clear...
 
-There are two reasons that the default value of this setting is `true`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
-is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
+If the `italicize-underlines` setting is `true` (the default), then underlined text **CANNOT** be produced by the Markua Processor:
+
+* `_one underscore_` produces *italicized text* (just like one asterisk)
+* `___three underscores___` produces ***bold + italicized text*** (just like three asterisks)
+* `____four underscores____` also produces ***bold + italicized text*** (again, just like three asterisks)
+
+If the `italicize-underlines` setting is `false`, then underlined text **can** be produced by the Markua Processor:
+
+* `_one underscore_` produces _underlined text_
+* `___three underscores___` produces ___bold + underlined text___
+* `____four underscores____` produces ____bold + italic + underlined____ text
 
 {#resources}
 # Resources
