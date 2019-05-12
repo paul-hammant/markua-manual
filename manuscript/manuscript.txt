@@ -3,13 +3,13 @@
 
 This is the part of the Markua Specification which is intended for authors. If you are an author who is looking to write a book or course in Markua, this is the part you should read! If you are a programmer who is implementing a Markua Processor, you will want to read both this part and the [Parsing Markua](#parsing-markua) part after it.
 
-## Note for Leanpub Authors
-
-Markua is in beta on Leanpub, and there are differences between Markua, Markdown and Leapnub Flavoured Markdown. To learn more, see these appendices:
-
-* Status of Markua support on Leanpub: see [this appendix](#leanpub-markua-implementation-status)
-* Differences between Markua and Markdown: see [this appendix](#differences-with-markdown)
-* Differences between Markua and Leanpub Flavoured Markdown (LFM): see [this appendix](#differences-with-lfm)
+A> # Note for Leanpub Authors
+A>
+A> Markua is in beta on Leanpub, and there are differences between Markua, Markdown and Leapnub Flavoured Markdown. To learn more, see these appendices:
+A>
+A> * Status of Markua support on Leanpub: see [this appendix](#leanpub-markua-implementation-status)
+A> * Differences between Markua and Markdown: see [this appendix](#differences-with-markdown)
+A> * Differences between Markua and Leanpub Flavoured Markdown (LFM): see [this appendix](#differences-with-lfm)
 
 # Philosophy
 
@@ -215,91 +215,6 @@ So, I started over. I started with Markdown. I then removed or changed the few t
 
 When I set out to specify Markua, I realized I needed a name. I wanted a name that conveyed the warmth and love that I have for Markdown, for writing and for writers, while not implying endorsement by John Gruber in any way. I also did not want a name which referenced Leanpub: Markua is a standalone specification with its own identity, which anyone (including Leanpub competitors) can freely implement. Finally, I was on vacation in Hawaii when I named Markua, and I wanted something that sounded happy, friendly and almost Hawaiian. (Yes, I'm aware that there is no r in Hawaiian.) I also wanted a name that had its .com domain name available, and that was short and spellable, for branding purposes. The Markua name does have all these properties, and I feel it is a really good brand for what I'm trying to accomplish.
 
-{#text-formatting}
-# Text Formatting
-
-Markua's goal is to provide all the semantic formatting required by authors. Formatting that could be done by a book designer without needing to discuss it with the author is considered orthogonal to Markua, and is largely omitted from Markua.
-
-Markua is a plain text format designed for the writing of books. Books have various types of text formatting in them: bold, italic, underline, strikethrough, superscript and subscript.
-
-The formatting in Markua is basic, semantic text formatting.
-
-## TODO - this is turning into a mess
-
-`italicize-single-underlines` maybe better??
-
-~~~
-*italic*
-_underlined_ or _italic_
-**bold**
-__bold__
-***bold and italic***
-___bold and underlined___
-_***bold and italic and underlined***_
-____bold and italic and underlined____
-
-
-## Formatting
-
-Bold
-: To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
-
-Strikethrough
-: To produce ~~strikethrough text~~, surround it with `~~two tildes~~`. This is the same syntax as is used by both [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and by John Macfarlane's excellent [pandoc](http://johnmacfarlane.net/pandoc/README.html).
-
-Superscript
-: To produce superscript like the 3 in 5^3^ = 125, surround it with carets like `5^3^ = 125`. (This is the same syntax as is used by pandoc.)
-
-Subscript
-: To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
-
-
-
-There is one large
-
-## The `italicize-underlines` Setting
-
-Markua documents have a number of global settings, which are set once, either at the beginning of the document in a [settings hash](#settings) or via some web UI (like on Leanpub).
-
-One of the settings which affects basic text formatting is `italicize-underlines`, which can be `true` or `false`. The default value is `true`, so that by default, Markua functions like Markdown and forces all underlines to be italic.
-
-## Formatting with `italicize-underlines` set to `true`
-
-Italic
-: To produce *italic text*, surround it with `*one asterisk*`.
-
-Underlined
-: To produce _underlined text_, surround it with `_one underscore_`.
-
-Bold + Italic
-: To produce ***bold + italic text***, surround it with `***three asterisks***`.
-
-Bold + Underlined
-: To produce ___bold + underlined text___, surround it with `___three underscores___`.
-
-Bold + Italic + Underlined
-: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`.
-
-## Formatting with `italicize-underlines` set to `false`
-
-Italic
-: To produce *italic text*, surround it with `*one asterisk*` or `_one underscore_`.
-
-Bold + Italic
-: To produce ***bold + italic text***, surround it with `***three asterisks***`, `___three underscores___`.
-
-Bold + Italic + Underlined
-: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`.
-
-
-
-
-Note that any emphasis which is created with asterisks and underscores (i.e. bold, italic, underline and their combinations) can nest, and can contain line breaks. This is discussed [later](#nesting-formatting).
-
-Finally, note that more than four consecutive underscores or asterisks is an error.
-
-View the [HTML mapping](#text-formatting-html).
-
 {#headings}
 # Headings for Parts, Chapters and Sections
 
@@ -352,8 +267,6 @@ It is an error for a heading to be empty (only containing whitespace) or to be p
 
 If the heading is not formatted correctly, the heading is just interpreted as paragraph text, and any formatting characters are output verbatim. Examples of incorrect heading formatting which would cause this include using a tab after the leading `#`, skipping the space after the leading `#` in a chapter (this would be a paragraph starting with a #hashtag), adding more than one trailing `#` character (this is not permitted in any heading), adding a trailing `#` character for section or lower level headings (adding a trailing `#` after a chapter heading makes it into a legal part heading), etc.
 
-View the [HTML mapping](#headings-html).
-
 {#paragraphs}
 # Paragraphs and Blank Lines
 
@@ -373,7 +286,128 @@ This is paragraph three.
 
 There are other more technical rules about spaces, newlines and indentation, which are discussed [later](#whitespace).
 
-View the [HTML mapping](#paragraphs-html).
+{#text-formatting}
+# Text Formatting
+
+Markua's goal is to provide all the semantic formatting required by authors. Formatting that could be done by a book designer without needing to discuss it with the author is considered orthogonal to Markua, and is largely omitted from Markua.
+
+Markua is a plain text format designed for the writing of books. Books have various types of text formatting in them: bold, italic, underline, strikethrough, superscript and subscript.
+
+The formatting in Markua is mostly basic, semantic text formatting. Here's how to produce it:
+
+Italic
+: To produce *italic text*, surround it with `*one asterisk*`.
+
+Underlined
+: To produce _underlined text_, surround it with `_one underscore_`. (Note that you can set an `italicize-underlines` global setting to force all underlines to produce italics. See [below](#italicize-underlines).)
+
+Bold
+: To produce **bold text**, surround it with __either__ `**two asterisks**` or `__two underscores__`.
+
+Bold + Italic
+: To produce ***bold + italic text***, surround it with `***three asterisks***`.
+
+Bold + Underlined
+: To produce ___bold + underlined text___, surround it with `___three underscores___`.
+
+Bold + Italic + Underlined
+: To produce ____bold + italic + underlined text____, surround it with `____four underscores____`. (Yes, `_***this***_` works too. See the discussion of [nesting formatting](#nesting-formatting) below.)
+
+Strikethrough
+: To produce ~~strikethrough text~~, surround it with `~~two tildes~~`. This is the same syntax as is used by both [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and by John Macfarlane's excellent [pandoc](http://johnmacfarlane.net/pandoc/README.html).
+
+Superscript
+: To produce superscript like the 3 in 5^3^ = 125, surround it with carets like `5^3^ = 125`. (This is the same syntax as is used by pandoc.)
+
+Subscript
+: To produce subscript like the 2 in H~2~O, surround it with single tildes like `H~2~O`.
+
+Note that any emphasis which is created with asterisks and underscores (i.e. bold, italic, underline and their combinations) can nest, and can contain line breaks. This is discussed [next](#nesting-formatting).
+
+Finally, note that more than three consecutive asterisks and more than four consecutive underscores is an error. As discussed [later](#), like all errors this will cause the formatting characters to be [output as plain paragraph text](#handling-errors-and-warnings).
+
+## Text Formatting Can Contain Single Newlines
+
+You can even include single newlines (which produce forced line breaks in Markua) in the formatting:
+
+~~~
+This *is italic
+and so is this*.
+~~~
+
+## Text Formatting Cannot Contain Blank Lines
+
+~~~
+This *is not italic
+
+and neither is this*.
+~~~
+
+{#nesting-formatting}
+## Nesting Formatting
+
+It is possible to nest formatting. Here's a simple example:
+
+~~~
+*You can **bold** a word in an italic sentence.*
+~~~
+
+Here's a more complex example which contains forced line breaks:
+
+~~~
+This is *italic
+and **bold** and
+still italic*. Now it's neither
+~~~
+
+## Combining Delimiters
+
+TODO
+
+_***bold and italic and underlined***_
+____bold and italic and underlined____
+
+You can even smush the formatting delimiters right up against each other. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
+
+So, if the `italicize-underlines` global setting is `false`, the following combinations work:
+
+* ____*italic + underlined*____: `*_this_*` or `_*this*_`
+* ***bold + italic***: `__*this*__` or `*__this__*`
+* ____**bold + underlined**____: `**_this_**` or `_**this**_`
+* ____***bold + italic + underlined***____: `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
+
+If, however, the `italicize-underlines` global setting is `true`, the following all produce ***bold + italic***, since the underlines get converted to italics, and redundant underlines are ignored:
+
+`__*this*__`, `*__this__*`, `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
+
+Finally, if you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
+
+`*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
+
+{#italicize-underlines}
+## The `italicize-underlines` Setting
+
+Markua documents have a number of global settings, which are set once, either at the beginning of the document in a [settings hash](#settings) or via some web UI (like on Leanpub).
+
+One of the settings which affects basic text formatting is `italicize-underlines`, which can be `true` or `false`.
+
+TODO
+
+The default value is `true`, so that by default, Markua functions like Markdown and forces all underlines to be italic.
+The default value is `false`, so that Markua is simpler for new authors and has more features by default.
+
+In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` can produce either *italics* or an _underline_ based on the `italicize-underlines` global setting.
+
+The default value of `italicize-underlines` is `true`, which means that by default, Markua behaves like Markdown and italicizes underlines.
+
+If this setting is `false`, then underlined text **can** be produced by the Markua Processor: `_one underscore_` produces ____underlined text____, `___three underscores___` produces ____**bold + underlined text**____, and `____four underscores____` or `****four asterisks****` produces ____***bold + italic + underlined***____ text.
+
+If this setting is `true`, then underlined text cannot be produced by the Markua Processor: `_one underscore_` produces *italicized text* (just like one asterisk), `___three underscores___` produces ***bold + italicized text*** (just like three asterisks), and `____four underscores____` or `****four asterisks****` **also** produces ***bold + italicized text*** (again, just like three asterisks).
+
+Arguably, `false` would have been a better choice, since it will surprise
+
+There are two reasons that the default value of this setting is `true`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
+is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
 
 {#resources}
 # Resources
@@ -4624,50 +4658,6 @@ If a Markua Processor recognizes that a given Unicode character is not present i
 
 Markua Processors may detect the language of the Markua document and output various text in the correct manner. This includes the localization of things like punctuation, the table of contents, etc.
 
-{#nesting-formatting}
-## Nesting Formatting
-
-It is possible to nest formatting.
-
-There are good reasons to do this:
-
-~~~
-*You can **bold** a word in an italic sentence.*
-~~~
-
-You can even include single newlines in the nested formatting:
-
-~~~
-This is *italic
-and **bold** and
-still italic*. Now it's not.
-~~~
-
-You cannot, however, include blank lines in nested formatting:
-
-~~~
-This is *not italic
-
-since it spans multiple paragraphs.*
-~~~
-
-You can even smush the formatting delimiters right up against each other. It is almost never desirable to do this, however. But banning these combinations would be equally arbitrary, and more surprising.
-
-So, if the `italicize-underlines` global setting is `false`, the following combinations work:
-
-* ____*italic + underlined*____: `*_this_*` or `_*this*_`
-* ***bold + italic***: `__*this*__` or `*__this__*`
-* ____**bold + underlined**____: `**_this_**` or `_**this**_`
-* ____***bold + italic + underlined***____: `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
-
-If, however, the `italicize-underlines` global setting is `true`, the following all produce ***bold + italic***, since the underlines get converted to italics, and redundant underlines are ignored:
-
-`__*this*__`, `*__this__*`, `_***this***_`, `*___this___*`, `***_this_***` or `___*this*___`
-
-Finally, if you incorrectly nest the asterisk and underscore formatting characters, then they are output verbatim as asterisks and underscores, instead of producing formatting. So, the following examples of incorrect nesting all output the asterisks and underscores verbatim:
-
-`*__this*__`, `__*this__*`, `**_this**_`, `_**this_**`, `_***this_***`, `*___this*___`, `***_this***_` or `___*this___*`
-
 {#emoji}
 ## Emoji
 
@@ -6485,6 +6475,8 @@ The default value of the setting is `markdown`, not `simple`. This is a pragmati
 {#italicize-underlines-markdown}
 ### The `italicize-underlines` Setting
 
+TODO
+
 In Markdown, `*one asterisk*` and `_one underscore_` both produce *italics*. In Markua, `*one asterisk*` produces *italics*, and `_one underscore_` can produce either *italics* or an _underline_ based on the `italicize-underlines` global setting.
 
 The default value of `italicize-underlines` is `true`, which means that by default, Markua behaves like Markdown and italicizes underlines.
@@ -6497,8 +6489,6 @@ Arguably, `false` would have been a better choice, since it will surprise
 
 There are two reasons that the default value of this setting is `true`. First, and foremost, it's a better choice. Being able to underline text is better than not being able to do so, and the behaviour of the Markua Processor when this setting is `true` is surprising. Second, it enables authors learning Markua to learn the syntax to produce underlines, before needing to learn about global settings. The reason that this setting exists at all is for increased Markdown compatibility, as in Markdown all single `*asterisks*` and  `_underscores_` both produce *italicized text*. If you are coming from Markdown, your fingers may have learned the `_one underscore_` version. In that case, you may want to set this setting to `true`, either permanently to keep typing underscores for italics, or just while you get used to typing asterisks for italics. Finally, this setting also supports the use case in which an author has chosen to underline words, but the publisher chooses to print italics in all such cases: doing this requires changing one setting, rather than every use of underscores in the entire manuscript.
 is set to `true`. The reason for this is simple: _underline_ is not always just a typewriter version of *italics*. In some languages and in some contexts, underlining serves a distinct, legitimate purpose.
-
-
 
 ### Lists
 
