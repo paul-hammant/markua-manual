@@ -6103,7 +6103,7 @@ I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing]
 Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself. Note that if there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown. Also, if a given section only has issues which are explained in subsections, then *(any issues are discussed in the specific elements below)* will be shown
 
 Text Formatting
-*(works)*
+: *(works)*
 
 Headings for Parts, Chapters and Sections
 : A header without a blank line after it should result in plain text, not a header
