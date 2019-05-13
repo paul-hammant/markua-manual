@@ -7,9 +7,9 @@ A> # Note for Leanpub Authors
 A>
 A> Markua is in beta on Leanpub, and there are differences between Markua, Markdown and Leapnub Flavoured Markdown. To learn more, see these appendices:
 A>
-A> * Status of Markua support on Leanpub: see [this appendix](#leanpub-markua-implementation-status)
-A> * Differences between Markua and Markdown: see [this appendix](#differences-with-markdown)
-A> * Differences between Markua and Leanpub Flavoured Markdown (LFM): see [this appendix](#differences-with-lfm)
+A> * [Leanpub's Markua Implementation Status](#leanpub-markua-implementation-status)
+A> * [Differences with Markdown](#differences-with-markdown)
+A> * [Differences with Leanpub Flavoured Markdown (LFM)](#differences-with-lfm)
 
 # Philosophy
 
