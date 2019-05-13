@@ -956,59 +956,7 @@ Here's a paragraph before the figure.
 Here's a paragraph after the figure.
 ~~~
 
-#### Writing about SVG
-
-If you want to write about the SVG format, and show the actual SVG source (instead of the image produced), it needs to be of a `format` of `code`, not `image`.
-
-Now, you can just be lazy and not provide `format` or `type` attributes at all, since guessing when neither is present always produces a type of `code`.
-
-```
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-However, you can also just specify both, either this way...
-
-{type: code}
-```svg
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-...or this way:
-
-{type: code, format: svg}
-```
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-Or you can just specify xml, since SVG is xml:
-
-```xml
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-Or you can just specify text, if you don't want syntax highlighting:
-
-```text
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-Heck, you can even use tildes to do that:
-
-~~~
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-~~~
+Note that when you are writing about SVG and want to display the SVG text, what you are really doing is creating a code resource. This is shown [later](#writing-about-svg).
 
 ### Images, Attributes and Links
 
@@ -1481,13 +1429,70 @@ puts "hello"
 Some paragraph.
 ```
 
-Finally, as discussed previously, console input and output should be formatted as such by a Markua Processor:
+As discussed previously, console input and output should be formatted as such by a Markua Processor:
 
 ~~~
 ```console
 $ git init
 Initialized empty Git repository in /path/to/repo
 ```
+~~~
+
+Finally, it's important to note that when you are writing about other inline formats, such as SVG or AsciiMath, what you are really doing is creating a code resource. This is shown in the sections below, which discuss SVG and AsciiMath, but this applies more broadly.
+
+{#writing-about-svg}
+#### Writing about SVG
+
+If you want to write about the SVG format, and show the actual SVG source (instead of the image produced), it needs to be of a `format` of `code`, not `image`.
+
+Now, you can just be lazy and not provide `format` or `type` attributes at all, since guessing when neither is present always produces a type of `code`.
+
+```
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+However, you can also just specify both, either this way...
+
+{type: code}
+```svg
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+...or this way:
+
+{type: code, format: svg}
+```
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Or you can just specify xml, since SVG is xml:
+
+```xml
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Or you can just specify text, if you don't want syntax highlighting:
+
+```text
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Heck, you can even use tildes to do that:
+
+~~~
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
 ~~~
 
 ### Marking Code as Added or Deleted
@@ -2411,6 +2416,9 @@ Here's a paragraph after the figure.
 
 If you wonder why I'm a fan of AsciiMath: I actually got that right on the first try at the [AsciiMath website](http://asciimath.org/).
 
+Note that when you are writing about AsciiMath and want to display the AsciiMath text, what you are really doing is creating a code resource. This is essentially identical to what was shown earlier in writing about SVG images. It's also shown below.
+
+{#writing-about-asciimath}
 ###### Writing about AsciiMath
 
 If you want to write about AsciiMath, and show the actual AsciiMath code (instead of the formatted output), it needs to be of a `format` of `code`, not `math`.
