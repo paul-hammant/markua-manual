@@ -6115,23 +6115,22 @@ Resources
 : Code and images basically work, but many other types of resources have issues. See below for details.
 
 Resource Insertion Methods
-: The `class` attribute is not used.
+: Support these attributes: `class`
 
 Resource Types and Formats
-: Support type attribute on resources
+: Support `type` attribute on resources
 
 Images
+: Support these attributes: `align`, `cite`, `url`
 : SVG support is not implemented yet (external or inline)
 : Some attributes are not supported fully
-: Support image attributes align, cite, url
 : Support inline resources (e.g. inline SVG images)
 : Fully support fullbleed attribute, not just in PDF
 : Prevent fullbleed attribute from leaking into EPUB (whitelist?)
 : Fix bugs with height attribute
-: Support image attributes cite, url
 
 Video
-: Support video attributes embed, fullbleed, height, width
+: Support these attributes: `align`, `cite`, `url`, `embed`, `fullbleed`, `height`, `width`
 : Specifically forbid local video resources
 
 Audio
@@ -6302,11 +6301,10 @@ Courses
 : *(any issues are discussed in the specific elements below)*
 
 Quizzes and Exercises
+: Support these attributes: `auto-submit`, `default-exercise-show-answers`, `default-quiz-show-answers`, `time-limit`, `show-answers`
 : Need to prevent two consecutive exercises from being combined into one
-: Support `show-answers`, `default-exercise-show-answers` and `default-quiz-show-answers`
 : In an answer, semicolons inside of quotes should be treated as plain text
 : Option to show {answer}...{/answer} content for Exercise questions in the back of a book
-: Implement auto-submit and time-limit for quizzes
 
 Question Types: Multiple Choice, Multiple Selection, Fill In The Blank, Written
 : Multiple Selection questions are not implemented yet
