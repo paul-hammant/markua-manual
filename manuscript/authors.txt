@@ -6102,6 +6102,36 @@ I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing]
 
 Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself. Note that if there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown. Also, if a given section only has issues which are explained in subsections, then *(any issues are discussed in the specific elements below)* will be shown
 
+### Headings for Parts, Chapters and Sections
+
+| `# Part #` | works |
+| `# Chapter` | works |
+| `## Section` | works |
+| `### Sub-Section` | works |
+| `#### Sub-Sub-Section` | works |
+| `##### Sub-Sub-Sub-Section` | works |
+| `###### Sub-Sub-Sub-Sub-Section` | works |
+
+### Paragraphs and Blank Lines
+
+| blank lines separate paragraphs | works |
+
+### Text Formatting
+
+| `*italic*` | works |
+| `_underlined_` | works |
+| `**bold**` | works |
+| `__bold__` | works |
+| `***bold + italic***` | works |
+| `___bold + underlined___` | works |
+| `____bold + italic + underlined____` | works |
+| `~~strikethrough~~` | works |
+| superscript (`5^3^ = 125`) | works |
+| subscript (`H~2~O`) | works |
+
+
+TODO
+
 Text Formatting
 : *(works)*
 
