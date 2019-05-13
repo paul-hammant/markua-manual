@@ -1,0 +1,85 @@
+{#parsing-markua}
+# Parsing Markua #
+
+If you are an author who is looking to write a book or course in Markua, you can stop reading now. This part is not for you; it's just for people who are writing code to build a Markua Processor. Stop reading this and go write your book or course!
+
+As discussed in the section [Copyright, CC BY-SA License, and CC Attribution of CommonMark](#copyright-ccby-commonmark), portions of this part are taken from or are based on version 0.29 of the [CommonMark Spec](https://spec.commonmark.org/0.29/), which is licensed CC BY-SA 4.0 and is copyright John MacFarlane. These portions are used under the terms of the CC BY-SA 4.0 license.
+
+W> While the previous part, [Markua for Authors](#markua-for-authors), is reasonably complete and polished, this part is an in-progress mess. I'm publishing the Markua spec in this state for three reasons:
+W>
+W> 1. The content in this part is only useful for people building Markua parsers, which is less than 1% of the audience of this spec.
+W> 2. The Markua for Authors content is far better now than it was previously, and I don't want to block that part on this one.
+W> 3. I believe in [Lean Publishing](https://leanpub.com/lean). (Lean Publishing is the act of publishing an in-progress book using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.)
+
+# Introduction
+
+This part contains two things:
+
+1. A discussion of concerns which only apply to people building Markua Processors.
+2. The specification of the mapping of much of Markua to HTML.
+
+A Markua Processor must be able to properly parse a Markua document and output HTML, as well as any other suitable output formats. (`/dev/null` may be web scale, but it is not a good output format for a Markua Processor.)
+
+For example, the output formats which Leanpub produces from a single Markua document are: PDF, EPUB, MOBI, HTML, InDesign and (if applicable) a course with quizzes, exercises and automated marking.
+
+The Markua Specification does not precisely define all output formats or the content of those output formats. Instead, the only required output format of a Markua Processor is HTML. Also, HTML is the only output format where any specification is provided. The reason that HTML is a required output format for a Markua Processor to be able to help ensure conformance to the Markua Specification.
+
+For ease of comparison with CommonMark, this part is organized as much like the CommonMark Spec as possible.
+
+## Format of the HTML Output Fragments
+
+Please note that this is not a complete specification of the HTML documents produced by Markua Processors. It is only a specification of the parts of the HTML mapping where there is no need to have flexibility on the part of the Markua Processor. The HTML mapping should be thought of specifying HTML fragments, not documents. In all of the examples, a Markua Processor may add more HTML before and after the relevant content. The test is that the HTML produced contains the specified output, not that it is identical to the specified output.
+
+Every Markua text example is a complete Markua document. If it is processed by a Markua Processor, the HTML which is produced should include the output. Now, since Markua does not specify the exact content of the HTML, the boilerplate before and after the HTML Output is not specified or included.
+
+It can, however, be as simple as the following:
+
+```
+<html><head></head><body>
+(...the HTML output...)
+</body></html>
+```
+
+Every example uses the default Markua document settings, unless otherwise specified. Any custom settings are specified in a settings hash in the top of the example.
+
+## Running the Tests
+
+This chapter contains many examples with Markua and the corresponding HTML. Some of these examples are based on the CommonMark Spec, as [discussed earlier](#copyright-ccby-commonmark). These examples are intended to double as conformance tests. An accompanying script can be used to run the tests against any Markua Processor which outputs HTML:
+
+```
+python test/spec_tests.py --spec spec.txt --program PROGRAM
+```
+
+W> TODO - update the `spec_tests` script or provide a new one to do this based on the Markua spec.
+
+## CSS Notes
+
+Markua does not specify any CSS. However, advice will sometimes be offered in "CSS Note" sections. This is because certain semantically meaningful formatting (like strikethrough) is only done in HTML via CSS.
+
+## Global Settings
+
+The HTML which is output by a Markua Processor can be affected by certain global settings.
+
+These are the default values of these settings:
+
+~~~
+{
+html-style: default
+italicize-underlines: false
+}
+~~~
+
+If you want to make the HTML which is output by Markua as close to Markdown as possible, you will want to use a settings block which contains the following settings:
+
+~~~
+{
+html-style: markdown
+italicize-underlines: true
+}
+~~~
+
+In the examples in this part, the global settings will be set to these values (`html-style: markdown` and `italicize-underlines: true`) unless otherwise indicated by the presence of a settings block. The reason for this is simple: this part incorporates many examples from the CommonMark Spec, and rewriting them all would be painful and pointless.
+
+# TODO
+
+The rest of this is still in-progress, and is not in a good enough state to publish.
