@@ -6889,11 +6889,229 @@ Paragraph four
 
 Markua does not specify how page breaks are mapped to HTML. A Markua Processor may do whatever it wants here.
 
+{#headings-html}
+# Headings for Parts, Chapters and Sections
+
+View the [specification](#headings).
+
+##### Example H-1
+
+This example shows the correct use of headings. Incorrect heading uses are in subsequent examples.
+
+###### Markua Document
+
+{#input-h-1}
+~~~
+# Part #
+
+This is a paragraph.
+
+# Chapter
+
+This is a paragraph.
+
+## Section
+
+This is a paragraph.
+
+### Sub-Section
+
+This is a paragraph.
+
+#### Sub-Sub-Section
+
+This is a paragraph.
+
+##### Sub-Sub-Sub-Section
+
+This is a paragraph.
+
+###### Sub-Sub-Sub-Sub-Section
+
+This is a paragraph.
+~~~
+
+###### HTML Output
+
+{#output-h-1}
+~~~
+<h1 class="part">Part</h1>
+<p>This is a paragraph.</p>
+<h1 class="chapter">Chapter</h1>
+<p>This is a paragraph.</p>
+<h2 class="section">Section</h2>
+<p>This is a paragraph.</p>
+<h3 class="sub-section">Sub-Section</h3>
+<p>This is a paragraph.</p>
+<h4 class="sub-sub-section">Sub-Sub-Section</h4>
+<p>This is a paragraph.</p>
+<h5 class="sub-sub-sub-section">Sub-Sub-Sub-Section</h5>
+<p>This is a paragraph.</p>
+<h6 class="sub-sub-sub-sub-section">Sub-Sub-Sub-Sub-Section</h6>
+<p>This is a paragraph.</p>
+~~~
+
+##### Example H-2
+
+This example shows incorrect uses of headings. None of the things below are headings, since the trailing `#` signs are wrong.
+
+###### Markua Document
+
+{#input-h-2}
+~~~
+# Part ##
+
+This is a paragraph.
+
+# Chapter ##
+
+This is a paragraph.
+
+## Section #
+
+This is a paragraph.
+
+## Section ##
+
+This is a paragraph.
+
+### Sub-Section #
+
+This is a paragraph.
+
+### Sub-Section ###
+
+This is a paragraph.
+
+#### Sub-Sub-Section #
+
+This is a paragraph.
+
+#### Sub-Sub-Section ####
+
+This is a paragraph.
+
+##### Sub-Sub-Sub-Section #
+
+This is a paragraph.
+
+##### Sub-Sub-Sub-Section #####
+
+This is a paragraph.
+
+###### Sub-Sub-Sub-Sub-Section #
+
+This is a paragraph.
+
+###### Sub-Sub-Sub-Sub-Section ######
+
+This is a paragraph.
+~~~
+
+###### HTML Output
+
+{#output-h-2}
+~~~
+<p># Part ##</p>
+<p>This is a paragraph.</p>
+# Chapter ##</p>
+<p>This is a paragraph.</p>
+<p>## Section #</p>
+<p>This is a paragraph.</p>
+<p>## Section ##</p>
+<p>This is a paragraph.</p>
+<p>### Sub-Section #</p>
+<p>This is a paragraph.</p>
+<p>### Sub-Section ###</p>
+<p>This is a paragraph.</p>
+<p>#### Sub-Sub-Section #</p>
+<p>This is a paragraph.</p>
+<p>#### Sub-Sub-Section ####</p>
+<p>This is a paragraph.</p>
+<p>##### Sub-Sub-Sub-Section #</p>
+<p>This is a paragraph.</p>
+<p>##### Sub-Sub-Sub-Section #####</p>
+<p>This is a paragraph.</p>
+<p>###### Sub-Sub-Sub-Sub-Section #</p>
+<p>This is a paragraph.</p>
+<p>###### Sub-Sub-Sub-Sub-Section ######</p>
+<p>This is a paragraph.</p>
+~~~
+
+##### Example H-3
+
+A trailing `#` not separated by a space is part of the heading text.
+
+###### Markua Document
+
+{#input-h-3}
+~~~
+# foo#
+
+bar
+~~~
+
+###### HTML Output
+
+{#output-h-3}
+~~~
+<h1>foo#</h1>
+<p>bar</p>
+~~~
+
+##### Example H-4
+
+Backslash-escaped `#` characters are part of the heading text.
+
+###### Markua Document
+
+{#input-h-4}
+~~~
+# foo \#
+
+bar
+~~~
+
+###### HTML Output
+
+{#output-h-4}
+~~~
+<h1>foo #</h1>
+<p>bar</p>
+~~~
+
+{#paragraphs-html}
+# Paragraphs and Blank Lines
+
+View the [specification](#paragraphs).
+
+##### Example P-1
+
+This is the basic example of paragraphs.
+
+###### Markua Document
+
+{#input-p-1}
+~~~
+I'm paragraph one. Yay!
+
+This is paragraph two. It's just that easy.
+
+This is paragraph three.
+~~~
+
+###### HTML Output
+
+{#output-p-1}
+~~~
+<p>I'm paragraph one. Yay!</p>
+<p>This is paragraph two. It's just that easy.</p>
+<p>This is paragraph three.</p>
+~~~
+
 ## Code Blocks
 
 View the [specification](#scene-breaks).
-
-
 
 A [code fence](@) is a sequence
 of at least three consecutive backtick characters (`` ` ``) or
@@ -12485,227 +12703,6 @@ Multiple     spaces
 .
 <p>Multiple     spaces</p>
 ```
-
-
-{#headings-html}
-# Headings for Parts, Chapters and Sections
-
-View the [specification](#headings).
-
-##### Example H-1
-
-This example shows the correct use of headings. Incorrect heading uses are in subsequent examples.
-
-###### Markua Document
-
-{#input-h-1}
-~~~
-# Part #
-
-This is a paragraph.
-
-# Chapter
-
-This is a paragraph.
-
-## Section
-
-This is a paragraph.
-
-### Sub-Section
-
-This is a paragraph.
-
-#### Sub-Sub-Section
-
-This is a paragraph.
-
-##### Sub-Sub-Sub-Section
-
-This is a paragraph.
-
-###### Sub-Sub-Sub-Sub-Section
-
-This is a paragraph.
-~~~
-
-###### HTML Output
-
-{#output-h-1}
-~~~
-<h1 class="part">Part</h1>
-<p>This is a paragraph.</p>
-<h1 class="chapter">Chapter</h1>
-<p>This is a paragraph.</p>
-<h2 class="section">Section</h2>
-<p>This is a paragraph.</p>
-<h3 class="sub-section">Sub-Section</h3>
-<p>This is a paragraph.</p>
-<h4 class="sub-sub-section">Sub-Sub-Section</h4>
-<p>This is a paragraph.</p>
-<h5 class="sub-sub-sub-section">Sub-Sub-Sub-Section</h5>
-<p>This is a paragraph.</p>
-<h6 class="sub-sub-sub-sub-section">Sub-Sub-Sub-Sub-Section</h6>
-<p>This is a paragraph.</p>
-~~~
-
-##### Example H-2
-
-This example shows incorrect uses of headings. None of the things below are headings, since the trailing `#` signs are wrong.
-
-###### Markua Document
-
-{#input-h-2}
-~~~
-# Part ##
-
-This is a paragraph.
-
-# Chapter ##
-
-This is a paragraph.
-
-## Section #
-
-This is a paragraph.
-
-## Section ##
-
-This is a paragraph.
-
-### Sub-Section #
-
-This is a paragraph.
-
-### Sub-Section ###
-
-This is a paragraph.
-
-#### Sub-Sub-Section #
-
-This is a paragraph.
-
-#### Sub-Sub-Section ####
-
-This is a paragraph.
-
-##### Sub-Sub-Sub-Section #
-
-This is a paragraph.
-
-##### Sub-Sub-Sub-Section #####
-
-This is a paragraph.
-
-###### Sub-Sub-Sub-Sub-Section #
-
-This is a paragraph.
-
-###### Sub-Sub-Sub-Sub-Section ######
-
-This is a paragraph.
-~~~
-
-###### HTML Output
-
-{#output-h-2}
-~~~
-<p># Part ##</p>
-<p>This is a paragraph.</p>
-# Chapter ##</p>
-<p>This is a paragraph.</p>
-<p>## Section #</p>
-<p>This is a paragraph.</p>
-<p>## Section ##</p>
-<p>This is a paragraph.</p>
-<p>### Sub-Section #</p>
-<p>This is a paragraph.</p>
-<p>### Sub-Section ###</p>
-<p>This is a paragraph.</p>
-<p>#### Sub-Sub-Section #</p>
-<p>This is a paragraph.</p>
-<p>#### Sub-Sub-Section ####</p>
-<p>This is a paragraph.</p>
-<p>##### Sub-Sub-Sub-Section #</p>
-<p>This is a paragraph.</p>
-<p>##### Sub-Sub-Sub-Section #####</p>
-<p>This is a paragraph.</p>
-<p>###### Sub-Sub-Sub-Sub-Section #</p>
-<p>This is a paragraph.</p>
-<p>###### Sub-Sub-Sub-Sub-Section ######</p>
-<p>This is a paragraph.</p>
-~~~
-
-##### Example H-3
-
-A trailing `#` not separated by a space is part of the heading text.
-
-###### Markua Document
-
-{#input-h-3}
-~~~
-# foo#
-
-bar
-~~~
-
-###### HTML Output
-
-{#output-h-3}
-~~~
-<h1>foo#</h1>
-<p>bar</p>
-~~~
-
-##### Example H-4
-
-Backslash-escaped `#` characters are part of the heading text.
-
-###### Markua Document
-
-{#input-h-4}
-~~~
-# foo \#
-
-bar
-~~~
-
-###### HTML Output
-
-{#output-h-4}
-~~~
-<h1>foo #</h1>
-<p>bar</p>
-~~~
-
-{#paragraphs-html}
-# Paragraphs and Blank Lines
-
-View the [specification](#paragraphs).
-
-##### Example P-1
-
-This is the basic example of paragraphs.
-
-###### Markua Document
-
-{#input-p-1}
-~~~
-I'm paragraph one. Yay!
-
-This is paragraph two. It's just that easy.
-
-This is paragraph three.
-~~~
-
-###### HTML Output
-
-{#output-p-1}
-~~~
-<p>I'm paragraph one. Yay!</p>
-<p>This is paragraph two. It's just that easy.</p>
-<p>This is paragraph three.</p>
-~~~
 
 # Resources
 
