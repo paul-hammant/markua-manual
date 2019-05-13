@@ -341,15 +341,15 @@ This *is not italic.
 Neither is this.*
 ~~~
 
-The reason for this is that a Markua Processor parses blocks (like paragraphs and headings) and then the content of those blocks. So, if you wanted to achieve the effect shown above, you would simply type this:
+As discussed [later](#handling-errors-and-warnings), this type of formatting error causes the Markua formatting characters to be output as plain paragraph text.
+
+The reason that this is not supported is that a Markua Processor parses blocks (like paragraphs and headings) and then the content of those blocks. So, if you wanted to achieve the effect shown above, you would simply type this:
 
 ~~~
 This *is italic*.
 
 *So is this.*
 ~~~
-
-As discussed [later](#handling-errors-and-warnings), this type of formatting error causes the Markua formatting characters to be output as plain paragraph text.
 
 {#nesting-formatting}
 ## Nesting Formatting
@@ -6102,43 +6102,14 @@ I'm publishing the Markua spec in-progress, since I believe in [Lean Publishing]
 
 Here's a list of what still needs to be implemented in Leanpub's Markua implementation, organized according to the same structure as the Markua spec itself. Note that if there is nothing that is known to be wrong with a given aspect of Leanpub's Markua support, then *(works)* will be shown. Also, if a given section only has issues which are explained in subsections, then *(any issues are discussed in the specific elements below)* will be shown
 
-### Headings for Parts, Chapters and Sections
-
-| `# Part #` | works |
-| `# Chapter` | works |
-| `## Section` | works |
-| `### Sub-Section` | works |
-| `#### Sub-Sub-Section` | works |
-| `##### Sub-Sub-Sub-Section` | works |
-| `###### Sub-Sub-Sub-Sub-Section` | works |
-
-### Paragraphs and Blank Lines
-
-| blank lines separate paragraphs | works |
-
-### Text Formatting
-
-| `*italic*` | works |
-| `_underlined_` | works |
-| `**bold**` | works |
-| `__bold__` | works |
-| `***bold + italic***` | works |
-| `___bold + underlined___` | works |
-| `____bold + italic + underlined____` | works |
-| `~~strikethrough~~` | works |
-| superscript (`5^3^ = 125`) | works |
-| subscript (`H~2~O`) | works |
-
-
-TODO
-
-Text Formatting
-: *(works)*
-
 Headings for Parts, Chapters and Sections
+: Works, except...
 : A header without a blank line after it should result in plain text, not a header
 
 Paragraphs and Blank Lines
+: *(works)*
+
+Text Formatting
 : *(works)*
 
 Resources
@@ -6151,9 +6122,9 @@ Resource Types and Formats
 : Support `type` attribute on resources
 
 Images
+: Works, except...
 : Support these attributes: `align`, `cite`, `url`
 : SVG support is not implemented yet (external or inline)
-: Some attributes are not supported fully
 : Support inline resources (e.g. inline SVG images)
 : Fully support fullbleed attribute, not just in PDF
 : Prevent fullbleed attribute from leaking into EPUB (whitelist?)
@@ -6167,6 +6138,7 @@ Audio
 : This is not implemented fully yet. Currently local audio does not work, and the only supported audio is a web resource.
 
 Code
+: Works, except...
 : Support dashed attributes for code resources line-numbers, number-from, crop-start, crop-end
 : Support three-tildes defaults to text, backticks default to guess approach better. (There seem to be issues with guessing.)
 : The amounth of space after code figures should be more configurable.
@@ -6219,7 +6191,8 @@ Complex Lists
 : *(works)*
 
 Definition Lists
-: Our definition lists sometimes don't force newlines after the term in the PDF output, e.g. “type This is the resource type..."
+: Works, except...
+: Our definition lists sometimes have minor layout issues and don't force newlines after the term in the PDF output
 
 Block Elements
 : *(any issues are discussed in the specific elements below)*
