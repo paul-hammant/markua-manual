@@ -606,30 +606,6 @@ These are some examples of figures with both alt text and a figure caption:
 ```
 ~~~
 
-TODO
-guessing is always {type: code}
-
-```
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-this ^ is code, hope you guess it is svg or xml for syntax highlight
-
-correct way:
-
-```xml
-<svg width="20" height="20">
-  <circle cx="10" cy="10" r="9" fill="blue"/>
-</svg>
-```
-
-this is how you write about SVG code.
-
-xml = show the xml, don't make this a picture...
-
-
 #### The Figure Attribute List Takes Precedence
 
 It is always an error to specify an attribute both in the attribute list for a figure and in the syntactic sugar locations, either after the backticks or in the square brackets.
@@ -984,6 +960,60 @@ Here's a paragraph before the figure.
 ```
 
 Here's a paragraph after the figure.
+~~~
+
+#### Writing about SVG
+
+If you want to write about the SVG format, and show the actual SVG source (instead of the image produced), it needs to be of a `format` of `code`, not `image`.
+
+Now, you can just be lazy and not provide `format` or `type` attributes at all, since guessing when neither is present always produces a type of `code`.
+
+```
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+However, you can also just specify both, either this way...
+
+{type: code}
+```svg
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+...or this way:
+
+{type: code, format: svg}
+```
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Or you can just specify xml, since SVG is xml:
+
+```xml
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Or you can just specify text, if you don't want syntax highlighting:
+
+```text
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
+```
+
+Heck, you can even use tildes to do that:
+
+~~~
+<svg width="20" height="20">
+  <circle cx="10" cy="10" r="9" fill="blue"/>
+</svg>
 ~~~
 
 ### Images, Attributes and Links
