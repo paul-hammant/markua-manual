@@ -2893,8 +2893,8 @@ A directive does not have any kind of "closing tag"--it simply remains in effect
 Currently the only directives supported by Leanpub are:
 
 * `{frontmatter}` (for Roman numeral numbering of things like a preface)
-* `{mainmatter}` (for the start of normal numbering)
-* `{backmatter}` (to indicate the start of back matter, like appendices)
+* `{mainmatter}` (for the start of normal numbering - top level headings can be numbered in the table of contents)
+* `{backmatter}` (to indicate the start of back matter, like appendices which will not be numbered in the table of contents)
 
 Here's an example:
 
